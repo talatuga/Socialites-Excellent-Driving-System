@@ -14,15 +14,14 @@
 - Express Framework
 ---
 ***Developers:***
-- _Documentation_
-    - [Perrine](https://github.com/zhayrine)    
-
+- _Documentation:_
+    - [Perrine Clarisse B. Laganzo](https://github.com/zhayrine)
 - _Front-End:_
-    - [Graciella](https://github.com/ellaaatrix)
+    - [Graciella C. Tatel](https://github.com/ellaaatrix)
 - _Back-End:_
-    - [Christian](https://github.com/Paulymorphy)
-    - [Janelle](https://github.com/JenGabat)
----
+    - [Christian Paul R. Tupas](https://github.com/Paulymorphy)
+    - [Janelle Joy R. Gabat](https://github.com/JenGabat)
+
 ***Development Tools:***
 
 Server-Side:
