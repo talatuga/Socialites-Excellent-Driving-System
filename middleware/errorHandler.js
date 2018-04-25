@@ -25,7 +25,7 @@ exports.error404 = function(req, res) {
 // This writes on error.log file if ever may error na mag occur.
 var errorLog = function(err){
     var fs = require('fs');
-    fs.appendFile('./error.log', "\n\n***\n" + err + "\n***", function(err){
+    fs.appendFile('./error.log', "***\n" + err + "\n***\n\n", function(err){
     });
 }
 
