@@ -26,11 +26,12 @@ db.connect(db.MODE_PRODUCTION, function (err) {
         process.exit(1);
     } else {
         //Change yung port pag production na.
-        var server = app.listen(80).on('error',function(err){
+        var server = app.listen(80, function(){
+            console.log('[SERVER] Listening in port: 80' )//+ server.address().port);
+            //systemCtrl.readPrompt();
+        }).on('error',function(err){
             console.error('[SERVER] Network related error. Port must be in use. ' + err);
             process.exit(1);
         });
-        console.log('[SERVER] Listening in port: ' + server.address().port);
-        //systemCtrl.readPrompt();
     }
 });

@@ -24,6 +24,7 @@ exports.connect = function (mode,done){
     host: '127.0.0.1',
     user: 'root',
     password: '',
+    insecureAuth: true,
     database: mode === exports.MODE_PRODUCTION ? production_db : test_db
   });
 
