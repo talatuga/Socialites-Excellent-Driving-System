@@ -1,7 +1,7 @@
 @font-face 
 {
     font-family: Quicksand;
-    src: url("font/Quicksand-Regular.ttf") format("truetype");
+    src: url("vendor/font/Quicksand-Regular.ttf") format("truetype");
 }
 
 body
@@ -306,7 +306,6 @@ ul.services
 }
 a.footer-a
 {
-  font-size: 
   color: #1B3865;
 }
 a.footer-a:hover
