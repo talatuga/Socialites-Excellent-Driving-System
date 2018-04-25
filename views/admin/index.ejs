@@ -1,17 +1,1601 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <% include ../utils/adminCSS %>    <!-- Import nung mga CSS files -->
-    <title>Socialites Excellent Driving</title>
-</head>
-<body> <%# //SD Study how templating works ella, EJS nalang gamitin nating kung di mo kaya mag React, You can still apply Bootstrap and JQuery here %>
-    <% include ./partials/navbar %> <!-- include yung navbar sa page nato, this is the easy way of combining ejs files -->
-    <% include ./partials/sidebar %>
-    <%# //Body here, %> <h1><%= title %></h1> <%# Check mo yung controller/admin line 7 makikita mo dun kung saan manggagaling yung title var %>
-    <% include ./partials/footer %>
-    <% include ../utils/adminJS %> <!-- Import nung mga JS files -->
-</body>
+    <head>
+        <title>Dashboard | Socialites Excellent Driving</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="icon" type="image/png" sizes="96x96" href="assets/img/icon.png">
+        <!-- CSS imports -->
+        <% include ../utils/adminCSS %>
+    </head>
+
+    <body> 
+        <!-- WRAPPER -->
+        <div id="wrapper">
+            <!-- <% include ./partials/navbar %>  -->
+            <!-- NAVBAR CODES -->
+            <% include ./partials/sidebar %> <!-- SIDEBAR CODES -->
+
+            <!-- MAIN -->
+            <div class="main">
+                <!-- MAIN CONTENT -->
+                <div class="main-content dash">
+                    <div class="container-fluid">
+                        <!-- OVERVIEW -->
+                        <div class="panel panel-headline">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Weekly Overview</h3>
+                                <p class="panel-subtitle">Period: Mar 14, 2018 - Mar 21, 2018</p>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="metric">
+                                            <span class="icon"><i class="fa fa-download"></i></span>
+                                            <p>
+                                                <span class="number">1,252</span>
+                                                <span class="title">Students</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="metric">
+                                            <span class="icon"><i class="fa fa-shopping-bag"></i></span>
+                                            <p>
+                                                <span class="number">203</span>
+                                                <span class="title">Enrollee</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="metric">
+                                            <span class="icon"><i class="fa fa-eye"></i></span>
+                                            <p>
+                                                <span class="number">274,678</span>
+                                                <span class="title">Visits</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="metric">
+                                            <span class="icon"><i class="fa fa-bar-chart"></i></span>
+                                            <p>
+                                                <span class="number">35%</span>
+                                                <span class="title">Conversions</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <div id="headline-chart" class="ct-chart"></div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="weekly-summary text-right">
+                                            <span class="number">2,315</span> <span class="percentage"><i class="fa fa-caret-up text-success"></i> 12%</span>
+                                            <span class="info-label">Total Sales</span>
+                                        </div>
+                                        <div class="weekly-summary text-right">
+                                            <span class="number">$5,758</span> <span class="percentage"><i class="fa fa-caret-up text-success"></i> 23%</span>
+                                            <span class="info-label">Monthly Income</span>
+                                        </div>
+                                        <div class="weekly-summary text-right">
+                                            <span class="number">$65,938</span> <span class="percentage"><i class="fa fa-caret-down text-danger"></i> 8%</span>
+                                            <span class="info-label">Total Income</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END OVERVIEW -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <!-- RECENT PURCHASES -->
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Recent Purchases</h3>
+                                        <div class="right">
+                                            <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
+                                            <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body no-padding">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Order No.</th>
+                                                    <th>Name</th>
+                                                    <th>Amount</th>
+                                                    <th>Date &amp; Time</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><a href="#">763648</a></td>
+                                                    <td>Steve</td>
+                                                    <td>$122</td>
+                                                    <td>Oct 21, 2016</td>
+                                                    <td><span class="label label-success">COMPLETED</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><a href="#">763649</a></td>
+                                                    <td>Amber</td>
+                                                    <td>$62</td>
+                                                    <td>Oct 21, 2016</td>
+                                                    <td><span class="label label-warning">PENDING</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><a href="#">763650</a></td>
+                                                    <td>Michael</td>
+                                                    <td>$34</td>
+                                                    <td>Oct 18, 2016</td>
+                                                    <td><span class="label label-danger">FAILED</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><a href="#">763651</a></td>
+                                                    <td>Roger</td>
+                                                    <td>$186</td>
+                                                    <td>Oct 17, 2016</td>
+                                                    <td><span class="label label-success">SUCCESS</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><a href="#">763652</a></td>
+                                                    <td>Smith</td>
+                                                    <td>$362</td>
+                                                    <td>Oct 16, 2016</td>
+                                                    <td><span class="label label-success">SUCCESS</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="panel-footer">
+                                        <div class="row">
+                                            <div class="col-md-6"><span class="panel-note"><i class="fa fa-clock-o"></i> Last 24 hours</span></div>
+                                            <div class="col-md-6 text-right"><a href="#" class="btn btn-primary">View All Purchases</a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END RECENT PURCHASES -->
+                            </div>
+                            <div class="col-md-6">
+                                <!-- MULTI CHARTS -->
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Projection vs. Realization</h3>
+                                        <div class="right">
+                                            <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
+                                            <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div id="visits-trends-chart" class="ct-chart"></div>
+                                    </div>
+                                </div>
+                                <!-- END MULTI CHARTS -->
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-7">
+                                <!-- TODO LIST -->
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">To-Do List</h3>
+                                        <div class="right">
+                                            <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
+                                            <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <ul class="list-unstyled todo-list">
+                                            <li>
+                                                <label class="control-inline fancy-checkbox">
+                                                    <input type="checkbox"><span></span>
+                                                </label>
+                                                <p>
+                                                    <span class="title">Restart Server</span>
+                                                    <span class="short-description">Dynamically integrate client-centric technologies without cooperative resources.</span>
+                                                    <span class="date">Oct 9, 2016</span>
+                                                </p>
+                                                <div class="controls">
+                                                    <a href="#"><i class="icon-software icon-software-pencil"></i></a> <a href="#"><i class="icon-arrows icon-arrows-circle-remove"></i></a>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <label class="control-inline fancy-checkbox">
+                                                    <input type="checkbox"><span></span>
+                                                </label>
+                                                <p>
+                                                    <span class="title">Retest Upload Scenario</span>
+                                                    <span class="short-description">Compellingly implement clicks-and-mortar relationships without highly efficient metrics.</span>
+                                                    <span class="date">Oct 23, 2016</span>
+                                                </p>
+                                                <div class="controls">
+                                                    <a href="#"><i class="icon-software icon-software-pencil"></i></a> <a href="#"><i class="icon-arrows icon-arrows-circle-remove"></i></a>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <label class="control-inline fancy-checkbox">
+                                                    <input type="checkbox"><span></span>
+                                                </label>
+                                                <p>
+                                                    <strong>Functional Spec Meeting</strong>
+                                                    <span class="short-description">Monotonectally formulate client-focused core competencies after parallel web-readiness.</span>
+                                                    <span class="date">Oct 11, 2016</span>
+                                                </p>
+                                                <div class="controls">
+                                                    <a href="#"><i class="icon-software icon-software-pencil"></i></a> <a href="#"><i class="icon-arrows icon-arrows-circle-remove"></i></a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- END TODO LIST -->
+                            </div>
+                            <div class="col-md-5">
+                                <!-- TIMELINE -->
+                                <div class="panel panel-scrolling">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Recent User Activity</h3>
+                                        <div class="right">
+                                            <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
+                                            <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <ul class="list-unstyled activity-list">
+                                            <li>
+                                                <img src="assets/img/user1.png" alt="Avatar" class="img-circle pull-left avatar">
+                                                <p><a href="#">Michael</a> has achieved 80% of his completed tasks <span class="timestamp">20 minutes ago</span></p>
+                                            </li>
+                                            <li>
+                                                <img src="assets/img/user2.png" alt="Avatar" class="img-circle pull-left avatar">
+                                                <p><a href="#">Daniel</a> has been added as a team member to project <a href="#">System Update</a> <span class="timestamp">Yesterday</span></p>
+                                            </li>
+                                            <li>
+                                                <img src="assets/img/user3.png" alt="Avatar" class="img-circle pull-left avatar">
+                                                <p><a href="#">Martha</a> created a new heatmap view <a href="#">Landing Page</a> <span class="timestamp">2 days ago</span></p>
+                                            </li>
+                                            <li>
+                                                <img src="assets/img/user4.png" alt="Avatar" class="img-circle pull-left avatar">
+                                                <p><a href="#">Jane</a> has completed all of the tasks <span class="timestamp">2 days ago</span></p>
+                                            </li>
+                                            <li>
+                                                <img src="assets/img/user5.png" alt="Avatar" class="img-circle pull-left avatar">
+                                                <p><a href="#">Jason</a> started a discussion about <a href="#">Weekly Meeting</a> <span class="timestamp">3 days ago</span></p>
+                                            </li>
+                                        </ul>
+                                        <button type="button" class="btn btn-primary btn-bottom center-block">Load More</button>
+                                    </div>
+                                </div>
+                                <!-- END TIMELINE -->
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <!-- TASKS -->
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">My Tasks</h3>
+                                        <div class="right">
+                                            <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
+                                            <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <ul class="list-unstyled task-list">
+                                            <li>
+                                                <p>Updating Users Settings <span class="label-percent">23%</span></p>
+                                                <div class="progress progress-xs">
+                                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100" style="width:23%">
+                                                        <span class="sr-only">23% Complete</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <p>Load &amp; Stress Test <span class="label-percent">80%</span></p>
+                                                <div class="progress progress-xs">
+                                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                                        <span class="sr-only">80% Complete</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <p>Data Duplication Check <span class="label-percent">100%</span></p>
+                                                <div class="progress progress-xs">
+                                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                                                        <span class="sr-only">Success</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <p>Server Check <span class="label-percent">45%</span></p>
+                                                <div class="progress progress-xs">
+                                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
+                                                        <span class="sr-only">45% Complete</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <p>Mobile App Development <span class="label-percent">10%</span></p>
+                                                <div class="progress progress-xs">
+                                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 10%">
+                                                        <span class="sr-only">10% Complete</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- END TASKS -->
+                            </div>
+                            <div class="col-md-4">
+                                <!-- VISIT CHART -->
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Website Visits</h3>
+                                        <div class="right">
+                                            <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
+                                            <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div id="visits-chart" class="ct-chart"></div>
+                                    </div>
+                                </div>
+                                <!-- END VISIT CHART -->
+                            </div>
+                            <div class="col-md-4">
+                                <!-- REALTIME CHART -->
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">System Load</h3>
+                                        <div class="right">
+                                            <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
+                                            <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div id="system-load" class="easy-pie-chart" data-percent="70">
+                                            <span class="percent">70</span>
+                                        </div>
+                                        <h4>CPU Load</h4>
+                                        <ul class="list-unstyled list-justify">
+                                            <li>High: <span>95%</span></li>
+                                            <li>Average: <span>87%</span></li>
+                                            <li>Low: <span>20%</span></li>
+                                            <li>Threads: <span>996</span></li>
+                                            <li>Processes: <span>259</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- END REALTIME CHART -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END MAIN CONTENT -->
+                <div class="main-content enroll hidden">
+                    <div class="container-fluid">
+                        <div class="panel panel-headline">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Student Enrollment</h3>
+                                <p class="panel-subtitle"></p>
+                            </div>
+                            <div class="panel-body">
+                                <form method="POST" action="#">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="panel">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">Information</h3>
+                                                <p class="panel-subtitle">fields with * are required</p>	
+                                            </div>
+                                            <div class="panel-body">
+                                                <label>Name</label>
+                                                <input type="text" class="form-control" name="fname" placeholder="*First Name" required/>
+                                                <input type="text" class="form-control" name="mname" placeholder="Middle Name"/>
+                                                <input type="text" class="form-control" name="lname" placeholder="*Last Name" required/>
+                                                <hr />
+                                                <label>*Birthdate</label>
+                                                <input type="date" class="form-control" name="bdate" required/>
+                                                <input type="text" class="form-control" name="bplace" placeholder="Birthplace"/>
+                                                <hr />
+                                                <label>*Sex</label>
+                                                <label class="fancy-radio">
+                                                    <input type="radio" value="male" name="gender" required>
+                                                    <span>
+                                                        <i></i>
+                                                        Male
+                                                    </span>
+                                                </label>
+                                                <label class="fancy-radio">
+                                                    <input type="radio" value="female" name="gender">
+                                                    <span>
+                                                        <i></i>
+                                                        Female
+                                                    </span>
+                                                </label>
+                                                <hr />
+                                                <label>*Address</label>
+                                                <textarea class="form-control" name="address" cols="15" rows="3" required></textarea>
+                                                <hr />
+                                                <label>Civil Status</label>
+                                                <select class="form-control" name="civil">
+                                                    <option value="Single">Single</option>
+                                                    <option value="Married">Married</option>
+                                                    <option value="Widowed">Widowed</option>
+                                                </select>
+                                                <hr />
+                                                <input type="text" class="form-control" name="occupation" placeholder="Occupation"/>
+                                                <hr />
+                                                <label>Contact</label>
+                                                <input type="text" class="form-control" name="number" placeholder="*Contact Number" required/>
+                                                <br />
+                                                <input type="text" class="form-control" name="guardian" placeholder="*Guardian Name" required/>
+                                                <input type="text" class="form-control" name="number" placeholder="*Guardian Contact Number" required/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="panel">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">Requirements</h3>
+                                                <p class="panel-subtitle">Check one below</p>
+                                            </div>
+                                            <div class="panel-body">
+                                                <label class="fancy-radio">
+                                                    <input type="radio" name="req" value="sdp_lto" required/>
+                                                    <span><i></i>To apply student driver's permit at LTO</span>
+                                                </label>
+                                                <label class="fancy-radio">
+                                                    <input type="radio" name="req" value="sdp_se" />
+                                                    <span><i></i>To apply student driver's permit thur S-Excellent</span>
+                                                </label>
+                                                <label class="fancy-radio">
+                                                    <input type="radio" name="req" value="wsdp" />
+                                                    <span><i></i>With student driver's permit</span>
+                                                </label>
+                                                <label class="fancy-radio">
+                                                    <input type="radio" name="req" value="npl" />
+                                                    <span><i></i>With Non-Professional License</span>
+                                                </label>
+                                                <label class="fancy-radio">
+                                                    <input type="radio" name="req" value="wpl" />
+                                                    <span><i></i>With Professional License</span>
+                                                </label>
+                                                <label class="fancy-radio">
+                                                    <input type="radio" name="req" value="npl_se" />
+                                                    <span><i></i>To apply Non-Professional License thru S-Excellent</span>
+                                                </label>
+                                                <label class="fancy-radio">
+                                                    <input type="radio" name="req" value="wpl_se" />
+                                                    <span><i></i>To apply Professional License thur S-Excellent</span>
+                                                </label>
+                                                <label class="fancy-radio">
+                                                    <input type="radio" name="req" value="other" />
+                                                    <span><i></i>Other: <input type="text" class="form-control" name="req_other" placeholder="Please specify"/></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <center>
+                                        <input type="submit" class="btn btn-success btn-toastr" name="btnEnroll" data-context="success" data-message="Successfully Submit" data-position="top-right" />
+                                    </center>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-content student hidden">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Search Student</h3>
+                                        <p class="panel-subtitle"></p>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="studsearch" placeholder="Search..." />
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-primary">Search</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Search Result</h3>
+                                        <p class="panel-subtitle"></p>
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Student #</th>
+                                                    <th>Name</th>
+                                                    <th>Age</th>
+                                                    <th>Gender</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>180001</td>
+                                                    <td>Christian Paul Tupas</td>
+                                                    <td>19</td>
+                                                    <td>Male</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>180002</td>
+                                                    <td>Janelle Joy Gabat</td>
+                                                    <td>19</td>
+                                                    <td>Female</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>180003</td>
+                                                    <td>Graciella Tatel</td>
+                                                    <td>18</td>
+                                                    <td>Female</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Student Information</h3>
+                                        <p class="panel-subtitle">Student#: 180001</p>
+                                        <div class="right">
+                                            <button type="button" class="btn-toggle-collapse">
+                                                <i class="lnr lnr-chevron-up"></i>
+                                            </button>
+                                            <button type="button" class="btn-remove">
+                                                <i class="lnr lnr-cross"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Name:</td>
+                                                    <td>Christian Paul Tupas</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Age:</td>
+                                                    <td>19</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Status:</td>
+                                                    <td>Enrolled</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-content payment hidden">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Search Student</h3>
+                                        <p class="panel-subtitle"></p>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="studsearch" placeholder="Search..." />
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-primary">Search</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Search Result</h3>
+                                        <p class="panel-subtitle"></p>
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Student #</th>
+                                                    <th>Name</th>
+                                                    <th>Age</th>
+                                                    <th>Gender</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>180001</td>
+                                                    <td>Christian Paul Tupas</td>
+                                                    <td>19</td>
+                                                    <td>Male</td>
+                                                    <td><span class="label label-warning">Pending</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>180002</td>
+                                                    <td>Janelle Joy Gabat</td>
+                                                    <td>19</td>
+                                                    <td>Female</td>
+                                                    <td><span class="label label-success">Paid</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>180003</td>
+                                                    <td>Graciella Tatel</td>
+                                                    <td>18</td>
+                                                    <td>Female</td>
+                                                    <td><span class="label label-info">Paid w/ Balance</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div id="panel-scrolling-demo" class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Student Account</h3>
+                                        <p class="panel-subtitle">Student#: 180001</p>
+                                        <div class="right">
+                                            <button type="button" class="btn-toggle-collapse">
+                                                <i class="lnr lnr-chevron-up"></i>
+                                            </button>
+                                            <button type="button" class="btn-remove">
+                                                <i class="lnr lnr-cross"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body no-padding">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <td>Transaction Number</td>
+                                                    <td>Transaction Date</td>
+                                                    <td>Assessment</td>
+                                                    <td>Payment</td>
+                                                    <td>Balance</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1001</td>
+                                                    <td>03/11/18</td>
+                                                    <td>5,000.00</td>
+                                                    <td>2,500.00</td>
+                                                    <td>2,500.00</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>1002</td>
+                                                    <td>03/14/18</td>
+                                                    <td>0.00</td>
+                                                    <td>5,000.00</td>
+                                                    <td>0.00</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="panel-footer">
+                                        <p class="text-right">
+                                            <button type="button" class="btn btn-success">Add Payment</button>
+                                            <button type="button" class="btn btn-default">Edit Account</button>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-content studEval hidden">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Search Student</h3>
+                                        <p class="panel-subtitle"></p>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="studsearch" placeholder="Search..." />
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-primary">Search</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Search Result</h3>
+                                        <p class="panel-subtitle"></p>
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Student #</th>
+                                                    <th>Name</th>
+                                                    <th>Age</th>
+                                                    <th>Gender</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>180001</td>
+                                                    <td>Christian Paul Tupas</td>
+                                                    <td>19</td>
+                                                    <td>Male</td>
+                                                    <td><span class="label label-default">Not Evaluated</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>180002</td>
+                                                    <td>Janelle Joy Gabat</td>
+                                                    <td>19</td>
+                                                    <td>Female</td>
+                                                    <td><span class="label label-success">Evaluated</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>180003</td>
+                                                    <td>Graciella Tatel</td>
+                                                    <td>18</td>
+                                                    <td>Female</td>
+                                                    <td><span class="label label-success">Evaluated</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Student Evaluation & Assessment</h3>
+                                        <p class="panel-subtitle">Student#: 180001</p>
+                                        <div class="right">
+                                            <button type="button" class="btn-toggle-collapse">
+                                                <i class="lnr lnr-chevron-up"></i>
+                                            </button>
+                                            <button type="button" class="btn-remove">
+                                                <i class="lnr lnr-cross"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <label>Evaluation</label>
+                                        <label class="fancy-radio">
+                                            <input type="radio" value="P" name="eval" required checked>
+                                            <span>
+                                                <i></i>
+                                                Passed
+                                            </span>
+                                        </label>
+                                        <label class="fancy-radio">
+                                            <input type="radio" value="NP" name="eval">
+                                            <span>
+                                                <i></i>
+                                                Need Practice
+                                            </span>
+                                        </label>
+                                        <label class="fancy-radio">
+                                            <input type="radio" value="NE" name="eval">
+                                            <span>
+                                                <i></i>
+                                                Need to Extend
+                                            </span>
+                                        </label>
+                                        <hr>
+                                        <label>Assessment</label>
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Lesson</th>
+                                                    <th>Date Taken</th>
+                                                    <th>Evaluation</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Parking</td>
+                                                    <td>3/1/18</td>
+                                                    <td><span class="label label-success">Passed</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Start & Stop</td>
+                                                    <td>3/8/18</td>
+                                                    <td><span class="label label-default">Need Practice</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Manuevering</td>
+                                                    <td>3/15/18</td>
+                                                    <td><span class="label label-warning">Need to Extend</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-content instList hidden">
+                    <div class="container-fluid">
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Instructor</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="panel">
+                                            <div class="panel-body">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" name="instsearch" placeholder="Search..." />
+                                                    <span class="input-group-btn">
+                                                        <button type="button" class="btn btn-primary">Search</button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">Search Result</h3>
+                                            </div>
+                                            <div class="panel-body">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>ID#</th>
+                                                            <th>Name</th>
+                                                            <th>Age</th>
+                                                            <th>Gender</th>
+                                                            <th>Status</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>200001</td>
+                                                            <td>Emmanuel Dela Cruz</td>
+                                                            <td>38</td>
+                                                            <td>Male</td>
+                                                            <td><span class="label label-danger">Unavailable</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>180002</td>
+                                                            <td>Zach Panzo</td>
+                                                            <td>30</td>
+                                                            <td>Male</td>
+                                                            <td><span class="label label-success">Vacant</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>150003</td>
+                                                            <td>Gabriel Angelo</td>
+                                                            <td>25</td>
+                                                            <td>Female</td>
+                                                            <td><span class="label label-success">Vacant</span></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="panel">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">Actions</h3>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <button class="btn btn-success">Add Instructor</button>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <button class="btn btn-danger">Remove Instructor</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">Instructor Information</h3>
+                                                <p class="panel-subtitle">ID: 150003</p>
+                                            </div>
+                                            <div class="panel-body">
+                                                <table class="table">
+                                                    <thead></thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Name:</td>
+                                                            <td>Gabriel Angelo</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Age:</td>
+                                                            <td>25</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Gender:</td>
+                                                            <td>Female</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Contact:</td>
+                                                            <td>123456789</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Address:</td>
+                                                            <td>#12 Here St. Brgy. There </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="panel-footer">
+                                                <button class="btn btn-default">Modify Instructor</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-content instEval hidden">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Search Instructor</h3>
+                                        <p class="panel-subtitle"></p>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="studsearch" placeholder="Search..." />
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-primary">Search</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-scrolling">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Search Result</h3>
+                                        <p class="panel-subtitle"></p>
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID#</th>
+                                                    <th>Name</th>
+                                                    <th>Age</th>
+                                                    <th>Gender</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>200001</td>
+                                                    <td>Emmanuel Dela Cruz</td>
+                                                    <td>38</td>
+                                                    <td>Male</td>
+                                                    <td><span class="label label-default">Not Evaluated</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>180002</td>
+                                                    <td>Zach Panzo</td>
+                                                    <td>30</td>
+                                                    <td>Male</td>
+                                                    <td><span class="label label-success">Evaluated</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>150003</td>
+                                                    <td>Gabriel Angelo</td>
+                                                    <td>25</td>
+                                                    <td>Female</td>
+                                                    <td><span class="label label-success">Evaluated</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Instructor Evaluation</h3>
+                                        <p class="panel-subtitle"></p>
+                                        <div class="right">
+                                            <button type="button" class="btn-toggle-collapse">
+                                                <i class="lnr lnr-chevron-up"></i>
+                                            </button>
+                                            <button type="button" class="btn-remove">
+                                                <i class="lnr lnr-cross"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <label>Evaluation</label>
+                                        <label class="fancy-radio">
+                                            <input type="radio" value="VS" name="eval" required checked>
+                                            <span>
+                                                <i></i>
+                                                Very Satisfactory
+                                            </span>
+                                        </label>
+                                        <label class="fancy-radio">
+                                            <input type="radio" value="S" name="eval">
+                                            <span>
+                                                <i></i>
+                                                Satisfactory
+                                            </span>
+                                        </label>
+                                        <label class="fancy-radio">
+                                            <input type="radio" value="CS" name="eval">
+                                            <span>
+                                                <i></i>
+                                                Comment/Suggestion
+                                            </span>
+                                            <input type="text" class="form-control" name="CSC"/>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-content vehList hidden">
+                    <div class="container-fluid">
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Vehicle</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="panel">
+                                            <div class="panel-body">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" name="instsearch" placeholder="Search..." />
+                                                    <span class="input-group-btn">
+                                                        <button type="button" class="btn btn-primary">Search</button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">Search Result</h3>
+                                            </div>
+                                            <div class="panel-body">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>ID#</th>
+                                                            <th>Model</th>
+                                                            <th>Brand</th>
+                                                            <th>Fuel</th>
+                                                            <th>Status</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>AT5001</td>
+                                                            <td>Vios</td>
+                                                            <td>Toyota</td>
+                                                            <td>30%</td>
+                                                            <td><span class="label label-success">Safe</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>ML1005</td>
+                                                            <td>Altis</td>
+                                                            <td>Toyota</td>
+                                                            <td>73%</td>
+                                                            <td><span class="label label-warning">Need Checkup</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>AT5002</td>
+                                                            <td>Vios</td>
+                                                            <td>Toyota</td>
+                                                            <td>9%</td>
+                                                            <td><span class="label label-danger">Need Repair</span></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="panel">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">Actions</h3>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <button class="btn btn-success">Add Vehicle</button>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <button class="btn btn-danger">Remove Vehicle</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">Vehicle Details</h3>
+                                                <p class="panel-subtitle">ID: AT5002</p>
+                                            </div>
+                                            <div class="panel-body">
+                                                <table class="table">
+                                                    <thead></thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Model:</td>
+                                                            <td>Vios</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Brand:</td>
+                                                            <td>Toyota</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Fuel:</td>
+                                                            <td>9%</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <label>Defect/s:</label>
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Part</th>
+                                                            <th>Damage</th>
+                                                            <th>Significance</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Tires</td>
+                                                            <td>Deflated</td>
+                                                            <td>7</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Brake</td>
+                                                            <td>Broke</td>
+                                                            <td>10</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="panel-footer">
+                                                <button class="btn btn-default">Modify Details</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-content brnCtrl hidden">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="panel">
+                                    <div class="panel-body">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="instsearch" placeholder="Search..." />
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-primary">Search</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Add Branch</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <input type="text" class="form-control" placeholder="Address"/>
+                                        <input type="text" class="form-control" placeholder="TelNo"/>
+                                    </div>
+                                    <div class="panel-footer">
+                                        <!-- <div class="right"> -->
+                                            <button class="btn btn-success btn-xs">Add</button>
+                                            <button class="btn btn-default btn-xs">Clear</button>
+                                        <!-- </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Branch</h3>
+                                    </div>
+                                    <div class="panel-body no-padding">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID#</th>
+                                                    <th>Address</th>
+                                                    <th>TelNo.</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>101</td>
+                                                    <td>Mayon St. cor. Maria Clara, QC</td>
+                                                    <td>741-7185/448-5137</td>
+                                                    <td><button class="btn btn-success btn-xs">Edit</button><button class="btn btn-danger btn-xs">Delete</button><button class="btn btn-default btn-xs">Report</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>102</td>
+                                                    <td>Taguig Global City</td>
+                                                    <td>844-7734</td>
+                                                    <td><button class="btn btn-success btn-xs">Edit</button><button class="btn btn-danger btn-xs">Delete</button><button class="btn btn-default btn-xs">Report</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>103</td>
+                                                    <td>Shopwise Cubao</td>
+                                                    <td>439-4485</td>
+                                                    <td><button class="btn btn-success btn-xs">Edit</button><button class="btn btn-danger btn-xs">Delete</button><button class="btn btn-default btn-xs">Report</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>104</td>
+                                                    <td>Fortuna Bldg., 633 Avenue</td>
+                                                    <td>938-1236</td>
+                                                    <td><button class="btn btn-success btn-xs">Edit</button><button class="btn btn-danger btn-xs">Delete</button><button class="btn btn-default btn-xs">Report</button></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>				
+                </div>
+                <div class="main-content sched hidden">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Appointment</h3>
+                                        <div class="right">
+                                            <button type="button" class="btn-toggle-collapse">
+                                                <i class="lnr lnr-chevron-up"></i>
+                                            </button>
+                                            <!-- <button type="button" class="btn-remove">
+                                                <i class="lnr lnr-cross"></i>
+                                            </button> -->
+                                        </div>
+                                    </div>
+                                    <div class="panel-body panel-scrolling">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Stud#</th>
+                                                    <th>Type</th>
+                                                    <th>Date</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Add Schedule</h3>
+                                        <div class="right">
+                                            <button type="button" class="btn-toggle-collapse">
+                                                <i class="lnr lnr-chevron-up"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <form>
+                                            <input type="text" class="form-control" placeholder="Student #" required/>
+                                            <input type="text" class="form-control" placeholder="Instructor #" required/>
+                                            <input type="text" class="form-control" placeholder="Branch #" required/>
+                                            <label>Date & Time</label>
+                                            <input type="datetime-local" class="form-control" required/>
+                                            <label>Class Time(in minutes)</label>
+                                            <input type="number" class="form-control" required/>
+                                            <hr>
+                                            <div class="col-md-6"></div>
+                                            <div class="col-md-6">
+                                                <input type="submit" class="btn btn-success" />
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="panel">
+                                    <div class="panel-body">
+                                        <div id="calendar"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-content req hidden">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="panel">
+                                    <div class="panel-body">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="instsearch" placeholder="Search..." />
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-primary">Search</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Add Requirement</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <input type="text" class="form-control" placeholder="Title"/>
+                                        <textarea class="form-control" placeholder="Description" rows="3" cols="15"></textarea>
+                                        <label class="fancy-checkbox">
+                                            <input type="checkbox"><span>Important</span>
+                                        </label>
+                                    </div>
+                                    <div class="panel-footer">
+                                        <!-- <div class="right"> -->
+                                            <button class="btn btn-success btn-xs">Add</button>
+                                            <button class="btn btn-default btn-xs">Clear</button>
+                                        <!-- </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Requirement</h3>
+                                    </div>
+                                    <div class="panel-body no-padding">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID#</th>
+                                                    <th>Title</th>
+                                                    <th>Description</th>
+                                                    <th>Important</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>NSO</td>
+                                                    <td>Birth certificate</td>
+                                                    <td>True</td>
+                                                    <td><button class="btn btn-success btn-xs">Edit</button><button class="btn btn-danger btn-xs">Delete</button></td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td>LTO Student Permit</td>
+                                                    <td>Drive Privilege Certificate</td>
+                                                    <td>True</td>
+                                                    <td><button class="btn btn-success btn-xs">Edit</button><button class="btn btn-danger btn-xs">Delete</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3</td>
+                                                    <td>Medical Certificate</td>
+                                                    <td>Certification that the person is physically fit.</td>
+                                                    <td>True</td>
+                                                    <td><button class="btn btn-success btn-xs">Edit</button><button class="btn btn-danger btn-xs">Delete</button></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>	
+                </div>
+                <div class="main-content lesson hidden">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="panel">
+                                    <div class="panel-body">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="instsearch" placeholder="Search..." />
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-primary">Search</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Add Lesson/Technique</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <input type="text" class="form-control" placeholder="Title"/>
+                                        <textarea class="form-control" placeholder="Description" rows="3" cols="15"></textarea>
+                                        <input type="text" class="form-control" placeholder="Prerequisite, blank if none" />
+                                    </div>
+                                    <div class="panel-footer">
+                                        <!-- <div class="right"> -->
+                                            <button class="btn btn-success btn-xs">Add</button>
+                                            <button class="btn btn-default btn-xs">Clear</button>
+                                        <!-- </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Lesson / Technique</h3>
+                                    </div>
+                                    <div class="panel-body no-padding">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID#</th>
+                                                    <th>Title</th>
+                                                    <th>Description</th>
+                                                    <th>Prerequisite</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>Parking</td>
+                                                    <td>Proper way to park a car.</td>
+                                                    <td>2</td>
+                                                    <td><button class="btn btn-success btn-xs">Edit</button><button class="btn btn-danger btn-xs">Delete</button></td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td>Manuevering</td>
+                                                    <td>Careful and Proper way to control the steering wheel.</td>
+                                                    <td>3</td>
+                                                    <td><button class="btn btn-success btn-xs">Edit</button><button class="btn btn-danger btn-xs">Delete</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3</td>
+                                                    <td>Start & Stop</td>
+                                                    <td>Basic way to start and stop the car engine.</td>
+                                                    <td>none</td>
+                                                    <td><button class="btn btn-success btn-xs">Edit</button><button class="btn btn-danger btn-xs">Delete</button></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-content account hidden">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="panel">
+                                    <div class="panel-body">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="instsearch" placeholder="Search..." />
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-primary">Search</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Search Result</h3>
+                                    </div>
+                                    <div class="panel-body no-padding">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Account Type</th>
+                                                    <th>Username</th>
+                                                    <th>Password</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>101</td>
+                                                    <td>Admin</td>
+                                                    <td>admin</td>
+                                                    <td><button class="btn btn-default">Change</button></td>
+                                                </tr>
+                                                    <td>102</td>
+                                                    <td>Instructor</td>
+                                                    <td>ella</td>
+                                                    <td><button class="btn btn-default">Change</button></td>
+                                                </tr>
+                                                    <td>103</td>
+                                                    <td>Student</td>
+                                                    <td>150001</td>
+                                                    <td><button class="btn btn-default">Change</button></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Log Activity</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Account#</th>
+                                                    <th>Account Type</th>
+                                                    <th>Log Date</th>
+                                                    <th>IP</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>101</td>
+                                                    <td>Admin</td>
+                                                    <td>3/20/2018 8:40 AM</td>
+                                                    <td>11.139.0.53</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>103</td>
+                                                    <td>Student</td>
+                                                    <td>3/19/2018 7:30 PM</td>
+                                                    <td>12.239.12.13</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>101</td>
+                                                    <td>Admin</td>
+                                                    <td>3/17/2018 5:03 PM</td>
+                                                    <td>11.139.0.53</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END MAIN -->
+
+            <% include ./partials/footer %> 
+            <!-- FOOTER CODES -->
+
+            <!-- JS imports -->
+            <% include ../utils/adminJS %>
+        </div>
+    </body>
 </html>

@@ -5,6 +5,7 @@
 
 - HTML(HTML5), CSS
 - JavaScript
+- EJS
 - No Framework
 
 **Back-End Language & Framework:**
@@ -31,15 +32,15 @@ Server-Side:
 - MySQL (v15.1)
 
 Client-Side:
-- Bootstrap
-- JQuery
+- Bootstrap (v3.3.7)
+- JQuery (v2.2.4)
 
 ---
 ### Installation: 
 
-1) Install Node.js and MySQL
-2) Clone this repository or download the latest release, and get other assets
-3) Get the latest Database Schema
+1) Install Node.js and MySQL.
+2) Clone this repository or download the latest release, and get other assets.
+3) Get the latest Database Schema.
 4) Load DB schema to the MySQL server.
 5) Open Command-line(CMD) and path on the projects directory and type:
 ```

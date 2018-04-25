@@ -13,13 +13,13 @@ var dbstate = {
   mode: null,
 }
 
-var production_db = "sed", test_db = "sed_test";
+var production_db = "", test_db = "";
 
 exports.MODE_PRODUCTION = 'mode_production';
 exports.MODE_TEST = 'mode_test';
 
 exports.connect = function (mode,done){
-  dbstate.pool = mysql.createPool({
+  /* dbstate.pool = mysql.createPool({
     connection: 20,
     host: '127.0.0.1',
     user: 'root',
@@ -33,7 +33,7 @@ exports.connect = function (mode,done){
     if(err) return done(err);
     con.release();
     done(null);
-  });  
+  });  */ return done(null);
 }
 
 exports.get = function() {
