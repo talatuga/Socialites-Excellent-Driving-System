@@ -1,3 +1,54 @@
-<div>
-<%# //SD: Sidebar naman dito :) %>
+<div id="sidebar-nav" class="sidebar">
+    <div class="sidebar-scroll">
+        <nav>
+            <ul class="nav">
+                <li>
+                    <a href="#" class="" onclick="displayContent('.dash')">
+                    <i class="lnr lnr-home"></i> <span>Dashboard</span></a>
+                </li>
+                <li>
+                    <a href="#subPages" data-toggle="collapse" onclick="displayContent('.student')" class="collapsed">
+                        <i class="lnr lnr-users"></i> <span>Students</span> 
+                        <i class="icon-submenu lnr lnr-chevron-down pull-right"></i></span></a>
+                    <div id="subPages" class="collapse ">
+                        <ul class="nav sidenav">
+                            <li><a href="#" class="" onclick="displayContent('.enroll')">Enrollment</a></li>
+                            <li><a href="#" class="" onclick="displayContent('.payment')">Payment</a></li>
+                            <li><a href="#" class="" onclick="displayContent('.studEval')">Evaluation & Assessment</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li><a href="#subPages2" data-toggle="collapse" class="collapsed">
+                    <i class="lnr lnr-user"></i> <span>Instructors</span> 
+                    <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+                    <div id="subPages2" class="collapse ">
+                        <ul class="nav sidenav">
+                            <li><a href="#" class="" onclick="displayContent('.instList')">List</a></li>
+                            <li><a href="#" class="" onclick="displayContent('.instEval')">Evaluation</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li><a href="#" class="" onclick="displayContent('.vehList')">
+                    <i class="lnr lnr-car"></i> <span>Vehicle</span></a></li>
+                <li><a href="#" class="" onclick="displayContent('.sched')">
+                    <i class="lnr lnr-calendar-full"></i> <span>Schedule</span></a></li>
+                <li><a href="#" class="" onclick="displayContent('.brnCtrl')">
+                    <i class="lnr lnr-apartment"></i> <span>Branch</span></a></li>
+                <li><a href="#subPages4" data-toggle="collapse" class="collapsed">
+                    <i class="lnr lnr-cog"></i> <span>System</span> 
+                    <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+                    <div id="subPages4" class="collapse">
+                        <ul class="nav">
+                            <li><a href="#" class="" onclick="displayContent('.req')">
+                                <i class="lnr lnr-pencil"></i> Enrollment Requirements</a></li>									
+                            <li><a href="#" class="" onclick="displayContent('.lesson')">
+                                <i class="lnr lnr-book"></i> Lessons & Techniques</a></li>									
+                            <li><a href="#" class="" onclick="displayContent('.account')">
+                                <i class="lnr lnr-lock"></i> System Accounts</a></li>									
+                        </ul>
+                    </div>
+                </li>						
+            </ul>
+        </nav>
+    </div>
 </div>

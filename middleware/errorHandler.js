@@ -25,9 +25,9 @@ exports.error404 = function(req, res) {
 // This writes on error.log file if ever may error na mag occur.
 var errorLog = function(err){
     var fs = require('fs');
-    fs.appendFile('./error.log', "***\n" + err + "\n***\n\n", function(err){
+    fs.appendFile('./error.log', "\n\n***\n" + err + "\n***", function(err){
     });
 }
 
 //SD:  I suggest doing a View for these errors, para di mukhang plain and halatang error. :D
-//RE: Noted po! So lalagyan ko to ng sweetalert. Di ko muna tanggalin tong comment since di ko pa nagagawa. Let's discuss this further on sat, Apr 28, 2018 :)
+//RE: Noted po! Di ko muna tanggalin tong comment since di ko pa nagagawa. Let's discuss this further on sat, Apr 28, 2018 :)

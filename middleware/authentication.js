@@ -1,5 +1,5 @@
 /* 
-    authentication.js, This authenticate all request passing on admin and api routes for security purpose.
+    authentication.js: This authenticates all requests passed on admin and api routes for security purposes.
 */
 
 var users = {};
