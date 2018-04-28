@@ -32,8 +32,8 @@ Server-Side:
 - MySQL (v15.1)
 
 Client-Side:
-- Bootstrap (v3.3.7)
-- JQuery (v2.2.4)
+- Bootstrap (v4.0.0)
+- JQuery (v3.2.0)
 
 ---
 ### Installation: 

@@ -15,6 +15,12 @@
 /********************
  * GENERAL STYLES
  ********************/
+ @font-face 
+{
+    font-family: Quicksand;
+    src: url("vendor/font/Quicksand-Regular.ttf") format("truetype");
+}
+
 html {
   position: relative;
   min-height: 100%; }
