@@ -1,54 +1,40 @@
-<div id="sidebar-nav" class="sidebar">
-    <div class="sidebar-scroll">
-        <nav>
-            <ul class="nav">
-                <li>
-                    <a href="#" class="" onclick="displayContent('.dash')">
-                    <i class="lnr lnr-home"></i> <span>Dashboard</span></a>
+<div class="left-sidebar">
+    <!-- Sidebar scroll-->
+    <div class="scroll-sidebar">
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav">
+            <ul id="sidebarnav">
+                <li class="nav-divider"></li><br>
+                <li> <a class="has-arrow selected" href="#" aria-expanded="false" style="background-color: #8C0000; color: white">
+                    <i class="fa fa-home faSide"></i><span class="hide-menu">Dashboard</span></a>
                 </li>
-                <li>
-                    <a href="#subPages" data-toggle="collapse" onclick="displayContent('.student')" class="collapsed">
-                        <i class="lnr lnr-users"></i> <span>Students</span> 
-                        <i class="icon-submenu lnr lnr-chevron-down pull-right"></i></span></a>
-                    <div id="subPages" class="collapse ">
-                        <ul class="nav sidenav">
-                            <li><a href="#" class="" onclick="displayContent('.enroll')">Enrollment</a></li>
-                            <li><a href="#" class="" onclick="displayContent('.payment')">Payment</a></li>
-                            <li><a href="#" class="" onclick="displayContent('.studEval')">Evaluation & Assessment</a></li>
-                        </ul>
-                    </div>
+                <li> <a class="has-arrow" href="#" aria-expanded="false" style="background-color: #5D0000; color: #EDE2E2">
+                    <i class="fa fa-group" style="color: #F7D007"></i><span class="hide-menu">Students</span></a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a href="email-compose.html">Enrollment</a></li>
+                        <li><a href="email-read.html">Read</a></li>
+                    </ul>
                 </li>
-                <li><a href="#subPages2" data-toggle="collapse" class="collapsed">
-                    <i class="lnr lnr-user"></i> <span>Instructors</span> 
-                    <i class="icon-submenu lnr lnr-chevron-down"></i></a>
-                    <div id="subPages2" class="collapse ">
-                        <ul class="nav sidenav">
-                            <li><a href="#" class="" onclick="displayContent('.instList')">List</a></li>
-                            <li><a href="#" class="" onclick="displayContent('.instEval')">Evaluation</a></li>
-                        </ul>
-                    </div>
+                <li> <a class="has-arrow  " href="#" aria-expanded="false" style="background-color: #5D0000; color: #EDE2E2">
+                    <i class="fa fa-user"></i><span class="hide-menu">Instructors</span></a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a href="chart-flot.html">Flot</a></li>
+                        <li><a href="chart-morris.html">Morris</a></li>
+                        <li><a href="chart-chartjs.html">ChartJs</a></li>
+                    </ul>
                 </li>
-                <li><a href="#" class="" onclick="displayContent('.vehList')">
-                    <i class="lnr lnr-car"></i> <span>Vehicle</span></a></li>
-                <li><a href="#" class="" onclick="displayContent('.sched')">
-                    <i class="lnr lnr-calendar-full"></i> <span>Schedule</span></a></li>
-                <li><a href="#" class="" onclick="displayContent('.brnCtrl')">
-                    <i class="lnr lnr-apartment"></i> <span>Branch</span></a></li>
-                <li><a href="#subPages4" data-toggle="collapse" class="collapsed">
-                    <i class="lnr lnr-cog"></i> <span>System</span> 
-                    <i class="icon-submenu lnr lnr-chevron-down"></i></a>
-                    <div id="subPages4" class="collapse">
-                        <ul class="nav">
-                            <li><a href="#" class="" onclick="displayContent('.req')">
-                                <i class="lnr lnr-pencil"></i> Enrollment Requirements</a></li>									
-                            <li><a href="#" class="" onclick="displayContent('.lesson')">
-                                <i class="lnr lnr-book"></i> Lessons & Techniques</a></li>									
-                            <li><a href="#" class="" onclick="displayContent('.account')">
-                                <i class="lnr lnr-lock"></i> System Accounts</a></li>									
-                        </ul>
-                    </div>
-                </li>						
+                <li> <a href="#" aria-expanded="false" style="background-color: #5D0000; color: #EDE2E2">
+                    <i class="fa fa-car"></i><span class="hide-menu">Vehicle</span></a>
+                </li>
+                <li> <a href="#" aria-expanded="false" style="background-color: #5D0000; color: #EDE2E2">
+                    <i class="fa fa-calendar"></i><span class="hide-menu">Schedule</span></a>
+                </li>
+                <li> <a href="#" aria-expanded="false" style="background-color: #5D0000; color: #EDE2E2">
+                    <i class="fa fa-globe"></i><span class="hide-menu">Branches</span></a>
+                </li>
             </ul>
         </nav>
+        <!-- End Sidebar navigation -->
     </div>
+    <!-- End Sidebar scroll-->
 </div>
