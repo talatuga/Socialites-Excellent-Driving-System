@@ -10,7 +10,7 @@ exports.admin = function (req, res, next){
         var user = auth.getUser();
         getUserInfo(user, function(err, data){
             if(err) return next(new Error(err));
-            res.render('admin/index', data);
+            res.rende('admin/index', data);
         });
     } else {
         res.render('admin/login');
