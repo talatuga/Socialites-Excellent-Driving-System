@@ -1,37 +1,26 @@
 $(document).ready(function(){
-	var formInputs = $('input[type="text"],input[type="password"]');
-	formInputs.focus(function() {
-       $(this).parent().children('p.formLabel').addClass('formTop');
-       $('div#formWrapper').addClass('darken-bg');
-       $('div.logo').addClass('logo-active');
-	});
-	formInputs.focusout(function() {
-		if ($.trim($(this).val()).length == 0){
-		$(this).parent().children('p.formLabel').removeClass('formTop');
-		}
-		$('div#formWrapper').removeClass('darken-bg');
-		$('div.logo').removeClass('logo-active');
-	});
-	$('p.formLabel').click(function(){
-		 $(this).parent().children('.form-style').focus();
-	});
+    $('#btnLogin').on('click', function(e){
+        e.preventDefault();
+        var username = $('#username').val();
+        var password = $('#password').val();
+
+        if (username == "" || username.length == 0 || username == null
+            || password == "" || password.length == 0 || password == null) {
+				// swal("Oops!", "Please fill out all required fields.", "error");
+				alert (username);
+            }
+        else {
+            $.post('/admin', {user: username,pass: password}, function(err, data){
+                if(err) return console.log("Failed");
+                swal("Success!", "You are now logged in as an administrator!", "success");
+            });
+            // setTimeout (successLogin, 3000);
+        }
+    });
 });
 
-/* function login(){
-	var cred = $('#credential').serializeArray();
-	alert(JSON.stringify(cred));
-} */
 
-$('#credential').submit(function(e){
-	e.preventDefault();
-	$.post('/admin', $('#credential').serialize(),function(data, status){
-		if(data[0] == 2){
-			location.reload();
-		}else if(data[0] == 0){
-			//alert(data[1]);
-			swal("Oops!", "Invalid username or password.", "error");
-			document.getElementById('username').value = "";
-			document.getElementById('password').value = "";
-		}
-	});
-});
+function successLogin () 
+{
+	 window.location = "/admin";
+}

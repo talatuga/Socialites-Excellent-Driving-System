@@ -5409,12 +5409,18 @@ tbody tr td:last-child {
   font-size: 11px;
   box-shadow: none;
 }
+.unix-login
+{
+  background-image: url("/assets/images/login-bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 .login-logo {
   text-align: center;
   margin-bottom: 15px;
 }
 .login-logo span {
-  color: #ffffff;
+  /* color: #ffffff; */
   font-size: 24px;
 }
 .login-logo img {
@@ -5424,7 +5430,7 @@ tbody tr td:last-child {
   margin: 100px 0;
 }
 .login-form {
-  background: #ffffff;
+  background: #fff;
   padding: 30px 30px 20px;
   border-radius: 2px;
 }
