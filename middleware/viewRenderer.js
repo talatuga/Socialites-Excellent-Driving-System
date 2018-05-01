@@ -7,7 +7,7 @@ var auth = require('./authentication');
 
 exports.admin = function (req, res, next){
     if (res.locals.authenticated == 1) {
-        var user = auth.getUser();
+        var user = auth.getUser(req.sessionID);
         getUserInfo(user, function(err, data){
             if(err) return next(new Error(err));
             res.render('admin/index', data);
@@ -18,11 +18,11 @@ exports.admin = function (req, res, next){
 }
 
 exports.user = function(req, res, next){
-
+    res.render('sample',{title: 'Sample EJS Implementaion'});
 }
 
 var getUserInfo = function(data, cb){
-    var models = ['admin', 'student', 'instructor', 'branch'];
+    var models = ['admin', 'studentModel', 'instructorModel', 'branchModel'];
     var model = require('../model/' + models[data.accType]);
     model.getAll(data.accID, function(err, result){
         if(err) return cb(err);

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title><%=title%></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <%# This is a Comment this is not rendered even on browser inpection. %>
+    <!-- This comment rendered in the browser inpection -->
+    <!-- lahat ng ejs or js server code nasa loob dapat '<%  %>' -->
+    <h1>Normal Header rendered on browser.</h1>
+    <h1><%= "Sample header render on server. and passed using '=' after ejs opening tag." %></h1>
+    <%
+        for(var x=0; x<5; x++){
+    %>
+            <p>paul</p>
+    <%
+        }
+        //sample looping that render 5 <p>.
+        //pwede mo rin gamit lahat ng data na napasa ng controller/middleware 
+        //dun sa res.render(view,data); yung data pwede mo gamitin laman nyan dito.
+    %>    
+</body>
+</html>

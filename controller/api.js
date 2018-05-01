@@ -14,11 +14,11 @@ var v1 = require('express').Router();
 var admin = require('./admin/api');
 var main = require('./main/api');
 // admin & public api
-v1.use('/v1/admin', admin);
-v1.use('/v1/user', main);
+v1.use(admin);
+v1.use(main);
 
 // Route registration
-router.use(v1);
+router.use('/v1', v1);
 
 //Export main router for routes.js routing
 module.exports = router;
