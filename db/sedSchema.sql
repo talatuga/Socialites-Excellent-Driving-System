@@ -22,6 +22,12 @@ CREATE TABLE `account` (
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+CREATE TABLE `accountType` (
+  `id` int(5) NOT NULL,
+  `title` varchar(15) NOT NULL,
+  `permission` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 CREATE TABLE `activity` (
   `id` int(4) NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -39,6 +45,13 @@ CREATE TABLE `branch` (
   `telno` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+CREATE TABLE `credential` (
+  `id` int(5) NOT NULL,
+  `username` varchar(15) NOT NULL,
+  `password` varchar(40) NOT NULL,
+  `accType` int(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 CREATE TABLE `guardian` (
   `id` int(4) NOT NULL,
   `fullname` varchar(50) NOT NULL,
@@ -47,6 +60,7 @@ CREATE TABLE `guardian` (
 
 CREATE TABLE `instructor` (
   `id` int(4) NOT NULL,
+  `usrAcc` int(5) DEFAULT NULL,
   `fullname` varchar(50) NOT NULL,
   `address` varchar(100) NOT NULL,
   `telno` varchar(12) NOT NULL,
@@ -105,6 +119,7 @@ CREATE TABLE `studentevaluation` (
 
 CREATE TABLE `studentinformation` (
   `id` int(5) NOT NULL,
+  `usrAcc` int(5) DEFAULT NULL,
   `guardianID` int(4) NOT NULL,
   `fullname` varchar(50) NOT NULL,
   `birthdate` date NOT NULL,
@@ -129,6 +144,10 @@ ALTER TABLE `account`
   ADD PRIMARY KEY (`id`),
   ADD KEY `studentID` (`studentID`);
 
+ALTER TABLE `accountType`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `title` (`title`);
+
 ALTER TABLE `activity`
   ADD PRIMARY KEY (`id`),
   ADD KEY `instructorID` (`instructorID`),
@@ -139,11 +158,17 @@ ALTER TABLE `activity`
 ALTER TABLE `branch`
   ADD PRIMARY KEY (`id`);
 
+ALTER TABLE `credential`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`),
+  ADD KEY `accType` (`accType`);
+
 ALTER TABLE `guardian`
   ADD PRIMARY KEY (`id`);
 
 ALTER TABLE `instructor`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `usrAcc` (`usrAcc`);
 
 ALTER TABLE `instructorevaluation`
   ADD PRIMARY KEY (`id`),
@@ -174,7 +199,8 @@ ALTER TABLE `studentevaluation`
 
 ALTER TABLE `studentinformation`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `guardianID` (`guardianID`);
+  ADD KEY `guardianID` (`guardianID`),
+  ADD KEY `usrAcc` (`usrAcc`);
 
 ALTER TABLE `vehicle`
   ADD PRIMARY KEY (`id`);
@@ -183,8 +209,14 @@ ALTER TABLE `vehicle`
 ALTER TABLE `account`
   MODIFY `id` int(5) NOT NULL AUTO_INCREMENT;
 
+ALTER TABLE `accountType`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT;
+
 ALTER TABLE `branch`
   MODIFY `id` int(3) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `credential`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `guardian`
   MODIFY `id` int(4) NOT NULL AUTO_INCREMENT;
@@ -226,6 +258,12 @@ ALTER TABLE `activity`
   ADD CONSTRAINT `activity_ibfk_3` FOREIGN KEY (`studentID`) REFERENCES `registrar` (`studentID`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `activity_ibfk_4` FOREIGN KEY (`vehicleID`) REFERENCES `vehicle` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
+ALTER TABLE `credential`
+  ADD CONSTRAINT `credential_ibfk_1` FOREIGN KEY (`accType`) REFERENCES `accountType` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+ALTER TABLE `instructor`
+  ADD CONSTRAINT `instructor_ibfk_1` FOREIGN KEY (`usrAcc`) REFERENCES `credential` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
 ALTER TABLE `instructorevaluation`
   ADD CONSTRAINT `instructorevaluation_ibfk_3` FOREIGN KEY (`studentID`) REFERENCES `registrar` (`studentID`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `instructorevaluation_ibfk_4` FOREIGN KEY (`instructorID`) REFERENCES `instructor` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
@@ -244,7 +282,8 @@ ALTER TABLE `studentevaluation`
   ADD CONSTRAINT `studentevaluation_ibfk_2` FOREIGN KEY (`instructorID`) REFERENCES `instructor` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 ALTER TABLE `studentinformation`
-  ADD CONSTRAINT `studentinformation_ibfk_1` FOREIGN KEY (`guardianID`) REFERENCES `guardian` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `studentinformation_ibfk_1` FOREIGN KEY (`guardianID`) REFERENCES `guardian` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `studentinformation_ibfk_2` FOREIGN KEY (`usrAcc`) REFERENCES `credential` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
