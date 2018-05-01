@@ -1,14 +1,11 @@
 /* 
     authentication.js: This authenticates all requests passed on admin and api routes for security purposes.
 */
-var account = require('../model/usrAcc');
+var account = require('../model/userAccModel');
 
 var users = {};
 
 exports.auth = function(req, res, next){
-    /* if(req.path == '/'){
-        return next();
-    } */
     var id = req.sessionID;
     checkUser(id, function(user){
         if(user){
@@ -31,9 +28,14 @@ exports.login = function(req, res, next){
                 var pass = req.body.pass;
                 account.login({username: user, password: pass},function(err, result){
                     if(err) return next(new Error(err));
-                    users[id] = {accID: result.id, accType: result.accType};
-                    res.locals.authenticated = 1;
-                    next();
+                    if(result){
+                        users[id] = {accID: result.id, accType: result.accType};
+                        res.locals.authenticated = 1;
+                        next();
+                    }else{
+                        res.locals.authenticated = 0;
+                        res.status(200).send({detail: "Username/Password Incorrect!"});
+                    }
                 });
             }else{
                 next();

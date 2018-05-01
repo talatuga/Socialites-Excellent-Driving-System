@@ -24,5 +24,16 @@ exports.error404 = function(req, res) {
     }
 }
 
+exports.error401 = function(req, res, next){
+    if(res.locals.authenticated == 0){
+        if(req.method == "GET"){
+            res.status(401).send("<h1>Unauthorized Access</h1>");
+        }else{
+            res.status(401).send({error: 401, detail: "Unauthorized Access"});        
+        }
+    }else{
+        next();
+    }
+}
 //SD:  I suggest doing a View for these errors, para di mukhang plain and halatang error. :D
 //RE: Noted po! Di ko muna tanggalin tong comment since di ko pa nagagawa. Let's discuss this further on sat, Apr 28, 2018 :)

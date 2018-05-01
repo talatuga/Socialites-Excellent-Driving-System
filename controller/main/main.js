@@ -1,8 +1,8 @@
 var router = require('express').Router();
 
+var renderer = require('../../middleware/viewRenderer');
+
 //Routes here.
-router.get('/', function(req, res, next){
-    res.render('sample',{title: 'Sample EJS Implementaion'});
-});
+router.get('/', renderer.user);
 
 module.exports = router;
