@@ -618,6 +618,7 @@ button:hover {
   color: #252525;
   outline: none!important;
   text-decoration: none!important;
+  cursor: pointer;
 }
 ul {
   padding: 0;
@@ -1177,7 +1178,8 @@ h6.h1 {
 }
 .sidebarMenu
 {
-  background-color: #00897b;
+  background-color: #5D0000;
+  color: #EDE2E2;
 }
 .logo-center .top-navbar .navbar-header {
   position: absolute;
@@ -1524,17 +1526,17 @@ textarea {
   white-space: nowrap;
 }
 .sidebar-nav ul li a:hover {
-  color: #1976d2;
+  color: #FCEFAC;
 }
 .sidebar-nav ul li a:hover i {
-  color: #1976d2;
+  color: #FCEFAC;
 }
 .sidebar-nav ul li a.active {
-  color: #1976d2;
-  font-weight: 500;
+  color: #F8D108;
+  font-weight: bold;
 }
 .sidebar-nav ul li a.active i {
-  color: #1976d2;
+  color: #F8D108;
 }
 .sidebar-nav ul li ul {
   padding-left: 28px;
@@ -1584,10 +1586,10 @@ textarea {
 .sidebar-nav > ul > li.active > a {
   color: #1976d2;
   font-weight: 500;
-  border-left: 3px solid #fff;
+  border-left: 5px solid #F8D108;
 }
 .sidebar-nav > ul > li.active > a i {
-  color: #1976d2;
+  color: #F8D108;
 }
 .sidebar-nav .has-arrow {
   position: relative;
@@ -1651,7 +1653,7 @@ textarea {
     top: 38px;
     width: 200px;
     z-index: 1001;
-    background: #f2f6f8;
+    background: #5D0000;
     display: none;
     padding-left: 1px;
   }
@@ -1666,9 +1668,8 @@ textarea {
     color: #5D0000;
   }
   .mini-sidebar .sidebar-nav #sidebarnav > li:hover > a {
-    width: 260px;
-    background: #f2f6f8;
-    color: #5D0000;
+    width: 200px;
+    background: #5D0000;
   }
   .mini-sidebar .sidebar-nav #sidebarnav > li:hover > a .hide-menu {
     display: inline;
@@ -2073,7 +2074,7 @@ textarea {
 .card .card-subtitle {
   color: #99abb4;
   font-weight: 300;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 .card-inverse .card-bodyquote .blockquote-footer {
   color: rgba(255, 255, 255, 0.65);
@@ -2181,7 +2182,7 @@ textarea {
 }
 .card {
   background: #ffffff none repeat scroll 0 0;
-  margin: 15px 0;
+  margin: 10px;
   padding: 20px;
   border: 0 solid #e7e7e7;
   border-radius: 5px;
@@ -6872,8 +6873,132 @@ tbody tr td:last-child {
 {
   font-size: 13px;
 }
-
-.faSide
+.view-dashboard, .view-instructor, .view-student, .view-schedule, .view-vehicle, .view-branches
 {
-  color: black;
+  display: none;
+}
+
+.studentCard
+{
+  height: 700px;
+}
+
+.btn-custom
+{
+  background: #5D0000;
+  border: 1px solid #1F0000;
+  color: #FCEFAC;
+  -webkit-box-shadow: 0 2px 2px 0 rgba(66, 165, 245, 0.14), 0 3px 1px -2px rgba(66, 165, 245, 0.2), 0 1px 5px 0 rgba(66, 165, 245, 0.12);
+  box-shadow: 0 2px 2px 0 rgba(66, 165, 245, 0.14), 0 3px 1px -2px rgba(66, 165, 245, 0.2), 0 1px 5px 0 rgba(66, 165, 245, 0.12);
+  -webkit-transition: 0.2s ease-in;
+  -o-transition: 0.2s ease-in;
+  transition: 0.2s ease-in;
+}
+
+.btn-custom1
+{
+  background: white;
+  border: 1px solid #1F0000;
+  color: #1F0000;
+  -webkit-box-shadow: 0 2px 2px 0 rgba(66, 165, 245, 0.14), 0 3px 1px -2px rgba(66, 165, 245, 0.2), 0 1px 5px 0 rgba(66, 165, 245, 0.12);
+  box-shadow: 0 2px 2px 0 rgba(66, 165, 245, 0.14), 0 3px 1px -2px rgba(66, 165, 245, 0.2), 0 1px 5px 0 rgba(66, 165, 245, 0.12);
+  -webkit-transition: 0.2s ease-in;
+  -o-transition: 0.2s ease-in;
+  transition: 0.2s ease-in;
+}
+
+.btnStud3
+{
+  width: 100%;
+  margin: 0px;
+  font-size: 13px;
+}
+
+.btngroupStudent
+{
+  width: 90%;
+}
+
+.btnStud3:hover {
+  color: inherit;
+  background-color: black;
+  -webkit-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.btn-dark:hover {
+  color: white;
+  background-color: #935555;
+  -webkit-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.btn-dark:focus {
+  color: white;
+  background-color: black;
+  -webkit-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.btnDarkActive {
+  color: white;
+  background-color: black;
+}
+
+.studPic
+{
+  height: 200px;
+  width: 200px;
+}
+
+#studName
+{
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+#studAddress, #studPhone, #studEmail
+{
+  font-size: 14px;
+}
+
+#studNum
+{
+  text-transform: uppercase;
+  color: #5D0000;
+  font-weight: bold;
+  letter-spacing: 3px;
+}
+
+#studBranch
+{
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.fa-red
+{
+  color: #5D0000;
+}
+
+#instName
+{
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+#instAddress, #instPhone, #instEmail
+{
+  font-size: 14px;
+}
+
+#instNum
+{
+  text-transform: uppercase;
+  color: #5D0000;
+  font-weight: bold;
+  letter-spacing: 3px;
 }

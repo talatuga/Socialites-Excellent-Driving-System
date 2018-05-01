@@ -6,14 +6,95 @@
         <div class="col-md-7 align-self-center">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="javascript:void(0)">Students</a></li>
-                <li class="breadcrumb-item active">Current Students</li>
+                <li class="breadcrumb-item active" id="activeStudent">Current Students</li>
             </ol>
         </div>
     </div>
     <!-- End Bread crumb -->
-    <!-- Container fluid  -->
+
     <div class="container-fluid">
-        <!-- End Page Content -->
+        <!-- Start of Card  -->
+        <div class="card studentCard">
+            <div class="row studentCard">
+                <!-- Start of col-lg-5 -->
+                <div class="col-lg-5">
+                    <div class="form-group">
+                        <div class="input-group input-group-flat">
+                            <span class="input-group-btn"><button class="btn btn-custom" type="submit"><i class="ti-search"></i></button></span>
+                            <input type="text" class="form-control" placeholder="Search..." style="font-size: 12px;">
+                            <span class="input-group-btn"><button class="btn btn-primary input-group-close-icon" type="submit"><i class="ti-close"></i></button></span>
+                        </div>
+                    </div>
+                    <center>
+                        <div class="row btngroupStudent">
+                            <div class="col-md-4 col-lg-4">
+                                <button type="button" id="btnCurrent" class="btn btn-dark btn-outline m-b-10 m-l-5 btnStud3">Current</button>
+                            </div>
+                            <div class="col-md-4 col-lg-4">
+                                <button type="button" id="btnPast" class="btn btn-dark btn-outline m-b-10 m-l-5 btnStud3">Past</button>
+                            </div>
+                            <div class="col-md-4 col-lg-4">
+                                <button type="button" id="btnAll" class="btn btn-dark btn-outline m-b-10 m-l-5 btnStud3">All</button>
+                            </div>
+                        </div>
+                    </center><br>
+                    <h4 class="card-title">List of Students</h4><br>
+                    <div class="table-responsive">
+                        <table class="table tableDash">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Student Name</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Graciella Tatel</td>
+                                    <td><span class="badge badge-success"> </span></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Christian Paul Tupas</td>
+                                    <td><span class="badge badge-warning"> </span></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Janelle Joy Gabat</td>
+                                    <td><span class="badge badge-success"> </span></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>Perrine Laganzo</td>
+                                    <td><span class="badge badge-success"> </span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- End of col-lg-5 -->
+
+                <!-- Start of col-lg-7 -->
+                <div class="col-lg-7" style="padding-left: 50px;">
+                    <h3>Student Details</h3><hr>
+                    <div class="row">
+                        <div class="col-md-5 col-lg-5">
+                            <span><img src="assets/images/user-medium.png" alt="Student Picture" class="studPic"/></span><br><br>
+                            <center>
+                                <h6 id="studNum">2015-02355-MN-0</h6><hr>
+                                <h6 id="studBranch">Main Office</h6>
+                            </center>
+                        </div>
+                        <div class="col-md-7 col-lg-7">
+                            <h3 id="studName">Graciella Custodio Tatel</h3>
+                            <span class="fa fa-map-marker fa-red"></span> <span id="studAddress">Sapang Palay, CSJDM, Bulacan</span><br>
+                            <span class="fa fa-phone fa-red"></span> <span id="studPhone">0956 586 7353</span><br>
+                            <span class="fa fa-envelope fa-red"></span> <span id="studEmail">gtatel0517@gmail.com</span>
+                        </div>
+                    </div> <!-- End of row -->
+                </div> <!-- End of col-lg-7 -->
+            </div> <!-- End of row -->
+        </div><!-- End of Card  -->
     </div>
-    <!-- End Container fluid  -->
 </div>
