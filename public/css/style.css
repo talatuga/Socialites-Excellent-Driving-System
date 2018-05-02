@@ -7002,3 +7002,44 @@ tbody tr td:last-child {
   font-weight: bold;
   letter-spacing: 3px;
 }
+
+#btnNewInstructor
+{
+  width: 150px;
+  font-size: 14px;
+}
+.tblInstructor
+{
+  font-size: 13px;
+  color: white;
+}
+
+.tblInstructor th
+{
+  font-size: 15px;
+  color: #1F0000;
+  /* background-color: #FFE659; */
+  text-transform: uppercase;
+  text-align: left;
+}
+.tblInstructor td
+{
+  color: black;
+  text-align: left;
+}
+.tblInstructor td span
+{
+  font-size: 13px;
+}
+#btnViewInstructor
+{
+  width: 90%;
+  background-color: #5D0000;
+  color: white;
+}
+#btnViewInstructor:hover
+{
+  width: 90%;
+  background-color: #1F0000;
+  color: white;
+}
