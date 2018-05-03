@@ -1178,7 +1178,6 @@ h6.h1 {
 }
 .sidebarMenu
 {
-  background-color: #5D0000;
   color: #EDE2E2;
 }
 .logo-center .top-navbar .navbar-header {
@@ -1532,10 +1531,12 @@ textarea {
   color: #FCEFAC;
 }
 .sidebar-nav ul li a.active {
+  background-color: #9D2834;
   color: #F8D108;
   font-weight: bold;
 }
 .sidebar-nav ul li a.active i {
+  background-color: #9D2834;
   color: #F8D108;
 }
 .sidebar-nav ul li ul {
@@ -1587,6 +1588,7 @@ textarea {
   color: #1976d2;
   font-weight: 500;
   border-left: 5px solid #F8D108;
+  background-color: #3E0000;
 }
 .sidebar-nav > ul > li.active > a i {
   color: #F8D108;
@@ -2069,7 +2071,7 @@ textarea {
 /*    Brand color
 ----------------------*/
 .card {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 .card .card-subtitle {
   color: #99abb4;
@@ -2130,7 +2132,7 @@ textarea {
   opacity: 1;
 }
 .card-columns .card {
-  margin-bottom: 20px;
+  margin-bottom: 5px;
 }
 .collapsing {
   transition: height 0.08s ease 0s;
@@ -2182,7 +2184,6 @@ textarea {
 }
 .card {
   background: #ffffff none repeat scroll 0 0;
-  margin: 10px;
   padding: 20px;
   border: 0 solid #e7e7e7;
   border-radius: 5px;
@@ -2866,8 +2867,8 @@ table.dataTable thead .sorting::after {
   background: #028ee1;
 }
 .btn-success {
-  background: #26dad2;
-  border: 1px solid #26dad2;
+  background: #26B99A;
+  border: 1px solid #40C2A6;
   -webkit-box-shadow: 0 2px 2px 0 rgba(40, 190, 189, 0.14), 0 3px 1px -2px rgba(40, 190, 189, 0.2), 0 1px 5px 0 rgba(40, 190, 189, 0.12);
   box-shadow: 0 2px 2px 0 rgba(40, 190, 189, 0.14), 0 3px 1px -2px rgba(40, 190, 189, 0.2), 0 1px 5px 0 rgba(40, 190, 189, 0.12);
   -webkit-transition: 0.2s ease-in;
@@ -2875,7 +2876,7 @@ table.dataTable thead .sorting::after {
   transition: 0.2s ease-in;
 }
 .btn-success:hover {
-  background: #26dad2;
+  background: #154037;
   -webkit-box-shadow: 0 14px 26px -12px rgba(40, 190, 189, 0.42), 0 4px 23px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(40, 190, 189, 0.2);
   box-shadow: 0 14px 26px -12px rgba(40, 190, 189, 0.42), 0 4px 23px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(40, 190, 189, 0.2);
   border: 1px solid #26dad2;
@@ -3110,8 +3111,8 @@ table.dataTable thead .sorting::after {
   box-shadow: 0 14px 26px -12px rgba(248, 194, 0, 0.42), 0 4px 23px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(248, 194, 0, 0.2);
 }
 .btn-danger {
-  background: #ef5350;
-  border: 1px solid #ef5350;
+  background: #D9534F;
+  border: 1px solid #D9534F;
   -webkit-box-shadow: 0 2px 2px 0 rgba(239, 83, 80, 0.14), 0 3px 1px -2px rgba(239, 83, 80, 0.2), 0 1px 5px 0 rgba(239, 83, 80, 0.12);
   box-shadow: 0 2px 2px 0 rgba(239, 83, 80, 0.14), 0 3px 1px -2px rgba(239, 83, 80, 0.2), 0 1px 5px 0 rgba(239, 83, 80, 0.12);
   -webkit-transition: 0.2s ease-in;
@@ -3119,7 +3120,7 @@ table.dataTable thead .sorting::after {
   transition: 0.2s ease-in;
 }
 .btn-danger:hover {
-  background: #ef5350;
+  background: #481B1A;
   -webkit-box-shadow: 0 14px 26px -12px rgba(239, 83, 80, 0.42), 0 4px 23px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(239, 83, 80, 0.2);
   box-shadow: 0 14px 26px -12px rgba(239, 83, 80, 0.42), 0 4px 23px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(239, 83, 80, 0.2);
   border: 1px solid #ef5350;
@@ -4736,7 +4737,6 @@ footer p {
   float: left;
 }
 .comment-action .badge {
-  text-transform: uppercase;
   font-family: 'Quicksand', sans-serif;
 }
 .comment-action i {
@@ -5350,9 +5350,6 @@ tbody tr td:last-child {
 .table {
   margin-bottom: 0;
 }
-.table .badge {
-  text-transform: uppercase;
-}
 .student-data-table label {
   margin-right: 7px;
 }
@@ -5412,7 +5409,8 @@ tbody tr td:last-child {
 }
 .unix-login
 {
-  background-image: url("/assets/images/login-bg.jpg");
+  /* background-image: url("/assets/images/login-bg.jpg"); */
+  background-color: white;
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -6873,7 +6871,8 @@ tbody tr td:last-child {
 {
   font-size: 13px;
 }
-.view-dashboard, .view-instructor, .view-student, .view-schedule, .view-vehicle, .view-branches
+.view-dashboard, .view-instructor, .view-student, .view-schedule, .view-vehicle, .view-branches, .view-newInstructor,
+.view-error500, .view-error404
 {
   display: none;
 }
@@ -6992,7 +6991,7 @@ tbody tr td:last-child {
 
 #instAddress, #instPhone, #instEmail
 {
-  font-size: 14px;
+  font-size: 13px;
 }
 
 #instNum
@@ -7005,7 +7004,13 @@ tbody tr td:last-child {
 
 #btnNewInstructor
 {
-  width: 150px;
+  width: 100%;
+  font-size: 14px;
+  float: left;
+}
+#btnRemoveInstructor
+{
+  width: 100%;
   font-size: 14px;
 }
 .tblInstructor
@@ -7033,6 +7038,7 @@ tbody tr td:last-child {
 }
 #btnViewInstructor
 {
+  font-size: 15px;
   width: 90%;
   background-color: #5D0000;
   color: white;
@@ -7042,4 +7048,20 @@ tbody tr td:last-child {
   width: 90%;
   background-color: #1F0000;
   color: white;
+}
+.nav-sm .main_container .top_nav
+{
+	display:block; 
+	margin-left:70px;
+	z-index:2
+}
+.main_container .top_nav{display:block; margin-left:230px;}
+.col-middle{margin-top:5%}
+.error-number{font-size:90px; line-height:90px; margin:20px 0}
+
+#btnCurrent, #btnPast, #btnAll
+{
+  width: 100%;
+  font-size: 14px;
+  float: left;
 }

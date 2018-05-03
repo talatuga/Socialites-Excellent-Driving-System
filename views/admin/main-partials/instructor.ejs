@@ -4,9 +4,6 @@
         <div class="col-md-5 align-self-center">
             <h3 class="text-primary">Instructors</h3> 
         </div>
-        <div class="col-md-7 align-self-right">
-            <button type="button" id="btnNewInstructor" class="btn btn-dark btn-outline m-b-10 m-l-5 pull-right">New Instructor</button>
-        </div>
     </div>
     <!-- End Bread crumb -->
 
@@ -15,7 +12,7 @@
         <div class="studentCard">
             <div class="row studentCard">
                 <!-- Start of col-lg-5 -->
-                <div class="card col-lg-5">
+                <div class="card col-lg-6">
                     <div class="form-group">
                         <div class="input-group input-group-flat">
                             <span class="input-group-btn"><button class="btn btn-custom" type="submit"><i class="ti-search"></i></button></span>
@@ -61,24 +58,36 @@
                 <!-- End of col-lg-5 -->
 
                 <!-- Start of col-lg-6 -->
-                <div class="card col-lg-6" style="padding-left: 50px;">
-                    <h3>Instructor Details</h3><hr>
-                    <div class="row">
-                        <div class="col-md-5 col-lg-5">
-                            <span><img src="assets/images/user-medium.png" alt="Student Picture" class="studPic"/></span><br><br>
-                            <center>
-                                <h6 id="instNum">INST-00001-MN-0</h6>
-                            </center>
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button type="button" id="btnNewInstructor" class="btn btn-success m-b-10 m-l-5">New Instructor</button>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="button" id="btnRemoveInstructor" class="btn btn-danger m-b-10 m-l-5">Remove Instructor</button>
+                            </div>
                         </div>
-                        <div class="col-md-7 col-lg-7">
-                            <h3 id="instName">Harry James Potter</h3>
-                            <span class="fa fa-map-marker fa-red"></span> <span id="instAddress">Sapang Palay, CSJDM, Bulacan</span><br>
-                            <span class="fa fa-phone fa-red"></span> <span id="instPhone">0956 586 7353</span><br>
-                            <span class="fa fa-envelope fa-red"></span> <span id="instEmail">gtatel0517@gmail.com</span>
-                            <br><br><br><br>
-                            <button type="button" id="btnViewInstructor" class="btn btn-outline m-b-10 m-l-5">View Details</button>
-                        </div>
-                    </div> <!-- End of row -->
+                    </div>
+                    <div class="card">
+                        <h3>Instructor Information</h3><hr>
+                        <div class="row">
+                            <div class="col-md-5 col-lg-5">
+                                <span><img src="assets/images/user-medium.png" alt="Student Picture" class="studPic"/></span><br><br>
+                                <center>
+                                    <h6 id="instNum">INST-00001-MN-0</h6>
+                                </center>
+                            </div>
+                            <div class="col-md-7 col-lg-7" style="padding-left: 30px;">
+                                <h4 id="instName">Harry James Potter</h4>
+                                <span class="fa fa-map-marker fa-red"></span> <span id="instAddress">Sapang Palay, CSJDM, Bulacan</span><br>
+                                <span class="fa fa-phone fa-red"></span> <span id="instPhone">0956 586 7353</span><br>
+                                <span class="fa fa-envelope fa-red"></span> <span id="instEmail">gtatel0517@gmail.com</span>
+                                <br><br><br><br>
+                                <button type="button" id="btnViewInstructor" class="btn btn-danger m-b-10 m-l-5">View Profile</button>
+                            </div>
+                        </div> <!-- End of row -->
+                    </div>
                 </div> <!-- End of col-lg-6 -->
             </div> <!-- End of row -->
         </div><!-- End of Card  -->

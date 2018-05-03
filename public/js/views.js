@@ -6,22 +6,10 @@ $(function() {
     $(".view-branches").hide();
     $(".view-dashboard").show();
 
-    $("#dashboard").on("click", function() {
-        $(".view-instructor").hide();
-        $(".view-schedule").hide();
-        $(".view-student").hide();
-        $(".view-vehicle").hide();
-        $(".view-branches").hide();
-        $(".view-dashboard").show();
-        document.getElementById("li2").classList.remove('active');
-        document.getElementById("li3").classList.remove('active');
-        document.getElementById("li4").classList.remove('active');
-        document.getElementById("li5").classList.remove('active');
-        document.getElementById("li6").classList.remove('active');
-        document.getElementById("li1").classList.add('active');
-    });
+    $("#dashboard").on("click", dashboard);
 
     $("#students").on("click", function() {
+        $(".search-box").hide();
         $(".view-instructor").hide();
         $(".view-schedule").hide();
         $(".view-dashboard").hide();
@@ -37,6 +25,7 @@ $(function() {
     });
 
     $("#instructor").on("click", function() {
+        $(".search-box").hide();
         $(".view-dashboard").hide();
         $(".view-schedule").hide();
         $(".view-student").hide();
@@ -52,6 +41,7 @@ $(function() {
     });
 
     $("#vehicle").on("click", function() {
+        $(".search-box").hide();
         $(".view-instructor").hide();
         $(".view-schedule").hide();
         $(".view-dashboard").hide();
@@ -67,6 +57,7 @@ $(function() {
     });
 
     $("#schedule").on("click", function() {
+        $(".search-box").hide();
         $(".view-dashboard").hide();
         $(".view-instructor").hide();
         $(".view-student").hide();
@@ -82,6 +73,7 @@ $(function() {
     });
 
     $("#branches").on("click", function() {
+        $(".search-box").hide();
         $(".view-instructor").hide();
         $(".view-schedule").hide();
         $(".view-dashboard").hide();
@@ -96,3 +88,20 @@ $(function() {
         document.getElementById("li6").classList.add('active');
     });
 });
+
+var dashboard = function() 
+{
+    $(".search-box").show();
+        $(".view-instructor").hide();
+        $(".view-schedule").hide();
+        $(".view-student").hide();
+        $(".view-vehicle").hide();
+        $(".view-branches").hide();
+        $(".view-dashboard").show();
+        document.getElementById("li2").classList.remove('active');
+        document.getElementById("li3").classList.remove('active');
+        document.getElementById("li4").classList.remove('active');
+        document.getElementById("li5").classList.remove('active');
+        document.getElementById("li6").classList.remove('active');
+        document.getElementById("li1").classList.add('active');
+}

@@ -25,6 +25,17 @@
 
             <!-- MAIN -->
             <div class="page-wrapper">
+                <% /*
+                    switch(accType){
+                        case 0: {
+                            include ./main-partials/dashboard
+                            break;
+                        }
+                        case 1: {break;}
+                        case 2: {break;}
+                        case 3: {break;}
+                    } */
+                %>
                 <!-- MAJOR PARTIALS -->
                 <% include ./main-partials/dashboard %>
                 <% include ./main-partials/instructor %>
@@ -34,6 +45,9 @@
                 <% include ./main-partials/branches %>
                 <!-- MINOR PARTIALS -->
                 <% include ./minor-partials/new-instructor %>
+                <!-- ERROR PARTIALS -->
+                <% include ./error-partials/error500 %>
+                <% include ./error-partials/error404 %>
             </div>
             <!-- END MAIN -->
 
