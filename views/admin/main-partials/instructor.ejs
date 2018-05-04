@@ -60,13 +60,8 @@
                 <!-- Start of col-lg-6 -->
                 <div class="col-lg-6">
                     <div class="card">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <button type="button" id="btnNewInstructor" class="btn btn-success m-b-10 m-l-5">New Instructor</button>
-                            </div>
-                            <div class="col-md-6">
-                                <button type="button" id="btnRemoveInstructor" class="btn btn-danger m-b-10 m-l-5">Remove Instructor</button>
-                            </div>
+                        <div class="pull-right">
+                            <button type="button" id="btnNewInstructor" class="btn btn-success m-b-10 m-l-5" data-toggle="modal" data-target="#new-instructor">New Instructor</button>
                         </div>
                     </div>
                     <div class="card">
@@ -91,5 +86,44 @@
                 </div> <!-- End of col-lg-6 -->
             </div> <!-- End of row -->
         </div><!-- End of Card  -->
+    </div>
+</div>
+
+<!-- New Instructor Modal -->
+    <div class="modal fade" id="new-instructor" tabindex="-1" role="dialog" aria-labelledby="new-instructor">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="myModalLabel"><strong>ADD</strong> New Instructor</h3>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4">
+                            <!-- <label class="control-label">First Name <span class="asterisk">*</span></label>
+                            <input type="text" id="firstName" class="form-control"> -->
+                            <label class="control-label">First Name <span class="asterisk">*</span></label>
+                            <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="First Name">
+                            <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-lg-4 col-md-4">
+                            <label class="control-label">Middle Name</label>
+                            <input type="text" id="midName" class="form-control">
+                        </div>
+                        <div class="col-lg-4 col-md-4">
+                            <label class="control-label">Surname <span class="asterisk">*</span></label>
+                            <input type="text" id="surName" class="form-control">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnConfAddInstr" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="btnCancAddInstr" class="btn btn-primary">Save changes</button>
+            </div>
+
+            </div>
+        </div>
     </div>
 </div>

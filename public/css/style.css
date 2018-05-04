@@ -2275,19 +2275,18 @@ textarea {
   color: #ffffff;
 }
 .modal-dialog {
-  margin: 30px auto;
   position: relative;
-  top: 50%;
+  top: 30%;
   transform: translateY(-50%) !important;
-  width: 70%;
+  font-size: 14px;
 }
 .modal-header .close {
-  font-size: 14px;
+  font-size: 25px;
   margin-right: 15px;
   margin-top: 5px;
 }
 .modal-content {
-  border-radius: 3px;
+  border-radius: 10px;
 }
 .timeline {
   list-style: none;
@@ -4780,14 +4779,14 @@ footer p {
 .form-group {
   margin-bottom: 20px;
 }
-.form-control {
+/* .form-control {
   height: 42px;
   border-radius: 0;
   box-shadow: none;
   border-color: #e7e7e7;
   font-family: 'Quicksand', sans-serif;
-}
-.form-control:hover {
+} */
+/* .form-control:hover {
   box-shadow: none;
   border-color: #e7e7e7;
 }
@@ -4795,7 +4794,7 @@ footer p {
 .form-control:focus {
   box-shadow: none;
   border-color: #878787;
-}
+} */
 .input-default {
   border-radius: 4px;
 }
@@ -4907,9 +4906,6 @@ footer p {
 .has-error .form-control:focus,
 .has-error .form-control:hover {
   border-color: #fc6180;
-}
-.has-feedback label ~ .form-control-feedback {
-  top: 35px;
 }
 .form-horizontal .has-feedback .form-control-feedback {
   top: 5px;
@@ -6876,7 +6872,6 @@ tbody tr td:last-child {
 {
   display: none;
 }
-
 .studentCard
 {
   height: 700px;
@@ -7004,9 +6999,9 @@ tbody tr td:last-child {
 
 #btnNewInstructor
 {
-  width: 100%;
+  width: 200px;
   font-size: 14px;
-  float: left;
+  float: right;
 }
 #btnRemoveInstructor
 {
@@ -7065,3 +7060,37 @@ tbody tr td:last-child {
   font-size: 14px;
   float: left;
 }
+
+#btnConfAddInstr, #btnCancAddInstr
+{
+  font-size: 15px;
+}
+
+.asterisk
+{
+  color: red;
+}
+
+#firstName, #midName, #surName
+{
+  font-size: 14px;
+}
+.form-control.has-feedback-left{padding-left:45px}
+ .form-control{border-radius:0; width:100%;}
+ .form-horizontal .control-label{padding-top:8px}
+ .form-control:focus{border-color:#CCD0D7; box-shadow:none!important}
+ legend{font-size:18px; color:inherit}
+ .form-horizontal .form-group{margin-right:0; margin-left:0}
+ .form-control-feedback
+ {
+ 	margin-top:8px; 
+ 	height:23px; 
+ 	color:#bbb; 
+ 	line-height:24px; 
+ 	font-size:15px
+ }
+
+ .form-control-feedback.left{border-right:1px solid #ccc; left:13px}
+ .form-control-feedback.right{border-left:1px solid #ccc; right:13px}
+ .form-control.has-feedback-right{padding-right:45px}
+ .form-group{margin-bottom:10px}

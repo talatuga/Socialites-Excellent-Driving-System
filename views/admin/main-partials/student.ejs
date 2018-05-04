@@ -25,20 +25,8 @@
                             <span class="input-group-btn"><button class="btn btn-primary input-group-close-icon" type="submit"><i class="ti-close"></i></button></span>
                         </div>
                     </div>
-                    <!-- <center>
-                        <div class="row btngroupStudent">
-                            <div class="col-md-4 col-lg-4">
-                                <button type="button" id="btnCurrent" class="btn btn-dark btn-outline m-b-10 m-l-5 btnStud3">Current</button>
-                            </div>
-                            <div class="col-md-4 col-lg-4">
-                                <button type="button" id="btnPast" class="btn btn-dark btn-outline m-b-10 m-l-5 btnStud3">Past</button>
-                            </div>
-                            <div class="col-md-4 col-lg-4">
-                                <button type="button" id="btnAll" class="btn btn-dark btn-outline m-b-10 m-l-5 btnStud3">All</button>
-                            </div>
-                        </div>
-                    </center><br> -->
-                    <h4 class="card-title">List of Students</h4><br>
+                    <br>
+                    <h3 class="card-title">List of Students</h3><br>
                     <div class="table-responsive">
                         <table class="table tableDash table-hover">
                             <thead>
@@ -49,15 +37,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <%
-                                    var count = 1;
-                                    studentData.forEach(element=>{
-                                        %><tr><td><%= count %></td><td>
-                                        <%= element.info.fullname %></td><td>
-                                        <%= element.status %></td>
-                                        count++; <%
-                                    });
-                                %>
+                                
                                 <tr>
                                     <td>1</td>
                                     <td>Graciella Tatel</td>
@@ -89,13 +69,13 @@
                     <div class="card">
                         <div class="row">
                             <div class="col-md-4">
-                                <button type="button" id="btnCurrent" class="btn btn-dark m-b-10 m-l-5">Current</button>
+                                <button type="button" id="btnCurrent" class="btn btn-dark btn-outline m-b-10 m-l-5 btnStud3">Current</button>
                             </div>
                             <div class="col-md-4">
-                                <button type="button" id="btnPast" class="btn btn-dark m-b-10 m-l-5">Past</button>
+                                <button type="button" id="btnPast" class="btn btn-dark btn-outline m-b-10 m-l-5 btnStud3">Past</button>
                             </div>
                             <div class="col-md-4">
-                                <button type="button" id="btnAll" class="btn btn-dark m-b-10 m-l-5">All</button>
+                                <button type="button" id="btnAll" class="btn btn-dark btn-outline m-b-10 m-l-5 btnStud3">All</button>
                             </div>
                         </div>
                     </div>
