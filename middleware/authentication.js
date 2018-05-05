@@ -2,6 +2,7 @@
     authentication.js: This authenticates all requests passed on admin and api routes for security purposes.
 */
 var account = require('../model/userAccModel');
+var errorHandler = require('./errorHandler');
 
 var users = {};
 
@@ -52,13 +53,23 @@ exports.logout = function(req, res){
 }
 
 var checkUser = function(param, cb){
-    if(users[param]){
+    return cb(users[param] == undefined ? null : users[param]);
+    /* if(users[param]){
         cb(users[param]);
     }else{
         cb(null);
-    }
+    } */
 }
 
 exports.getUser = function(id){
     return users[id] == undefined ? null : users[id];
+}
+
+exports.checkAJAX = function(req, res, next){
+    if(req.xhr == true){
+        next();
+    }else{
+        res.status(403);
+        errorHandler.error403(req, res);
+    }
 }

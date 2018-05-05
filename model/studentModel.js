@@ -28,19 +28,11 @@ Model.get = function (id, field, cb) {
     });
 }
 
-Model.getAll = function (id, cb) {
-    var sql = "SELECT * FROM studentinformation WHERE id = ?";
-    db.get().query(sql, [id], function (err, result) {
-        if (err) return cb(err);
-        cb(null, result[0]);
-    });
-}
-
 Model.getList = function (offset, limit, cb) {
-    var sql = "SELECT * FROM studentinformation WHERE id < ? ORDER BY id DESC LIMIT ?";
+    var sql = "SELECT * FROM studentinformation WHERE id > ? ORDER BY id ASC LIMIT ?";
     db.get().query(sql, [offset, limit], function(err, result){
         if(err) return cb(err);
-        cb(null, result[0]);
+        cb(null, result);
     });
 }
 

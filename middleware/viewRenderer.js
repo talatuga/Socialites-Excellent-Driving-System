@@ -21,13 +21,21 @@ exports.user = function(req, res, next){
     res.render('sample',{title: 'Sample EJS Implementaion'});
 }
 
-var getUserInfo = function(data, cb){
+var getUserInfo = function(data, cb){ //REPAIR THIS WHOLE UNIT!!!! 
     var models = ['admin', 'studentModel', 'instructorModel', 'branchModel'];
     var model = require('../model/' + models[data.accType]);
-    model.getAll(data.accID, function(err, result){
+    model.get(data.accID, function(err, result){
         if(err) return cb(err);
-        cb(null, result);
+        model.getList(0, 10, function(err, result1){
+            result = {};
+            result['studentData'] = result1;
+            cb(null, result);
+        });
     });
+}
+
+exports.error = function(req, res, next){
+    res.render("admin/error-partials/error", res.locals.data);
 }
 /*  //SD: Ano ganap ba dito? Explain ko...
     

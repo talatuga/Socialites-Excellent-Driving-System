@@ -9,6 +9,6 @@ router.use(authentication.auth);
 router.route('/')
     .get(viewRenderer.admin)
     .post(authentication.login, viewRenderer.admin);
-router.post('/logout', authentication.logout);
+router.get('/logout', authentication.logout);
 
 module.exports = router;

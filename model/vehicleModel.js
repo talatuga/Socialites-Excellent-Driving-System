@@ -10,7 +10,7 @@ Model.create = function (data, cb) {
     });
 }
 
-Model.get = function (id, field, cd) {
+Model.get = function (id, field, cb) {
     if (typeof field == "function") {
         cb = field;
         field = null;
@@ -28,19 +28,11 @@ Model.get = function (id, field, cd) {
     });
 }
 
-Model.getAll = function(id, cb){
-    var sql = "SELECT * FROM vehicle WHERE id = ?";
-    db.get().query(sql, [id], function (err, result) {
-        if (err) return cb(err);
-        cb(null, result[0]);
-    });
-}
-
 Model.getList = function(offset, limit, cb){
-    var sql = "SELECT * FROM vehicle WHERE id < ? ORDER BY id DESC LIMIT ?";
-    db.get().query(sql, [offset, limit], function(err, result){
+    var sql = "SELECT * FROM vehicle WHERE id BETWEEN ? AND ? ORDER BY id DESC";
+    db.get().query(sql, [offset, offset + limit], function(err, result){
         if(err) return cb(err);
-        cb(null, result[0]);
+        cb(null, result);
     });
 }
 

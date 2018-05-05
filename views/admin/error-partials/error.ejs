@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title><%=title%></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" sizes="96x96" href="assets/images/icon.png">
+    <!-- CSS imports -->
+    <% include ../../utils/adminCSS %>
+</head>
+
+<body>
+    <div class="container">
+        <div class="main_container">
+            <div class="col-md-12 col-lg-12">
+                <div class="col-middle">
+                    <div class="text-center">
+                        <h1 class="error-number"><%=title%></h1>
+                        <p><%=detail%></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% include ../../utils/adminJS %>
+</body>
+</html>

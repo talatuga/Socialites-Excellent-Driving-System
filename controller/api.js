@@ -1,24 +1,16 @@
 /* 
     api.js, dito lahat ng api nang system.
     seperated into two api's, admin and public
-    sa admin api lahat ng admin related request(SECURED)
-    where sa public naman lahat ng public request(UNSECURED)
     WARNING: changes here may cause major error and stop system from working. Please Update with care.
 */
 
 var router = require('express').Router();
 
-//Version 1.0.0 API
-var v1 = require('express').Router();
-//Current API's, may vary on versions
-var admin = require('./admin/api');
-var main = require('./main/api');
-// admin & public api
-v1.use(admin);
-v1.use(main);
+router.use(require('../middleware/authentication').checkAJAX);         //Check if request is AJAX
 
-// Route registration
-router.use('/v1', v1);
+//Current API's, may vary on versions
+var v1 = require('./v1/mainRoute'); //Version 1.0.0 API
+router.use('/v1', v1);              // Route registration
 
 //Export main router for routes.js routing
 module.exports = router;
