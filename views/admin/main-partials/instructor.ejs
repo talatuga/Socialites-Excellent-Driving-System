@@ -61,7 +61,7 @@
                 <div class="col-lg-6">
                     <div class="card">
                         <div class="pull-right">
-                            <button type="button" id="btnNewInstructor" class="btn btn-success m-b-10 m-l-5" data-toggle="modal" data-target="#new-instructor">New Instructor</button>
+                            <button type="button" id="btnNewInstructor" onclick="resetNewInstr()" class="btn btn-success m-b-10 m-l-5">New Instructor</button>
                         </div>
                     </div>
                     <div class="card">
@@ -79,7 +79,7 @@
                                 <span class="fa fa-phone fa-red"></span> <span id="instPhone">0956 586 7353</span><br>
                                 <span class="fa fa-envelope fa-red"></span> <span id="instEmail">gtatel0517@gmail.com</span>
                                 <br><br><br><br>
-                                <button type="button" id="btnViewInstructor" class="btn btn-danger m-b-10 m-l-5">View Profile</button>
+                                <button type="button" id="btnViewInstructor" class="btn btn-primary m-b-10 m-l-5">View Profile</button>
                             </div>
                         </div> <!-- End of row -->
                     </div>
@@ -90,40 +90,86 @@
 </div>
 
 <!-- New Instructor Modal -->
-    <div class="modal fade" id="new-instructor" tabindex="-1" role="dialog" aria-labelledby="new-instructor">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" id="myModalLabel"><strong>ADD</strong> New Instructor</h3>
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
+<div class="modal fade" id="newInstructor" tabindex="-1" role="dialog" aria-labelledby="newInstructor" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel"><strong>ADD</strong> New Instructor</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <h5>Fill out all required (<span class="asterisk">*</span>)fields.</h5><hr>
+        <form>
+            <div class="table-responsive">
+                <table class="table customtbl">
+                    <thead></thead>
+                    <tbody>
+                        <tr>
+                            <td width="30%"><label class="control-label customLbl pull-right" for="newInstFirstname">First Name: <span class="asterisk">*</span></label></td>
+                            <td><input type="text" class="customTxtInput pull-left input-flat" id="newInstFirstname" placeholder="Juan"></td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label customLbl pull-right" for="newInstMidname">Middle Name: </label></td>
+                            <td><input type="text" class="customTxtInput pull-left input-flat" id="newInstMidname" placeholder="Santos"></td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label customLbl pull-right" for="newInstSurname">Surname: <span class="asterisk">*</span></label></td>
+                            <td><input type="text" class="customTxtInput pull-left input-flat" id="newInstSurname" placeholder="Dela Cruz"></td>
+                        </tr>
+                        <tr>
+                            <td width="30%"><label class="control-label customLbl pull-right" for="newInstGender">Sex: <span class="asterisk">*</span></label></td>
+                            <td class="pull-left"><label><input type="radio" class="flat" name="newInstGender" id="g1NI" value="M"> Male</label>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<label><input type="radio" class="flat" name="newInstGender" id="g2NI" value="F"> Female</label></td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label customLbl pull-right" for="newInstBday">Date of Birth: <span class="asterisk">*</span></label></td>
+                            <td><input type="date" class="form-control customTxtInput pull-left input-flat" id="newInstBday" placeholder="dd/mm/yyyy"></td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label customLbl pull-right" for="newInstAddress">Address: <span class="asterisk">*</span></label></td>
+                            <td><input type="text" class="customTxtInput pull-left input-flat" id="newInstAddress" placeholder="Blk 43 Lot 1, Novaliches, Quezon City"></td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label customLbl pull-right" for="newInstPhone">Phone Number: <span class="asterisk">*</span></label></td>
+                            <td><input type="text" class="customTxtInput pull-left input-flat" id="newInstPhone" placeholder="09123456789"></td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label customLbl pull-right" for="newInstEmail">Email Address: <span class="asterisk">*</span></label></td>
+                            <td><input type="email" class="customTxtInput pull-left input-flat" id="newInstEmail" placeholder="juansdcruz@gmail.com"></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <div class="modal-body">
-                <form>
-                    <div class="row">
-                        <div class="col-lg-4 col-md-4">
-                            <!-- <label class="control-label">First Name <span class="asterisk">*</span></label>
-                            <input type="text" id="firstName" class="form-control"> -->
-                            <label class="control-label">First Name <span class="asterisk">*</span></label>
-                            <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="First Name">
-                            <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                        </div>
-                        <div class="col-lg-4 col-md-4">
-                            <label class="control-label">Middle Name</label>
-                            <input type="text" id="midName" class="form-control">
-                        </div>
-                        <div class="col-lg-4 col-md-4">
-                            <label class="control-label">Surname <span class="asterisk">*</span></label>
-                            <input type="text" id="surName" class="form-control">
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" id="btnConfAddInstr" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" id="btnCancAddInstr" class="btn btn-primary">Save changes</button>
-            </div>
-
-            </div>
-        </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="btnCancAddInstr" class="btn btn-light" data-dismiss="modal">Cancel</button>
+        <button type="button" id="btnConfAddInstr" class="btn btn-primary" onclick="resetConfNewInstr()">Add Instructor</button>
+      </div>
     </div>
+  </div>
+</div>
+
+<!-- Confirm Modal -->
+<div class="modal fade" id="confirmAddInstructor" tabindex="-1" role="dialog" aria-labelledby="confirmAddInstructor" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel"><strong>CONFIRM:</strong> New Instructor</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          Please enter the administrator's password to continue. <br><br>
+          <input type="password" class="customTxtInput pull-left" id="confPass" class="form-control">
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="btnCancConfAI" class="btn btn-light" data-dismiss="modal">Cancel</button>
+        <button type="button" id="btnConfConfAI" class="btn btn-primary">Confirm</button>
+      </div>
+    </div>
+  </div>
 </div>

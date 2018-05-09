@@ -10,7 +10,11 @@ exports.admin = function (req, res, next){
         var user = auth.getUser(req.sessionID);
         getUserInfo(user, function(err, data){
             if(err) return next(new Error(err));
-            res.render('admin/index', data);
+            if(req.method == "POST"){
+                res.status(200).send({sucess: true, detail: "Successfully Login!"});
+            }else{
+                res.render('admin/index', data);
+            }
         });
     } else {
         res.render('admin/login');

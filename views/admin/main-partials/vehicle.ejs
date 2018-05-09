@@ -3,18 +3,176 @@
     <div class="row page-titles">
         <div class="col-md-5 align-self-center">
             <h3 class="text-primary">Vehicles</h3> </div>
-        <div class="col-md-7 align-self-center">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                <li class="breadcrumb-item active">Vehicles</li>
-            </ol>
-        </div>
     </div>
     <!-- End Bread crumb -->
     <!-- Container fluid  -->
     <div class="container-fluid">
-        <!-- Start Page Content -->
-        <!-- End Page Content -->
+        <!-- Start of Card  -->
+        <div class="studentCard">
+            <div class="row studentCard">
+                <!-- Start of col-lg-5 -->
+                <div class="card col-lg-6 scrollXCard">
+                    <div class="form-group">
+                        <div class="input-group input-group-flat">
+                            <span class="input-group-btn"><button class="btn btn-custom" type="submit"><i class="ti-search"></i></button></span>
+                            <input type="text" class="form-control" placeholder="Search..." style="font-size: 12px;">
+                            <span class="input-group-btn"><button class="btn btn-primary input-group-close-icon" type="submit"><i class="ti-close"></i></button></span>
+                        </div>
+                    </div><br>
+                    <h4 class="card-title">List of Vehicles</h4><br>
+                    <div class="table-responsive">
+                        <table class="table tblVehicle table-hover">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Brand</th>
+                                    <th>Model</th>
+                                    <th>Type</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Toyota</td>
+                                    <td>Vios (Sedan)</td>
+                                    <td>Automatic</td>
+                                    <td><span class="badge badge-success">Available</span></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Toyota</td>
+                                    <td>Corolla Atlis (Sedan)</td>
+                                    <td>Automatic</td>
+                                    <td><span class="badge badge-success">Available</span></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Toyota</td>
+                                    <td>Corolla Atlis (Sedan)</td>
+                                    <td>Manual</td>
+                                    <td><span class="badge badge-danger">Coding</span></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>Toyota</td>
+                                    <td>Corolla Atlis (Sedan)</td>
+                                    <td>Manual</td>
+                                    <td><span class="badge badge-warning">In Use</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- End of col-lg-5 -->
+
+                <!-- Start of col-lg-6 -->
+                <div class="col-lg-6 scrollXCard">
+                    <div class="card">
+                        <div class="pull-right">
+                            <button type="button" id="btnNewVehicle" onclick="resetNewVehicle()" class="btn btn-success m-b-10 m-l-5">New Vehicle</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>Vehicle Information</h3><hr>
+                        <div style="padding-left: 30px;">
+                            <div class="row">
+                                <div class="col-md-8 col-lg-8 col-sm-7 col-xs-7">
+                                    <h4 id="vehiName">Toyota, Vios (Sedan)</h4>
+                                    <h6>ID: <span id="vehiID">V0001-A</span></h6>
+                                </div>
+                                <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1">
+                                    <i class="ti-pencil tiV" id="btnEditVehi" onclick="confEditVehicle()" data-toggle="tooltip" data-placement="bottom" title="Update"></i>
+                                </div>
+                                <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1">
+                                    <i class="ti-trash tiV" id="btnDelVehi" onclick="confDelVehicle()" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
+                                </div>
+                                <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1">
+                                    <i class="ti-calendar tiV" id="btnSchedVehi" data-toggle="tooltip" data-placement="bottom" title="Schedule"></i>
+                                </div>
+                            </div><hr>
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                                    <span class="fa fa-automobile fa-red fa-rightB">&nbsp;&nbsp;</span>
+                                        <span id="vehiPlate"> AAA 1234</span>
+                                        <input type="text" class="customTxtInput2 input-flat" id="editVehiPlate" placeholder="AAA 123"><br>
+                                    <span class="fa fa-close fa-red fa-rightB">&nbsp;&nbsp;</span>
+                                        <span id="vehiCoding"> Monday</span>
+                                        <select class="customTxtInput2 input-flat" id="editVehiCoding">
+                                            <option>Monday</option>
+                                            <option>Tuesday</option>
+                                            <option>Wednesday</option>
+                                            <option>Thursday</option>
+                                            <option>Friday</option>
+                                            <option>Saturday</option>
+                                            <option>Sunday</option>
+                                        </select>
+                                </div>
+                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                                    <span class="fa fa-user fa-red fa-rightB">&nbsp;&nbsp;</span>
+                                        <span id="vehiInst"> Harry James Potter</span>
+                                        <select class="customTxtInput2 input-flat" id="editVehiInst">
+                                            <option>Harry James Potter</option>
+                                            <option>Dobby</option>
+                                            <option>Bellatrix Lestrange</option>
+                                            <option>Merula Synide</option>
+                                            <option>Clarissa Fray</option>
+                                            <option>---</option>
+                                        </select><br>
+                                </div>
+                            </div><br><br><hr>
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                                    <h4 class="card-title">Defect(s):</h4>
+                                </div>
+                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                                    <i class="ti-plus tiV" id="btnAddDefVehi" onclick="addDefVehi()" data-toggle="tooltip" data-placement="bottom" title="Add Defect(s)"></i>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table tblVehicleDef table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Part</th>
+                                            <th>Damage</th>
+                                            <th>Significance</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Tires</td>
+                                            <td>Deflated</td>
+                                            <td><span class="text-warning"></span>3</td>
+                                            <td><i class="ti-check tiDef" id="btnDoneDefVehi" onclick="doneDefVehi()" data-toggle="tooltip" data-placement="bottom" title="Fixed Defect"></i>
+                                                <i class="ti-close tiDef1" id="btnCancDefVehi" onclick="cancDefVehi()" data-toggle="tooltip" data-placement="bottom" title="Cancel/Remove"></i></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Brake</td>
+                                            <td>Broke</td>
+                                            <td><span class="text-danger"></span>5</td>
+                                            <td><i class="ti-check tiDef" id="btnDoneDefVehi" onclick="doneDefVehi()" data-toggle="tooltip" data-placement="bottom" title="Fixed Defect"></i>
+                                                <i class="ti-close tiDef1" id="btnCancDefVehi" onclick="cancDefVehi()" data-toggle="tooltip" data-placement="bottom" title="Cancel/Remove"></i></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Plate Number</td>
+                                            <td>Missing</td>
+                                            <td><span class="text-danger"></span>5</td>
+                                            <td><i class="ti-check tiDef" id="btnDoneDefVehi" onclick="doneDefVehi()" data-toggle="tooltip" data-placement="bottom" title="Fixed Defect"></i>
+                                                <i class="ti-close tiDef1" id="btnCancDefVehi" onclick="cancDefVehi()" data-toggle="tooltip" data-placement="bottom" title="Cancel/Remove"></i></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div><br>
+                            <button type="button" id="btnDoneEditVehi" onclick="doneEditVehi()" class="btn btn-success m-b-10 m-l-5">Save Changes</button>
+                            <button type="button" id="btnCancEditVehi" onclick="cancEditVehi()" class="btn btn-danger m-b-10 m-l-5">Cancel</button>
+                            <!-- <i class="ti-check tiV" id="btnDoneEditVehi" onclick="doneEditVehi()" data-toggle="tooltip" data-placement="bottom" title="Done"></i>
+                            <i class="ti-close tiV" id="btnCancEditVehi" onclick="cancEditVehi()" data-toggle="tooltip" data-placement="bottom" title="Cancel"></i> -->
+                        </div>
+                    </div>
+                </div> <!-- End of col-lg-6 -->
+            </div> <!-- End of row -->
+        </div><!-- End of Card  -->
     </div>
     <!-- End Container fluid  -->
 </div>

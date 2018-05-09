@@ -1,0 +1,162 @@
+<div class="view-newVehicle">
+    <!-- Bread crumb -->
+    <div class="row page-titles">
+        <div class="col-md-8 align-self-center">
+            <span class="fa fa-chevron-left float-left backVehicle"></span>
+            <h3 class="text-primary">New Vehicle</h3> 
+        </div>
+    </div>
+    <!-- End Bread crumb -->
+
+    <div class="container-fluid">
+        <!-- Start of Card  -->
+        <div class="instructorCard">
+            <div class="row instructorCard">
+                <!-- Start of col-lg-3 -->
+                <div class="col-lg-3">
+                    <div class="card">
+                        <center>
+                            <span><img src="assets/images/user-medium.png" alt="Student Picture" class="instPic"/></span><br><br>
+                            <h4 id="instName">Harry James Potter</h4>
+                            <h6 id="instNum">INST-001</h6><hr width="30%">
+                        </center>
+                            <span><span class="fa fa-map-marker fa-red"></span> <span id="instAddress">Sapang Palay, CSJDM, Bulacan</span></span>
+                            <span><span class="fa fa-phone fa-red"></span> <span id="instPhone">0956 586 7353</span></span>
+                            <span><span class="fa fa-envelope fa-red"></span> <span id="instEmail">gtatel0517@gmail.com</span></span>
+                    </div>
+                </div>
+                <!-- End of col-lg-3 -->
+
+                <!-- Start of col-lg-9 -->
+                <div class="col-lg-9">
+                    <div class="card">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs profile-tab" role="tablist">
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#scheduleI" role="tab">Schedule</a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#evaluationI" role="tab">Evaluation</a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#settingsI" role="tab">Settings</a> </li>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <!--first tab-->
+                            <div class="tab-pane active" id="scheduleI" role="tabpanel">
+                                <div class="card-body"> 
+                                    <div id='calendar'>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--second tab-->
+                            <div class="tab-pane" id="evaluationI" role="tabpanel">
+                                <div class="card-body">
+                                    <div class="profiletimeline instTab">
+                                        <div class="sl-item">
+                                            <div class="sl-left"> <img src="assets/images/user4.png" alt="Student" id="studEvalPic" class="img-circle" /> </div>
+                                            <div class="sl-right">
+                                                <div><a href="#" class="link" id="studEvalName">Graciella Custodio Tatel</a> <span class="sl-date">May 2, 2018</span>
+                                                    <br><br><p style="color: #455a64;">Evaluation Grade: <span class="studEvalGrade">Satisfied</span></p>
+                                                    <p class="m-t-10 studEvalMsg"> Super lupet mo, sir! Kung may grade lang na SUPER PASSED, yun na po nilagay ko. Grabe hanep! Labyu sir </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="sl-item">
+                                            <div class="sl-left"> <img src="assets/images/user2.png" alt="Student" id="studEvalPic" class="img-circle" /> </div>
+                                            <div class="sl-right">
+                                                <div><a href="#" class="link" id="studEvalName">Zachary David Alexander Efron</a> <span class="sl-date">April 29, 2018</span>
+                                                    <br><br><p style="color: #455a64;">Evaluation Grade: <span class="studEvalGrade">Somewhat Satisfied</span></p>
+                                                    <p class="m-t-10 studEvalMsg"> Such an amazing instructor but uhh, has a bad smell. </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="sl-item">
+                                            <div class="sl-left"> <img src="assets/images/user3.png" alt="Student" id="studEvalPic" class="img-circle" /> </div>
+                                            <div class="sl-right">
+                                                <div><a href="#" class="link" id="studEvalName">Clarissa Fray</a> <span class="sl-date">April 23, 2018</span>
+                                                    <br><br><p style="color: #455a64;">Evaluation Grade: <span class="studEvalGrade">Not Satisfied</span></p>
+                                                    <p class="m-t-10 studEvalMsg"> Lagi kang late! Lupet! Never again!! Ekis ka</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!--third tab-->
+                            <div class="tab-pane" id="settingsI" role="tabpanel">
+                                <div class="card-body">
+                                    <form class="form-horizontal form-material instTab">
+                                        <div class="form-group">
+                                            <label class="col-md-12 customLbl">First Name <span class="asterisk">*</span></label>
+                                            <div class="col-md-12">
+                                                <input type="text" id="editInstAccFN" placeholder="Juan" class="form-control form-control-line">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-12 customLbl">Middle Name </label>
+                                            <div class="col-md-12">
+                                                <input type="text" id="editInstAccMN" placeholder="Santos" class="form-control form-control-line">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-12 customLbl">Surname <span class="asterisk">*</span></label>
+                                            <div class="col-md-12">
+                                                <input type="text" id="editInstAccLN" placeholder="Dela Cruz" class="form-control form-control-line">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-12 customLbl">Sex <span class="asterisk">*</span></label>
+                                            <div class="col-md-12">
+                                                <select class="form-control form-control-line" id="editInstAccSex">
+                                                    <option>Male</option>
+                                                    <option>Female</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-12 customLbl">Date of Birth <span class="asterisk">*</span></label>
+                                            <div class="col-md-12">
+                                                <input type="date" id="editInstAccBday" class="form-control form-control-line" id="newInstBday" placeholder="dd/mm/yyyy">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-12 customLbl">Address <span class="asterisk">*</span></label>
+                                            <div class="col-md-12">
+                                                <input type="text" id="editInstAccAdd" placeholder="Blk 43 Lot 1, Novaliches, Quezon City" class="form-control form-control-line">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-12 customLbl">Phone Number <span class="asterisk">*</span></label>
+                                            <div class="col-md-12">
+                                                <input type="number" id="editInstAccPhone" placeholder="09123456789" class="form-control form-control-line" min="999999999999" max="999999999999">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label "customLbl" class="col-md-12">Email Address <span class="asterisk">*</span></label>
+                                            <div class="col-md-12">
+                                                <input type="email" id="editInstAccEmail" placeholder="juansdcruz@gmail.com" class="form-control form-control-line">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-12 customLbl">Password <span class="asterisk">*</span></label>
+                                            <div class="col-md-12">
+                                                <input type="password" id="editInstAccPW" value="password" class="form-control form-control-line">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <button class="btn btn-danger pull-left btnDelInstAcc">Delete Account</button>
+                                                <button class="btn btn-primary pull-right btnUpdateInstAcc">Update Account</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- End of col-lg-9 -->
+            </div> <!-- End of row -->
+        </div><!-- End of Card  -->
+    </div>
+</div>
