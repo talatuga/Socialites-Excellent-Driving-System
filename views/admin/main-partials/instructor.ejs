@@ -30,7 +30,7 @@
                                     <th>Status</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="instructorTable">
                                 <tr>
                                     <td>1</td>
                                     <td>Graciella Tatel</td>
@@ -70,14 +70,14 @@
                             <div class="col-md-5 col-lg-5">
                                 <span><img src="assets/images/user-medium.png" alt="Student Picture" class="studPic"/></span><br><br>
                                 <center>
-                                    <h6 id="instNum">INST-00001-MN-0</h6>
+                                    <h6 class="instNum">INST-00001-MN-0</h6>
                                 </center>
                             </div>
                             <div class="col-md-7 col-lg-7" style="padding-left: 30px;">
-                                <h4 id="instName">Harry James Potter</h4>
-                                <span class="fa fa-map-marker fa-red"></span> <span id="instAddress">Sapang Palay, CSJDM, Bulacan</span><br>
-                                <span class="fa fa-phone fa-red"></span> <span id="instPhone">0956 586 7353</span><br>
-                                <span class="fa fa-envelope fa-red"></span> <span id="instEmail">gtatel0517@gmail.com</span>
+                                <h4 class="instName">Harry James Potter</h4>
+                                <span class="fa fa-map-marker fa-red"></span> <span class="instAddress">Sapang Palay, CSJDM, Bulacan</span><br>
+                                <span class="fa fa-phone fa-red"></span> <span class="instPhone">0956 586 7353</span><br>
+                                <span class="fa fa-envelope fa-red"></span> <span class="instEmail">gtatel0517@gmail.com</span>
                                 <br><br><br><br>
                                 <button type="button" id="btnViewInstructor" class="btn btn-primary m-b-10 m-l-5">View Profile</button>
                             </div>
@@ -121,7 +121,7 @@
                         <tr>
                             <td width="30%"><label class="control-label customLbl pull-right" for="newInstGender">Sex: <span class="asterisk">*</span></label></td>
                             <td class="pull-left"><label><input type="radio" class="flat" name="newInstGender" id="g1NI" value="M"> Male</label>
-                                &nbsp;&nbsp;&nbsp;&nbsp;<label><input type="radio" class="flat" name="newInstGender" id="g2NI" value="F"> Female</label></td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<label><input type="radio" class="flat" name="newInstGender" id="g1NI" value="F"> Female</label></td>
                         </tr>
                         <tr>
                             <td><label class="control-label customLbl pull-right" for="newInstBday">Date of Birth: <span class="asterisk">*</span></label></td>
