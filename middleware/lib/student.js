@@ -1,9 +1,10 @@
 var student = require('../../model/studentModel');
 
 exports.create = function(req, res, next){
-    var dat = req.body["data[]"];
-    //VALIDATIONS
-    student.create(dat,function(err, result){
+    var data = req.body["data[]"];
+    //VALIDATIONS 
+    data.unshift(null);
+    student.create(data,function(err, result){
         if(err) return next(err);
         res.status(200).send({detail: "Successfully Added!"});
     });

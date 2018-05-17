@@ -1,72 +1,40 @@
 var db = require('./db');
+var ModelModule = require('./model');
+var UserInfo = require('./userInfoModel');
+var table = "instructor";
 
-var Model = {}
-
-Model.create = function (data, cb) {
-    var sql = "INSERT INTO `instructor` (`fullname`, `address`, `telno`, `birthdate`, `sex`) VALUES (?, ?, ?, ?, ?);";
-    db.get().query(sql, data, function(err, result){
-        if(err) return cb(err);
-        cb(null, true);
-    });
+//Constructor
+var Instructor = function(tableName, database){
+    ModelModule.apply(this, arguments);
+    this.tableName = tableName;
 }
+Instructor.prototype = ModelModule.prototype;
+Instructor.prototype.constructor = Instructor;
 
-Model.get = function (id, field, cd) {
-    if (typeof field == "function") {
-        cb = field;
-        field = null;
-    }
-    var sql = "";
-    if (field == null) {
-        sql = "SELECT * FROM instructor WHERE id = ?";
-    } else {
-        field = field.replace(';', '');
-        sql = "SELECT " + field + " as field FROM instructor WHERE id = ?";
-    }
-    db.get().query(sql, [id], function (err, result) {
-        if (err) return cb(err);
-        cb(null, field == null ? result[0] : result[0].field);
-    });
-}
+//Custom codes here: Instructor.prototype
 
-Model.getAll = function(id, cb){
-    var sql = "SELECT * FROM instructor WHERE id = ?";
-    db.get().query(sql, [id], function (err, result) {
-        if (err) return cb(err);
-        cb(null, result[0]);
-    });
-}
-
-Model.getList = function(offset, limit, cb){
-    var sql = "SELECT * FROM instructor WHERE id < ? ORDER BY id DESC LIMIT ?";
+//Override getList() function from parent model class.
+Instructor.prototype.getList = function(offset, limit, cb){
+    var sql = "CALL getInstList(?,?)";
     db.get().query(sql, [offset, limit], function(err, result){
         if(err) return cb(err);
         cb(null, result[0]);
     });
 }
 
-Model.update = function (id, param, field, cb) {
-    if (typeof field == "function") {
-        cb = field;
-        field = null;
-    }
-    var sql = "";
-    var data = param;
-    if (field == null) {
-        sql = "UPDATE `instructor` SET fullname`= ?, `address`= ?, `telno`= ?, `birthdate`= ?, `sex`= ? WHERE `id`= ?";
-        data.push(id);
-    } else {
-        field = field.replace(';', '');        
-        sql = "UPDATE `instructor` SET " + field + " = ? WHERE `id` = ?";
-        data = [param, id]
-    }
-    db.get().query(sql, data, function (err, result) {
-        if (err) return cb(err);
-        cb(null, true);
+Instructor.prototype.getInf = function(accID, cb){
+    UserInfo.getInfo(accID, function(err, result){
+        if(err) return cb(err);
+        cb(null, result);
     });
 }
 
-Model.delete = function (id, cb) {
-    //Unavailable; for evaluation muna.
+Instructor.prototype.getVacant = function(id, cb){
+    var sql = "SELECT vacant FROM " + this.tableName + " WHERE id = ?";
+    db.get().query(sql, [id], function(err, result){
+        if(err) return cb(err);
+        cb(null, result);
+    });
 }
 
-module.exports = Model;
+module.exports = new Instructor(table, db); //Export model for middleware use.

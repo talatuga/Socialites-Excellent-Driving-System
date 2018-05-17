@@ -17,12 +17,12 @@
                     <div class="card">
                         <center>
                             <span><img src="assets/images/user-medium.png" alt="Student Picture" class="instPic"/></span><br><br>
-                            <h4 id="instName">Harry James Potter</h4>
-                            <h6 id="instNum">INST-001</h6><hr width="30%">
+                            <h4 class="instName">Harry James Potter</h4>
+                            <h6 class="instNum">INST-001</h6><hr width="30%">
                         </center>
-                            <span><span class="fa fa-map-marker fa-red"></span> <span id="instAddress">Sapang Palay, CSJDM, Bulacan</span></span>
-                            <span><span class="fa fa-phone fa-red"></span> <span id="instPhone">0956 586 7353</span></span>
-                            <span><span class="fa fa-envelope fa-red"></span> <span id="instEmail">gtatel0517@gmail.com</span></span>
+                            <span><span class="fa fa-map-marker fa-red"></span> <span class="instAddress">Sapang Palay, CSJDM, Bulacan</span></span>
+                            <span><span class="fa fa-phone fa-red"></span> <span class="instPhone">0956 586 7353</span></span>
+                            <span><span class="fa fa-envelope fa-red"></span> <span class="instEmail">gtatel0517@gmail.com</span></span>
                     </div>
                 </div>
                 <!-- End of col-lg-3 -->
@@ -33,8 +33,8 @@
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs profile-tab" role="tablist">
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#scheduleI" role="tab">Schedule</a> </li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#evaluationI" role="tab">Evaluation</a> </li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#settingsI" role="tab">Settings</a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#evaluationI" role="tab" onclick="loadEval('inst')">Evaluation</a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#settingsI" role="tab" onclick="renderInstEdit()">Settings</a> </li>
                         </ul>
                         <!-- Tab panes -->
                         <div class="tab-content">
@@ -90,27 +90,27 @@
                                         <div class="form-group">
                                             <label class="col-md-12 customLbl">First Name <span class="asterisk">*</span></label>
                                             <div class="col-md-12">
-                                                <input type="text" id="editInstAccFN" placeholder="Juan" class="form-control form-control-line">
+                                                <input type="text" id="editInstAccFN" placeholder="" class="form-control form-control-line">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-12 customLbl">Middle Name </label>
                                             <div class="col-md-12">
-                                                <input type="text" id="editInstAccMN" placeholder="Santos" class="form-control form-control-line">
+                                                <input type="text" id="editInstAccMN" placeholder="" class="form-control form-control-line">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-12 customLbl">Surname <span class="asterisk">*</span></label>
                                             <div class="col-md-12">
-                                                <input type="text" id="editInstAccLN" placeholder="Dela Cruz" class="form-control form-control-line">
+                                                <input type="text" id="editInstAccLN" placeholder="" class="form-control form-control-line">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-12 customLbl">Sex <span class="asterisk">*</span></label>
                                             <div class="col-md-12">
                                                 <select class="form-control form-control-line" id="editInstAccSex">
-                                                    <option>Male</option>
-                                                    <option>Female</option>
+                                                    <option value="M">Male</option>
+                                                    <option value="F">Female</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -123,31 +123,31 @@
                                         <div class="form-group">
                                             <label class="col-md-12 customLbl">Address <span class="asterisk">*</span></label>
                                             <div class="col-md-12">
-                                                <input type="text" id="editInstAccAdd" placeholder="Blk 43 Lot 1, Novaliches, Quezon City" class="form-control form-control-line">
+                                                <input type="text" id="editInstAccAdd" placeholder="" class="form-control form-control-line">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-12 customLbl">Phone Number <span class="asterisk">*</span></label>
                                             <div class="col-md-12">
-                                                <input type="number" id="editInstAccPhone" placeholder="09123456789" class="form-control form-control-line" min="999999999999" max="999999999999">
+                                                <input type="number" id="editInstAccPhone" placeholder="" class="form-control form-control-line" min="1" max="999999999999">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label "customLbl" class="col-md-12">Email Address <span class="asterisk">*</span></label>
                                             <div class="col-md-12">
-                                                <input type="email" id="editInstAccEmail" placeholder="juansdcruz@gmail.com" class="form-control form-control-line">
+                                                <input type="email" id="editInstAccEmail" placeholder="" class="form-control form-control-line">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-12 customLbl">Password <span class="asterisk">*</span></label>
                                             <div class="col-md-12">
-                                                <input type="password" id="editInstAccPW" value="password" class="form-control form-control-line">
+                                                <input type="password" id="editInstAccPW" value="" class="form-control form-control-line">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-sm-12">
-                                                <button class="btn btn-danger pull-left btnDelInstAcc">Delete Account</button>
-                                                <button class="btn btn-primary pull-right btnUpdateInstAcc">Update Account</button>
+                                                <button class="btn btn-danger pull-left btnDelInstAcc" onclick="delInst()">Delete Account</button>
+                                                <button class="btn btn-primary pull-right btnUpdateInstAcc" onclick="updateInst()">Update Account</button>
                                             </div>
                                         </div>
                                     </form>

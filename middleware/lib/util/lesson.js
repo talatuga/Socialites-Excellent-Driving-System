@@ -1,4 +1,4 @@
-var car = require('../../model/vehicleModel');
+var lesson = require('../../../model/lessonModel');
 
 exports.create = function(req, res, next){
     if(res.locals.authenticated == 0) return next();
@@ -6,7 +6,7 @@ exports.create = function(req, res, next){
     var data = JSON.parse(req.body.data);
     data.unshift(null);
     data.push(1);
-    car.create(data, function(err, result){
+    lesson.create(data, function(err, result){
         if(err) return next(err);
         res.status(200).send({success: true, detail: "Successfully Created!"});
     });
@@ -19,7 +19,7 @@ exports.get = function(req, res, next){
         if(query){
         }else{
             var field = param.field == undefined ? null : param.field;
-            car.get(param.id, field, function(err, result){
+            lesson.get(param.id, field, function(err, result){
                 if(err) return next(err);
                 res.status(200).send({success: true, data: result});                
             });
@@ -27,7 +27,7 @@ exports.get = function(req, res, next){
     }else{
         var offset = query.offset == undefined ? 0 : parseInt(query.offset);
         var limit = query.limit == undefined ? 10 : parseInt(query.limit);
-        car.getList(offset, limit, function(err, result){
+        lesson.getList(offset, limit, function(err, result){
             if(err) return next(err);
             res.status(200).send({success: true, data: result});
         });
@@ -41,7 +41,7 @@ exports.update = function(req, res, next){
     var field = req.params.field == undefined ? null : req.params.field.replace(';','');
     var data = JSON.parse(req.body.data);
 
-    car.update(id, data, field, function(err, result){
+    lesson.update(id, data, field, function(err, result){
         if(err) return next(err);
         res.status(200).send({success: true, detail: "Successfully Modify!"});
     });

@@ -6,7 +6,7 @@
 
 var router = require('express').Router();
 
-router.use(require('../middleware/authentication').checkAJAX);         //Check if request is AJAX
+//router.use(require('../middleware/authentication').checkAJAX);         //Check if request is AJAX
 
 //Current API's, may vary on versions
 var v1 = require('./v1/mainRoute'); //Version 1.0.0 API

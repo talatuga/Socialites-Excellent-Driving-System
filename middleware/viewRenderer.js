@@ -9,8 +9,8 @@ exports.admin = function (req, res, next){
     if (res.locals.authenticated == 1) {
         var user = auth.getUser(req.sessionID);
         getUserInfo(user, function(err, data){
-            if(err) return next(new Error(err));
-            if(req.method == "POST"){
+            if(err) return next(err);
+            if(req.xhr == true){
                 res.status(200).send({sucess: true, detail: "Successfully Login!"});
             }else{
                 res.render('admin/index', data);
@@ -26,15 +26,11 @@ exports.user = function(req, res, next){
 }
 
 var getUserInfo = function(data, cb){ //REPAIR THIS WHOLE UNIT!!!! 
-    var models = ['admin', 'studentModel', 'instructorModel', 'branchModel'];
+    var models = ['','adminModel', 'studentModel', 'instructorModel', 'branchModel'];
     var model = require('../model/' + models[data.accType]);
-    model.get(data.accID, function(err, result){
+    model.getInfo(data.accID, function(err, result){
         if(err) return cb(err);
-        model.getList(0, 10, function(err, result1){
-            result = {};
-            result['studentData'] = result1;
-            cb(null, result);
-        });
+        cb(null, result);
     });
 }
 

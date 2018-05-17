@@ -10,7 +10,7 @@ var renderer = require('./viewRenderer');
 exports.error500 = function(err, req, res, next){
     console.error("[SERVER] " + err + " Check error.log for information.");
     logger.errLogger(err.stack);
-    if(req.method == "POST"){
+    if(req.xhr == true){
         return res.status(500).send({error: 500, detail: "Internal Server Error. Sorry for the inconvience. We'll fix it soon."});
     }else{
         res.status(500);
@@ -20,7 +20,7 @@ exports.error500 = function(err, req, res, next){
 }
 
 exports.error404 = function(req, res) {
-    if(req.method == "POST"){
+    if(req.xhr == true){
         return res.status(404).send({});
     }else{
         res.status(404);
@@ -31,7 +31,7 @@ exports.error404 = function(req, res) {
 
 exports.error401 = function(req, res, next){
     if(res.locals.authenticated == 0){
-        if(req.method == "POST"){
+        if(req.xhr == true){
             res.status(401).send({detail: "Unauthorized Access"});
         }else{
             res.status(401);
@@ -44,7 +44,7 @@ exports.error401 = function(req, res, next){
 }
 
 exports.error403 = function(req, res, next){
-    if(req.method == "POST"){
+    if(req.xhr == true){
         return res.status(403).send({});
     }else{
         res.status(403);
