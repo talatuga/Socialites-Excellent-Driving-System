@@ -61,7 +61,7 @@
                 <div class="col-lg-6">
                     <div class="card">
                         <div class="pull-right">
-                            <button type="button" id="btnNewInstructor" onclick="resetNewInstr()" class="btn btn-success m-b-10 m-l-5">New Instructor</button>
+                            <button type="button" id="btnNewInstructor" class="btn btn-success m-b-10 m-l-5">New Instructor</button>
                         </div>
                     </div>
                     <div class="card">
@@ -90,7 +90,7 @@
 </div>
 
 <!-- New Instructor Modal -->
-<div class="modal fade" id="newInstructor" tabindex="-1" role="dialog" aria-labelledby="newInstructor" aria-hidden="true">
+<!-- <div class="modal fade" id="newInstructor" tabindex="-1" role="dialog" aria-labelledby="newInstructor" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -147,6 +147,105 @@
       <div class="modal-footer">
         <button type="button" id="btnCancAddInstr" class="btn btn-light" data-dismiss="modal">Cancel</button>
         <button type="button" id="btnConfAddInstr" class="btn btn-primary" onclick="resetConfNewInstr()">Add Instructor</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- New Instructor Modal -->
+<div class="modal fade" id="newInstructorModal" tabindex="-1" role="dialog" aria-labelledby="newInstructorModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <center>
+              <h2 class="modalH2AddVehi">ADD INSTRUCTOR ACCOUNT</h2>
+              <h6>Fill out all required (<span class="asterisk">*</span>) fields.</h6><br>
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6 defMod1Inst activeDefModInst">
+                <h4 class="defModTxt">Personal Information</h4>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6 defMod2Inst">
+                <h4 class="defModTxt">Account Login Details</h4>
+            </div>
+          </div><br>
+        </center>
+        <div class="divMod1Inst">
+            <center><h5>This includes instructor's personal information that shall be used for business purposes only.</h5><hr width="20%"></center>
+            <form>
+                <div class="table-responsive">
+                <table class="table customtbl">
+                    <thead></thead>
+                    <tbody>
+                        <tr>
+                            <td width="30%"><label class="control-label customLbl pull-right" for="newInstFirstname">First Name: <span class="asterisk">*</span></label></td>
+                            <td><input type="text" class="vehiTxtInput pull-left input-flat" id="newInstFirstname" placeholder="Juan"></td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label customLbl pull-right" for="newInstMidname">Middle Name: </label></td>
+                            <td><input type="text" class="vehiTxtInput pull-left input-flat" id="newInstMidname" placeholder="Santos"></td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label customLbl pull-right" for="newInstSurname">Surname: <span class="asterisk">*</span></label></td>
+                            <td><input type="text" class="vehiTxtInput pull-left input-flat" id="newInstSurname" placeholder="Dela Cruz"></td>
+                        </tr>
+                        <tr>
+                            <td width="30%"><label class="control-label customLbl pull-right" for="newInstGender">Sex: <span class="asterisk">*</span></label></td>
+                            <td class="pull-left"><label><input type="radio" class="sexRD flat" checked name="newInstGender" id="g1NI" value="M"> Male</label>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<label><input type="radio" class="sexRD flat" name="newInstGender" id="g2NI" value="F"> Female</label></td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label customLbl pull-right" for="newInstBday">Date of Birth: <span class="asterisk">*</span></label></td>
+                            <td><input type="date" class="vehiTxtInput pull-left input-flat" id="newInstBday" placeholder="dd/mm/yyyy"></td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label customLbl pull-right" for="newInstAddress">Address: <span class="asterisk">*</span></label></td>
+                            <td><input type="text" class="vehiTxtInput pull-left input-flat" id="newInstAddress" placeholder="Blk 43 Lot 1, Novaliches, Quezon City"></td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label customLbl pull-right" for="newInstPhone">Phone Number: <span class="asterisk">*</span></label></td>
+                            <td><input type="number" class="vehiTxtInput pull-left input-flat" id="newInstPhone" placeholder="09123456789" max="99999999999" min="99999999999"></td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label customLbl pull-right" for="newInstEmail">Email Address: <span class="asterisk">*</span></label></td>
+                            <td><input type="email" class="vehiTxtInput pull-left input-flat" id="newInstEmail" placeholder="juansdcruz@gmail.com"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+            </form>
+        </div>
+
+        <div class="divMod2Inst">
+            <center><h5>Details can be changed anytime later on using the instructor's account.</h5><hr width="20%"></center><br>
+            <form class="formInstAccount">
+                <div class="table-responsive">
+                <table class="table customtbl">
+                    <thead></thead>
+                    <tbody>
+                        <tr>
+                            <td width="30%"><label class="control-label customLbl pull-right" for="newInstUsername">Username or Email: <span class="asterisk">*</span></label></td>
+                            <td><input type="text" class="vehiTxtInput pull-left input-flat" id="newInstUsername" placeholder="juansdcruz@gmail.com"></td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label customLbl pull-right" for="newInstPassword">Password: </label></td>
+                            <td><input type="password" class="vehiTxtInput pull-left input-flat" id="newInstPassword"></td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label customLbl pull-right" for="newInstConfPassword">Confirm Password: <span class="asterisk">*</span></label></td>
+                            <td><input type="password" class="vehiTxtInput pull-left input-flat" id="newInstConfPassword"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+            </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="btnCancAddInst" class="btn btn-light" data-dismiss="modal">Cancel</button>
+        <button type="button" id="btnNextAddInst" onclick="nextInst()" class="btn btn-primary">Next</button>
+
+        <button type="button" id="btnPrevAddInst" onclick="prevInst()" class="btn btn-primary">Previous</button>
+        <button type="button" id="btnDoneAddInst" onclick="doneInst()" class="btn btn-primary">Done</button>
       </div>
     </div>
   </div>

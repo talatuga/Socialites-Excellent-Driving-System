@@ -26,10 +26,14 @@
                 <li id="li3"> <a class="sidebarMenu" id="instructor">
                     <i class="ti-user tiSide"></i><span class="hide-menu sidebarMenu">Instructors</span></a>
                 </li>
-                <li id="li4"> <a class="sidebarMenu" id="vehicle">
+                <li id="li4"> <a class="has-arrow sidebarMenu" href="#" aria-expanded="false" id="vehicle" onclick="activeVehi()">
                     <i class="ti-car tiSide"></i><span class="hide-menu sidebarMenu">Vehicle</span></a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li id="li4A"><a id="vehicle1"><span class="fa fa-circle-o"></span> Automatic</a></li>
+                        <li id="li4B"><a id="vehicle2"><span class="fa fa-circle-o"></span> Manual</a></li>
+                    </ul>
                 </li>
-                <li id="li5"> <a class="sidebarMenu" id="schedule">
+                <li id="li5"> <a class="sidebarMenu" id="schedule" onclick="schedule()">
                     <i class="ti-calendar tiSide"></i><span class="hide-menu sidebarMenu">Schedule</span></a>
                 </li>
                 <li id="li6"> <a class="sidebarMenu" id="branches">
@@ -52,11 +56,3 @@
     </div>
     <!-- End Sidebar scroll-->
 </div>
-
-<!-- <li> <a class="has-arrow" href="#" aria-expanded="false" style="background-color: #5D0000; color: #EDE2E2">
-    <i class="fa fa-group" style="color: #F7D007"></i><span class="hide-menu">Students</span></a>
-    <ul aria-expanded="false" class="collapse">
-        <li><a href="email-compose.html">Enrollment</a></li>
-        <li><a href="email-read.html">Read</a></li>
-    </ul>
-</li> -->

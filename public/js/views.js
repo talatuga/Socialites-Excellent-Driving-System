@@ -3,7 +3,8 @@ $(function() {
     $(".view-instructor").hide();
     $(".view-schedule").hide();
     $(".view-student").hide();
-    $(".view-vehicle").hide();
+    $(".view-vehicleA").hide();
+    $(".view-vehicleB").hide();
     $(".view-branches").hide();
     $(".view-dashboard").show();
 
@@ -14,7 +15,8 @@ $(function() {
         $(".view-instructor").hide();
         $(".view-schedule").hide();
         $(".view-dashboard").hide();
-        $(".view-vehicle").hide();
+        $(".view-vehicleA").hide();
+        $(".view-vehicleB").hide();
         $(".view-branches").hide();
         $(".view-viewInstructor").hide();
         $(".view-student").show();
@@ -24,6 +26,8 @@ $(function() {
         document.getElementById("li5").classList.remove('active');
         document.getElementById("li6").classList.remove('active');
         document.getElementById("li2").classList.add('active');
+        document.getElementById("li4A").classList.remove('active');
+        document.getElementById("li4B").classList.remove('active');
     });
 
     $("#instructor").on("click", function() {
@@ -31,7 +35,8 @@ $(function() {
         $(".view-dashboard").hide();
         $(".view-schedule").hide();
         $(".view-student").hide();
-        $(".view-vehicle").hide();
+        $(".view-vehicleA").hide();
+        $(".view-vehicleB").hide();
         $(".view-branches").hide();
         $(".view-viewInstructor").hide();
         $(".view-instructor").show();
@@ -41,9 +46,11 @@ $(function() {
         document.getElementById("li5").classList.remove('active');
         document.getElementById("li6").classList.remove('active');
         document.getElementById("li3").classList.add('active');
+        document.getElementById("li4A").classList.remove('active');
+        document.getElementById("li4B").classList.remove('active');
     });
 
-    $("#vehicle").on("click", function() {
+    $("#vehicle1").on("click", function() {
         $(".search-box").hide();
         $(".view-instructor").hide();
         $(".view-schedule").hide();
@@ -51,31 +58,57 @@ $(function() {
         $(".view-student").hide();
         $(".view-branches").hide();
         $(".view-viewInstructor").hide();
-        $(".view-vehicle").show();
+        $(".view-vehicleB").hide();
+        $(".view-vehicleA").show();
         document.getElementById("li1").classList.remove('active');
         document.getElementById("li2").classList.remove('active');
         document.getElementById("li3").classList.remove('active');
         document.getElementById("li5").classList.remove('active');
         document.getElementById("li6").classList.remove('active');
         document.getElementById("li4").classList.add('active');
+        document.getElementById("li4A").classList.add('active');
+        document.getElementById("li4B").classList.remove('active');
     });
 
-    $("#schedule").on("click", function() {
+    $("#vehicle2").on("click", function() {
         $(".search-box").hide();
-        $(".view-dashboard").hide();
         $(".view-instructor").hide();
+        $(".view-schedule").hide();
+        $(".view-dashboard").hide();
         $(".view-student").hide();
-        $(".view-vehicle").hide();
         $(".view-branches").hide();
         $(".view-viewInstructor").hide();
-        $(".view-schedule").show();
+        $(".view-vehicleA").hide();
+        $(".view-vehicleB").show();
         document.getElementById("li1").classList.remove('active');
         document.getElementById("li2").classList.remove('active');
         document.getElementById("li3").classList.remove('active');
-        document.getElementById("li4").classList.remove('active');
+        document.getElementById("li5").classList.remove('active');
         document.getElementById("li6").classList.remove('active');
-        document.getElementById("li5").classList.add('active');
+        document.getElementById("li4").classList.add('active');
+        document.getElementById("li4A").classList.remove('active');
+        document.getElementById("li4B").classList.add('active');
     });
+
+    // $("#schedule").on("click", function() {
+    //     $(".search-box").hide();
+    //     $(".view-dashboard").hide();
+    //     $(".view-instructor").hide();
+    //     $(".view-student").hide();
+    //     $(".view-vehicleA").hide();
+    //     $(".view-vehicleB").hide();
+    //     $(".view-branches").hide();
+    //     $(".view-viewInstructor").hide();
+    //     $(".view-schedule").show();
+    //     document.getElementById("li1").classList.remove('active');
+    //     document.getElementById("li2").classList.remove('active');
+    //     document.getElementById("li3").classList.remove('active');
+    //     document.getElementById("li4").classList.remove('active');
+    //     document.getElementById("li6").classList.remove('active');
+    //     document.getElementById("li5").classList.add('active');
+    //     document.getElementById("li4A").classList.remove('active');
+    //     document.getElementById("li4B").classList.remove('active');
+    // });
 
     $("#branches").on("click", function() {
         $(".search-box").hide();
@@ -83,7 +116,8 @@ $(function() {
         $(".view-schedule").hide();
         $(".view-dashboard").hide();
         $(".view-student").hide();
-        $(".view-vehicle").hide();
+        $(".view-vehicleA").hide();
+        $(".view-vehicleB").hide();
         $(".view-viewInstructor").hide();
         $(".view-branches").show();
         document.getElementById("li1").classList.remove('active');
@@ -92,23 +126,59 @@ $(function() {
         document.getElementById("li4").classList.remove('active');
         document.getElementById("li5").classList.remove('active');
         document.getElementById("li6").classList.add('active');
+        document.getElementById("li4A").classList.remove('active');
+        document.getElementById("li4B").classList.remove('active');
     });
 });
 
 var dashboard = function() 
 {
     $(".search-box").show();
-        $(".view-instructor").hide();
-        $(".view-schedule").hide();
-        $(".view-student").hide();
-        $(".view-vehicle").hide();
-        $(".view-branches").hide();
-        $(".view-viewInstructor").hide();
-        $(".view-dashboard").show();
-        document.getElementById("li2").classList.remove('active');
-        document.getElementById("li3").classList.remove('active');
-        document.getElementById("li4").classList.remove('active');
-        document.getElementById("li5").classList.remove('active');
-        document.getElementById("li6").classList.remove('active');
-        document.getElementById("li1").classList.add('active');
+    $(".view-instructor").hide();
+    $(".view-schedule").hide();
+    $(".view-student").hide();
+    $(".view-vehicleA").hide();
+    $(".view-vehicleB").hide();
+    $(".view-branches").hide();
+    $(".view-viewInstructor").hide();
+    $(".view-dashboard").show();
+    document.getElementById("li2").classList.remove('active');
+    document.getElementById("li3").classList.remove('active');
+    document.getElementById("li4").classList.remove('active');
+    document.getElementById("li5").classList.remove('active');
+    document.getElementById("li6").classList.remove('active');
+    document.getElementById("li1").classList.add('active');
+    document.getElementById("li4A").classList.remove('active');
+    document.getElementById("li4B").classList.remove('active');
+}
+
+var schedule = function() 
+{
+    $(".search-box").hide();
+    $(".view-dashboard").hide();
+    $(".view-instructor").hide();
+    $(".view-student").hide();
+    $(".view-vehicleA").hide();
+    $(".view-vehicleB").hide();
+    $(".view-branches").hide();
+    $(".view-viewInstructor").hide();
+    $(".view-schedule").show();
+    document.getElementById("li1").classList.remove('active');
+    document.getElementById("li2").classList.remove('active');
+    document.getElementById("li3").classList.remove('active');
+    document.getElementById("li4").classList.remove('active');
+    document.getElementById("li6").classList.remove('active');
+    document.getElementById("li5").classList.add('active');
+    document.getElementById("li4A").classList.remove('active');
+    document.getElementById("li4B").classList.remove('active');
+}
+
+function activeVehi ()
+{
+    document.getElementById("li1").classList.remove('active');
+    document.getElementById("li2").classList.remove('active');
+    document.getElementById("li3").classList.remove('active');
+    document.getElementById("li5").classList.remove('active');
+    document.getElementById("li6").classList.remove('active');
+    // document.getElementById("li4").classList.add('active');
 }
