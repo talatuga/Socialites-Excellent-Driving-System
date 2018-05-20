@@ -5,7 +5,7 @@
             <h3 class="text-primary">Student Enrollment</h3> </div>
         <div class="col-md-7 align-self-center">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0)">Students</a></li>
+                <li class="breadcrumb-item">Students</a></li>
                 <li class="breadcrumb-item active" id="activeStudent">Enrollment</li>
             </ol>
         </div>
@@ -60,7 +60,7 @@
                         </div><hr>
                         <div>
                             <h5 class="h5Enr">Occupation</h5>
-                            <input type="text" class="txtEnr" required name="enrOcc" id="enrOcc" placeholder="*Occupation"><br>
+                            <input type="text" class="txtEnr" required name="enrOcc" id="enrOcc" placeholder="Occupation"><br>
                         </div><hr>
                         <div>
                             <h5 class="h5Enr">Contact<span class="asterisk">*</span></h5>
@@ -148,6 +148,7 @@
                 </div> <!-- End of col-lg-6 -->
             </div> <!-- End of row -->
             <div><center>
+                <button type="button" id="btnCancEnrollStudent" onclick="cancEnrollStud()" class="btn btn-danger m-b-10 m-l-5">Cancel</button>
                 <button type="button" id="btnEnrollStudent" onclick="enrollStud()" class="btn btn-primary m-b-10 m-l-5">Enroll</button>
             </center></div>
         </div><!-- End of Card  -->

@@ -47,7 +47,7 @@ $(".backInst").on("click", function() { //when back button is clicked (right sid
 function nextInst ()
 {
     var fn = $("#newInstFirstname").val();
-    var ln = $("#newInstSurname").val();
+    var sn = $("#newInstSurname").val();
     var bday = $("#newInstBday").val();
     var add = $("#newInstAddress").val();
     var phone = $("#newInstPhone").val();

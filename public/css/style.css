@@ -7925,9 +7925,9 @@ tiCustom
   display: none;
 }
 
-#btnEnrollStudent
+#btnEnrollStudent, #btnCancEnrollStudent
 {
-  width: 100%;
+  width: 30%;
   bottom: 0;
 }
 

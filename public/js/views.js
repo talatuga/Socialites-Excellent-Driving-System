@@ -1,6 +1,6 @@
 $(function() {    
     var x = $(window).height();
-    $("#wrapper").height(x);
+    $(".page-wrapper").height(x);
 
     $(".view-instructor").hide();
     $(".view-schedule").hide();
