@@ -92,8 +92,7 @@ function doneInst ()
             swal("Oops!", "Please fill out all required fields.", "error");
         }
         else {
-            if (pw == cpw)
-            {
+            if (pw == cpw){
                 swal({
                     title: "Warning!",
                     text: "Are you sure you want to create this instructor account?",
@@ -116,8 +115,7 @@ function doneInst ()
                     }
                 });
             }
-            else
-            {
+            else{
                 swal("Oops!", "Passwords do not match.", "error");
             }
         }
@@ -183,7 +181,7 @@ function resetUpdInst(){
 
 function cancUpdInst(){
     swal({
-        title: "Discard changes?",
+        title: "Cancel and discard changes?",
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",
@@ -206,7 +204,7 @@ function cancUpdInst(){
 
 function saveUpdInst(){
     var fn = $("#editInstAccFN").val();
-    var ln = $("#editInstAccLN").val();
+    var sn = $("#editInstAccLN").val();
     var bday = $("#editInstAccBday").val();
     var add = $("#editInstAccAdd").val();
     var phone = $("#editInstAccPhone").val();

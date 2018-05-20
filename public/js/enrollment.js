@@ -51,8 +51,6 @@ function resetEnrollment(){
     $('#enrGuardCont').val("");
     $('#enrReqP9').val("");
     $('select[name="enrCivStatus"]').val('civ0');
-    document.getElementById("enrSex1").checked = true;
-    document.getElementById("enrSex2").checked = false;
     $('input:radio').prop('checked', false);
     $("#enrReqT1").prop("checked", true);
 }
@@ -156,7 +154,17 @@ function checkEnr2 (){
     }).get();
     countP = $('input[name="enrReqP"]:checked').length;
     if (countP==0) return "0";
-    else return "1";
+    else{
+        if ($('select[name="enrReqP"]').val("reqP8")){
+            var x = $('#enrReqP9').val();
+            x = x.replace(/\s+/g, '');
+            if(x=="") return 0;
+            else return 1;
+        }
+        else{
+            return "1";
+        }
+    }
 }
 
 function checkEnr3 (){

@@ -7545,7 +7545,7 @@ tbody tr td:last-child {
   font-weight: bold;
 }
 
-.h6AddVehi
+.h6AddVehi, .h6AddPay
 {
   text-align: right;
   color: #000;
@@ -7647,12 +7647,12 @@ tbody tr td:last-child {
   font-size: 14px;
 }
 
-.enrSexRD, .reqType, .enrReqPerm
+.enrSexRD, .reqType, .enrReqPerm, .enrStudCp
 {
   margin-left: 10px;
 }
 
-.defRateRD, .sexRD, .enrSexRD, .reqType, .enrReqPerm {
+.defRateRD, .sexRD, .enrSexRD, .reqType, .enrReqPerm, .enrStudCp {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -7670,7 +7670,7 @@ tbody tr td:last-child {
   top: 4px;
 }
 
-.defRateRD:checked, .sexRD:checked, .enrSexRD:checked, .reqType:checked, .enrReqPerm:checked {
+.defRateRD:checked, .sexRD:checked, .enrSexRD:checked, .reqType:checked, .enrReqPerm:checked, .enrStudCp:checked {
   border: 6px solid black;
 }
 
@@ -7888,10 +7888,20 @@ tiCustom
   border: solid 1px #E2E2E2;
 }
 
-.txtEnr:focus
+.txtEnr:focus, .txtEnr1:focus
 {
   border: solid 1px #FFCD40;
   background-color: #fff;
+}
+
+.txtEnr1{
+  font-size: 14px;
+  width: 100%;
+  margin: 1px;
+  margin-left: 10px;
+  padding: 3px;
+  background-color: #FCFCFC;
+  border: solid 1px #E2E2E2;
 }
 
 .h5Enr
@@ -7908,8 +7918,16 @@ tiCustom
   background-color: #FCFCFC;
   border: solid 1px #E2E2E2;
 }
+.enrTxtArea1, .enrCivStatus1{
+  font-size: 14px;
+  margin-left: 10px;
+  width: 100%;
+  padding: 3px;
+  background-color: #FCFCFC;
+  border: solid 1px #E2E2E2;
+}
 
-.enrTxtArea:focus, .enrCivStatus:focus
+.enrTxtArea:focus, .enrCivStatus:focus, .enrTxtArea1:focus, .enrCivStatus1:focus
 {
   border: solid 1px #FFCD40;
   background-color: #fff;
@@ -7931,7 +7949,8 @@ tiCustom
   bottom: 0;
 }
 
-.btnCancUpdInst, .btnResetUpdInst, .btnSaveUpdInst{
+.btnCancUpdInst, .btnResetUpdInst, .btnSaveUpdInst,
+.btnCancUpdStud, .btnResetUpdStud, .btnSaveUpdStud{
   display: none;
   margin-left: 10px;
   width: 100px;
@@ -7949,3 +7968,44 @@ tiCustom
   font-weight: bold;
   color: #5D0000;
 }
+
+/* .noCal{display: none;} */
+.payTab{display: none;}
+.notPaid{
+  color: #5D0000;
+  font-weight: bold;
+}
+
+#editStudAccGuardCont::-webkit-outer-spin-button,
+#editStudAccGuardCont::-webkit-inner-spin-button{
+  -webkit-appearance: none;
+}
+#editStudAccGuardCont{
+  -moz-appearance:textfield;
+}
+
+#editStudAccCont::-webkit-outer-spin-button,
+#editStudAccCont::-webkit-inner-spin-button{
+  -webkit-appearance: none;
+}
+#editStudAccCont{
+  -moz-appearance:textfield;
+}
+
+#enrCont::-webkit-outer-spin-button,
+#enrCont::-webkit-inner-spin-button{
+  -webkit-appearance: none;
+}
+#enrCont{
+  -moz-appearance:textfield;
+}
+
+#enrGuardCont, .addPayBal, .addPayTxt, .totAssessFee::-webkit-outer-spin-button,
+#enrGuardCont, .addPayBal, .addPayTxt, .totAssessFee::-webkit-inner-spin-button{
+  -webkit-appearance: none;
+}
+#enrGuardCont, .addPayBal, .addPayTxt, .totAssessFee{
+  -moz-appearance:textfield;
+}
+
+.h6Enr{padding-left: 10px;}

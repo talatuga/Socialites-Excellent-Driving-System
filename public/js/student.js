@@ -1,28 +1,12 @@
 $(function() {
-    document.getElementById("btnPast").classList.remove('btnDarkActive');
-    document.getElementById("btnAll").classList.remove('btnDarkActive');
-    document.getElementById("btnCurrent").classList.add('btnDarkActive');
-
-    $("#btnCurrent").on("click", function() {
-        document.getElementById("btnPast").classList.remove('btnDarkActive');
-        document.getElementById("btnAll").classList.remove('btnDarkActive');
-        document.getElementById("btnCurrent").classList.add('btnDarkActive');
-    });
-    $("#btnPast").on("click", function() {
-        document.getElementById("btnCurrent").classList.remove('btnDarkActive');
-        document.getElementById("btnAll").classList.remove('btnDarkActive');
-        document.getElementById("btnPast").classList.add('btnDarkActive');
-    });
-    $("#btnAll").on("click", function() {
-        document.getElementById("btnCurrent").classList.remove('btnDarkActive');
-        document.getElementById("btnPast").classList.remove('btnDarkActive');
-        document.getElementById("btnAll").classList.add('btnDarkActive');
-    });
+    document.getElementById("studCP1").checked = true;
+    document.getElementById("studCP2").checked = false;
 
     getStudent(1, studentTable.offset, studentTable.limit).then(renderStudentTable); // <--- tawagin yung getStudent() then after yung renderStudentTable().    
 });
 
 $("#btnViewStudent").on("click", function() { //opens view student page upon clicking view details
+    resetSettingsStud();
     $('.view-student').hide();
     $('.view-viewStudent').show();
 });
@@ -36,6 +20,162 @@ function clrSearchStudentC ()
 {
     $('#searchStudentC').val("");
 }
+
+function resetSettingsStud (){
+    $("#editStudAccFN").prop("disabled", true);
+    $("#editStudAccMN").prop("disabled", true);
+    $("#editStudAccSN").prop("disabled", true);
+    $("#editStudAccBday").prop("disabled", true);
+    $("#editStudAccBplace").prop("disabled", true);
+    $("#editStudAccAdd").prop("disabled", true);
+    $("#editStudAccOcc").prop("disabled", true);
+    $("#editStudAccCont").prop("disabled", true);
+    $("#editStudAccEmail").prop("disabled", true);
+    $("#editStudAccGuard").prop("disabled", true);
+    $("#editStudAccGuardCont").prop("disabled", true);
+    $("#editStudAccUN").prop("disabled", true);
+    $("#editStudAccPW").prop("disabled", true);
+    $("#editStudAccCivStatus").prop("disabled", true);
+    $("#editEnrSex1").prop("disabled", true);
+    $("#editEnrSex2").prop("disabled", true);
+    $('.btnDeactStudAcc').show();
+    $('.btnUpdateStudAcc').show();
+    $('.btnCancUpdStud').hide();
+    $('.btnResetUpdStud').hide();
+    $('.btnSaveUpdStud').hide();
+}
+
+function enableFieldsStud (){
+    $("#editStudAccFN").removeAttr("disabled");
+    $("#editStudAccMN").removeAttr("disabled");
+    $("#editStudAccSN").removeAttr("disabled");
+    $("#editStudAccBday").removeAttr("disabled");
+    $("#editStudAccBplace").removeAttr("disabled");
+    $("#editStudAccAdd").removeAttr("disabled");
+    $("#editStudAccOcc").removeAttr("disabled");
+    $("#editStudAccCont").removeAttr("disabled");
+    $("#editStudAccEmail").removeAttr("disabled");
+    $("#editStudAccGuard").removeAttr("disabled");
+    $("#editStudAccGuardCont").removeAttr("disabled");
+    $("#editStudAccUN").removeAttr("disabled");
+    $("#editStudAccPW").removeAttr("disabled");
+    $("#editStudAccCivStatus").removeAttr("disabled");
+    $("#editEnrSex1").removeAttr("disabled");
+    $("#editEnrSex2").removeAttr("disabled");
+}
+
+function updateStud(){
+    enableFieldsStud();
+    $('.btnDeactStudAcc').hide();
+    $('.btnUpdateStudAcc').hide();
+    $('.btnCancUpdStud').show();
+    $('.btnResetUpdStud').show();
+    $('.btnSaveUpdStud').show();
+}
+
+function resetUpdStud(){
+    //reset fields here
+}
+
+function cancUpdStud(){
+    swal({
+        title: "Cancel and discard changes?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Yes",
+        cancelButtonText: "No",
+        closeOnConfirm: false,
+        closeOnCancel: true
+    },
+    function(isConfirm){
+        if (isConfirm) {
+            swal("Cancelled", "", "error");
+            resetSettingsStud();
+            resetUpdStud();
+        }
+    });
+}
+
+function saveUpdStud(){
+    var fn = $("#editStudAccFN").val();
+    var sn = $("#editStudAccSN").val();
+    var bday = $("#editStudAccBday").val();
+    var bplace = $("#editStudAccBplace").val();
+    var add = $("#editStudAccAdd").val();
+    var cont = $("#editStudAccCont").val();
+    var guard = $("#editStudAccGuard").val();
+    var guardCont = $("#editStudAccGuardCont").val();
+    var un = $("#editStudAccUN").val();
+    var pw = $("#editStudAccPW").val();
+    var civ = $('select[name="editStudAccCivStatus"]').val();
+
+    fn = fn.replace(/\s+/g, '');
+    sn = sn.replace(/\s+/g, '');
+    bplace = bplace.replace(/\s+/g, '');
+    add = add.replace(/\s+/g, '');
+    cont = cont.replace(/\s+/g, '');
+    guard = guard.replace(/\s+/g, '');
+    guardCont = guardCont.replace(/\s+/g, '');
+    un = un.replace(/\s+/g, '');
+    pw = pw.replace(/\s+/g, '');
+
+    if (fn=="" || sn=="" || bplace=="" || add=="" 
+        || cont=="" || email=="" || guard=="" || guardCont==""
+        || un=="" || pw=="" || civ=="civ0"){
+            swal("Oops!", "Please fill out all required fields.", "error");
+        }
+    else{
+        swal({
+            text: "Are you sure you want to save these changes?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes",
+            cancelButtonText: "Cancel",
+            closeOnConfirm: false,
+            closeOnCancel: true
+        },
+        function(isConfirm){
+            if (isConfirm) {
+                swal("Success!", "Student account is updated successfully!", "success");
+                resetSettingsStud();
+                //DB: Update student account function
+            }
+        });
+    }
+}
+
+function deactStud(){
+    swal({
+        title: "Warning!",
+        text: "Are you sure you want to deactivate this account?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Yes",
+        cancelButtonText: "Cancel",
+        closeOnConfirm: false,
+        closeOnCancel: true
+    },
+    function(isConfirm){
+        if (isConfirm) {
+            swal("Success!", "Student account is now deativated.", "success");
+            resetSettingsStud();
+            //DB: Deactivate/delete student account function
+        }
+    });
+}
+
+function addPaymentModal(){
+    //Value of assessment fee must come from the db. (part of transaction)
+    $('.addPayDate').val("");
+    $('.addPayTxt').val("");
+    $('.addPayBal').val("");
+    $('#addPaymentModal').modal('show');
+}
+
+
 
 
 

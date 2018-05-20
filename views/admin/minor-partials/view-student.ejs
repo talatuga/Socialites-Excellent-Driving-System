@@ -37,37 +37,81 @@
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#paymentS" role="tab">Payment</a> </li>
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#gradeS" role="tab">Course, Lessons &amp; Grades</a> </li>
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#evaluationS" role="tab">Evaluation</a> </li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#settingsS" role="tab">Settings</a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#settingsS" role="tab">Account</a> </li>
                         </ul>
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <!--first tab-->
                             <div class="tab-pane active" id="scheduleS" role="tabpanel">
                                 <div class="card-body"> 
-                                    <div id='calendar'>
+                                    <!-- <div id='calendar'>
                                         
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!--second tab-->
-                            <div class="tab-pane" id="evaluationS" role="tabpanel">
-                                <div class="card-body">
-                                    <div class="profiletimeline studTab">
-                                        <div class="sl-item">
-                                            <div class="sl-left"> <img src="assets/images/user4.png" alt="Student" id="studEvalPic" class="img-circle" /> </div>
-                                            <div class="sl-right">
-                                                <div><a href="#" class="link" id="instEvalName">Harry James Potter</a> <span class="sl-date">May 2, 2018</span>
-                                                    <br><br><p style="color: #455a64;">Evaluation Grade: <span class="instEvalGrade">Passed</span></p>
-                                                    <p class="m-t-10 instEvalMsg"> You did great! :> </p>
-                                                </div>
-                                            </div>
+                                    </div> -->
+                                    <div class="noCal">
+                                        <center><br><h4>No schedule to display.</h4><br></center>
+                                        <div class="pull-right">
+                                            <button type="button" id="btnAddSchedule" class="btn btn-warning m-b-10 m-l-5">Add Schedule</button>
+                                            <!-- <button type="button" id="btnEditPayment" class="btn btn-light m-b-10 m-l-5">Edit Payment</button> -->
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <!--third tab-->
+                            <!--second tab-->
+                            <div class="tab-pane" id="paymentS" role="tabpanel">
+                                <div class="card-body">
+                                    <div class="studTab">
+                                        <div class="tempPayTab">
+                                            <h3 class="pull-right">Status: <span class="notPaid">Not Paid</span></h3><br>
+                                            <div class="table-responsive">
+                                                <table class="table tblStudPayment1 table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Transaction #</th>
+                                                            <th>Date</th>
+                                                            <th>Assessment</th>
+                                                            <th>Payment</th>
+                                                            <th>Balance</th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                                <center><br><h4>No payment made.</h4><br></center>
+                                            </div><br><br>
+                                        </div> <!-- End of tempPayTab -->
+                                        <div class="payTab">
+                                            <h3 class="pull-right">Status: <span class="studPayStatus">Fully Paid</span></h3><br>
+                                            <div class="table-responsive">
+                                                <table class="table tblStudPayment1 table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Transaction #</th>
+                                                            <th>Date</th>
+                                                            <th>Assessment</th>
+                                                            <th>Payment</th>
+                                                            <th>Balance</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="studentTable">
+                                                        <tr>
+                                                            <td>1001</td>
+                                                            <td>05/11/18</td>
+                                                            <td>5,000.00</td>
+                                                            <td>5,000.00</td>
+                                                            <td>0.00</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div><br><br>
+                                        </div> <!-- End of payTab -->
+                                        <div class="pull-right">
+                                            <button type="button" id="btnAddPayment" onclick="addPaymentModal()" class="btn btn-warning m-b-10 m-l-5">Add Payment</button>
+                                            <!-- <button type="button" id="btnEditPayment" class="btn btn-light m-b-10 m-l-5">Edit Payment</button> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                             <!--third tab-->
                             <div class="tab-pane" id="gradeS" role="tabpanel">
                                 <div class="card-body">
                                     <div class="studTab">
@@ -129,35 +173,17 @@
                             </div>
 
                             <!--fourth tab-->
-                            <div class="tab-pane" id="paymentS" role="tabpanel">
+                            <div class="tab-pane" id="evaluationS" role="tabpanel">
                                 <div class="card-body">
-                                    <div class="studTab">
-                                        <h3 class="pull-right">Status: <span class="studPayStatus">Fully Paid</span></h3><br>
-                                        <div class="table-responsive">
-                                            <table class="table tblStudPayment1 table-hover">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Transaction #</th>
-                                                        <th>Date</th>
-                                                        <th>Assessment</th>
-                                                        <th>Payment</th>
-                                                        <th>Balance</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="studentTable">
-                                                    <tr>
-                                                        <td>1001</td>
-                                                        <td>05/11/18</td>
-                                                        <td>5,000.00</td>
-                                                        <td>5,000.00</td>
-                                                        <td>0.00</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div><br><br>
-                                        <div class="pull-right">
-                                            <button type="button" id="btnAddPayment" class="btn btn-warning m-b-10 m-l-5">Add Payment</button>
-                                            <button type="button" id="btnEditPayment" class="btn btn-light m-b-10 m-l-5">Edit Payment</button>
+                                    <div class="profiletimeline studTab">
+                                        <div class="sl-item">
+                                            <div class="sl-left"> <img src="assets/images/user4.png" alt="Student" id="studEvalPic" class="img-circle" /> </div>
+                                            <div class="sl-right">
+                                                <div><a href="#" class="link" id="instEvalName">Harry James Potter</a> <span class="sl-date">May 2, 2018</span>
+                                                    <br><br><p style="color: #455a64;">Evaluation Grade: <span class="instEvalGrade">Passed</span></p>
+                                                    <p class="m-t-10 instEvalMsg"> You did great! :> </p>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -166,68 +192,105 @@
                             <!--fifth tab-->
                             <div class="tab-pane" id="settingsS" role="tabpanel">
                                 <div class="card-body">
-                                    <form class="form-horizontal form-material studTab">
-                                        <div class="form-group">
-                                            <label class="col-md-12 customLbl">First Name <span class="asterisk">*</span></label>
-                                            <div class="col-md-12">
-                                                <input type="text" id="editInstAccFN" placeholder="Juan" class="form-control form-control-line">
+                                    <form class="studTab">
+                                        <div>
+                                            <h5 class="h5Enr">Name<span class="asterisk">*</span></h5>
+                                            <div class="row">
+                                                <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+                                                    <h6 class="h6Enr">First Name*</h6>
+                                                    <input type="text" class="txtEnr1" required name="enrFN" id="editStudAccFN" placeholder="*First Name"><br>
+                                                </div>
+                                                <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+                                                    <h6 class="h6Enr">Middle Name</h6>
+                                                    <input type="text" class="txtEnr1" required name="enrFN" id="editStudAccMN" placeholder="Middle Name"><br> 
+                                                </div>
+                                                <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+                                                    <h6 class="h6Enr">Surname*</h6>
+                                                    <input type="text" class="txtEnr1" required name="enrFN" id="editStudAccSN" placeholder="*Surname"><br>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-12 customLbl">Middle Name </label>
-                                            <div class="col-md-12">
-                                                <input type="text" id="editInstAccMN" placeholder="Santos" class="form-control form-control-line">
+                                        </div><hr>
+                                        <div>
+                                            <h5 class="h5Enr">Birth Date<span class="asterisk">*</span></h5>
+                                            <input type="date" class="txtEnr1" required name="enrBday" id="editStudAccBday" placeholder="mm/dd/yyyy"><br>
+                                        </div><hr>
+                                        <div>
+                                            <h5 class="h5Enr">Birth Place<span class="asterisk">*</span></h5>
+                                            <input type="text" class="txtEnr1" required name="enrBplace" id="editStudAccBplace" placeholder="*Birthplace"><br>
+                                        </div><hr>
+                                        <div>
+                                            <h5 class="h5Enr">Sex<span class="asterisk">*</span></h5>
+                                            <input type="radio" class="enrSexRD" id="editEnrSex1" name="editStudAccSex" value="Male">
+                                                <label class="enrSexLbl" for="editEnrSex1">Male</label>
+                                            <input type="radio" class="enrSexRD" id="editEnrSex2" name="editStudAccSex" value="Female">
+                                                <label class="defRateLbl" for="editEnrSex2">Female</label>
+                                        </div><hr>
+                                        <div>
+                                            <h5 class="h5Enr">Address<span class="asterisk">*</span></h5>
+                                            <textarea rows="3" class="enrTxtArea1" id="editStudAccAdd" placeholder="*Address"></textarea>
+                                        </div><hr>
+                                        <div>
+                                            <h5 class="h5Enr">Civil Status<span class="asterisk">*</span></h5>
+                                            <select class="enrCivStatus1" name="editStudAccCivStatus">
+                                                <option value="civ0">---</option>
+                                                <option value="civ1">Single</option>
+                                                <option value="civ2">Married</option>
+                                                <option value="civ3">Divorced</option>
+                                                <option value="civ4">Separated</option>
+                                                <option value="civ5">Widowed</option>
+                                            </select>
+                                        </div><hr>
+                                        <div>
+                                            <h5 class="h5Enr">Occupation</h5>
+                                            <input type="text" class="txtEnr1" required name="enrOcc" id="editStudAccOcc" placeholder="Occupation"><br>
+                                        </div><hr>
+                                        <div>
+                                            <h5 class="h5Enr">Contact<span class="asterisk">*</span></h5>
+                                            <div class="row">
+                                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                                                    <h6 class="h6Enr">Contact Number*</h6>
+                                                    <input type="number" class="txtEnr1" required name="enrCont" id="editStudAccCont" placeholder="*Contact Number"><br>
+                                                </div>
+                                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                                                    <h6 class="h6Enr">Email Address</h6>
+                                                    <input type="email" class="txtEnr1" required name="enrEmail" id="editStudAccEmail" placeholder="Email Address"><br>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-12 customLbl">Surname <span class="asterisk">*</span></label>
-                                            <div class="col-md-12">
-                                                <input type="text" id="editInstAccLN" placeholder="Dela Cruz" class="form-control form-control-line">
+                                        </div><hr>
+                                        <div>
+                                            <h5 class="h5Enr">Guardian Information<span class="asterisk">*</span></h5>
+                                            <div class="row">
+                                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                                                    <h6 class="h6Enr">Parent/Guardian Name*</h6>
+                                                    <input type="text" class="txtEnr1" required name="enrGuard" id="editStudAccGuard" placeholder="*Parent/Guardian Name"><br>
+                                                </div>
+                                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                                                    <h6 class="h6Enr">Contact Number*</h6>
+                                                    <input type="number" class="txtEnr1" required name="enrGuardCont" id="editStudAccGuardCont" placeholder="*Contact Number"><br>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-12 customLbl">Sex <span class="asterisk">*</span></label>
-                                            <div class="col-md-12">
-                                                <select class="form-control form-control-line" id="editInstAccSex">
-                                                    <option>Male</option>
-                                                    <option>Female</option>
-                                                </select>
+                                        </div><hr>
+                                        <div>
+                                            <h5 class="h5Enr">Account<span class="asterisk">*</span></h5>
+                                            <div class="row">
+                                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                                                    <h6 class="h6Enr">Username*</h6>
+                                                    <input type="text" class="txtEnr1" required name="enrCont" id="editStudAccUN" placeholder="Username"><br>
+                                                </div>
+                                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                                                    <h6 class="h6Enr">Password*</h6>
+                                                    <input type="password" class="txtEnr1" required name="enrEmail" id="editStudAccPW" placeholder="Password"><br>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-12 customLbl">Date of Birth <span class="asterisk">*</span></label>
-                                            <div class="col-md-12">
-                                                <input type="date" id="editInstAccBday" class="form-control form-control-line" id="newInstBday" placeholder="dd/mm/yyyy">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-12 customLbl">Address <span class="asterisk">*</span></label>
-                                            <div class="col-md-12">
-                                                <input type="text" id="editInstAccAdd" placeholder="Blk 43 Lot 1, Novaliches, Quezon City" class="form-control form-control-line">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-12 customLbl">Phone Number <span class="asterisk">*</span></label>
-                                            <div class="col-md-12">
-                                                <input type="number" id="editInstAccPhone" placeholder="09123456789" class="form-control form-control-line" min="999999999999" max="999999999999">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label "customLbl" class="col-md-12">Email Address <span class="asterisk">*</span></label>
-                                            <div class="col-md-12">
-                                                <input type="email" id="editInstAccEmail" placeholder="juansdcruz@gmail.com" class="form-control form-control-line">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-12 customLbl">Password <span class="asterisk">*</span></label>
-                                            <div class="col-md-12">
-                                                <input type="password" id="editInstAccPW" value="password" class="form-control form-control-line">
-                                            </div>
-                                        </div>
+                                        </div><hr>
                                         <div class="form-group">
                                             <div class="col-sm-12">
-                                                <button class="btn btn-danger pull-left btnDelInstAcc">Delete Account</button>
-                                                <button class="btn btn-primary pull-right btnUpdateInstAcc">Update Account</button>
+                                                <button type="button" class="btn btn-danger pull-left btnDeactStudAcc" onclick="deactStud()">Deactivate Account</button>
+                                                <button type="button" class="btn btn-primary pull-right btnUpdateStudAcc" onclick="updateStud()">Update Account</button>
+                                                
+                                                <button type="button" class="btn btn-primary pull-right btnSaveUpdStud" onclick="saveUpdStud()">Save</button>
+                                                <button type="button" class="btn btn-light pull-right btnResetUpdStud" onclick="resetUpdStud()">Reset</button>
+                                                <button type="button" class="btn btn-danger pull-right btnCancUpdStud" onclick="cancUpdStud()">Cancel</button>
                                             </div>
                                         </div>
                                     </form>
@@ -239,4 +302,59 @@
             </div> <!-- End of row -->
         </div><!-- End of Card  -->
     </div>
+</div>
+
+<!-- Add Payment Modal -->
+<div class="modal fade" id="addPaymentModal" tabindex="-1" role="dialog" aria-labelledby="addPaymentModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <center>
+            <h2>ADD PAYMENT</h2>
+            <h6>Fill out all required (<span class="asterisk">*</span>) fields.</h6>
+        </center>
+        <hr class="hrCustom"><br>
+        <div>
+            <form class="formAddPay">
+                <div class="row">
+                    <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+                        <h6 class="h6AddPay">Date: <span class="asterisk">*</span></h6>
+                    </div>
+                    <div class="col-md-8 col-lg-8 col-xs-8 col-sm-8">
+                        <input type="date" class="flat newVehiTxtinput addPayDate" placeholder="mm/dd/yyyy">
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+                        <h6 class="h6AddPay">Assessment: <span class="asterisk">*</span></h6>
+                    </div>
+                    <div class="col-md-8 col-lg-8 col-xs-8 col-sm-8">
+                        <input type="number" class="flat newVehiTxtinput totAssessFee">
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+                        <h6 class="h6AddPay">Payment: <span class="asterisk">*</span></h6>
+                    </div>
+                    <div class="col-md-8 col-lg-8 col-xs-8 col-sm-8">
+                        <input type="number" class="flat newVehiTxtinput addPayTxt">
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+                        <h6 class="h6AddPay">Balance: <span class="asterisk">*</span></h6>
+                    </div>
+                    <div class="col-md-8 col-lg-8 col-xs-8 col-sm-8">
+                        <input type="number" class="flat newVehiTxtinput addPayBal">
+                    </div>
+                </div><br>
+            </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="btnCancAddPay" class="btn btn-light" data-dismiss="modal">Cancel</button>
+        <button type="button" id="btnConfAddPay" class="btn btn-primary" data-dismiss="modal">Add</button>
+      </div>
+    </div>
+  </div>
 </div>
