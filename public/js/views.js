@@ -110,8 +110,13 @@ var activeStudD = function ()
 
 }
 
+var instLoaded = 0;
 var instructor = function ()
 {
+    if(instLoaded == 0){
+        loadInst();  
+        instLoaded = 1;
+    };
     $(".search-box").hide();
     $(".view-dashboard").hide();
     $(".view-schedule").hide();
@@ -134,8 +139,13 @@ var instructor = function ()
     document.getElementById("li2D").classList.remove('active');
 }
 
+var vehiLoaded = 0;
 var vehicle = function ()
 {
+    if(vehiLoaded == 0){
+        vehiLoaded = 1;
+        loadVehi();
+    }
     $(".search-box").hide();
     $(".view-instructor").hide();
     $(".view-schedule").hide();

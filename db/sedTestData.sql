@@ -18,7 +18,8 @@ INSERT INTO `account` (`id`, `studID`, `feeType`, `isAircon`, `amount`, `balance
 (5, '34291', 2, 1, 200, 400, '2018-05-16 07:17:40');
 
 INSERT INTO `accounttype` (`id`, `title`, `permission`) VALUES
-(1, 'admin', 'r,w-a');
+(1, 'admin', 'r,w-a'),
+(2, 'instructor', 'rw+');
 
 INSERT INTO `activity` (`id`, `data`, `startTime`, `duration`, `studID`, `instID`, `vehicleID`, `lessonID`) VALUES
 (1, '2018-05-16 07:27:49', '10:00:00', 1, '04220', '12345', 123, 1),
@@ -40,7 +41,8 @@ INSERT INTO `defect` (`id`, `vehicle`, `part`, `description`, `importance`, `rep
 (3, 345, 'Aicon', 'Aircon is not working', 1, 1),
 (4, 456, 'Seatbelt', 'Seatbelt is damaged', 1, 1),
 (5, 567, 'Oil', 'Excessive oil consumption', 1, 1),
-(6, 568, 'Tires', 'deflated', 4, 1);
+(6, 568, 'Tires', 'deflated', 4, 1),
+(7, 569, 'Starting System', 'battery', 5, 1);
 
 INSERT INTO `evaluation` (`id`, `studID`, `instID`, `evaluation`, `comment`, `date`, `target`) VALUES
 (1, '04220', '12345', 'Passed', '', '2018-05-16 21:24:57', '1'),
@@ -56,12 +58,13 @@ INSERT INTO `guardian` (`id`, `fullname`, `telno`, `refAcc`, `purgeFlag`) VALUES
 (4, 'Ma. Elena Magno', '942-421', 4, 0),
 (5, 'Alberto T. Reyes', '890-9866', 5, 0);
 
-INSERT INTO `instructor` (`id`, `userInfo`, `vacant`, `status`) VALUES
-('12345', 1, 'Monday', 1),
-('23456', 2, 'Tuesday', 0),
-('34567', 3, 'Friday', 1),
-('45678', 4, 'sunday', 1),
-('56789', 5, 'monday', 0);
+INSERT INTO `instructor` (`id`, `userInfo`, `educAttain`, `vacant`, `dateRegistered`, `dateRetired`, `status`) VALUES
+('12345', 1, 2, 'Monday', '2018-05-20 15:12:15', NULL, 1),
+('23456', 2, 2, 'Tuesday', '2018-05-20 15:12:15', NULL, 1),
+('34567', 3, 2, 'Friday', '2018-05-20 15:12:15', NULL, 1),
+('45678', 4, 2, 'Sunday', '2018-05-20 15:12:15', NULL, 1),
+('56789', 5, 2, 'Monday', '2018-05-20 15:12:15', NULL, 2),
+('INST-014008', 8, 3, '', '2018-05-20 17:05:05', NULL, 1);
 
 INSERT INTO `lesson` (`id`, `title`, `prerequisite`, `description`, `purgeFlag`) VALUES
 (1, 'start and stop', 1, '', 0),
@@ -71,7 +74,7 @@ INSERT INTO `lesson` (`id`, `title`, `prerequisite`, `description`, `purgeFlag`)
 (5, 'Hanging', 3, '', 1);
 
 INSERT INTO `requirement` (`id`, `title`, `description`, `importance`) VALUES
-(1, 'license', 'To apply drivers permit at LTO', 1);
+(1, 'license', 'To apply driver\'s permit at LTO', 1);
 
 INSERT INTO `schedule` (`id`, `date`, `time`, `hour`, `studID`, `instID`, `branch`, `status`) VALUES
 (1, '2018-05-19', '10:30:00', 1, '04220', '12345', 4, 1),
@@ -88,18 +91,16 @@ INSERT INTO `student` (`id`, `userInfo`, `dateRegistered`, `status`) VALUES
 ('89432', 5, '2017-08-22', 1);
 
 INSERT INTO `useraccount` (`id`, `username`, `password`, `accType`, `status`) VALUES
-(1, 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 1, 0),
-(2, 'jaja', 'qwerty', 2, 0),
-(3, 'peyt', 'zxcvb', 1, 1),
-(4, 'joy', 'poiuy', 2, 0),
-(5, 'hope', 'lkjhg', 1, 1);
+(1, 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 1, 1),
+(14, 'paul', 'e8383d7eb027388fa68def9a6ae6b4f28850f4df', 2, 1);
 
 INSERT INTO `userinfo` (`id`, `userAcc`, `fullname`, `address`, `telno`, `birthdate`, `birthplace`, `sex`, `civilStatus`, `email`, `userType`) VALUES
 (1, 1, 'Janelle Joy R. Gabat', '31-D G.L. Jaena St. West Rembo, Makati City ', '882-7273', '1998-12-18', 'Makati City', 'F', 'Single', 'janellejoygabat@gmail.com', 1),
 (2, 3, 'Janelen Faith R. Gabat', 'Quezon City', '751-1326', '1997-08-07', 'Makati City', 'F', 'Single', 'jfgabat@yahoo.com', 1),
 (3, 2, 'Jann Hope R. Gabat', 'Pasig City', '882-2629', '2004-04-30', 'Makati City', 'F', 'Single', 'jannhopegabat@gmail.com', 2),
 (4, 4, 'Jakielyn Jann G. Magno', 'Taguig City ', '632-5322', '2000-02-01', 'Pasay City', 'F', 'Single', 'jakielynjannmagno@gmail.com', 2),
-(5, 5, 'Sarah Jane R. Gabat', 'Mandaluyong City', '845-4314', '1967-12-02', 'Pembo, Makati City ', 'F', 'Married', 'sjgabat@gmail.com', 1);
+(5, 5, 'Sarah Jane R. Gabat', 'Mandaluyong City', '845-4314', '1967-12-02', 'Pembo, Makati City ', 'F', 'Married', 'sjgabat@gmail.com', 1),
+(8, 14, 'ChristianPaul_Rojero_Tupas', 'hrhrhhrhe', '09094527651', '1998-12-08', 'n/a', 'F', 'n/a', 'christianpaultupas@gmail.com', 2);
 
 INSERT INTO `vehicle` (`id`, `model`, `brand`, `transmission`, `plate`, `driver`, `offday`, `status`) VALUES
 (123, 'vios', 'toyota', 'M', 'AAP3780', '12345', 1, 1),
@@ -107,7 +108,8 @@ INSERT INTO `vehicle` (`id`, `model`, `brand`, `transmission`, `plate`, `driver`
 (345, 'accent', 'hyundai', 'M', 'TRY345', '34567', 0, 1),
 (456, 'Vios', 'Toyota', 'M', 'VDS634', '45678', 7, 1),
 (567, 'Accent', 'Hyundai', 'M', 'FAS', '56789', 4, 2),
-(568, 'paul', 'wagon', 'A', 'SEX699', '', 5, 1);
+(568, 'paul', 'wagon', 'M', 'SEX699', NULL, 5, 1),
+(569, 'LX34', 'Ford', 'M', 'LAS295', NULL, 3, 1);
 SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 

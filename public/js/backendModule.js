@@ -1,5 +1,5 @@
 /* 
-    car object module, laman nito lahat nang simple table rendering, data, and server communicating functions,
+*   car object module, laman nito lahat nang simple table rendering, data, and server communicating functions,
 */
 var car = {
     selectedCar: -1,
@@ -25,7 +25,7 @@ var car = {
         $('#carTableA').html(html);
     },
     getATableData: function(cb){
-        $.get('api/v1/car?offset=' + this.offset + '&limit=' + this.limit + '&tran=A', function(response){
+        $.get('api/v1/car?offset=' + this.offset + '&limit=' + this.limit, function(response){
             if(response.success){
                 var data = response.data;
                 addPage(data);
@@ -168,6 +168,114 @@ var car = {
             error: onFail
         });
     },
+    refresh: function(){
+        this.offset = 0;
+        this.currPage = 0;
+        $.get('api/v1/car?offset='+ this.offset + '&limit=' + this.limit, function(res){
+            if(res.success){
+
+            }else{
+                
+            }
+        });
+    }
+}
+/* 
+*   instructor module, same as car module. Pero para lang kay instructor.
+*/
+var inst = {
+    selected: 0,
+    offset: 0,
+    limit: 10,
+    currPage: 0,
+    pages: [],
+    registrationDetail: {},
+    getInstList: function(cb){
+        var self = this;
+        var addPage = function(err, data){
+            if(err) return cb(new Error("Error: getting data."));
+            self.pages.push(data);
+            self.offset = data[data.length-1].id;
+            cb(null, true);
+        };
+        $.get('api/v1/instructor?offset=' + this.offset + '&limit=' + this.limit, function(res){
+            if(res.success){
+                addPage(false, res.data);
+            }else{
+                addPage(true);
+            }
+        }).fail(function(err){
+            addPage(true);
+        });
+    },
+    register: function(cb){
+        var onFail = function(xhr, detail){    
+            if(xhr){
+                cb(new Error("Error: " + xhr.status + "\n" + xhr.statusText));
+            }else{ 
+                cb(new Error("Error: " + detail));
+            }
+        }
+        $.post('api/v1/instructor', {data: JSON.stringify(this.registrationDetail)}, function(res){
+            if(res.success){
+                cb(null, true);
+            }else{
+                onFail(null, res.detail);
+            }
+        }).fail(function(xhr){
+            onFail(xhr);
+        });
+    },
+    getLocalData: function(cb){
+        this.pages[this.currPage].forEach(x=>{
+            if(x.instID == this.selected){
+                return cb(x);
+            }
+        });
+    },
+    delete: function(date, cb){
+        var onFail = function(detail){
+            var error = new Error(detail);
+            cb(error);
+        };
+        $.ajax({
+            type: "DELETE",
+            url: "api/v1/instructor/" + this.selected,
+            data: {data: JSON.stringify(date)},
+            success: function(res){
+                if(res.success){
+                    cb(null, res.detail);
+                }else{
+                    onFail(res.detail);
+                }
+            },
+            error: onFail,
+        }).fail(function(xhr){
+            onFail("Error: " + xhr.status + "\n" + xhr.statusText);
+        });
+    },
+    update: function(data, cb){
+        var json = JSON.stringify(data);
+        console.log(data);
+        var onFail = function(detail){
+            var error =  new Error(detail);
+            cb(error);
+        };
+        $.ajax({
+            type: "PUT",
+            url: 'api/v1/instructor/' + this.selected,
+            data: {data: json},
+            success: function(res){
+                if(res.success){
+                    cb(null, res.detail);
+                }else{
+                    onFail(res.detail);
+                }
+            }
+        }).fail(function(xhr){
+            onFail("Error: " + xhr.status + "\n" + xhr.statusText);
+        });
+    },
 }
 /* 
 *   paul-made module design to query request one at a time, to prevent server congestion.
@@ -209,4 +317,45 @@ var queryer = {
     abort: function(reason){
         this.err = reason;
     }
+}
+/* 
+*   refresh module
+*/
+var refresher = {
+    interval: 5,
+    intervalPerModule: 2,
+    modules: {},
+    moduleNames: [],
+    addModule: function(moduleName, moduleCall){
+        this.modules[moduleName] = function(cb){
+            moduleCall(function(err, done){
+                if(err) return cb(err);
+                cb(null);
+            });
+        };
+        this.moduleNames.push(moduleName);
+        return true;
+    },
+    callModule: function(name, cb){
+        this.modules[name](function(err){
+            if(err) return cb(err);
+            cb(null);
+        });
+    },
+    refreshAll: function(cb){
+        var action = function(data, cb){
+            data(function(err){
+                if(err) return cb(err);
+                cb(null);
+            });
+        };
+        queryer.start(action, this.modules, function(err, done){
+            if(err) return cb(err);
+            cb(null);
+        });
+    }
+}
+
+var uploadPic = {
+
 }

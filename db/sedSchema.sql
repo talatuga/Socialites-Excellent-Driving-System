@@ -9,19 +9,33 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
+CREATE DATABASE IF NOT EXISTS `sed` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `sed`;
 
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getInst` (IN `_id` VARCHAR(15))  READS SQL DATA
 SELECT i.id as instID, i.vacant, u.* FROM instructor i, userinfo u WHERE i.id = _id AND i.userInfo = u.id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getInstList` (IN `_offset` INT(7), IN `_limit` INT(5))  READS SQL DATA
-SELECT i.id as instID,i.vacant,i.status, u.*  FROM instructor i, userinfo u WHERE i.id > _offset AND u.id = i.userInfo ORDER BY i.id ASC limit _limit$$
+SELECT i.id as instID, i.dateRegistered, i.educAttain,i.vacant,i.status, u.*  FROM instructor i, userinfo u WHERE u.id = i.userInfo AND i.status > 0 ORDER BY i.id ASC limit _offset, _limit$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getStud` (IN `_id` VARCHAR(15))  READS SQL DATA
 SELECT s.id as studID, s.dateRegistered, u.* FROM student s, userinfo u WHERE s.id = _id AND s.userInfo = u.id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getStudList` (IN `_offset` INT(7), IN `_limit` INT(5))  NO SQL
 SELECT s.id as studID, i.* FROM student s, userinfo i WHERE s.id > _offset AND i.id = s.userInfo ORDER BY s.id ASC limit _limit$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `addUserAcc` (`un` VARCHAR(30), `pw` VARCHAR(40), `atype` INT(2)) RETURNS INT(10) UNSIGNED MODIFIES SQL DATA
+BEGIN
+INSERT useraccount(username, password, accType) VALUES (un,SHA1(pw),atype);
+RETURN LAST_INSERT_ID();
+END$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `addUserInfo` (`ua` INT(10), `name` VARCHAR(50), `address` VARCHAR(100), `phone` VARCHAR(12), `bdate` DATE, `bplace` VARCHAR(50), `gender` VARCHAR(3), `civil` VARCHAR(10), `mail` VARCHAR(30), `utype` INT(1)) RETURNS INT(10) UNSIGNED MODIFIES SQL DATA
+BEGIN
+INSERT INTO `userinfo` (`userAcc`, `fullname`, `address`, `telno`, `birthdate`, `birthplace`, `sex`, `civilStatus`, `email`, `userType`) VALUES (ua, name, address, phone, bdate, bplace, gender, civil, mail, utype);
+return LAST_INSERT_ID();
+END$$
 
 DELIMITER ;
 
@@ -90,7 +104,10 @@ CREATE TABLE `guardian` (
 CREATE TABLE `instructor` (
   `id` varchar(15) NOT NULL,
   `userInfo` int(7) NOT NULL,
-  `vacant` varchar(7) NOT NULL,
+  `educAttain` int(1) NOT NULL,
+  `vacant` varchar(7) DEFAULT NULL,
+  `dateRegistered` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `dateRetired` date DEFAULT NULL,
   `status` int(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -135,10 +152,10 @@ CREATE TABLE `student` (
 
 CREATE TABLE `useraccount` (
   `id` int(10) NOT NULL,
-  `username` varchar(15) NOT NULL,
+  `username` varchar(30) NOT NULL,
   `password` varchar(40) NOT NULL,
   `accType` int(2) NOT NULL,
-  `status` int(1) NOT NULL DEFAULT '0'
+  `status` int(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `userinfo` (
@@ -236,43 +253,43 @@ ALTER TABLE `vehicle`
 
 
 ALTER TABLE `account`
-  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `accounttype`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `activity`
-  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `branch`
-  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `defect`
-  MODIFY `id` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(7) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `evaluation`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `guardian`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `lesson`
-  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `requirement`
-  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `schedule`
-  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `useraccount`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `userinfo`
-  MODIFY `id` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(7) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `vehicle`
-  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=569;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT;
 
 
 ALTER TABLE `account`

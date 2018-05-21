@@ -23,3 +23,10 @@ describe('getList()',function(){
         });
     });
 });
+
+/* 
+process.on('uncaughtException', function(err) {
+	// handle the error safely
+	console.log(err);
+});
+*/

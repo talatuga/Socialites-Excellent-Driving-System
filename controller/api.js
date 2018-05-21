@@ -1,7 +1,8 @@
 /* 
-    api.js, dito lahat ng api nang system.
-    seperated into two api's, admin and public
-    WARNING: changes here may cause major error and stop system from working. Please Update with care.
+*    api.js, dito lahat ng api nang system.
+*    seperated into two api's, admin and public
+*    WARNING: changes here may cause major error and stop system from working. Please Update with care.
+*    created by: CPRT
 */
 
 var router = require('express').Router();

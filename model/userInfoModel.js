@@ -2,7 +2,8 @@ var db = require("./db");
 var ModelModule = require("./model");
 var table = "userinfo";
 
-var UserInfo = Object.create(ModelModule);
+var UserInfo = {};
+UserInfo = Object.create(ModelModule);
 UserInfo.table = table;
 UserInfo.db = db;
 
@@ -12,6 +13,17 @@ UserInfo.getInfo = function(accID, cb){
     db.get().query(sql, [accID], function(err, result){
         if(err) return cb(err);
         cb(null, result);
+    });
+}
+
+UserInfo.register = function(data, cb){
+    var self = this;
+    UserInfo.getFields(UserInfo.table, function(err, fields){
+        var sql = "SELECT addUserInfo("+ Array(fields.length-1).fill("?").join() +") as id";
+        self.db.get().query(sql, data, function(err, result){
+            if(err) return cb(err);
+            cb(null, result[0].id);
+        });
     });
 }
 
