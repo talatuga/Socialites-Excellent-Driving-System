@@ -1,15 +1,15 @@
 <div class="view-viewInstructor">
     <!-- Bread crumb -->
     <div class="row page-titles">
-        <div class="col-md-8 align-self-center">
+        <div class="col-md-6 align-self-center">
             <span class="fa fa-chevron-left float-left backInst"></span>
             <h3 class="text-primary">Instructor Information</h3> 
         </div>
-        <div class="col-md-7 align-self-center">
+        <div class="col-md-6 align-self-center">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a onclick="dashboard()"> Home</a></li>
                 <li class="breadcrumb-item"><a onclick="instructor()">Instructor</a></li>
-                <li class="breadcrumb-item active"><a>Instructor Information</li>
+                <li class="breadcrumb-item active"><a>Instructor Information</a></li>
             </ol>
         </div>
     </div>
@@ -17,13 +17,12 @@
 
     <div class="container-fluid">
         <!-- Start of Card  -->
-        <div class="instructorCard">
-            <div class="row instructorCard">
+            <div class="row">
                 <!-- Start of col-lg-3 -->
-                <div class="col-lg-3">
+                <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3 pull-left">
                     <div class="card">
                         <center>
-                            <span><img src="assets/images/user-medium.png" alt="Student Picture" class="instPic"/></span><br><br>
+                            <span><img src="assets/images/user-medium.png" alt="Instructor Picture" class="instPic"/></span><br><br>
                             <h4 class="instName">Harry James Potter</h4>
                             <h6 class="instNum">INST-001</h6><hr width="30%">
                         </center>
@@ -57,7 +56,7 @@
                 <!-- End of col-lg-3 -->
 
                 <!-- Start of col-lg-9 -->
-                <div class="col-lg-9">
+                <div class="col-lg-9 col-md-9 col-xs-9 col-sm-9 pull-right">
                     <div class="card">
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs profile-tab" role="tablist">
@@ -70,7 +69,7 @@
                             <!--first tab-->
                             <div class="tab-pane active" id="scheduleI" role="tabpanel">
                                 <div class="card-body"> 
-                                    <div id='calendar'>
+                                    <div class='calendar'>
                                         
                                     </div>
                                 </div>
@@ -210,6 +209,6 @@
                     </div>
                 </div> <!-- End of col-lg-9 -->
             </div> <!-- End of row -->
-        </div><!-- End of Card  -->
+        <!-- End of Card  -->
     </div>
 </div>

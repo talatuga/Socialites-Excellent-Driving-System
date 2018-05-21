@@ -290,6 +290,9 @@ function saveUpdInst(){
         //DB: Update instructor account function
     }
 }
+$('#btnDelInstAcc').click(function(){
+    $('#instResign').val("");
+});
 
 function resignInst(){
     //gagawin ko pang minimum date yung araw na na-hire sya, ex: May 17 sya na-hire, bawal sya ma-fire ng May 16. Kaya di pa tapos

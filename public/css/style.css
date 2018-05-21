@@ -1499,6 +1499,7 @@ textarea {
   background-image: url("/assets/images/login-bg1.jpg");
   background-repeat: no-repeat;
   background-size: cover;
+  overflow-x: hidden;
 }
 .fix-sidebar .left-sidebar {
   position: fixed;
@@ -7204,6 +7205,7 @@ tbody tr td:last-child {
 }
 .instructorCard
 {
+  /* width: 100%; */
   height: 700px;
 }
 .viewHead
@@ -8000,19 +8002,19 @@ tiCustom
   -moz-appearance:textfield;
 }
 
-#editStudAccCont::-webkit-outer-spin-button,
-#editStudAccCont::-webkit-inner-spin-button{
+#editStudAccCont, #brTel1,::-webkit-outer-spin-button,
+#editStudAccCont, #brTel1,::-webkit-inner-spin-button{
   -webkit-appearance: none;
 }
-#editStudAccCont{
+#editStudAccCont, #brTel1,{
   -moz-appearance:textfield;
 }
 
-#enrCont::-webkit-outer-spin-button,
-#enrCont::-webkit-inner-spin-button{
+#enrCont, #brTel2::-webkit-outer-spin-button,
+#enrCont, #brTel2::-webkit-inner-spin-button{
   -webkit-appearance: none;
 }
-#enrCont{
+#enrCont, #brTel2{
   -moz-appearance:textfield;
 }
 
