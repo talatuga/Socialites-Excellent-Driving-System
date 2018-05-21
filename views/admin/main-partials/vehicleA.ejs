@@ -2,13 +2,14 @@
     <!-- Bread crumb -->
     <div class="row page-titles">
         <div class="col-md-5 align-self-center">
-            <h3 class="text-primary">Vehicles</h3> </div>
-        <div class="col-md-7 align-self-center">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                <li class="breadcrumb-item">Vehicle</li>
-            </ol>
+            <h3 class="text-primary">Vehicles</h3> 
         </div>
+        <!-- <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a onclick="dashboard()">Home</a></li>
+                <li class="breadcrumb-item active"><a>Vehicle</li>
+            </ol>
+        </div> -->
     </div>
     <!-- End Bread crumb -->
     <!-- Container fluid  -->
@@ -52,20 +53,6 @@
                                     <td>Manual</td>
                                     <td><span class="text-success">Available</span></td>
                                 </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Toyota</td>
-                                    <td>Corolla Atlis (Sedan)</td>
-                                    <td>Manual</td>
-                                    <td><span class="text-danger">Coding</span></td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>Toyota</td>
-                                    <td>Corolla Atlis (Sedan)</td>
-                                    <td>Manual</td>
-                                    <td><span class="text-warning">In Use</span></td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -91,7 +78,7 @@
                                     <i class="ti-pencil tiV" id="btnEditVehi" onclick="editVehicle()" data-toggle="tooltip" data-placement="bottom" title="Update"></i>
                                 </div>
                                 <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1">
-                                    <i class="ti-trash tiV" id="btnDelVehi" onclick="confDelVehicle()" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
+                                    <i class="ti-close tiV" id="btnDelVehi" onclick="confDelVehicle()" data-toggle="tooltip" data-placement="bottom" title="Remove"></i>
                                 </div>
                                 <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1">
                                     <i class="ti-calendar tiV" id="btnSchedVehi" onclick="gotoSched()" data-toggle="tooltip" data-placement="bottom" title="Schedule"></i>

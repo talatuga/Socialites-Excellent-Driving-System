@@ -32,6 +32,10 @@ var dashboard = function()
     document.getElementById("li5").classList.remove('active');
     document.getElementById("li6").classList.remove('active');
     document.getElementById("li1").classList.add('active');
+    document.getElementById("li2A").classList.remove('active');
+    document.getElementById("li2B").classList.remove('active');
+    document.getElementById("li2C").classList.remove('active');
+    document.getElementById("li2D").classList.remove('active');
 }
 
 var activeStud = function ()
@@ -124,6 +128,10 @@ var instructor = function ()
     document.getElementById("li5").classList.remove('active');
     document.getElementById("li6").classList.remove('active');
     document.getElementById("li3").classList.add('active');
+    document.getElementById("li2A").classList.remove('active');
+    document.getElementById("li2B").classList.remove('active');
+    document.getElementById("li2C").classList.remove('active');
+    document.getElementById("li2D").classList.remove('active');
 }
 
 var vehicle = function ()
@@ -144,6 +152,10 @@ var vehicle = function ()
     document.getElementById("li5").classList.remove('active');
     document.getElementById("li6").classList.remove('active');
     document.getElementById("li4").classList.add('active');
+    document.getElementById("li2A").classList.remove('active');
+    document.getElementById("li2B").classList.remove('active');
+    document.getElementById("li2C").classList.remove('active');
+    document.getElementById("li2D").classList.remove('active');
 }
 
 var schedule = function() 
@@ -164,6 +176,10 @@ var schedule = function()
     document.getElementById("li4").classList.remove('active');
     document.getElementById("li6").classList.remove('active');
     document.getElementById("li5").classList.add('active');
+    document.getElementById("li2A").classList.remove('active');
+    document.getElementById("li2B").classList.remove('active');
+    document.getElementById("li2C").classList.remove('active');
+    document.getElementById("li2D").classList.remove('active');
 }
 
 var branches = function ()
@@ -184,4 +200,8 @@ var branches = function ()
     document.getElementById("li4").classList.remove('active');
     document.getElementById("li5").classList.remove('active');
     document.getElementById("li6").classList.add('active');
+    document.getElementById("li2A").classList.remove('active');
+    document.getElementById("li2B").classList.remove('active');
+    document.getElementById("li2C").classList.remove('active');
+    document.getElementById("li2D").classList.remove('active');
 }

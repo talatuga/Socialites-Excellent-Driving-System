@@ -1,20 +1,142 @@
 <div class="view-branches">
     <!-- Bread crumb -->
-    <div class="row page-titles">
+    <div class="row page-titles" style="width: 100%">
         <div class="col-md-5 align-self-center">
             <h3 class="text-primary">Branches</h3> </div>
-        <div class="col-md-7 align-self-center">
+        <!-- <div class="col-md-7 align-self-center">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                <li class="breadcrumb-item active">Branches</li>
+                <li class="breadcrumb-item"><a onclick="dashboard()">Home</a></li>
+                <li class="breadcrumb-item active"><a>Branches</li>
             </ol>
-        </div>
+        </div> -->
     </div>
     <!-- End Bread crumb -->
     <!-- Container fluid  -->
     <div class="container-fluid">
-        <!-- Start Page Content -->
-        <!-- End Page Content -->
+        <!-- Start of Card  -->
+        <div class="studentCard">
+            <div>
+                <div class="row">
+                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <div class="input-group input-group-flat">
+                                <span class="input-group-btn"><button class="btn btn-custom" type="submit"><i class="ti-search"></i></button></span>
+                                <input type="text" id="searchBranch" class="form-control" placeholder="Search..." style="font-size: 12px;">
+                                <span class="input-group-btn"><button class="btn btn-primary input-group-close-icon" onclick="clrSearchBranch()" type="button"><i class="ti-close"></i></button></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                        <div class="pull-right">
+                            <button type="button" id="btnNewBranch" onclick="addBranch()" class="btn btn-success m-b-10 m-l-5">New Branch</button>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                        <hr class="hrCustom">
+                        <div class="card branchCard">
+                            <h3>List of Branches</h3>
+                            <div class="table-responsive">
+                                <table class="table tblBranches table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th width="100px">ID</th>
+                                            <th width="150px">Branch</th>
+                                            <th width="150px">Registrar</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="instructorTable">
+                                        <tr>
+                                            <td>SED-BR001</td>
+                                            <td><div>Maria Clara, Quezon City</div></td>
+                                            <td>Neville Longbottom</td>
+                                            <td><span class="text-success">Open</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>SED-BR002</td>
+                                            <td><div>Market! Market!, Taguig</div></td>
+                                            <td>Luna Lovegood</td>
+                                            <td><span class="text-success">Open</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>SED-BR003</td>
+                                            <td><div>Shopwise Cubao, Quezon City</div></td>
+                                            <td>Argus Filch</td>
+                                            <td><span class="text-success">Open</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <hr class="hrCustom">
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                        <hr class="hrCustom">
+                        <div class="card branchCard" style="position: relative">
+                            <h3>Branch Details</h3>
+                            <div>
+                                <center>
+                                    <hr width="50%">
+                                    <h4 class="brnchName">Maria Clara, Quezon City</h4>
+                                    <h5 class="brnchId">SED-BR001</h5>
+                                    <hr width="50%">
+                                </center><br>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <span class="fa fa-user fa-red fa-rightB">&nbsp;&nbsp;</span>
+                                        <span class="brnchReg">Neville Longbottom</span><br> 
+                                        <span class="fa fa-map-marker fa-red fa-rightB">&nbsp;&nbsp;</span>
+                                        <span class="brnchAdd">Mayon St. Cor. Maria Clara, Quezon City</span><br> 
+                                    </div>
+                                    <div class="col-md-6">
+                                        <span class="fa fa-phone fa-red fa-rightB">&nbsp;&nbsp;</span>
+                                        <span class="brnchPhone">741-7185/448-5137</span><br> 
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row divBottom"><center></center>
+                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                                    <button type="button" id="btnRemBrnch" onclick="remBranch()" class="btn btn-danger m-b-10 m-l-5">Remove</button>
+                                </div>
+                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                                    <button type="button" id="btnUpdBrnch" onclick="editBranch()" class="btn btn-primary m-b-10 m-l-5">Update</button>
+                                </div>
+                            </center></div>
+                        </div>
+                        <hr class="hrCustom">
+                    </div>
+                </div>
+            </div>
+        </div><!-- End of Card  -->
     </div>
     <!-- End Container fluid  -->
+</div>
+
+<!-- Add Branch Modal -->
+<div class="modal fade" id="addBranchModal" tabindex="-1" role="dialog" aria-labelledby="addBranchModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <center>
+            <h2 class="h6AddBranch"></h2>
+            <h6>Fill out all required (<span class="asterisk">*</span>) fields.</h6>
+        </center>
+        <!-- <center><span class="ti-car tiCustom"></span></center> -->
+        <hr class="hrCustom"><br>
+        <div>
+            <form class="formNewVehi">
+                
+            </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="btnCancAddBranch" class="btn btn-light" data-dismiss="modal">Cancel</button>
+        <button type="button" id="btnConfAddBranch" onclick="addVehi()" class="btn btn-primary">Add</button>
+        <button type="button" id="btnConfEditBranch" onclick="editVehi()" class="btn btn-primary">Save</button>
+      </div>
+    </div>
+  </div>
 </div>

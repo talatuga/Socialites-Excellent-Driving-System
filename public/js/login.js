@@ -16,14 +16,12 @@ $(document).ready(function(){
             $.post('/admin', {user: username, pass: password}, function(data){
                 if(data.success == false) 
                 {
-                    //alert (password);
                     swal("Oops!", "Invalid username or password!", "error");
                     return console.log("Failed");
                 }
                 else
                 {
-                    //alert ('hehe');
-                    swal("Success!", "You are now logged in as an administrator!", "success");
+                    // swal("Success!", "You are now logged in as an administrator!", "success");
                     setTimeout (successLogin, 3000);
                 }
             });

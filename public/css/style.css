@@ -31,6 +31,7 @@ body {
   margin: 0;
   overflow-x: hidden;
   color: #67757c;
+  cursor: default;
 }
 html {
   position: relative;
@@ -6899,6 +6900,7 @@ tbody tr td:last-child {
 .view-error500, .view-error404
 {
   display: none;
+  cursor: default;
 }
 
 .btn-custom
@@ -6983,7 +6985,7 @@ tbody tr td:last-child {
   color: #5D0000;
 }
 
-#btnNewInstructor, #btnNewVehicle
+#btnNewInstructor, #btnNewVehicle, #btnNewBranch
 {
   width: 200px;
   font-size: 14px;
@@ -7284,12 +7286,14 @@ tbody tr td:last-child {
   text-transform: uppercase;
   color: #f4f4f4;
 }
-.tblVehicle, .tblVehicleDef, .tblVehicleM, .tblStudent
+.tblVehicle, .tblVehicleDef, .tblVehicleM, .tblStudent, .tblBranches
 {
   font-size: 14px;
   color: white;
+  overflow-y: auto;
 }
-.tblVehicle tbody tr:hover, .tblVehicleDef tbody tr:hover, .tblVehicleM tbody tr:hover, tblStudent tbody tr:hover
+.tblVehicle tbody tr:hover, .tblVehicleDef tbody tr:hover, .tblVehicleM tbody tr:hover, .tblStudent tbody tr:hover,
+.tblBranches tbody tr:hover
 {
   background-color: #F9F1D9;
   -webkit-transition: 0.2s ease-in;
@@ -7298,12 +7302,12 @@ tbody tr td:last-child {
   cursor: pointer;
 }
 
-.tblVehicle td, .tblVehicleDef td, .tblVehicleM td, tblStudent td
+.tblVehicle td, .tblVehicleDef td, .tblVehicleM td, .tblStudent td, .tblBranches td
 {
   color: black;
   text-align: left;
 }
-.tblVehicle td span, .tblVehicleDef td span, .tblVehicleM td span
+.tblVehicle td span, .tblVehicleDef td span, .tblVehicleM td span, .tblBranches td span
 {
   font-size: 14px;
 }
@@ -7736,6 +7740,18 @@ ul.verticle_bars li{width:23%; height:200px; margin:0}
   z-index: -1
 }
 
+.hrCustom1
+{
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 2px solid #5D0000;
+  margin: 1em 0;
+  padding: 0;
+  z-index: -1;
+  width: 50%;
+}
+
 tiCustom
 {
   font-size: 20px;
@@ -8009,3 +8025,29 @@ tiCustom
 }
 
 .h6Enr{padding-left: 10px;}
+
+.tblBranches td > div{
+  width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  table-layout: fixed;
+}
+
+.brnchReg, .brnchPhone, .brnchAdd{
+  font-size: 14px;
+}
+
+.branchCard{
+  height: 400px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+#btnRemBrnch, #btnUpdBrnch{
+  width: 90%;
+}
+.divBottom{
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+}
