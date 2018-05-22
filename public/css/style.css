@@ -6981,7 +6981,7 @@ tbody tr td:last-child {
   color: #5D0000;
 }
 
-#btnNewInstructor, #btnNewVehicle, #btnNewBranch
+#btnNewInstructor, #btnNewVehicle, #btnNewBranch, #btnNewLesson
 {
   width: 200px;
   font-size: 14px;
@@ -7254,14 +7254,14 @@ tbody tr td:last-child {
   text-transform: uppercase;
   color: #f4f4f4;
 }
-.tblVehicle, .tblVehicleDef, .tblVehicleM, .tblStudent, .tblBranches, .tableDash, .tblInstructor
+.tblVehicle, .tblVehicleDef, .tblVehicleM, .tblStudent, .tblBranches, .tableDash, .tblInstructor, .tblLessons
 {
   font-size: 14px;
   color: white;
   overflow-y: auto;
 }
 .tblVehicle tbody tr:hover, .tblVehicleDef tbody tr:hover, .tblVehicleM tbody tr:hover, .tblStudent tbody tr:hover,
-.tblBranches tbody tr:hover, .tableDash tbody tr:hover, .tblInstructor tbody tr:hover
+.tblBranches tbody tr:hover, .tableDash tbody tr:hover, .tblInstructor tbody tr:hover, .tblLessons tbody tr:hover
 {
   background-color: #F9F1D9;
   -webkit-transition: 0.2s ease-in;
@@ -7270,12 +7270,12 @@ tbody tr td:last-child {
   cursor: pointer;
 }
 
-.tblVehicle td, .tblVehicleDef td, .tblVehicleM td, .tblStudent td, .tblBranches td, .tableDash td, .tblInstructor td
+.tblVehicle td, .tblVehicleDef td, .tblVehicleM td, .tblStudent td, .tblBranches td, .tableDash td, .tblInstructor td, .tblLessons td
 {
   color: black;
   text-align: left;
 }
-.tblVehicle td span, .tblVehicleDef td span, .tblVehicleM td span, .tblBranches td span, .tableDash td span, .tblInstructor td span
+.tblVehicle td span, .tblVehicleDef td span, .tblVehicleM td span, .tblBranches td span, .tableDash td span, .tblInstructor td span, .tblLessons td span
 {
   font-size: 14px;
 }
@@ -8017,7 +8017,7 @@ tiCustom
   overflow-y: auto;
   overflow-x: hidden;
 }
-#btnRemBrnch, #btnUpdBrnch{
+#btnRemBrnch, #btnUpdBrnch, #btnUpdLesson, #btnRemLesson{
   width: 90%;
 }
 .divBottom{
@@ -8031,4 +8031,19 @@ tiCustom
 }
 .btnCstom{
   width: 150px;
+}
+.lesID{
+  color: #5D0000;
+  font-weight: bold;
+}
+.lesName{
+  color: #5D0000;
+  font-weight: bolder;
+  text-transform: uppercase;
+}
+.lesPrereq{
+  font-weight: bold;
+}
+.lesDesc{
+  margin: 10px;
 }

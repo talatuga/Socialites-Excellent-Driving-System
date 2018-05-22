@@ -22,14 +22,14 @@
                         <div class="form-group">
                             <div class="input-group input-group-flat">
                                 <span class="input-group-btn"><button class="btn btn-custom" type="submit"><i class="ti-search"></i></button></span>
-                                <input type="text" id="searchBranch" class="form-control" placeholder="Search..." style="font-size: 12px;">
-                                <span class="input-group-btn"><button class="btn btn-primary input-group-close-icon" onclick="clrSearchBranch()" type="button"><i class="ti-close"></i></button></span>
+                                <input type="text" id="searchLesson" class="form-control" placeholder="Search..." style="font-size: 12px;">
+                                <span class="input-group-btn"><button class="btn btn-primary input-group-close-icon" onclick="clrSearchLesson()" type="button"><i class="ti-close"></i></button></span>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                         <div class="pull-right">
-                            <button type="button" id="btnNewBranch" onclick="addBranch()" class="btn btn-success m-b-10 m-l-5">New Branch</button>
+                            <button type="button" id="btnNewLesson" onclick="addLesson()" class="btn btn-success m-b-10 m-l-5">New Lesson</button>
                         </div>
                     </div>
                 </div>
@@ -38,35 +38,36 @@
                     <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                         <hr class="hrCustom">
                         <div class="card branchCard">
-                            <h3>List of Branches</h3>
+                            <h3>List of Lessons &amp; Techniques</h3>
                             <div class="table-responsive">
-                                <table class="table tblBranches table-hover">
+                                <table class="table tblLessons table-hover">
                                     <thead>
                                         <tr>
-                                            <th width="100px">ID</th>
-                                            <th width="150px">Branch</th>
-                                            <th width="150px">Contact Number</th>
+                                            <th>ID</th>
+                                            <th>Name</th>
                                             <th>Status</th>
                                         </tr>
                                     </thead>
                                     <tbody id="branchTable">
                                         <tr>
-                                            <td>SED-BR001</td>
-                                            <td><div>Maria Clara, Quezon City</div></td>
-                                            <td>741-7185/448-5137</td>
-                                            <td><span class="text-success">Open</span></td>
+                                            <td>SED-L001</td>
+                                            <td><div>Start &amp; Stop</div></td>
+                                            <td><span class="text-success">Available</span></td>
                                         </tr>
                                         <tr>
-                                            <td>SED-BR002</td>
-                                            <td><div>Market! Market!, Taguig</div></td>
-                                            <td>844-7734</td>
-                                            <td><span class="text-success">Open</span></td>
+                                            <td>SED-L002</td>
+                                            <td><div>Backing &amp; Turning</div></td>
+                                            <td><span class="text-success">Available</span></td>
                                         </tr>
                                         <tr>
-                                            <td>SED-BR003</td>
-                                            <td><div>Shopwise Cubao, Quezon City</div></td>
-                                            <td>439-4485</td>
-                                            <td><span class="text-danger">Inactive</span></td>
+                                            <td>SED-L003</td>
+                                            <td><div>Road Crossing &amp; Light Traffic</div></td>
+                                            <td><span class="text-success">Available</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>SED-L004</td>
+                                            <td><div>Review</div></td>
+                                            <td><span class="text-danger">Unavailable</span></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -77,33 +78,26 @@
                     <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                         <hr class="hrCustom">
                         <div class="card branchCard" style="position: relative">
-                            <h3>Branch Details</h3>
+                            <h3>Lesson Details</h3>
                             <div>
                                 <center>
                                     <hr width="50%">
-                                    <h4 class="brnchName">Maria Clara, Quezon City</h4>
-                                    <h5 class="brnchId">SED-BR001</h5>
+                                    <h4 class="lesName">Start &amp; Stop</h4>
+                                    <h5 class="lesID">SED-L001</h5>
                                     <hr width="50%">
-                                </center><br>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <span class="fa fa-user fa-red fa-rightB">&nbsp;&nbsp;</span>
-                                        <span class="brnchReg">Neville Longbottom</span><br> 
-                                        <span class="fa fa-map-marker fa-red fa-rightB">&nbsp;&nbsp;</span>
-                                        <span class="brnchAdd">Mayon St. Cor. Maria Clara, Quezon City</span><br> 
-                                    </div>
-                                    <div class="col-md-6">
-                                        <span class="fa fa-phone fa-red fa-rightB">&nbsp;&nbsp;</span>
-                                        <span class="brnchPhone">741-7185/448-5137</span><br> 
-                                    </div>
-                                </div>
+                                </center>
+                                <center>
+                                    <h6 class="lesDesc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam non labore voluptatem, consequatur 
+                                        molestiae consequuntur, provident?</h6><br>
+                                    <h6>Prerequisite: <span class="lesPrereq">None</span></h6>
+                                </center>
                             </div>
                             <div class="row divBottom">
                                 <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
-                                    <button type="button" id="btnRemBrnch" onclick="remBranch()" class="btn btn-danger m-b-10 m-l-5">Remove</button>
+                                    <button type="button" id="btnRemLesson" onclick="remLesson()" class="btn btn-danger m-b-10 m-l-5">Remove</button>
                                 </div>
                                 <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
-                                    <button type="button" id="btnUpdBrnch" onclick="editBranch()" class="btn btn-primary m-b-10 m-l-5">Update</button>
+                                    <button type="button" id="btnUpdLesson" onclick="editLesson()" class="btn btn-primary m-b-10 m-l-5">Update</button>
                                 </div>
                             </div>
                         </div>
@@ -116,45 +110,45 @@
     <!-- End Container fluid  -->
 </div>
 
-<!-- Add Branch Modal -->
-<div class="modal fade" id="addBranchModal" tabindex="-1" role="dialog" aria-labelledby="addBranchModal" aria-hidden="true">
+<!-- Add Lesson Modal -->
+<div class="modal fade" id="addLessonModal" tabindex="-1" role="dialog" aria-labelledby="addLessonModal" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-body">
         <center>
-            <h2 class="h6AddBranch"></h2>
+            <h2 class="h6AddLesson"></h2>
             <h6>Fill out all required (<span class="asterisk">*</span>) fields.</h6>
         </center>
         <hr class="hrCustom"><br>
         <div>
             <form class="formAddBranch">
                 <div>
-                    <h5 class="h5Enr">Branch Name<span class="asterisk">*</span></h5>
-                    <input type="text" class="txtEnr" required name="brName" id="brName" placeholder="Branch Name"><br>
+                    <h5 class="h5Enr">Lesson Name<span class="asterisk">*</span></h5>
+                    <input type="text" class="txtEnr" required name="newLesName" id="newLesName" placeholder="Lesson Name"><br>
                 </div><hr>
                 <div>
-                    <h5 class="h5Enr">Address<span class="asterisk">*</span></h5>
-                    <input type="text" class="txtEnr" required name="brAddL1" id="brAddL1" placeholder="Address Line 1"><br>
-                    <small style="padding-left: 10px;">Street Address, P.O. Box, Company Name, C/o</small>
-                    <input type="text" class="txtEnr" required name="brAddL2" id="brAddL2" placeholder="Address Line 2"><br>
-                    <small style="padding-left: 10px;">Apartment, Suite, Unit, Building, Floor, etc.</small>
-                    <input type="text" class="txtEnr" required name="brCity" id="brCity" placeholder="City"><br> 
-                    <input type="text" class="txtEnr" required name="brProv" id="brProv" placeholder="State/Province/Region"><br>
-                    <input type="text" class="txtEnr" required name="brZip" id="brZip" placeholder="ZIP"><br>     
+                    <h5 class="h5Enr">Description</h5>
+                    <textarea rows="3" class="enrTxtArea" id="newLesDesc"></textarea>                
                 </div><hr>
                 <div>
-                    <h5 class="h5Enr">Contact Number<span class="asterisk">*</span> <small>(Maximum of 2)</small></h5>
-                    <input type="number" class="txtEnr" required name="brTel1" id="brTel1" placeholder="Tel/Cell#"><br>
-                    <input type="number" class="txtEnr" required name="brTel2" id="brTel2" placeholder="Tel/Cell#"><br>
+                    <h5 class="h5Enr">Prerequisite Lesson<span class="asterisk">*</span></h5>
+                    <select required class="enrCivStatus" name="newLesPrereq" id="newLesPrereq">
+                        <option value="0">---</option>
+                        <option value="1">Start &amp; Stop</option>
+                        <option value="2">Eme eme</option>
+                        <option value="3">Emeeeeee</option>
+                        <option value="4">Whaaat</option>
+                        <option value="5">Ganda langs</option>
+                    </select>
                 </div><hr>
             </form>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" id="btnCancAddBranch" onclick="confCancAddBranch()" class="btn btn-danger">Cancel</button>
-        <button type="button" id="btnConfAddBranch" onclick="confAddBranch()" class="btn btn-success">Add</button>
-        <button type="button" id="btnConfResetBranch" onclick="confResetBranch()" class="btn btn-light">Reset</button>
-        <button type="button" id="btnConfEditBranch" onclick="confEditBranch()" class="btn btn-success">Save</button>
+        <button type="button" id="btnCancAddLesson" onclick="confCancAddLesson()" class="btn btn-danger">Cancel</button>
+        <button type="button" id="btnConfAddLesson" onclick="confAddLesson()" class="btn btn-success">Add</button>
+        <button type="button" id="btnConfResetLesson" onclick="confResetLesson()" class="btn btn-light">Reset</button>
+        <button type="button" id="btnConfEditLesson" onclick="confEditLesson()" class="btn btn-success">Save</button>
       </div>
     </div>
   </div>

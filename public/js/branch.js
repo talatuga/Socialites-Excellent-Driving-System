@@ -168,7 +168,6 @@ function confCancAddBranch(){
     function(isConfirm){
         if (isConfirm) {
             $('#addBranchModal').modal('hide');
-            swal("Cancelled!", "", "error");
             //DB: Cancel changes here
         }
     });

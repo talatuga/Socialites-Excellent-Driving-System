@@ -10,7 +10,7 @@ $(function() {
     $(".view-branches").hide();
     $(".view-dashboard").show();
     $(".view-lessons").hide();
-    $(".view-requirements").hide();
+    $(".view-requirement").hide();
     $(".view-account").hide();
 
     $(".view-viewInstructor").hide();
@@ -29,7 +29,7 @@ var dashboard = function()
     $(".view-viewInstructor").hide();
     $(".view-viewStudent").hide();
     $(".view-dashboard").show();
-    $(".view-requirements").hide();
+    $(".view-requirement").hide();
     $(".view-lessons").hide();
     $(".view-account").hide();
     document.getElementById("li2").classList.remove('active');
@@ -75,7 +75,7 @@ var activeStudA = function ()
     $(".view-viewStudent").hide();
     $(".view-enrollment").hide();
     $(".view-student").show();
-    $(".view-requirements").hide();
+    $(".view-requirement").hide();
     $(".view-lessons").hide();
     $(".view-account").hide();
     document.getElementById("li1").classList.remove('active');
@@ -105,7 +105,7 @@ var activeStudB = function ()
     $(".view-viewStudent").hide();
     $(".view-student").hide();
     $(".view-enrollment").show();
-    $(".view-requirements").hide();
+    $(".view-requirement").hide();
     $(".view-lessons").hide();
     $(".view-account").hide();
     document.getElementById("li1").classList.remove('active');
@@ -151,7 +151,7 @@ var instructor = function ()
     $(".view-viewInstructor").hide();
     $(".view-viewStudent").hide();
     $(".view-instructor").show();
-    $(".view-requirements").hide();
+    $(".view-requirement").hide();
     $(".view-lessons").hide();
     $(".view-account").hide();
     document.getElementById("li1").classList.remove('active');
@@ -186,7 +186,7 @@ var vehicle = function ()
     $(".view-viewInstructor").hide();
     $(".view-viewStudent").hide();
     $(".view-vehicleA").show();
-    $(".view-requirements").hide();
+    $(".view-requirement").hide();
     $(".view-lessons").hide();
     $(".view-account").hide();
     document.getElementById("li1").classList.remove('active');
@@ -216,7 +216,7 @@ var schedule = function()
     $(".view-viewInstructor").hide();
     $(".view-viewStudent").hide();
     $(".view-schedule").show();
-    $(".view-requirements").hide();
+    $(".view-requirement").hide();
     $(".view-lessons").hide();
     $(".view-account").hide();
     document.getElementById("li1").classList.remove('active');
@@ -247,7 +247,7 @@ var branches = function ()
     $(".view-viewInstructor").hide();
     $(".view-viewStudent").hide();
     $(".view-branches").show();
-    $(".view-requirements").hide();
+    $(".view-requirement").hide();
     $(".view-lessons").hide();
     $(".view-account").hide();
     document.getElementById("li1").classList.remove('active');
@@ -277,7 +277,7 @@ var account = function ()
     $(".view-viewInstructor").hide();
     $(".view-viewStudent").hide();
     $(".view-branches").hide();
-    $(".view-requirements").hide();
+    $(".view-requirement").hide();
     $(".view-lessons").hide();
     $(".view-account").show();
     document.getElementById("li1").classList.remove('active');
@@ -307,7 +307,7 @@ var requirements = function ()
     $(".view-viewInstructor").hide();
     $(".view-viewStudent").hide();
     $(".view-branches").hide();
-    $(".view-requirements").hide();
+    $(".view-lessons").hide();
     $(".view-account").hide();
     $(".view-requirement").show();
     document.getElementById("li1").classList.remove('active');
@@ -337,7 +337,7 @@ var lessons = function ()
     $(".view-viewInstructor").hide();
     $(".view-viewStudent").hide();
     $(".view-branches").hide();
-    $(".view-requirements").hide();
+    $(".view-requirement").hide();
     $(".view-account").hide();
     $(".view-lessons").show();
     document.getElementById("li1").classList.remove('active');
