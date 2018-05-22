@@ -1532,6 +1532,7 @@ textarea {
 .sidebar-nav {
   /* background: #5D0000; */
   padding: 0;
+  overflow-x: hidden;
 }
 .sidebar-nav ul {
   margin: 0;
@@ -7254,14 +7255,16 @@ tbody tr td:last-child {
   text-transform: uppercase;
   color: #f4f4f4;
 }
-.tblVehicle, .tblVehicleDef, .tblVehicleM, .tblStudent, .tblBranches, .tableDash, .tblInstructor, .tblLessons
+.tblVehicle, .tblVehicleDef, .tblVehicleM, .tblStudent, .tblBranches, .tableDash, .tblInstructor, 
+.tblLessons, .tblReqClass, .tblReqPerClass
 {
   font-size: 14px;
   color: white;
   overflow-y: auto;
 }
 .tblVehicle tbody tr:hover, .tblVehicleDef tbody tr:hover, .tblVehicleM tbody tr:hover, .tblStudent tbody tr:hover,
-.tblBranches tbody tr:hover, .tableDash tbody tr:hover, .tblInstructor tbody tr:hover, .tblLessons tbody tr:hover
+.tblBranches tbody tr:hover, .tableDash tbody tr:hover, .tblInstructor tbody tr:hover, .tblLessons tbody tr:hover,
+.tblReqClass tbody tr:hover, .tblReqPerClass tbody tr:hover
 {
   background-color: #F9F1D9;
   -webkit-transition: 0.2s ease-in;
@@ -7270,12 +7273,14 @@ tbody tr td:last-child {
   cursor: pointer;
 }
 
-.tblVehicle td, .tblVehicleDef td, .tblVehicleM td, .tblStudent td, .tblBranches td, .tableDash td, .tblInstructor td, .tblLessons td
+.tblVehicle td, .tblVehicleDef td, .tblVehicleM td, .tblStudent td, .tblBranches td, 
+.tableDash td, .tblInstructor td, .tblLessons td, .tblReqClass td, .tblReqPerClass td
 {
   color: black;
   text-align: left;
 }
-.tblVehicle td span, .tblVehicleDef td span, .tblVehicleM td span, .tblBranches td span, .tableDash td span, .tblInstructor td span, .tblLessons td span
+.tblVehicle td span, .tblVehicleDef td span, .tblVehicleM td span, .tblBranches td span, .tableDash td span, 
+.tblInstructor td span, .tblLessons td span, .tblReqClass td span, .tblReqPerClass td span
 {
   font-size: 14px;
 }
@@ -7442,6 +7447,21 @@ tbody tr td:last-child {
   -webkit-transition: 0.4s ease-in;
   -o-transition: 0.4s ease-in;
     transition: 0.4s ease-in;
+}
+.tiDef2
+{
+  cursor: pointer;
+  color: rgb(212, 5, 5);
+  padding: 5px;
+}
+.tiDef2:hover
+{
+  cursor: pointer;
+  color: rgb(212, 5, 5);
+  font-size: 15px;
+  -webkit-transition: 0.1s ease-in;
+  -o-transition: 0.1s ease-in;
+    transition: 0.1s ease-in;
 }
 .scrollXCard
 {
@@ -8046,4 +8066,18 @@ tiCustom
 }
 .lesDesc{
   margin: 10px;
+}
+/* .selectedReqClass{
+  text-transform: uppercase;
+  color: #5D0000;
+  font-weight: bolder;
+} */
+
+
+.selectedReqClass{
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.btnEditReq, .btnDelReq{
+  display: none;
 }

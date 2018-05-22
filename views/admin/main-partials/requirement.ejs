@@ -22,14 +22,14 @@
                         <div class="form-group">
                             <div class="input-group input-group-flat">
                                 <span class="input-group-btn"><button class="btn btn-custom" type="submit"><i class="ti-search"></i></button></span>
-                                <input type="text" id="searchBranch" class="form-control" placeholder="Search..." style="font-size: 12px;">
-                                <span class="input-group-btn"><button class="btn btn-primary input-group-close-icon" onclick="clrSearchBranch()" type="button"><i class="ti-close"></i></button></span>
+                                <input type="text" id="searchReq" class="form-control" placeholder="Search..." style="font-size: 12px;">
+                                <span class="input-group-btn"><button class="btn btn-primary input-group-close-icon" onclick="clrSearchReq()" type="button"><i class="ti-close"></i></button></span>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                         <div class="pull-right">
-                            <button type="button" id="btnNewBranch" onclick="addBranch()" class="btn btn-success m-b-10 m-l-5">New Branch</button>
+                            <button type="button" id="btnNewBranch" onclick="addReqClass()" class="btn btn-success m-b-10 m-l-5">New Requirement Class</button>
                         </div>
                     </div>
                 </div>
@@ -38,35 +38,21 @@
                     <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                         <hr class="hrCustom">
                         <div class="card branchCard">
-                            <h3>List of Branches</h3>
+                            <h3>Requirement Classification</h3>
                             <div class="table-responsive">
-                                <table class="table tblBranches table-hover">
+                                <table class="table tblReqClass table-hover">
                                     <thead>
-                                        <tr>
-                                            <th width="100px">ID</th>
-                                            <th width="150px">Branch</th>
-                                            <th width="150px">Contact Number</th>
-                                            <th>Status</th>
-                                        </tr>
+                                        <th></th>
                                     </thead>
-                                    <tbody id="branchTable">
+                                    <tbody>
                                         <tr>
-                                            <td>SED-BR001</td>
-                                            <td><div>Maria Clara, Quezon City</div></td>
-                                            <td>741-7185/448-5137</td>
-                                            <td><span class="text-success">Open</span></td>
+                                            <td>17-18 years old</td>
                                         </tr>
                                         <tr>
-                                            <td>SED-BR002</td>
-                                            <td><div>Market! Market!, Taguig</div></td>
-                                            <td>844-7734</td>
-                                            <td><span class="text-success">Open</span></td>
+                                            <td>19 years old and above</td>
                                         </tr>
                                         <tr>
-                                            <td>SED-BR003</td>
-                                            <td><div>Shopwise Cubao, Quezon City</div></td>
-                                            <td>439-4485</td>
-                                            <td><span class="text-danger">Inactive</span></td>
+                                            <td>Non-Filipino students &amp; tourists</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -76,34 +62,55 @@
                     </div>
                     <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                         <hr class="hrCustom">
-                        <div class="card branchCard" style="position: relative">
-                            <h3>Branch Details</h3>
-                            <div>
-                                <center>
-                                    <hr width="50%">
-                                    <h4 class="brnchName">Maria Clara, Quezon City</h4>
-                                    <h5 class="brnchId">SED-BR001</h5>
-                                    <hr width="50%">
-                                </center><br>
+                        <div class="card branchCard">
+                            <h3>List of Requirements</h3><hr>
+                            <div style="padding-left: 30px;">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <span class="fa fa-user fa-red fa-rightB">&nbsp;&nbsp;</span>
-                                        <span class="brnchReg">Neville Longbottom</span><br> 
-                                        <span class="fa fa-map-marker fa-red fa-rightB">&nbsp;&nbsp;</span>
-                                        <span class="brnchAdd">Mayon St. Cor. Maria Clara, Quezon City</span><br> 
+                                    <div class="col-md-8 col-lg-8 col-sm-7 col-xs-7">
+                                        <h4 class="selectedReqClass">17-18 yrs. old</h4>
                                     </div>
-                                    <div class="col-md-6">
-                                        <span class="fa fa-phone fa-red fa-rightB">&nbsp;&nbsp;</span>
-                                        <span class="brnchPhone">741-7185/448-5137</span><br> 
+                                    <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1">
+                                        <i class="ti-plus tiV" id="btnAddClReq" onclick="addClReq()" data-toggle="tooltip" data-placement="bottom" title="Update"></i>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="row divBottom">
-                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
-                                    <button type="button" id="btnRemBrnch" onclick="remBranch()" class="btn btn-danger m-b-10 m-l-5">Remove</button>
-                                </div>
-                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
-                                    <button type="button" id="btnUpdBrnch" onclick="editBranch()" class="btn btn-primary m-b-10 m-l-5">Update</button>
+                                    <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1">
+                                        <i class="ti-pencil tiV" id="btnEditClReq" onclick="editClReq()" data-toggle="tooltip" data-placement="bottom" title="Update"></i>
+                                    </div>
+                                    <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1">
+                                        <i class="ti-close tiV" id="btnDelClReq" onclick="delClReq()" data-toggle="tooltip" data-placement="bottom" title="Remove"></i>
+                                    </div>
+                                </div><hr>
+                                <div class="table-responsive">
+                                    <table class="table tblReqPerClass table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th width="75%">Requirement</th>
+                                                <th width="25%">Action</th>
+                                            </tr> 
+                                        </thead>
+                                        <tbody id="carDefect">
+                                            <tr>
+                                                <td>Original Birth Certificate (NSO)</td>
+                                                <td>
+                                                    <i class="ti-pencil tiDef2" class="btnEditReq" onclick="editReq()" data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
+                                                    <i class="ti-close tiDef2" class="btnDelReq" onclick="delReq()" data-toggle="tooltip" data-placement="bottom" title="Remove"></i>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Photocopy of Birth Certificate (NSO)</td>
+                                                <td>
+                                                    <i class="ti-pencil tiDef2" class="btnEditReq" onclick="editReq()" data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
+                                                    <i class="ti-close tiDef2" class="btnDelReq" onclick="delReq()" data-toggle="tooltip" data-placement="bottom" title="Remove"></i>
+                                                </td>                                        
+                                            </tr>
+                                            <tr>
+                                                <td>Parental Consent</td>
+                                                <td>
+                                                    <i class="ti-pencil tiDef2" class="btnEditReq" onclick="editReq()" data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
+                                                    <i class="ti-close tiDef2" class="btnDelReq" onclick="delReq()" data-toggle="tooltip" data-placement="bottom" title="Remove"></i>
+                                                </td>          
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
