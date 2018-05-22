@@ -6891,6 +6891,7 @@ tbody tr td:last-child {
 }
 
 .view-dashboard, .view-instructor, .view-student, .view-schedule, .view-vehicleA, .view-branches,
+.view-requirement, .view-lessons, .view-account,
 .view-viewInstructor, .view-viewStudent,
 .view-error500, .view-error404
 {
