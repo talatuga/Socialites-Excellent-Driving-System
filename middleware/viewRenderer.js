@@ -22,7 +22,7 @@ exports.admin = function (req, res, next){
 }
 
 exports.user = function(req, res, next){
-    res.render('sample',{title: 'Sample EJS Implementaion'});
+    res.render('main/index',{title: 'SED | Pre-Registration'});
 }
 
 var getUserInfo = function(data, cb){ //REPAIR THIS WHOLE UNIT!!!! 

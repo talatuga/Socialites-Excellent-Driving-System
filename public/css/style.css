@@ -7256,7 +7256,7 @@ tbody tr td:last-child {
   color: #f4f4f4;
 }
 .tblVehicle, .tblVehicleDef, .tblVehicleM, .tblStudent, .tblBranches, .tableDash, .tblInstructor, 
-.tblLessons, .tblReqClass, .tblReqPerClass
+.tblLessons, .tblReqClass, .tblReqPerClass, .tblManualCrs, .tblCustom
 {
   font-size: 14px;
   color: white;
@@ -7264,7 +7264,7 @@ tbody tr td:last-child {
 }
 .tblVehicle tbody tr:hover, .tblVehicleDef tbody tr:hover, .tblVehicleM tbody tr:hover, .tblStudent tbody tr:hover,
 .tblBranches tbody tr:hover, .tableDash tbody tr:hover, .tblInstructor tbody tr:hover, .tblLessons tbody tr:hover,
-.tblReqClass tbody tr:hover
+.tblReqClass tbody tr:hover, .tblManualCrs tbody tr:hover, .tblCustom tbody tr:hover
 {
   background-color: #F9F1D9;
   -webkit-transition: 0.2s ease-in;
@@ -7274,13 +7274,13 @@ tbody tr td:last-child {
 }
 
 .tblVehicle td, .tblVehicleDef td, .tblVehicleM td, .tblStudent td, .tblBranches td, 
-.tableDash td, .tblInstructor td, .tblLessons td, .tblReqClass td, .tblReqPerClass td
+.tableDash td, .tblInstructor td, .tblLessons td, .tblReqClass td, .tblReqPerClass td, .tblManualCrs td, .tblCustom td
 {
   color: black;
   text-align: left;
 }
 .tblVehicle td span, .tblVehicleDef td span, .tblVehicleM td span, .tblBranches td span, .tableDash td span, 
-.tblInstructor td span, .tblLessons td span, .tblReqClass td span, .tblReqPerClass td span
+.tblInstructor td span, .tblLessons td span, .tblReqClass td span, .tblReqPerClass td span, tblManualCrs td span, .tblCustom td span
 {
   font-size: 14px;
 }
@@ -7949,7 +7949,7 @@ tiCustom
 
 #btnEnrollStudent, #btnCancEnrollStudent
 {
-  width: 30%;
+  width: 20%;
   bottom: 0;
 }
 
@@ -8076,4 +8076,70 @@ tiCustom
 }
 #btnCancEditReq, #btnSaveEditReq{
   width: 90%;
+}
+.view-preregistration{
+  width: 100%;
+}
+.allcaps{
+  text-transform: uppercase;
+  font-weight: bolder;
+}
+.preregCard{
+  width: 50%;
+  margin: 0 auto;
+  border: 20px solid #FFCD40;
+}
+.pr2, .pr3{
+  width: 70%;
+}
+.btnPrereg
+{
+  width: 25%;
+  bottom: 0;
+  border: solid 2px #5D0000;
+  background-color: white;
+}
+
+.btnPrereg:hover
+{
+  width: 25%;
+  bottom: 0;
+  border: solid 2px #5D0000;
+  background-color: #5D0000;
+  color: white;
+  -webkit-transition: 0.2s ease-in;
+  -o-transition: 0.2s ease-in;
+  transition: 0.2s ease-in;
+}
+
+.txtEnr3:focus
+{
+  border: solid 1px #FFCD40;
+  background-color: #fff;
+}
+
+.txtEnr3{
+  font-size: 14px;
+  width: 95%;
+  margin: 1px;
+  margin-left: 10px;
+  padding: 3px;
+  background-color: #FCFCFC;
+  border: solid 1px #E2E2E2;
+}
+
+.enrTxtArea3, .enrCivStatus3{
+  font-size: 14px;
+  margin-left: 10px;
+  width: 95%;
+  padding: 3px;
+  background-color: #FCFCFC;
+  border: solid 1px #E2E2E2;
+}
+
+.cardCstm
+{
+  height: 97%;
+  border-left: solid 2px black;
+  border-right: solid 2px black;
 }
