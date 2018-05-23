@@ -37,7 +37,7 @@
                 <div class="row">
                     <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                         <hr class="hrCustom">
-                        <div class="card branchCard">
+                        <div class="card reqCard">
                             <h3>Requirement Classification</h3>
                             <div class="table-responsive">
                                 <table class="table tblReqClass table-hover">
@@ -62,12 +62,13 @@
                     </div>
                     <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                         <hr class="hrCustom">
-                        <div class="card branchCard">
+                        <div class="card reqCard">
                             <h3>List of Requirements</h3><hr>
                             <div style="padding-left: 30px;">
                                 <div class="row">
                                     <div class="col-md-8 col-lg-8 col-sm-7 col-xs-7">
                                         <h4 class="selectedReqClass">17-18 yrs. old</h4>
+                                        <input type="text" class="txtEnr" required name="editSelReqClass" id="editSelReqClass">
                                     </div>
                                     <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1">
                                         <i class="ti-plus tiV" id="btnAddClReq" onclick="addClReq()" data-toggle="tooltip" data-placement="bottom" title="Update"></i>
@@ -80,37 +81,42 @@
                                     </div>
                                 </div><hr>
                                 <div class="table-responsive">
-                                    <table class="table tblReqPerClass table-hover">
+                                    <table class="table tblReqPerClass">
                                         <thead>
                                             <tr>
                                                 <th width="75%">Requirement</th>
-                                                <th width="25%">Action</th>
+                                                <th class="hideTh" width="25%">Action</th>
                                             </tr> 
                                         </thead>
                                         <tbody id="carDefect">
                                             <tr>
-                                                <td>Original Birth Certificate (NSO)</td>
+                                                <td class="tblReqEditable">Original Birth Certificate (NSO)</td>
                                                 <td>
-                                                    <i class="ti-pencil tiDef2" class="btnEditReq" onclick="editReq()" data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
-                                                    <i class="ti-close tiDef2" class="btnDelReq" onclick="delReq()" data-toggle="tooltip" data-placement="bottom" title="Remove"></i>
+                                                    <i class="ti-close tiDef2 btnDelReq" onclick="delReq()" data-toggle="tooltip" data-placement="bottom" title="Remove"></i>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Photocopy of Birth Certificate (NSO)</td>
+                                                <td class="tblReqEditable">Photocopy of Birth Certificate (NSO)</td>
                                                 <td>
-                                                    <i class="ti-pencil tiDef2" class="btnEditReq" onclick="editReq()" data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
-                                                    <i class="ti-close tiDef2" class="btnDelReq" onclick="delReq()" data-toggle="tooltip" data-placement="bottom" title="Remove"></i>
+                                                    <i class="ti-close tiDef2 btnDelReq" onclick="delReq()" data-toggle="tooltip" data-placement="bottom" title="Remove"></i>
                                                 </td>                                        
                                             </tr>
                                             <tr>
-                                                <td>Parental Consent</td>
+                                                <td class="tblReqEditable">Parental Consent</td>
                                                 <td>
-                                                    <i class="ti-pencil tiDef2" class="btnEditReq" onclick="editReq()" data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
-                                                    <i class="ti-close tiDef2" class="btnDelReq" onclick="delReq()" data-toggle="tooltip" data-placement="bottom" title="Remove"></i>
+                                                    <i class="ti-close tiDef2 btnDelReq" onclick="delReq()" data-toggle="tooltip" data-placement="bottom" title="Remove"></i>
                                                 </td>          
                                             </tr>
                                         </tbody>
                                     </table>
+                                </div><hr>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                                    <button type="button" id="btnCancEditReq" onclick="cancEditReq()" class="pull-right btn btn-light m-b-10 m-l-5">Cancel</button>
+                                </div>
+                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                                    <button type="button" id="btnSaveEditReq" onclick="saveEditReq()" class="pull-right btn btn-primary m-b-10 m-l-5">Save</button>
                                 </div>
                             </div>
                         </div>
@@ -123,45 +129,33 @@
     <!-- End Container fluid  -->
 </div>
 
-<!-- Add Branch Modal -->
-<div class="modal fade" id="addBranchModal" tabindex="-1" role="dialog" aria-labelledby="addBranchModal" aria-hidden="true">
+<!-- Add Requirement Class Modal -->
+<div class="modal fade" id="addReqClassModal" tabindex="-1" role="dialog" aria-labelledby="addReqClassModal" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="reqModalTitle"><strong>ADD</strong> Requirement Class</h4>
+        <h4 class="modal-title" id="reqModalTitle2"><strong>ADD</strong> Requirement</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
       <div class="modal-body">
-        <center>
-            <h2 class="h6AddBranch"></h2>
-            <h6>Fill out all required (<span class="asterisk">*</span>) fields.</h6>
-        </center>
-        <hr class="hrCustom"><br>
-        <div>
-            <form class="formAddBranch">
-                <div>
-                    <h5 class="h5Enr">Branch Name<span class="asterisk">*</span></h5>
-                    <input type="text" class="txtEnr" required name="brName" id="brName" placeholder="Branch Name"><br>
-                </div><hr>
-                <div>
-                    <h5 class="h5Enr">Address<span class="asterisk">*</span></h5>
-                    <input type="text" class="txtEnr" required name="brAddL1" id="brAddL1" placeholder="Address Line 1"><br>
-                    <small style="padding-left: 10px;">Street Address, P.O. Box, Company Name, C/o</small>
-                    <input type="text" class="txtEnr" required name="brAddL2" id="brAddL2" placeholder="Address Line 2"><br>
-                    <small style="padding-left: 10px;">Apartment, Suite, Unit, Building, Floor, etc.</small>
-                    <input type="text" class="txtEnr" required name="brCity" id="brCity" placeholder="City"><br> 
-                    <input type="text" class="txtEnr" required name="brProv" id="brProv" placeholder="State/Province/Region"><br>
-                    <input type="text" class="txtEnr" required name="brZip" id="brZip" placeholder="ZIP"><br>     
-                </div><hr>
-                <div>
-                    <h5 class="h5Enr">Contact Number<span class="asterisk">*</span> <small>(Maximum of 2)</small></h5>
-                    <input type="number" class="txtEnr" required name="brTel1" id="brTel1" placeholder="Tel/Cell#"><br>
-                    <input type="number" class="txtEnr" required name="brTel2" id="brTel2" placeholder="Tel/Cell#"><br>
-                </div><hr>
-            </form>
-        </div>
+        <div class="divReq1">
+            <h5 class="h5Enr">Requirement Class Name:<span class="asterisk">*</span></h5>
+            <textarea rows="3" class="enrTxtArea" id="newReqClsName"></textarea>
+            <small style="padding-left: 10px;">(Maximum of 50 characters)</small>
+        <hr></div>
+        <div class="divReq2">
+            <h5 class="h5Enr">Requirement Name:<span class="asterisk">*</span></h5>
+            <input type="text" class="txtEnr" required name="newReqName" id="newReqName">
+            <small style="padding-left: 10px;">(Maximum of 50 characters)</small>
+        <hr></div>
       </div>
       <div class="modal-footer">
-        <button type="button" id="btnCancAddBranch" onclick="confCancAddBranch()" class="btn btn-danger">Cancel</button>
-        <button type="button" id="btnConfAddBranch" onclick="confAddBranch()" class="btn btn-success">Add</button>
-        <button type="button" id="btnConfResetBranch" onclick="confResetBranch()" class="btn btn-light">Reset</button>
-        <button type="button" id="btnConfEditBranch" onclick="confEditBranch()" class="btn btn-success">Save</button>
+        <button type="button" id="btnCancConfARC" class="btn btn-light" data-dismiss="modal">Cancel</button>
+        <button type="button" id="btnConfARC" onclick="confAddReqCls()" class="btn btn-primary">Add</button>
+        <button type="button" id="btnConfAR" onclick="confAddReq()" class="btn btn-primary">Add</button>
       </div>
     </div>
   </div>

@@ -297,6 +297,7 @@ var account = function ()
 
 var requirements = function ()
 {
+    loadReq();
     $(".search-box").hide();
     $(".view-instructor").hide();
     $(".view-schedule").hide();

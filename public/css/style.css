@@ -7264,7 +7264,7 @@ tbody tr td:last-child {
 }
 .tblVehicle tbody tr:hover, .tblVehicleDef tbody tr:hover, .tblVehicleM tbody tr:hover, .tblStudent tbody tr:hover,
 .tblBranches tbody tr:hover, .tableDash tbody tr:hover, .tblInstructor tbody tr:hover, .tblLessons tbody tr:hover,
-.tblReqClass tbody tr:hover, .tblReqPerClass tbody tr:hover
+.tblReqClass tbody tr:hover
 {
   background-color: #F9F1D9;
   -webkit-transition: 0.2s ease-in;
@@ -8032,7 +8032,7 @@ tiCustom
   overflow-y: auto;
   overflow-x: hidden;
 }
-.studCard, .instCard{
+.studCard, .instCard, .reqCard{
   height: 500px;
   overflow-y: auto;
   overflow-x: hidden;
@@ -8067,17 +8067,13 @@ tiCustom
 .lesDesc{
   margin: 10px;
 }
-/* .selectedReqClass{
-  text-transform: uppercase;
-  color: #5D0000;
-  font-weight: bolder;
-} */
-
-
 .selectedReqClass{
   text-transform: uppercase;
   font-weight: bold;
 }
-.btnEditReq, .btnDelReq{
+.btnDelReq{
   display: none;
+}
+#btnCancEditReq, #btnSaveEditReq{
+  width: 90%;
 }
