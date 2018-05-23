@@ -1,0 +1,157 @@
+<div class="view-courses">
+    <!-- Bread crumb -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h3 class="text-primary">Courses</h3> 
+        </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a onclick="dashboard()">Home</a></li>
+                <li class="breadcrumb-item active"><a>Courses</a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- End Bread crumb -->
+    <!-- Container fluid  -->
+    <div class="container-fluid">
+        <!-- Start of Card  -->
+        <div class="studentCard">
+            <div>
+                <div class="row">
+                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <div class="input-group input-group-flat">
+                                <span class="input-group-btn"><button class="btn btn-custom" type="submit"><i class="ti-search"></i></button></span>
+                                <input type="text" id="searchCourses" class="form-control" placeholder="Search..." style="font-size: 12px;">
+                                <span class="input-group-btn"><button class="btn btn-primary input-group-close-icon" onclick="clrSearchCourses()" type="button"><i class="ti-close"></i></button></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                        <div class="pull-right">
+                            <button type="button" id="btnNewCourse" onclick="addCourse()" class="btn btn-success m-b-10 m-l-5">New Course</button>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                        <hr class="hrCustom">
+                        <div class="card branchCard">
+                            <h3>List of Courses</h3>
+                            <div class="table-responsive">
+                                <table class="table tblCourses tblCustom table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Days/Duration</th>
+                                            <th>Price</th>
+                                            <th>Vehicle Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>CRS-M001</td>
+                                            <td>5 Days</td>
+                                            <td>2,500.00</td>
+                                            <td>Manual</td>
+                                        </tr>
+                                        <tr>
+                                            <td>CRS-M002</td>
+                                            <td>7 Days</td>
+                                            <td>3,500.00</td>
+                                            <td>Manual</td>
+                                        </tr>
+                                        <tr>
+                                            <td>CRS-A001</td>
+                                            <td>10 Days</td>
+                                            <td>5,000.00</td>
+                                            <td>Automatic</td>
+                                        </tr>
+                                        <tr>
+                                            <td>CRS-A002</td>
+                                            <td>10 Days</td>
+                                            <td>5,000.00</td>
+                                            <td>Automatic</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <hr class="hrCustom">
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                        <hr class="hrCustom">
+                        <div class="card branchCard" style="position: relative">
+                            <h3>Included Lessons</h3>
+                            <div>
+                                <center>
+                                    <hr width="50%">
+                                    <h4 class="lesName">Start &amp; Stop</h4>
+                                    <h5 class="lesID">SED-L001</h5>
+                                    <hr width="50%">
+                                </center>
+                                <center>
+                                    <h6 class="lesDesc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam non labore voluptatem, consequatur 
+                                        molestiae consequuntur, provident?</h6><br>
+                                    <h6>Prerequisite: <span class="lesPrereq">None</span></h6>
+                                </center>
+                            </div>
+                            <div class="row divBottom">
+                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                                    <button type="button" id="btnRemCourse" onclick="remCourse()" class="btn btn-danger m-b-10 m-l-5">Remove</button>
+                                </div>
+                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                                    <button type="button" id="btnUpdCourse" onclick="editCourse()" class="btn btn-primary m-b-10 m-l-5">Update</button>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="hrCustom">
+                    </div>
+                </div>
+            </div>
+        </div><!-- End of Card  -->
+    </div>
+    <!-- End Container fluid  -->
+</div>
+
+<!-- Add Course Modal -->
+<div class="modal fade" id="addCourseModal" tabindex="-1" role="dialog" aria-labelledby="addCourseModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <center>
+            <h2 class="h6AddCourse"></h2>
+            <h6>Fill out all required (<span class="asterisk">*</span>) fields.</h6>
+        </center>
+        <hr class="hrCustom"><br>
+        <div>
+            <form class="formAddBranch">
+                <div>
+                    <h5 class="h5Enr">Days/Duration<span class="asterisk">*</span></h5>
+                    <input type="number" class="txtEnr3" required name="newCrsDays" id="newCrsDays"><br>
+                </div><hr>
+                <div>
+                    <h5 class="h5Enr">Price</h5>
+                    <input type="number" class="txtEnr3" required name="newCrsPrice" id="newCrsPrice"><br>               
+                </div><hr>
+                <div>
+                    <h5 class="h5Enr">Vehicle Type<span class="asterisk">*</span></h5>
+                    <select required class="enrCivStatus3" name="newCrsVehiType" id="newCrsVehiType">
+                        <option value="0">---</option>
+                        <option value="1">Automatic</option>
+                        <option value="2">Manual</option>
+                    </select>
+                </div><hr>
+            </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="btnCancAddCourse" onclick="confCancAddCourse()" class="btn btn-danger">Cancel</button>
+        <button type="button" id="btnConfAddCourse" onclick="confAddCourse()" class="btn btn-success">Add</button>
+        <button type="button" id="btnConfResetCourse" onclick="confResetCourse()" class="btn btn-light">Reset</button>
+        <button type="button" id="btnConfEditCourse" onclick="confEditCourse()" class="btn btn-success">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

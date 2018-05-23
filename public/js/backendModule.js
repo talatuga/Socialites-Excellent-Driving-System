@@ -18,7 +18,7 @@ var car = {
                 html += "<td>" + data[x].brand + "</td>";
                 html += "<td>" + data[x].model + "</td>";
                 html += "<td>" + (data[x].transmission == "M" ? "Manual" : "Automatic") + "</td>";
-                html += "<td>" + (dayName[data[x].offday] == dayToday ? "<span class='text-danger'>Coding</span>" : (data[x].status == 2 ? "<span class='text-warning'>In Use</span>" : "<span class='text-success'>Available</span>")) + "</td>";
+                html += "<td>" + (dayName[data[x].offday] == dayToday ? "<span class='text-danger'>Unavailable</span>" : (data[x].status == 2 ? "<span class='text-warning'>In Use</span>" : "<span class='text-success'>Available</span>")) + "</td>";
                 html += "</html>";
             }
         }

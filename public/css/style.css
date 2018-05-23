@@ -6892,7 +6892,7 @@ tbody tr td:last-child {
 }
 
 .view-dashboard, .view-instructor, .view-student, .view-schedule, .view-vehicleA, .view-branches,
-.view-requirement, .view-lessons, .view-account,
+.view-requirement, .view-lessons, .view-account, .view-courses,
 .view-viewInstructor, .view-viewStudent,
 .view-error500, .view-error404
 {
@@ -6982,7 +6982,7 @@ tbody tr td:last-child {
   color: #5D0000;
 }
 
-#btnNewInstructor, #btnNewVehicle, #btnNewBranch, #btnNewLesson
+#btnNewInstructor, #btnNewVehicle, #btnNewBranch, #btnNewLesson, #btnNewCourse
 {
   width: 200px;
   font-size: 14px;
@@ -7981,11 +7981,11 @@ tiCustom
   font-weight: bold;
 }
 
-#editStudAccGuardCont::-webkit-outer-spin-button,
-#editStudAccGuardCont::-webkit-inner-spin-button{
+#editStudAccGuardCont, #newCrsDays::-webkit-outer-spin-button,
+#editStudAccGuardCont, #newCrsDays::-webkit-inner-spin-button{
   -webkit-appearance: none;
 }
-#editStudAccGuardCont{
+#editStudAccGuardCont, #newCrsDays{
   -moz-appearance:textfield;
 }
 
@@ -8037,7 +8037,9 @@ tiCustom
   overflow-y: auto;
   overflow-x: hidden;
 }
-#btnRemBrnch, #btnUpdBrnch, #btnUpdLesson, #btnRemLesson{
+#btnRemBrnch, #btnUpdBrnch, #btnUpdLesson, #btnRemLesson,
+#btnRemCourse, #btnUpdCourse
+{
   width: 90%;
 }
 .divBottom{
@@ -8142,3 +8144,4 @@ tiCustom
   height: 97%;
   border-left: solid 2px black;
   border-right: solid 2px black;
+}
