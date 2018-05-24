@@ -389,8 +389,8 @@ var lessons = function ()
     document.getElementById("li6").classList.remove('active');
     document.getElementById("li7").classList.remove('active');
     document.getElementById("li9").classList.add('active');
-    document.getElementById("li9A").classList.add('active');
-    document.getElementById("li9B").classList.remove('active');
+    document.getElementById("li9B").classList.add('active');
+    document.getElementById("li9A").classList.remove('active');
 }
 
 var courses = function ()
@@ -421,6 +421,6 @@ var courses = function ()
     document.getElementById("li6").classList.remove('active');
     document.getElementById("li7").classList.remove('active');
     document.getElementById("li9").classList.add('active');
-    document.getElementById("li9A").classList.remove('active');
-    document.getElementById("li9B").classList.add('active');
+    document.getElementById("li9B").classList.remove('active');
+    document.getElementById("li9A").classList.add('active');
 }

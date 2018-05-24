@@ -7458,7 +7458,8 @@ tbody tr td:last-child {
 {
   cursor: pointer;
   color: rgb(212, 5, 5);
-  font-size: 15px;
+  color: #5D0000;
+  /* font-size: 15px; */
   -webkit-transition: 0.1s ease-in;
   -o-transition: 0.1s ease-in;
     transition: 0.1s ease-in;

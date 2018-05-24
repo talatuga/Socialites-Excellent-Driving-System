@@ -34,80 +34,67 @@
                     </div>
                 </div>
                 <br>
-                <div class="row">
-                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                        <hr class="hrCustom">
-                        <div class="card branchCard">
-                            <h3>List of Courses</h3>
-                            <div class="table-responsive">
-                                <table class="table tblCourses tblCustom table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Days/Duration</th>
-                                            <th>Price</th>
-                                            <th>Vehicle Type</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>CRS-M001</td>
-                                            <td>5 Days</td>
-                                            <td>2,500.00</td>
-                                            <td>Manual</td>
-                                        </tr>
-                                        <tr>
-                                            <td>CRS-M002</td>
-                                            <td>7 Days</td>
-                                            <td>3,500.00</td>
-                                            <td>Manual</td>
-                                        </tr>
-                                        <tr>
-                                            <td>CRS-A001</td>
-                                            <td>10 Days</td>
-                                            <td>5,000.00</td>
-                                            <td>Automatic</td>
-                                        </tr>
-                                        <tr>
-                                            <td>CRS-A002</td>
-                                            <td>10 Days</td>
-                                            <td>5,000.00</td>
-                                            <td>Automatic</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                <div>
+                    <hr class="hrCustom">
+                    <div class="card branchCard">
+                        <h3>List of Courses</h3>
+                        <div class="table-responsive">
+                            <table class="table tblCourses tblCustom table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Days/Duration</th>
+                                        <th>Price</th>
+                                        <th>Vehicle Type</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>CRS-M001</td>
+                                        <td>5 Days</td>
+                                        <td>2,500.00</td>
+                                        <td>Manual</td>
+                                        <td>
+                                            <i class="ti-pencil tiDef2 btnRemCourse" onclick="editCourse()" data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
+                                            <i class="ti-close tiDef2 btnEditCourse" onclick="remCourse()" data-toggle="tooltip" data-placement="bottom" title="Remove"></i>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>CRS-M002</td>
+                                        <td>7 Days</td>
+                                        <td>3,500.00</td>
+                                        <td>Manual</td>
+                                        <td>
+                                            <i class="ti-pencil tiDef2 btnRemCourse" onclick="editCourse()" data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
+                                            <i class="ti-close tiDef2 btnEditCourse" onclick="remCourse()" data-toggle="tooltip" data-placement="bottom" title="Remove"></i>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>CRS-A001</td>
+                                        <td>10 Days</td>
+                                        <td>5,000.00</td>
+                                        <td>Automatic</td>
+                                        <td>
+                                            <i class="ti-pencil tiDef2 btnRemCourse" onclick="editCourse()" data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
+                                            <i class="ti-close tiDef2 btnEditCourse" onclick="remCourse()" data-toggle="tooltip" data-placement="bottom" title="Remove"></i>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>CRS-A002</td>
+                                        <td>10 Days</td>
+                                        <td>5,000.00</td>
+                                        <td>Automatic</td>
+                                        <td>
+                                            <i class="ti-pencil tiDef2 btnRemCourse" onclick="editCourse()" data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
+                                            <i class="ti-close tiDef2 btnEditCourse" onclick="remCourse()" data-toggle="tooltip" data-placement="bottom" title="Remove"></i>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <hr class="hrCustom">
                     </div>
-                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                        <hr class="hrCustom">
-                        <div class="card branchCard" style="position: relative">
-                            <h3>Included Lessons</h3>
-                            <div>
-                                <center>
-                                    <hr width="50%">
-                                    <h4 class="lesName">Start &amp; Stop</h4>
-                                    <h5 class="lesID">SED-L001</h5>
-                                    <hr width="50%">
-                                </center>
-                                <center>
-                                    <h6 class="lesDesc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam non labore voluptatem, consequatur 
-                                        molestiae consequuntur, provident?</h6><br>
-                                    <h6>Prerequisite: <span class="lesPrereq">None</span></h6>
-                                </center>
-                            </div>
-                            <div class="row divBottom">
-                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
-                                    <button type="button" id="btnRemCourse" onclick="remCourse()" class="btn btn-danger m-b-10 m-l-5">Remove</button>
-                                </div>
-                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
-                                    <button type="button" id="btnUpdCourse" onclick="editCourse()" class="btn btn-primary m-b-10 m-l-5">Update</button>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="hrCustom">
-                    </div>
+                    <hr class="hrCustom">
                 </div>
             </div>
         </div><!-- End of Card  -->
