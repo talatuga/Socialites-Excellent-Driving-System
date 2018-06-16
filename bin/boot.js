@@ -8,7 +8,10 @@ var haven = require('./haven');
 var boot = {};
 
 boot.start = function(){
-
+    var initProcess = new haven();
+    initProcess.start(function(){
+        require('../server');
+    });
 };
 
 boot.stop = function(){
