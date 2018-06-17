@@ -1,0 +1,301 @@
+<section id="enroll" class="mainBody">
+    <!-- Bread crumb -->
+    <div class="page-titles">
+        <div class="align-self-center" style="border-bottom: solid 2px #5D0000">
+            <center><h3 class="text-primary allcaps">Student Enrollment</h3></center><br>
+    </div><br>
+    <!-- End Bread crumb -->
+
+    <div class="container-fluid">
+        <!-- Start of Card  -->
+        <div class="preregCard1">
+            <div class="card preregCard pr1">
+                <center>
+                    <h3>Student Information</h3>
+                    <h6>Fields with <span class="asterisk">*</span> are required.</h6>
+                </center>
+                <form class="enrForm">
+                    <hr class="hrCustom"><br>
+                    <div>
+                        <h5 class="h5Enr">Name<span class="asterisk">*</span></h5>
+                        <input type="text" class="txtEnr" required name="enrFN" id="enrFN" placeholder="*First Name"><br>
+                        <input type="text" class="txtEnr" required name="enrMN" id="enrMN" placeholder="Middle Name"><br>
+                        <input type="text" class="txtEnr" required name="enrSN" id="enrSN" placeholder="*Surname"><br>
+                    </div><hr>
+                    <div>
+                        <h5 class="h5Enr">Birth Date<span class="asterisk">*</span></h5>
+                        <input type="date" class="txtEnr" required name="enrBday" id="enrBday" placeholder="mm/dd/yyyy"><br>
+                        <small class="span17">Sorry, only 17 years old and above are allowed to register.</small>
+                    </div><hr>
+                    <div>
+                        <h5 class="h5Enr">Birth Place<span class="asterisk">*</span></h5>
+                        <input type="text" class="txtEnr" required name="enrBplace" id="enrBplace" placeholder="*Birthplace"><br>
+                    </div><hr>
+                    <div>
+                        <h5 class="h5Enr">Sex<span class="asterisk">*</span></h5>
+                        <input type="radio" class="enrSexRD" id="enrSex1" name="enrSex" value="Male" checked>
+                            <label class="enrSexLbl" for="enrSex1">Male</label><br>
+                        <input type="radio" class="enrSexRD" id="enrSex2" name="enrSex" value="Female">
+                            <label class="enrSexLbl" for="enrSex2">Female</label>
+                    </div><hr>
+                    <div>
+                        <h5 class="h5Enr">Address<span class="asterisk">*</span></h5>
+                        <textarea rows="3" class="enrTxtArea" id="enrAddress" placeholder="*Address"></textarea>
+                    </div><hr>
+                    <div>
+                        <h5 class="h5Enr">Civil Status<span class="asterisk">*</span></h5>
+                        <select class="enrCivStatus" name="enrCivStatus">
+                            <option value="civ0">---</option>
+                            <option value="Single">Single</option>
+                            <option value="Married">Married</option>
+                            <option value="Divorced">Divorced</option>
+                            <option value="Separated">Separated</option>
+                            <option value="Widowed">Widowed</option>
+                        </select>
+                    </div><hr>
+                    <div>
+                        <h5 class="h5Enr">Nationality<span class="asterisk">*</span></h5>
+                        <input type="radio" class="enrSexRD" id="enrNat1" name="enrNat" value="Filipino" checked>
+                            <label class="enrSexLbl" for="enrNat1">Filipino</label><br>
+                        <input type="radio" class="enrSexRD" id="enrNat2" name="enrNat" value="Non-Filipino">
+                            <label class="enrSexLbl" for="enrNat2">Non-Filipino</label>
+                    </div><hr>
+                    <div>
+                        <h5 class="h5Enr">Occupation</h5>
+                        <input type="text" class="txtEnr" required name="enrOcc" id="enrOcc" placeholder="Occupation"><br>
+                    </div><hr>
+                    <div>
+                        <h5 class="h5Enr">Contact<span class="asterisk">*</span></h5>
+                        <input type="number" class="txtEnr" required name="enrCont" id="enrCont" placeholder="*Contact Number"><br>
+                        <input type="email" class="txtEnr" required name="enrEmail" id="enrEmail" placeholder="Email Address"><br>
+                    </div><hr>
+                    <div>
+                        <h5 class="h5Enr">Guardian Information<span class="asterisk">*</span></h5>
+                        <input type="text" class="txtEnr" required name="enrGuard" id="enrGuard" placeholder="*Parent/Guardian Name"><br>
+                        <input type="number" class="txtEnr" required name="enrGuardCont" id="enrGuardCont" placeholder="*Contact Number"><br>
+                    </div><hr>
+                </form>
+            <hr></div>
+
+            <div class="card preregCard pr2">
+                <center>
+                    <h3>Select Branch</h3>
+                    <h6>Choose one branch you wish to enroll in.</h6>
+                    <hr class="hrCustom"><br>
+                </center>
+                <div>
+                    <h5 class="h5Enr">Branches<span class="asterisk">*</span></h5>
+                    <select id="branch" class="enrCivStatus1" name="enrBranchList">
+                        <option value="0">---</option>
+                        <option value="1">Maria Clara eme eme</option>
+                        <option value="2">Huawaww</option>
+                        <option value="3">Pls pasa nyo po kami plsss</option>
+                        <option value="4">Huhuhuhuhu</option>
+                        <option value="5">Road to PICC</option>
+                    </select>
+                </div><br><hr>
+                <center>
+                    <h3>Select Course</h3>
+                    <h6>Choose one course to enroll only.</h6>
+                    <hr class="hrCustom"><br>
+                </center>
+                <div class="row">
+                    <div class="col-md-7 col-lg-7 col-sm-12 col-xs-12">
+                        <div class="card cardCstm">
+                            <form>
+                                <h4 style="color: #5D0000; font-weight: bolder">Manual Cars</h4><hr>
+                                <div class="table-responsive">
+                                    <table class="table tblManualCrs table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>COURSE CODE</th>
+                                                <th>DAYS</th>
+                                                <th>PRICE</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="coursesA">
+                                            <tr>
+                                                <td>CRS-M001</td>
+                                                <td>5 Days</td>
+                                                <td>2,500.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>CRS-M002</td>
+                                                <td>7 Days</td>
+                                                <td>3,500.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>CRS-M003</td>
+                                                <td>10 Days</td>
+                                                <td>5,000.00</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div><br><br>
+
+                                <h4 style="color: #5D0000; font-weight: bolder">Automatic Cars</h4><hr>
+                                <div class="table-responsive">
+                                    <table class="table tblManualCrs table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>COURSE CODE</th>
+                                                <th>DAYS</th>
+                                                <th>PRICE</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="coursesB">
+                                            <tr>
+                                                <td>CRS-A001</td>
+                                                <td>5 Days</td>
+                                                <td>2,500.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>CRS-A002</td>
+                                                <td>7 Days</td>
+                                                <td>3,500.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>CRS-A003</td>
+                                                <td>10 Days</td>
+                                                <td>5,000.00</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12">
+                        <div class="card cardCstm">
+                            <form>
+                                <h4 style="color: #5D0000; font-weight: bolder">Included Lessons</h4><hr>
+                                <div class="table-responsive" style="margin: 10px;">
+                                    <table class="table tblIncluLes tblCustom table-hover">
+                                        <thead></thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>CRS-M001</td>
+                                            </tr>
+                                            <tr>
+                                                <td>CRS-M002</td>
+                                            </tr>
+                                            <tr>
+                                                <td>CRS-M003</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="noSelCorsDiv">
+                                    <h5>No selected course.</h5>
+                                    <h5>Please select a course first.</h5>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            <hr></div>
+
+            <div class="card preregCard pr3">
+                <div class="card">
+                    <center>
+                        <h3>Student Driver's Permit/License</h3>
+                        <h6>Select one below.</h6>
+                    </center>
+                    <form class="reqForm">
+                        <hr class="hrCustom"><br>
+                        <input type="radio" class="enrReqPerm" id="enrReqP1" name="enrReqP" value="1">
+                            <label class="enrSexLbl" for="enrReqP1">To apply student driver's permit at LTO</label><br>
+                        <input type="radio" class="enrReqPerm" id="enrReqP2" name="enrReqP" value="2">
+                            <label class="enrSexLbl" for="enrReqP2">To apply student driver's permit thru S-Excellent</label><br>
+                        <input type="radio" class="enrReqPerm" id="enrReqP3" name="enrReqP" value="3">
+                            <label class="enrSexLbl" for="enrReqP3">With student driver's permit</label><br>
+                        <input type="radio" class="enrReqPerm" id="enrReqP4" name="enrReqP" value="4">
+                            <label class="enrSexLbl" for="enrReqP4">With non-professional license</label><br>
+                        <input type="radio" class="enrReqPerm" id="enrReqP5" name="enrReqP" value="5">
+                            <label class="enrSexLbl" for="enrReqP5">With professional license</label><br>
+                        <input type="radio" class="enrReqPerm" id="enrReqP6" name="enrReqP" value="6">
+                            <label class="enrSexLbl" for="enrReqP6">To apply non-professional license thru S-Excellent</label><br>
+                        <input type="radio" class="enrReqPerm" id="enrReqP7" name="enrReqP" value="7">
+                            <label class="enrSexLbl" for="enrReqP7">To apply professional license thru S-Excellent</label><br>
+                    </form>
+                </div>
+                <div class="card">
+                    <center>
+                        <h3>Requirements</h3>
+                        <h6>Please be noted that you should bring the following requirements to your preferred branch for validation of your registration.</h6>
+                    </center>
+                    <form class="reqForm">
+                        <hr class="hrCustom"><br>
+                        <div class="req reqA">
+                            <h5 class="h5Enr">For 17-18 yrs. old</h5>
+                            <label class="lblCB1">
+                                &emsp;&nbsp;Original Birth Certificate (NSO)</label><br>
+                            <label class="lblCB1">
+                                &emsp;&nbsp;Photocopy of Birth Certificate (NSO)</label><br>
+                            <label class="lblCB1">
+                                &emsp;&nbsp;Parental Consent</label><br>
+                        <hr></div>
+
+                        <div class="req reqB">
+                            <h5 class="h5Enr">For 19 yrs. old &amp; above</h5>
+                            <label class="lblCB1">
+                                &emsp;&nbsp;Photocopy of Birth Certificate (NSO)</label><br>
+                            <label class="lblCB1">
+                                &emsp;&nbsp;TIN - Tax Identification Number</label><br>
+                            <label class="lblCB1">
+                                &emsp;&nbsp;Baranggay Clearance</label><br>
+                        <hr></div>
+
+                        <div class="req reqC">
+                            <h5 class="h5Enr">For Non-Filipino Students/ Tourists</h5>
+                            <label class="lblCB1">
+                                &emsp;&nbsp;Original Passport</label><br>
+                            <label class="lblCB1">
+                                &emsp;&nbsp;Original ACR - Alien Certificate Registration</label><br>
+                            <label class="lblCB1">
+                                &emsp;&nbsp;Photocopy of ACR - Alien Certificate Registration</label><br>
+                        <hr></div>
+                    </form>
+                </div>
+            <hr></div><br>
+
+            <div><center>
+                <button type="button" id="btnCancPrereg" onclick="regCanc()" class="btnPrereg btn btn-light m-b-10 m-l-5">Cancel</button>
+                <button type="button" id="btnPreregNext1" onclick="regNext1()" class="btnPrereg btn btn-light m-b-10 m-l-5">Next</button>
+
+                <button type="button" id="btnPreregPrev" onclick="regPrev1()" class="btnPrereg btn btn-light m-b-10 m-l-5">Previous</button>
+                <button type="button" id="btnPreregNext2" onclick="regNext2()" class="btnPrereg btn btn-light m-b-10 m-l-5">Next</button>
+
+                <button type="button" id="btnPreregPrev2" onclick="regPrev2()" class="btnPrereg btn btn-light m-b-10 m-l-5">Previous</button>
+                <button type="button" id="btnPreregDone" onclick="regDone()" class="btnPrereg btn btn-light m-b-10 m-l-5">Register</button>
+            </center></div>
+        </div><!-- End of Card  -->
+    </div>
+</section>
+
+<!-- Confirm Pre-Registration Modal -->
+<div class="modal fade" id="confRegisterModal" tabindex="-1" role="dialog" aria-labelledby="confRegisterModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel"><strong>CONFIRM:</strong> Pre-Registration</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div>
+           <h5>Remember to bring <strong>ALL</strong> requirements for your registration to be approved,
+               together with the <strong>partial payment (atleast 10%)</strong> of your tuition fee.</h5><br>
+            <h5>Please come to your selected branch to submit all requirements and your payment 
+                    until <strong><span class="oneWeekDeadline"></span></strong>. (One week)</h5><br>
+            <h5>Failure to show up before the deadline will automatically <strong>CANCEL</strong> your pre-registration form.</h5>
+        </div><br><br><hr>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="btnCancRegister" class="btn btn-light" data-dismiss="modal">Cancel</button>
+        <button type="button" id="btnConfRegister" onclick="confRegister()" class="btn btn-primary">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
