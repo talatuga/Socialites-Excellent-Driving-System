@@ -6,6 +6,9 @@ $(function() {
     $("#gallery").hide();
     $("#tips").hide();
     $("#login").hide();
+    $("#courses").hide();
+    $("#cart").hide();
+    $("#enrollment").hide();
     $("#homeCls").show();
 });
 
@@ -17,6 +20,9 @@ var homeClick = function()
     $("#gallery").hide();
     $("#tips").hide();
     $("#branches").hide();
+    $("#courses").hide();
+    $("#cart").hide();
+    $("#enrollment").hide();
     $("#homeCls").show();
 }
 
@@ -29,6 +35,9 @@ var servicesClick = function()
     $("#tips").hide();
     $("#login").hide();
     $("#branches").hide();
+    $("#courses").hide();
+    $("#cart").hide();
+    $("#enrollment").hide();
     $("#service").show();
 }
 
@@ -41,6 +50,9 @@ var branchesClick = function()
     $("#gallery").hide();
     $("#tips").hide();
     $("#login").hide();
+    $("#courses").hide();
+    $("#cart").hide();
+    $("#enrollment").hide();
     $("#branches").show();
 }
 
@@ -53,6 +65,9 @@ var aboutusClick = function()
     $("#gallery").hide();
     $("#tips").hide();
     $("#login").hide();
+    $("#courses").hide();
+    $("#cart").hide();
+    $("#enrollment").hide();
     $("#aboutus").show();
 }
 
@@ -65,6 +80,9 @@ var galleryClick = function()
     $("#aboutus").hide();
     $("#tips").hide();
     $("#login").hide();
+    $("#courses").hide();
+    $("#cart").hide();
+    $("#enrollment").hide();
     $("#gallery").show();
 }
 
@@ -77,6 +95,9 @@ var tipsClick = function()
     $("#aboutus").hide();
     $("#gallery").hide();
     $("#login").hide();
+    $("#courses").hide();
+    $("#cart").hide();
+    $("#enrollment").hide();
     $("#tips").show();
 }
 
@@ -89,5 +110,53 @@ var loginClick = function()
     $("#aboutus").hide();
     $("#gallery").hide();
     $("#tips").hide();
+    $("#courses").hide();
+    $("#cart").hide();
+    $("#enrollment").hide();
     $("#login").show();
+}
+
+var coursesClick = function() 
+{
+    $("#main_menu").addClass("menu-scroll");
+    $("#homeCls").hide();
+    $("#service").hide();
+    $("#branches").hide();
+    $("#aboutus").hide();
+    $("#gallery").hide();
+    $("#tips").hide();
+    $("#login").hide();
+    $("#cart").hide();
+    $("#enrollment").hide();
+    $("#courses").show();
+}
+
+var cartClick = function() 
+{
+    $("#main_menu").addClass("menu-scroll");
+    $("#homeCls").hide();
+    $("#service").hide();
+    $("#branches").hide();
+    $("#aboutus").hide();
+    $("#gallery").hide();
+    $("#tips").hide();
+    $("#login").hide();
+    $("#courses").hide();
+    $("#enrollment").hide();
+    $("#cart").show();
+}
+
+var enrollmentClick = function() 
+{
+    $("#main_menu").addClass("menu-scroll");
+    $("#homeCls").hide();
+    $("#service").hide();
+    $("#branches").hide();
+    $("#aboutus").hide();
+    $("#gallery").hide();
+    $("#tips").hide();
+    $("#login").hide();
+    $("#courses").hide();
+    $("#cart").hide();
+    $("#enrollment").show();
 }

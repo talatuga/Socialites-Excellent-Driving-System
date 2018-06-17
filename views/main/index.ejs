@@ -13,7 +13,6 @@
     <body class="fix-header" data-spy="scroll" data-target=".navbar-collapse">
         <div class='preloader'><div class='loaded'>&nbsp;</div></div>
         <div class="culmn">
-
             <% include ./partials/header-web %> <!-- HEADER CODES -->
 
             <div>
@@ -22,17 +21,21 @@
             <% include ./main-partials/branches %>
             <% include ./main-partials/aboutus %>
             <% include ./main-partials/gallery %>
+            <% include ./main-partials/courses %>
             <% include ./main-partials/tips %>
+            <% include ./main-partials/cart %>
+            <% include ./main-partials/enrollment %>
             </div>
 
-        </div>
+            <% include ./modals %>  
 
+        </div>
         <% include ./partials/footer-web %> <!-- FOOTER CODES -->
 
         <div class="scrollup">
             <a href="#"><i class="fa fa-chevron-up"></i></a>
         </div>
         <!-- JS imports -->
-        <% include ../utils/mainJS %>    
+        <% include ../utils/mainJS %>  
     </body>
 </html>
