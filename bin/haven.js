@@ -12,10 +12,12 @@ haven.prototype.start = function(cb){
     var self = this;
     if(this.cluster.isMaster){
         this.cluster.fork();
-        this.cluster.on('exit', function(){
-            logger.errLogger(new Error('Uncaught Exception Occur.').stack);
-            console.log('[SERVER] System Crash Restarting...');
-            self.cluster.fork();
+        this.cluster.on('exit', function(child, code, signal){
+            if(code != 2){
+                logger.errLogger(new Error('Uncaught Exception Occur.').stack);
+                console.log('[SERVER] System Crash Restarting...');
+                self.cluster.fork();
+            }
         });
     }
     if(this.cluster.isWorker){

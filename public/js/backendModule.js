@@ -1,10 +1,11 @@
+//  This module is created by: CPRT of TLTG
 /* 
 *   car object module, laman nito lahat nang simple table rendering, data, and server communicating functions,
 */
 var car = {
     selectedCar: -1,
     offset: 0,
-    limit: 10,
+    limit: 20,
     currPage: 0,
     pages: [],
     renderATable: function(data){
@@ -182,7 +183,7 @@ var car = {
 var inst = {
     selected: 0,
     offset: 0,
-    limit: 10,
+    limit: 20,
     currPage: 0,
     pages: [],
     registrationDetail: {},
@@ -515,7 +516,7 @@ var stud = {
 var topic = {
     selected: 0,
     offset: 0,
-    limit: 10,
+    limit: 20,
     currPage: 0,
     pages: [],
     allData: [],
@@ -989,7 +990,7 @@ var acc = {
 var preRegAssess = {
     selected: 0,
     offset: 0,
-    limit: 10,
+    limit: 20,
     currPage: 0,
     pages: [],
     getList: function(cb){
