@@ -1,4 +1,4 @@
-<div id="enrollment">
+<div id="enrollment" class="container">
     <section class="enrollment">
         <div class="video_overlay">
             <div class="container">
@@ -17,189 +17,243 @@
         </div><!-- End off container --> 
     </section><!-- End of section -->
 
-    <div class="card pr1" style="padding: 20px 100px 20px 100px">
-        <center>
-            <h2>Step 1: Enrollment form.</h2>
-            <h6>Fill out all required fields.</h6>
-            <div class="separator"></div>
-        </center>
-        <form class="enrForm">
-            <div class="row">
-                <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
-                    <div>
-                        <h5 class="h5Enr">Name<span class="asterisk">*</span></h5>
-                        <input type="text" class="txtEnr" required name="enrFN" id="enrFN" placeholder="*First Name"><br>
-                        <input type="text" class="txtEnr" required name="enrMN" id="enrMN" placeholder="Middle Name"><br>
-                        <input type="text" class="txtEnr" required name="enrSN" id="enrSN" placeholder="*Surname"><br>
-                    </div><hr>
-                    <div>
-                        <h5 class="h5Enr">Birth Date<span class="asterisk">*</span></h5>
-                        <input type="date" class="txtEnr" required name="enrBday" id="enrBday" placeholder="mm/dd/yyyy"><br>
-                    </div><hr>
-                    <div>
-                        <h5 class="h5Enr">Birth Place<span class="asterisk">*</span></h5>
-                        <input type="text" class="txtEnr" required name="enrBplace" id="enrBplace" placeholder="*Birthplace"><br>
-                    </div><hr>
-                    <div>
-                        <h5 class="h5Enr">Social Title<span class="asterisk">*</span></h5>
-                        <input type="radio" class="enrSexRD" id="enrSex1" name="enrSex" value="Male" checked>
-                            <label class="enrSexLbl" for="enrSex1">Mr.</label><br>
-                        <input type="radio" class="enrSexRD" id="enrSex2" name="enrSex" value="Female">
-                            <label class="enrSexLbl" for="enrSex2">Ms.</label>
-                    </div><hr>
-                    <div>
-                        <h5 class="h5Enr">Address<span class="asterisk">*</span></h5>
-                        <textarea rows="3" class="enrTxtArea" id="enrAddress" placeholder="*Address"></textarea>
-                    </div><hr>
-                </div>
-                <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
-                    <div>
-                        <h5 class="h5Enr">Civil Status<span class="asterisk">*</span></h5>
-                        <select class="enrCivStatus" name="enrCivStatus">
-                            <option value="civ0">---</option>
-                            <option value="Single">Single</option>
-                            <option value="Married">Married</option>
-                            <option value="Divorced">Divorced</option>
-                            <option value="Separated">Separated</option>
-                            <option value="Widowed">Widowed</option>
-                        </select>
-                    </div><hr>
-                    <div>
-                        <h5 class="h5Enr">Occupation</h5>
-                        <input type="text" class="txtEnr" required name="enrOcc" id="enrOcc" placeholder="Occupation"><br>
-                    </div><hr>
-                    <div>
-                        <h5 class="h5Enr">Contact<span class="asterisk">*</span></h5>
-                        <input type="number" class="txtEnr" required name="enrCont" id="enrCont" placeholder="*Contact Number"><br>
-                        <input type="email" class="txtEnr" required name="enrEmail" id="enrEmail" placeholder="Email Address"><br>
-                    </div><hr>
-                    <div>
-                        <h5 class="h5Enr">Guardian Information<span class="asterisk">*</span></h5>
-                        <input type="text" class="txtEnr" required name="enrGuard" id="enrGuard" placeholder="*Parent/Guardian Name"><br>
-                        <input type="number" class="txtEnr" required name="enrGuardCont" id="enrGuardCont" placeholder="*Contact Number"><br>
-                    </div><hr>
-                </div>
-            </div>
-        </form>
-    </div>
-
-    <div class="card pr2" style="padding: 20px 100px 20px 100px">
-        <center>
-            <h2>Step 2: Student Driver's Permit/License</h2>
-            <h6>Select at least one below to bring on your first day of schedule.</h6>
-            <div class="separator"></div>
-        </center>
-        <form class="enrForm">
-            <div class="row">
-                <div class="col-md-7 col-sm-7 col-lg-7 col-xs-12">
-                    <form class="reqForm">
-                        <input type="radio" class="enrReqPerm" id="enrReqP1" name="enrReqP" value="1">
-                            <label class="enrReqLbl" for="enrReqP1">To apply student driver's permit at LTO</label><br>
-                        <input type="radio" class="enrReqPerm" id="enrReqP2" name="enrReqP" value="2">
-                            <label class="enrReqLbl" for="enrReqP2">To apply student driver's permit thru S-Excellent</label><br>
-                        <input type="radio" class="enrReqPerm" id="enrReqP3" name="enrReqP" value="3">
-                            <label class="enrReqLbl" for="enrReqP3">With student driver's permit</label><br>
-                        <input type="radio" class="enrReqPerm" id="enrReqP4" name="enrReqP" value="4">
-                            <label class="enrReqLbl" for="enrReqP4">With non-professional license</label><br>
-                        <input type="radio" class="enrReqPerm" id="enrReqP5" name="enrReqP" value="5">
-                            <label class="enrReqLbl" for="enrReqP5">With professional license</label><br>
-                        <input type="radio" class="enrReqPerm" id="enrReqP6" name="enrReqP" value="6">
-                            <label class="enrReqLbl" for="enrReqP6">To apply non-professional license thru S-Excellent</label><br>
-                        <input type="radio" class="enrReqPerm" id="enrReqP7" name="enrReqP" value="7">
-                            <label class="enrReqLbl" for="enrReqP7">To apply professional license thru S-Excellent</label><br>
-                    </form>
-                </div>
-                <div class="col-md-5 col-sm-5 col-lg-5 col-xs-12">
-                    <div class="card cardServlist">
-                        <center>
-                            <h3 class="rh3" style="color: #000">PLEASE READ</h3>
-                            <h6 class="rh6">Bring the following requirements for application of your student driver's permit.</h6>
-                        </center>
-                        <form class="reqForm">
-                            <hr class="hrCustom">
-                            <h5>If you apply thru S-Excellent, pay for additional fees: 
-                                <a href="" data-toggle="modal" data-target="#sExcellentModal">
-                                    <i class="icon icon-question-circle" style="color: rgb(110, 3, 3); font-size: 16px;"></i>
-                                </a>
-                            </h5><br>
-                            <div class="row">
-                                <div class="col-md-6 col-sm-6 col-xs-6">
-                                    <ul style="list-style-type: disc; padding-left: 30px;">
-                                        <li class="lblCB1">Student Driver's Permit - <b>&#8369;500.00</b></li>
-                                        <li class="lblCB1">Non-Professional License - <b>&#8369;2,500.00</b></li>
-                                    </ul><br>
-                                </div>
-                                <div class="col-md-6 col-sm-6 col-xs-6">
-                                    <ul style="list-style-type: disc; padding-left: 20px;">
-                                        <li class="lblCB1">Professional License - <b>&#8369;2,700.00</b></li>
-                                        <li class="lblCB1">International License - <b>&#8369;5,000.00</b></li>
-                                    </ul><br>
-                                </div>
-                            </div><hr class="hrCustom"><br>
-                            <div class="req reqA">
-                                <h5 class="h5Enr">For 17-18 yrs. old</h5>
-                                <label class="lblCB1">
-                                    &emsp;&nbsp;Original Birth Certificate (NSO)</label><br>
-                                <label class="lblCB1">
-                                    &emsp;&nbsp;Photocopy of Birth Certificate (NSO)</label><br>
-                                <label class="lblCB1">
-                                    &emsp;&nbsp;Parental Consent</label><br>
-                            <hr></div>
-                            <div class="req reqB">
-                                <h5 class="h5Enr">For 19 yrs. old &amp; above</h5>
-                                <label class="lblCB1">
-                                    &emsp;&nbsp;Photocopy of Birth Certificate (NSO)</label><br>
-                                <label class="lblCB1">
-                                    &emsp;&nbsp;TIN - Tax Identification Number</label><br>
-                                <label class="lblCB1">
-                                    &emsp;&nbsp;Barangay Clearance</label><br>
-                            <hr></div>
-                            <div class="req reqC">
-                                <h5 class="h5Enr">For Non-Filipino Students/ Tourists</h5>
-                                <label class="lblCB1">
-                                    &emsp;&nbsp;Original Passport</label><br>
-                                <label class="lblCB1">
-                                    &emsp;&nbsp;Original ACR - Alien Certificate Registration</label><br>
-                                <label class="lblCB1">
-                                    &emsp;&nbsp;Photocopy of ACR - Alien Certificate Registration</label><br>
-                            <hr></div>
-                        </form>
+    <div class="container">
+        <div class="card pr1">
+            <center>
+                <h2>Step 1: Enrollment form.</h2>
+                <h5>Fill out all required fields.</h5>
+                <div class="separator"></div>
+            </center>
+            <form class="enrForm">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                        <div>
+                            <h5 class="h5Enr">Name<span class="asterisk">*</span></h5>
+                            <input type="text" class="txtEnr" required name="enrFN" id="enrFN" placeholder="*First Name"><br>
+                            <input type="text" class="txtEnr" required name="enrMN" id="enrMN" placeholder="Middle Name"><br>
+                            <input type="text" class="txtEnr" required name="enrSN" id="enrSN" placeholder="*Surname"><br>
+                        </div><hr>
+                        <div>
+                            <h5 class="h5Enr">Birth Date<span class="asterisk">*</span></h5>
+                            <input type="date" class="txtEnr" required name="enrBday" id="enrBday" placeholder="mm/dd/yyyy"><br>
+                        </div><hr>
+                        <div>
+                            <h5 class="h5Enr">Birth Place<span class="asterisk">*</span></h5>
+                            <input type="text" class="txtEnr" required name="enrBplace" id="enrBplace" placeholder="*Birthplace"><br>
+                        </div><hr>
+                        <div>
+                            <h5 class="h5Enr">Social Title<span class="asterisk">*</span></h5>
+                            <input type="radio" class="enrSexRD" id="enrSex1" name="enrSex" value="Male" checked>
+                                <label class="enrSexLbl" for="enrSex1">Mr.</label><br>
+                            <input type="radio" class="enrSexRD" id="enrSex2" name="enrSex" value="Female">
+                                <label class="enrSexLbl" for="enrSex2">Ms.</label>
+                        </div><hr>
+                        <div>
+                            <h5 class="h5Enr">Address<span class="asterisk">*</span></h5>
+                            <textarea rows="3" class="enrTxtArea" id="enrAddress" placeholder="*Address"></textarea>
+                        </div><hr>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
+                        <div>
+                            <h5 class="h5Enr">Civil Status<span class="asterisk">*</span></h5>
+                            <select class="enrCivStatus" name="enrCivStatus">
+                                <option value="civ0">---</option>
+                                <option value="Single">Single</option>
+                                <option value="Married">Married</option>
+                                <option value="Divorced">Divorced</option>
+                                <option value="Separated">Separated</option>
+                                <option value="Widowed">Widowed</option>
+                            </select>
+                        </div><hr>
+                        <div>
+                            <h5 class="h5Enr">Occupation</h5>
+                            <input type="text" class="txtEnr" required name="enrOcc" id="enrOcc" placeholder="Occupation"><br>
+                        </div><hr>
+                        <div>
+                            <h5 class="h5Enr">Contact<span class="asterisk">*</span></h5>
+                            <input type="number" class="txtEnr" required name="enrCont" id="enrCont" placeholder="*Contact Number"><br>
+                            <input type="email" class="txtEnr" required name="enrEmail" id="enrEmail" placeholder="Email Address"><br>
+                        </div><hr>
+                        <div>
+                            <h5 class="h5Enr">Guardian Information<span class="asterisk">*</span></h5>
+                            <input type="text" class="txtEnr" required name="enrGuard" id="enrGuard" placeholder="*Parent/Guardian Name"><br>
+                            <input type="number" class="txtEnr" required name="enrGuardCont" id="enrGuardCont" placeholder="*Contact Number"><br>
+                        </div><hr>
                     </div>
                 </div>
-            </div>
-        </form>
-    </div>
+            </form>
+        </div>
 
-    <div class="card pr3" style="padding: 20px 100px 20px 100px">
-        <center>
-            <h2>Step 3: Terms and Agreements</h2>
-            <h6>Please read thoroughly.</h6>
-            <div class="separator"></div>
-        </center>
-        <form class="enrForm">
-            <div style="padding-left: 100px; padding-right: 100px;">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic non laudantium illo ducimus iure 
-                quis omnis labore ab dignissimos repellat? Dolores nulla laborum a alias porro odit. Possimus, 
-                ipsum distinctio? <br>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic non laudantium illo ducimus iure 
-                quis omnis labore ab dignissimos repellat? Dolores nulla laborum a alias porro odit. Possimus, 
-                ipsum distinctio?
-                <br><br>
-                <input type="checkbox" name="agree"> I hereby acknowledge that I have read, understand and agree to the Terms and Conditions.
-            </div>
-        </form>
-    </div>
+        <div class="card pr2">
+            <center>
+                <h2>Step 2: Student Driver's Permit/License</h2>
+                <h5>Select at least one below to bring on your first day of schedule.</h5>
+                <div class="separator"></div>
+            </center>
+            <form class="enrForm">
+                <div class="row">
+                    <div class="col-md-7 col-sm-7 col-lg-7 col-xs-12">
+                        <form class="reqForm">
+                            <input type="radio" class="enrReqPerm" id="enrReqP1" name="enrReqP" value="1">
+                                <label class="enrReqLbl" for="enrReqP1">To apply student driver's permit at LTO</label><br>
+                            <input type="radio" class="enrReqPerm" id="enrReqP2" name="enrReqP" value="2">
+                                <label class="enrReqLbl" for="enrReqP2">To apply student driver's permit thru S-Excellent</label><br>
+                            <input type="radio" class="enrReqPerm" id="enrReqP3" name="enrReqP" value="3">
+                                <label class="enrReqLbl" for="enrReqP3">With student driver's permit</label><br>
+                            <input type="radio" class="enrReqPerm" id="enrReqP4" name="enrReqP" value="4">
+                                <label class="enrReqLbl" for="enrReqP4">With non-professional license</label><br>
+                            <input type="radio" class="enrReqPerm" id="enrReqP5" name="enrReqP" value="5">
+                                <label class="enrReqLbl" for="enrReqP5">With professional license</label><br>
+                            <input type="radio" class="enrReqPerm" id="enrReqP6" name="enrReqP" value="6">
+                                <label class="enrReqLbl" for="enrReqP6">To apply non-professional license thru S-Excellent</label><br>
+                            <input type="radio" class="enrReqPerm" id="enrReqP7" name="enrReqP" value="7">
+                                <label class="enrReqLbl" for="enrReqP7">To apply professional license thru S-Excellent</label><br>
+                        </form>
+                    </div>
+                    <div class="col-md-5 col-sm-5 col-lg-5 col-xs-12">
+                        <div class="card cardServlist">
+                            <center>
+                                <h3 class="rh3" style="color: #000">PLEASE READ</h3>
+                                <h6 class="rh6">Bring the following requirements for application of your student driver's permit.</h6>
+                            </center>
+                            <form class="reqForm">
+                                <hr class="hrCustom">
+                                <h5>If you apply thru S-Excellent, pay for additional fees: 
+                                    <a href="" data-toggle="modal" data-target="#sExcellentModal">
+                                        <i class="icon icon-question-circle" style="color: rgb(110, 3, 3); font-size: 16px;"></i>
+                                    </a>
+                                </h5><br>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                        <ul style="list-style-type: disc; padding-left: 30px;">
+                                            <li class="lblCB1">Student Driver's Permit - <b>&#8369;500.00</b></li>
+                                            <li class="lblCB1">Non-Professional License - <b>&#8369;2,500.00</b></li>
+                                        </ul><br>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                        <ul style="list-style-type: disc; padding-left: 20px;">
+                                            <li class="lblCB1">Professional License - <b>&#8369;2,700.00</b></li>
+                                            <li class="lblCB1">International License - <b>&#8369;5,000.00</b></li>
+                                        </ul><br>
+                                    </div>
+                                </div><hr class="hrCustom"><br>
+                                <div class="req reqA">
+                                    <h5 class="h5Enr">For 17-18 yrs. old</h5>
+                                    <label class="lblCB1">
+                                        &emsp;&nbsp;Original Birth Certificate (NSO)</label><br>
+                                    <label class="lblCB1">
+                                        &emsp;&nbsp;Photocopy of Birth Certificate (NSO)</label><br>
+                                    <label class="lblCB1">
+                                        &emsp;&nbsp;Parental Consent</label><br>
+                                <hr></div>
+                                <div class="req reqB">
+                                    <h5 class="h5Enr">For 19 yrs. old &amp; above</h5>
+                                    <label class="lblCB1">
+                                        &emsp;&nbsp;Photocopy of Birth Certificate (NSO)</label><br>
+                                    <label class="lblCB1">
+                                        &emsp;&nbsp;TIN - Tax Identification Number</label><br>
+                                    <label class="lblCB1">
+                                        &emsp;&nbsp;Barangay Clearance</label><br>
+                                <hr></div>
+                                <div class="req reqC">
+                                    <h5 class="h5Enr">For Non-Filipino Students/ Tourists</h5>
+                                    <label class="lblCB1">
+                                        &emsp;&nbsp;Original Passport</label><br>
+                                    <label class="lblCB1">
+                                        &emsp;&nbsp;Original ACR - Alien Certificate Registration</label><br>
+                                    <label class="lblCB1">
+                                        &emsp;&nbsp;Photocopy of ACR - Alien Certificate Registration</label><br>
+                                <hr></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
 
-    <div style="padding-bottom: 20px;">
-        <center>
-            <button type="button" id="btnCancPrereg" onclick="regCanc()" class="btnPrereg btn btn-danger m-b-10 m-l-5">Cancel</button>
-            <button type="button" id="btnPreregNext1" onclick="regNext1()" class="btnPrereg btn btn-light m-b-10 m-l-5">Next</button>
-    
-            <button type="button" id="btnPreregPrev" onclick="regPrev1()" class="btnPrereg btn btn-light1 m-b-10 m-l-5">Previous</button>
-            <button type="button" id="btnPreregNext2" onclick="regNext2()" class="btnPrereg btn btn-light m-b-10 m-l-5">Next</button>
-    
-            <button type="button" id="btnPreregPrev2" onclick="regPrev2()" class="btnPrereg btn btn-light1 m-b-10 m-l-5">Previous</button>
-            <button type="button" id="btnPreregDone" onclick="regDone()" class="btnPrereg btn btn-light m-b-10 m-l-5">Enroll</button>
-        </center>        
+        <div class="card pr3">
+            <center>
+                <h2>Step 3: Select payment method.</h2>
+                <h5>Choose one payment method.</h5>
+                <div class="separator"></div>
+            </center>
+            <form class="enrForm">
+                <div class="paymentOptionDiv" id="paymentOptionDiv">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <center>
+                                <div class="btn btnPayment btnPayMeth1" onclick="payMeth1()">
+                                    <center>
+                                        <h3>Pay on Branch</h3>
+                                        <h5>Pay at your preferred Socialites <br>Excellent Driving branch.</h5>
+                                        <icon class="icon icon-bank111 iconPayment"></icon>
+                                    </center>
+                                </div>
+                            </center>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <center>
+                                <div class="btn btnPayment btnPayMeth2">
+                                    <center>
+                                        <h3>Online Payment <br>thru Paypal</h3>
+                                        <h5>Pay using credit card.</h5>
+                                        <icon class="icon icon-cards3 iconPayment1"></icon>
+                                    </center>
+                                </div>
+                            </center>
+                        </div>
+                    </div>
+                </div><br>
+                
+                <div class="paymentOptionBack">
+                    <a href="#paymentOptionDiv" onclick="paymentBack()" class="paymentBack"><i class="icon icon-chevron-left"></i> Change payment method</a>
+                </div><br>
+
+                <div class="paymentOptionDiv1">
+                    <a href="#paymentOptionDiv" onclick="paymentBack()" class="paymentBack"><i class="icon icon-chevron-left"></i> Change payment method</a>
+                    <br><br><h3>PAYMENT METHOD: <span class="payMethH3">PAY ON BRANCH</span></h3><hr>
+                    <ul>
+                        <li>You have chosen the Pay on Branch method.</li>
+                        <li>The total amount of your enrolled course [<span class="payCourse">CRS-M001</span>] is &#8369;<span class="payPrice">2,500</span>.</li>
+                        <li><b>Please confirm by clicking "I confirm my enrolled course"...</b></li>
+                    </ul><br>
+                    <input type="checkbox" name="confirmCourse"> I confirm my enrolled course
+                </div>
+            </form>
+        </div>
+
+        <div class="card pr4">
+            <center>
+                <h2>Step 3: Terms and Agreements</h2>
+                <h5>Please read thoroughly.</h5>
+                <div class="separator"></div>
+            </center>
+            <form class="enrForm">
+                <div style="padding-left: 100px; padding-right: 100px;">
+                        Forfeit of appointed time: If a student misses his appointed lesson twice in a row without notifying the office about his absence, the appointed time will therefore be forfeited. The Institute may assign his time and instructor to another student. The student has to make new arrangements with the office upon the resumption of his lessons. Only the time is forfeited not the driving lessons. Notice of the absence may be called in to the branch you are enrolled in.<br><br>
+                        The student driver agrees that if any lesson has not been driven within a period of 90 days from the date of enrolment, the corresponding tuition is hereby forfeited. If a student has not yet started his driving lesson one month after enrolment and there has been a change in tuition fees, he/she agrees to pay the resulting balance. Tuition fees are not refundable, only transferable to any person chosen by the enrolee. <br><br>
+                        The student is free from any financial obligation arising from an accident except when the accident is due to a deliberate act by the student gross carelessness on his part, non compliance with the driving instructions, or when he is driving under the influence of drugs or alcohol; In which cases the student shall be liable up to at least 1/3 of the cost damage incurred. In case any physical or death resulting from accidents, the student waives his right to claim damages from the Institute. The Institute reserves the right to withhold driving privileges from physically unfit or grossly un-cooperative students.<br><br>
+                        The students are reminded to comply with the Institute's rules and policies and to transact all business only with the designated secretaries/registrars. Please take good care of the training vehicles.                         
+                    <br><br>
+                    <input type="checkbox" name="agree"> <b>I hereby acknowledge that I have read, understand and agree to the Terms and Conditions.</b>
+                </div>
+            </form>
+        </div>
+
+        <div style="padding-bottom: 20px;">
+            <center>
+                <button type="button" id="btnCancPrereg" onclick="regCanc()" class="btnPrereg btn btn-danger m-b-10 m-l-5">Cancel</button>
+                <button type="button" id="btnPreregNext1" onclick="regNext1()" class="btnPrereg btn btn-light m-b-10 m-l-5">Next</button>
+        
+                <button type="button" id="btnPreregPrev" onclick="regPrev1()" class="btnPrereg btn btn-light1 m-b-10 m-l-5">Previous</button>
+                <button type="button" id="btnPreregNext2" onclick="regNext2()" class="btnPrereg btn btn-light m-b-10 m-l-5">Next</button>
+        
+                <button type="button" id="btnPreregPrev1" onclick="regPrev2()" class="btnPrereg btn btn-light1 m-b-10 m-l-5">Previous</button>
+                <button type="button" id="btnPreregNext3" onclick="regNext3()" class="btnPrereg btn btn-light m-b-10 m-l-5">Next</button>
+
+                <button type="button" id="btnPreregPrev2" onclick="regPrev3()" class="btnPrereg btn btn-light1 m-b-10 m-l-5">Previous</button>
+                <button type="button" id="btnPreregDone" onclick="regDone()" class="btnPrereg btn btn-light m-b-10 m-l-5">Enroll</button>
+            </center>        
+        </div>
     </div>
 </div>

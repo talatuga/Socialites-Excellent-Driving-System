@@ -1,4 +1,4 @@
-<div id="cart">
+<div id="cart" class="container">
     <section class="cart">
         <div class="video_overlay">
             <div class="container">
@@ -27,40 +27,35 @@
             </div>
         </div>
         <div class="row">
-            <div class="main_pricing_area sections">   
-                <div class="cartList">
-                    <table class="tblCrs tblCart table-striped">
-                        <thead>
-                            <th width="250px">COURSE</th>
-                            <th width="200px">FREE HOURS</th>
-                            <th width="350px">BRANCH</th>
-                            <th width="150px">PRICE</th>
-                            <th></th>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <span class="cartCrs">CRS-M001</span><br>
-                                    Number of Hours: <span class="cartHrs">5</span>
-                                </td>
-                                <td><span class="cartFree"></span>None</td>
-                                <td>
-                                    <select class="branchList">
-                                        <option>SED-Main</option>
-                                        <option>SED-Cartimar</option>
-                                        <option>SED-Cubao</option>
-                                        <option>SED-Fortunata</option>
-                                        <option>SED-Market</option>
-                                    </select>
-                                </td>
-                                <td>&#8369;<span class="cartPrice">2,500</span></td>
-                                <td>
-                                    <a href="" title="Remove" onclick=""><i class="icon icon-trash2 iconTrash"></i></a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                <div class="main_pricing_area sections">   
+                    <div class="cartList">
+                        <table class="tblCrs tblCart table-striped">
+                            <thead>
+                                <th width="250px">COURSE</th>
+                                <th width="250px">NUMBER OF HOURS</th>
+                                <th width="200px">FREE HOURS</th>
+                                <th width="150px">PRICE</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="cartCrs">CRS-M001</span></td>
+                                    <td><span class="cartHrs">5</span></td>
+                                    <td><span class="cartFree"></span>None</td>
+                                    <td>&#8369;<span class="cartPrice">2,500</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+                <label style="padding-left: 100px;">Preferred Branch:</label><br>
+                <select class="branchList" style="margin-left: 100px;">
+                    <option>SED-Main</option>
+                    <option>SED-Cartimar</option>
+                    <option>SED-Cubao</option>
+                    <option>SED-Fortunata</option>
+                    <option>SED-Market</option>
+                </select><br><br>
             </div>
         </div><!-- End off row -->
             <a class="btn btn-lg btnCstm btnEnroll pull-right" onclick="enrollClick()">ENROLL</a>

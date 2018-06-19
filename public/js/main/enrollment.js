@@ -3,6 +3,7 @@ var checkedReqT = 1, canCancel = 1;
 var isCheck1, isCheck2, isCheck3;
 var selected;
 var selectedCourse = 0;
+var paymentMeth;
 var preRegData = {
     info: {},
     course: 0,
@@ -11,15 +12,23 @@ var preRegData = {
 };
 
 $(function(){
+    $('.paymentOptionBack').hide();
+    $('.paymentOptionDiv1').hide();
+    $('.paymentOptionDiv').show();
+
     $('.pr2').hide();
     $('.pr3').hide();
+    $('.pr4').hide();
     $('.pr1').show();
+
     $('.reqA').show();
     $('.reqB').show();
     $('.reqC').show();
 
     $('#btnPreregPrev').hide();
     $('#btnPreregNext2').hide();
+    $('#btnPreregPrev1').hide();
+    $('#btnPreregNext3').hide();
     $('#btnPreregPrev2').hide();
     $('#btnPreregDone').hide();
 
@@ -96,6 +105,17 @@ $(function(){
 
 });
 
+function payMeth1(){
+    $('.paymentOptionDiv').hide();
+    $('.paymentOptionDiv1').show();
+    paymentMeth = 1;
+}
+
+function paymentBack(){
+    $('.paymentOptionDiv1').hide();
+    $('.paymentOptionDiv').show();
+}
+
 function resetEnrollment(){
     $('#enrFN').val("");
     $('#enrMN').val("");
@@ -115,8 +135,8 @@ function resetEnrollment(){
     $("#enrReqT1").prop("checked", true);
     document.getElementById("enrSex1").checked = true;
     document.getElementById("enrSex2").checked = false;
-    // document.getElementById("enrNat1").checked = true;
-    // document.getElementById("enrNat2").checked = false;
+    $('input[name="agree"]').prop('checked', false);
+    $('input[name="confirmCourse"]').prop('checked', false);
     selected = 1;
 }
 
@@ -200,8 +220,8 @@ function checkEnr2 (){
 }
 
 function regCanc(){
-    isCheck2 = checkEnr2();
-    isCheck3 = checkEnr3();
+    // isCheck2 = checkEnr2();
+    // isCheck3 = checkEnr3();
     swal({
         title: "Cancel?",
         text: "Are you sure to cancel and discard all changes?",
@@ -219,10 +239,13 @@ function regCanc(){
             swal("Changes have been discarded!", "" ,"success")
             $('.pr2').hide();
             $('.pr3').hide();
+            $('.pr4').hide();
             $('.pr1').show();
 
             $('#btnPreregPrev').hide();
             $('#btnPreregNext2').hide();
+            $('#btnPreregPrev1').hide();
+            $('#btnPreregNext3').hide();
             $('#btnPreregPrev2').hide();
             $('#btnPreregDone').hide();
 
@@ -232,6 +255,7 @@ function regCanc(){
             $('.tblIncluLes').hide();
             $('.noSelCorsDiv').show();
             selected = 1;
+            cartClick();
         }
     });
 }
@@ -251,12 +275,15 @@ function regNext1(){
     if (isCheck1=="1"){
         $('.pr1').hide();
         $('.pr3').hide();
+        $('.pr4').hide();
         $('.pr2').show();
 
         $('#btnPreregNext1').hide();
         $('#btnPreregPrev').hide();
         $('#btnPreregNext2').hide();
         $('#btnPreregPrev2').hide();
+        $('#btnPreregPrev1').hide();
+        $('#btnPreregNext3').hide();
         $('#btnPreregDone').hide();
 
         $('#btnCancPrereg').show();
@@ -272,10 +299,13 @@ function regNext1(){
 function regPrev1(){
     $('.pr2').hide();
     $('.pr3').hide();
+    $('.pr4').hide();
     $('.pr1').show();
 
     $('#btnPreregPrev').hide();
     $('#btnPreregNext2').hide();
+    $('#btnPreregPrev1').hide();
+    $('#btnPreregNext3').hide();
     $('#btnPreregPrev2').hide();
     $('#btnPreregDone').hide();
 
@@ -293,8 +323,10 @@ function regNext2(){
     }
     else{
         // preRegData.branch = branch;
+        paymentBack();
         $('.pr1').hide();
         $('.pr2').hide();
+        $('.pr4').hide();
         $('.pr3').show();
     
         $('#btnPreregPrev').hide();
@@ -302,19 +334,41 @@ function regNext2(){
         $('#btnPreregNext1').hide();
         $('#btnPreregPrev').hide();
         $('#btnPreregNext2').hide();
-    
-        $('#btnCancPrereg').show();
-        $('#btnPreregPrev2').show();
-        $('#btnPreregDone').show();
+        $('#btnPreregPrev2').hide();
+        $('#btnPreregDone').hide();
 
-        $('input[name="enrReqP"]').prop('checked', false);
+        $('#btnCancPrereg').show();
+        $('#btnPreregPrev1').show();
+        $('#btnPreregNext3').show();
     }
 }
 
 function regPrev2(){
     $('.pr1').hide();
     $('.pr3').hide();
+    $('.pr4').hide();
     $('.pr2').show();
+
+    $('#btnPreregNext1').hide();
+    $('#btnPreregPrev1').hide();
+    $('#btnPreregNext3').hide();
+
+    $('#btnPreregPrev2').hide();
+    $('#btnPreregDone').hide();
+
+    $('#btnCancPrereg').show();
+    $('#btnPreregPrev').show();
+    $('#btnPreregNext2').show();    
+
+    $('.tblIncluLes').hide();
+    $('.noSelCorsDiv').show();
+}
+
+function regPrev3(){
+    $('.pr1').hide();
+    $('.pr2').hide();
+    $('.pr4').hide();
+    $('.pr3').show();
 
     $('#btnPreregNext1').hide();
     $('#btnPreregPrev').hide();
@@ -323,22 +377,59 @@ function regPrev2(){
     $('#btnPreregDone').hide();
 
     $('#btnCancPrereg').show();
-    $('#btnPreregPrev').show();
-    $('#btnPreregNext2').show();
+    $('#btnPreregPrev1').show();
+    $('#btnPreregNext3').show();
+}
+
+function regNext3(){
+    var check = $('input[name="confirmCourse"]:checked').map(function () {
+        return this.value;
+    }).get();
+    var count = $('input[name="confirmCourse"]:checked').length;
+    if (count==0){
+        swal("Oops!", "Please confirm your enrolled course first", "error");
+    }
+    else{
+        $('.pr1').hide();
+        $('.pr2').hide();
+        $('.pr3').hide();
+        $('.pr4').show();
+    
+        $('#btnPreregPrev').hide();
+        $('#btnPreregNext2').hide();
+        $('#btnPreregNext1').hide();
+        $('#btnPreregPrev1').hide();
+        $('#btnPreregNext3').hide();
+    
+        $('#btnCancPrereg').show();
+        $('#btnPreregPrev2').show();
+        $('#btnPreregDone').show();
+    }
 }
 
 function regDone(){
-    isCheck2 = checkEnr2();
-    if (isCheck2=="0"){
-        alert (isCheck2)
-        swal("Oops!", "Please fill out all required fields.", "error");
+    var check = $('input[name="agree"]:checked').map(function () {
+        return this.value;
+    }).get();
+    var count = $('input[name="agree"]:checked').length;
+    if (count==0){
+        swal("Oops!", "Please confirm that you have read and agreed to the terms and agreement first.", "error");
     }
     else{
-        $('.oneWeekDeadline').html(Date.parse("next week").toString("MMM dd, yyyy"));
-        preRegData.license = $('input[name="enrReqP"]:checked').val();
-        $('#confRegisterModal').modal('show');
+        if (paymentMeth==1){
+            $('.oneWeekDeadline').html(Date.parse("next week").toString("MMM dd, yyyy"));
+            // preRegData.license = $('input[name="enrReqP"]:checked').val();
+            $('#successEnrollModal2').modal('show');
+        }
+        else if (paymentMeth==2){
+            $('#successEnrollModal2').modal('show');
+        }
     }
 }
+
+$('.btnGotItPay').click(function(){
+    homeClick();
+});
 
 function confRegister(){
     preregister.sendForm(preRegData, function(err){
@@ -399,3 +490,4 @@ var preregister = {
         });
     }
 }
+
