@@ -146,7 +146,7 @@ var cartClick = function()
     $("#cart").show();
 }
 
-var enrollmentClick = function() 
+var enrollmentClick = function(a) 
 {
     $("#main_menu").addClass("menu-scroll");
     $("#homeCls").hide();
@@ -159,4 +159,23 @@ var enrollmentClick = function()
     $("#courses").hide();
     $("#cart").hide();
     $("#enrollment").show();
+
+    if (a==1){
+        $('.pr1').hide();
+        $('.pr3').hide();
+        $('.pr4').hide();
+        $('.pr2').hide();
+        $('.pr2A').show();
+        $('.btnsNoAcc').hide();
+        $('.btnsHasAcc').show();
+    }
+    else if(a==2){
+        $('.pr2A').hide();
+        $('.pr2').hide();
+        $('.pr3').hide();
+        $('.pr4').hide();
+        $('.pr1').show();
+        $('.btnsHasAcc').hide();
+        $('.btnsNoAcc').show();
+    }
 }
