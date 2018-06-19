@@ -118,6 +118,7 @@ var loginClick = function()
 
 var coursesClick = function() 
 {
+    cart.checkCart();
     $("#main_menu").addClass("menu-scroll");
     $("#homeCls").hide();
     $("#service").hide();
@@ -133,6 +134,9 @@ var coursesClick = function()
 
 var cartClick = function() 
 {
+    course.loadAll(function(){
+        cart.renderTbl();
+    });
     $("#main_menu").addClass("menu-scroll");
     $("#homeCls").hide();
     $("#service").hide();

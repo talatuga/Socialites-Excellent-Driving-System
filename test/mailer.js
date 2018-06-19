@@ -8,12 +8,11 @@ describe('Send Email',function(){
         var Mailer = new mailer({
             service:"gmail", 
             email:"christianpaultupas@gmail.com", 
-            password:"09185671538"
+            password:""
         });
 
         //var result;
         Mailer.send("christianpaultupas@gmail.com",{subject:"TEST MAIL FROM SED", body:"HELLO WORLD!"},function(err,done){
-            if(err) return console.error("error: " + err);
             expect(err).null();
         });
     });
