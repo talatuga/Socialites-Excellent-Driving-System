@@ -1182,13 +1182,13 @@ h6.h1 {
 .sidebarMenu
 {
   color: #BABABA;
-  font-size: 15px;
+  font-size: 13px;
   padding-left: 15px;
 }
 .sidebarMenu:hover
 {
   color: #e7b63a;
-  font-size: 15px;
+  font-size: 13px;
   padding-left: 15px;
 }
 .sidebarMenu:active
@@ -1547,7 +1547,7 @@ textarea {
   color: #FFCD40;
   padding: 7px 35px 7px 15px;
   display: block;
-  font-size: 14px;
+  font-size: 13px;
   white-space: nowrap;
 }
 .sidebar-nav ul li a:hover {
@@ -1558,8 +1558,8 @@ textarea {
 }
 .sidebar-nav ul li a.active {
   color: #F8D108;
-  background-color: #9D2834;
-  font-weight: bold;
+  /* background-color: #9D2834;
+  font-weight: bold; */
 }
 .sidebar-nav ul li a.active i {
   color: #F8D108;
@@ -1613,11 +1613,11 @@ textarea {
 }
 .sidebar-nav > ul > li > a.active {
   font-weight: 400;
-  background: #fff;
-  color: #1976d2;
+  /* background: #fff;
+  color: #1976d2; */
 }
 .sidebar-nav > ul > li.active > a {
-  color: #1976d2;
+  color: #F8D108;
   font-weight: 500;
   border-left: 5px solid #F8D108;
   background-color: #3E0000;
@@ -3849,6 +3849,7 @@ table.dataTable thead .sorting::after {
 }
 .hidden {
   display: none;
+  /* visibility: hidden; */
 }
 /*    Home Chat Widget
 ---------------------------------*/
@@ -7231,6 +7232,7 @@ tbody tr td:last-child {
 }
 .tiSide
 {
+  width: 120%;
   padding-bottom: 5px;
 }
 .profSidebar

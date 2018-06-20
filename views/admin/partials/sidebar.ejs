@@ -4,7 +4,7 @@
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
-                <div class="profSidebar"><hr>
+                <div class="profSidebar"><br>
                     <div class="row">
                         <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
                             <img src="assets/images/user4.png" href="#" alt="Socialites Excellent Driving" class="dark-logo img-circle sidePic"/>
@@ -13,54 +13,110 @@
                             <span style="color: #BABABA">Welcome,</span>
                             <p id="adminName">Graciella Tatel<span>!</span></p>
                         </div>
-                    </div><hr>
+                    </div>
                 </div>
+                <!-- GENERAL -->
                 <li class="nav-divider"></li>
                 <li class="nav-label">General</li>
-                <li class="active" id="li1"> <a class="sidebarMenu" id="dashboard" onclick="dashboard()">
-                    <i class="ti-home tiSide"></i><span class="hide-menu sidebarMenu">Dashboard</span></a>
+                <li class="active liSide" id="li1"> <a class="sidebarMenu" id="dashboard" onclick="viewActive(1)">
+                    <i class="icon icon-line-graphic9 tiSide" style="font-size: 20px;"></i>
+                    <span class="hide-menu sidebarMenu">Dashboard</span></a>
                 </li>
-                <!-- <li id="li2"> <a class="sidebarMenu" id="students">
-                    <i class="ti-heart tiSide"></i><span class="hide-menu sidebarMenu">Students</span></a>
-                </li> -->
-                <li id="li2"> <a class="has-arrow sidebarMenu" href="#" aria-expanded="false" id="students" onclick="activeStud()">
-                    <i class="ti-user tiSide"></i><span class="hide-menu sidebarMenu">Students</span></a>
-                    <ul aria-expanded="false" class="collapse">
-                        <li id="li2A"><a id="studentA" onclick="activeStudA()"><span class="fa fa-circle-o"></span> List</a></li>
-                        <li id="li2B"><a id="studentB" onclick="activeStudB()"><span class="fa fa-circle-o"></span> Enrollment</a></li>
-                        <li id="li2C"><a id="studentC" onclick="activeStudC()"><span class="fa fa-circle-o"></span> Payment</a></li>
-                        <li id="li2D"><a id="studentD" onclick="activeStudD()"><span class="fa fa-circle-o"></span> Grades &amp; Evaluation</a></li>
+                <li class="liSide" id="li2"> <a class="has-arrow sidebarMenu" href="#" aria-expanded="false" id="students" onclick="viewActiveStud()">
+                    <i class="icon icon-woman243 tiSide" style="font-size: 20px;"></i>
+                    <span class="hide-menu sidebarMenu">Students</span></a>
+                    <ul aria-expanded="false" class="colSide collapse">
+                        <li id="liS1"><a id="student1" onclick="viewActiveStud(1)"><span class="fa fa-circle-o"></span> List</a></li>
+                        <li id="liS2"><a id="student2" onclick="viewActiveStud(2)"><span class="fa fa-circle-o"></span> Attendance</a></li>
+                        <li id="liS3"><a id="student3" onclick="viewActiveStud(3)"><span class="fa fa-circle-o"></span> Payment</a></li>
+                        <li id="liS4"><a id="student4" onclick="viewActiveStud(4)"><span class="fa fa-circle-o"></span> Grades &amp; Evaluation</a></li>
                     </ul>
                 </li>
-                <li id="li3"> <a class="sidebarMenu" id="instructor" onclick="instructor()">
-                    <i class="ti-user tiSide"></i><span class="hide-menu sidebarMenu">Instructors</span></a>
+                <li class="liSide" id="li3"> <a class="sidebarMenu" id="instructor" onclick="viewActive(3)">
+                    <i class="icon icon-user216 tiSide" style="font-size: 20px;"></i>
+                    <span class="hide-menu sidebarMenu">Instructors</span></a>
                 </li>
-                <li id="li4"> <a class="sidebarMenu" id="vehicle" onclick="vehicle()">
-                    <i class="ti-car tiSide"></i><span class="hide-menu sidebarMenu">Vehicle</span></a>
+                <li class="liSide" id="li4"> <a class="sidebarMenu" id="vehicle" onclick="viewActive(4)">
+                    <i class="icon icon-car2 tiSide" style="font-size: 20px;"></i>
+                    <span class="hide-menu sidebarMenu">Vehicles</span></a>
                 </li>
-                <li id="li5"> <a class="sidebarMenu" id="schedule" onclick="schedule()">
-                    <i class="ti-calendar tiSide"></i><span class="hide-menu sidebarMenu">Schedule</span></a>
+                <li class="liSide" id="li6"> <a class="sidebarMenu" id="branches" onclick="viewActive(6)">
+                    <i class="icon icon-pin139 tiSide" style="font-size: 20px;"></i>
+                    <span class="hide-menu sidebarMenu">Branches</span></a>
                 </li>
-                <li id="li6"> <a class="sidebarMenu" id="branches" onclick="branches()">
-                    <i class="ti-location-pin tiSide"></i><span class="hide-menu sidebarMenu">Branches</span></a>
-                </li>
+
+                <!-- SERVICES -->
                 <li class="nav-divider"></li>
-                <li class="nav-label">System</li>
-                <li id="li7"> <a class="sidebarMenu" id="account" onclick="account()">
-                    <i class="ti-lock tiSide"></i><span class="hide-menu sidebarMenu">Account Settings</span></a>
+                <li class="nav-label">Business Process &amp; Services</li>
+                <li class="liSide" id="li12"> <a class="sidebarMenu" id="enrolment" onclick="viewActive(12)">
+                    <i class="icon icon-line-graphic9 tiSide" style="font-size: 20px;"></i>
+                    <span class="hide-menu sidebarMenu">Enrolment</span></a>
                 </li>
-                <!-- <li id="li8"> <a class="sidebarMenu" id="dashboard" onclick="requirements()">
-                    <i class="ti-link tiSide"></i><span class="hide-menu sidebarMenu">Enrollment Requirements</span></a>
-                </li> -->
-                <!-- <li id="li9"> <a class="sidebarMenu" id="dashboard" onclick="lessons()">
-                    <i class="ti-blackboard tiSide"></i><span class="hide-menu sidebarMenu">Courses &amp; Lessons</span></a>
-                </li> -->
-                <li id="li9"> <a class="has-arrow sidebarMenu" href="#" aria-expanded="false" id="crsLes" onclick="activeCrsLes()">
-                    <i class="ti-blackboard tiSide"></i><span class="hide-menu sidebarMenu">Courses &amp; Lessons</span></a>
-                    <ul aria-expanded="false" class="collapse">
-                        <li id="li9A"><a id="crsLesA" onclick="courses()"><span class="fa fa-circle-o"></span> Courses</a></li>
-                        <li id="li9B"><a id="crsLesB" onclick="lessons()"><span class="fa fa-circle-o"></span> Lessons</a></li>
+                <li class="liSide" id="li5"> <a class="has-arrow sidebarMenu" href="#" aria-expanded="false" id="schedule" onclick="viewActiveSched()">
+                    <i class="ti-calendar tiSide" style="font-size: 20px;"></i>
+                    <span class="hide-menu sidebarMenu">Schedule</span></a>
+                    <ul aria-expanded="false" class="colSide collapse">
+                        <li id="liSH3"><a id="sched3" onclick="viewActiveSched(3)">
+                            <span class="fa fa-circle-o"></span>Overall Schedule</a></li>
+                        <li id="liSH1"><a id="sched1" onclick="viewActiveSched(1)">
+                            <span class="fa fa-circle-o"></span> Requests</a></li>
+                        <li id="liSH2"><a id="sched2" onclick="viewActiveSched(2)">
+                            <span class="fa fa-circle-o"></span> Canceled/Forfeited</a></li>
                     </ul>
+                </li>
+                <li class="liSide" id="li13"> <a class="has-arrow sidebarMenu" href="#" aria-expanded="false" id="dtp" onclick="viewActiveDTP()">
+                    <i class="icon icon-group47 tiSide" style="font-size: 20px;"></i>
+                    <span class="hide-menu sidebarMenu">Driver's Training Program</span></a>
+                    <ul aria-expanded="false" class="colSide collapse">
+                        <li id="liD1"><a id="dtp1" onclick="viewActiveDTP(1)">
+                            <span class="fa fa-circle-o"></span> Requests</a></li>
+                        <li id="liD2"><a id="dtp2" onclick="viewActiveDTP(2)">
+                            <span class="fa fa-circle-o"></span> Payment</a></li>
+                    </ul>
+                </li>
+                <li class="liSide" id="li14"> <a class="has-arrow sidebarMenu" href="#" aria-expanded="false" id="license" onclick="viewActiveLA()">
+                    <i class="icon icon-license tiSide" style="font-size: 20px;"></i>
+                    <span class="hide-menu sidebarMenu">Licensing Assistance</span></a>
+                    <ul aria-expanded="false" class="colSide collapse">
+                        <li id="liL1"><a id="license1" onclick="viewActiveLA(1)">
+                            <span class="fa fa-circle-o"></span> Requests</a></li>
+                        <li id="liL2"><a id="license2" onclick="viewActiveLA(2)">
+                            <span class="fa fa-circle-o"></span> Payment</a></li>
+                    </ul>
+                </li>
+                <li class="liSide" id="li15"> <a class="sidebarMenu" id="trLect" onclick="viewActive(15)">
+                    <i class="icon icon-human57 tiSide" style="font-size: 20px;"></i>
+                    <span class="hide-menu sidebarMenu">Troubleshooting Lectures</span></a>
+                </li>
+
+                <!-- OTHER -->
+                <li class="nav-divider"></li>
+                <li class="nav-label">Other</li>
+                <li class="liSide" id="li8"> <a class="sidebarMenu" id="report" onclick="viewActive(8)">
+                    <i class="icon icon-business-8 tiSide" style="font-size: 20px;"></i>
+                    <span class="hide-menu sidebarMenu">Reports</span></a>
+                </li>
+                <li class="liSide" id="li7"> <a class="sidebarMenu" id="account" onclick="viewActive(7)">
+                    <i class="icon icon-business-20 tiSide" style="font-size: 20px;"></i>
+                    <span class="hide-menu sidebarMenu">Account Settings</span></a>
+                </li>
+                <li class="liSide" id="li9"> <a class="has-arrow sidebarMenu" href="#" aria-expanded="false" id="crsLes" onclick="viewActiveCrs()">
+                    <i class="ti-blackboard tiSide" style="font-size: 20px;"></i>
+                    <span class="hide-menu sidebarMenu">Courses &amp; Lessons</span></a>
+                    <ul aria-expanded="false" class="colSide collapse">
+                        <li id="liC1"><a id="crsLesA" onclick="viewActiveCrs(1)">
+                            <span class="fa fa-circle-o"></span> Courses</a></li>
+                        <li id="liC2"><a id="crsLesB" onclick="viewActiveCrs(2)">
+                            <span class="fa fa-circle-o"></span> Lessons</a></li>
+                    </ul>
+                </li>
+                <li class="liSide" id="li10"> <a class="sidebarMenu" id="cert" onclick="viewActive(10)">
+                    <i class="icon icon-business-12 tiSide" style="font-size: 20px;"></i>
+                    <span class="hide-menu sidebarMenu">Certificates</span></a>
+                </li>
+                <li class="liSide" id="li11"> <a class="sidebarMenu" id="announce" onclick="viewActive(11)">
+                    <i class="icon icon-bullhorn tiSide" style="font-size: 20px;"></i>
+                    <span class="hide-menu sidebarMenu">Announcements</span></a>
                 </li>
             </ul>
         </nav>

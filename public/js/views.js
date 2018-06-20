@@ -2,16 +2,10 @@ $(function() {
     var x = $(window).height();
     $(".page-wrapper").height(x);
 
-    $(".view-instructor").hide();
-    $(".view-schedule").hide();
-    $(".view-student").hide();
-    $(".view-enrollment").hide();
-    $(".view-vehicleA").hide();
-    $(".view-branches").hide();
+    $(".liSide").removeClass("active");
+    $("#li1").addClass("active");
+    $('.viewDiv').hide();
     $(".view-dashboard").show();
-    $(".view-lessons").hide();
-    $(".view-courses").hide();
-    $(".view-account").hide();
 
     $(".view-viewInstructor").hide();
     $(".view-viewStudent").hide();
@@ -22,497 +16,213 @@ $(function() {
     });
 });
 
-var dashboard = function() 
-{
-    $(".search-box").show();
-    $(".view-instructor").hide();
-    $(".view-schedule").hide();
-    $(".view-student").hide();
-    $(".view-enrollment").hide();
-    $(".view-vehicleA").hide();
-    $(".view-branches").hide();
-    $(".view-viewInstructor").hide();
-    $(".view-viewStudent").hide();
+function viewActive (a){
+    $('.viewDiv').hide();
+    var li = "#li";
+    for (var x=1; x<=16; x++){
+        li += a.toString();
+        if (x==a){
+            if (a==2 || a==9 || a==5 || a==13){
+                $('.colSide').addClass("in");
+            }
+            else{
+                $("li").removeClass("active");
+                $('.colSide').removeClass("in");
+            }
+        }
+        else{
+            $(li).addClass("active");
+        }
+        li = "#li";
+    }
+
+    if (a==1) dashboard();
+    else if (a==3) instructor();
+    else if (a==4) vehicle();
+    else if (a==6) branches();
+    else if (a==7) account();
+    else if (a==8) reports();
+    else if (a==10) cert();
+    else if (a==11) announce();
+    else if (a==12) enroll();
+    else if (a==15) tlect();
+}
+
+function viewActiveStud(a){
+    $('.viewDiv').hide();
+    var li = "#liS";
+    $(".liSide").removeClass("active");
+    for (var x=1; x<=5; x++){
+        li += a.toString();
+        if (x==a){
+            $("li").removeClass("active");
+        }
+        else{
+            $(li).addClass("active");
+            $("#li2").addClass("active");
+        }
+        li = "#liS";
+    }
+    if (a==1) student();
+    else if (a==2) attendance();
+    else if (a==3) payment();
+    else if (a==4) gradesEval();
+}
+
+function viewActiveCrs(a){
+    $('.viewDiv').hide();
+    var li = "#liC";
+    $(".liSide").removeClass("active");
+    for (var x=1; x<=3; x++){
+        li += a.toString();
+        if (x==a){
+            $("li").removeClass("active");
+        }
+        else{
+            $(li).addClass("active");
+            $("#li9").addClass("active");
+        }
+        li = "#liC";
+    }
+}
+
+function viewActiveSched(a){
+    $('.viewDiv').hide();
+    var li = "#liSH";
+    $(".liSide").removeClass("active");
+    for (var x=1; x<=4; x++){
+        li += a.toString();
+        if (x==a){
+            $("li").removeClass("active");
+        }
+        else{
+            $(li).addClass("active");
+            $("#li5").addClass("active");
+        }
+        li = "#liSH";
+    }
+}
+
+function viewActiveDTP(a){
+    $('.viewDiv').hide();
+    var li = "#liD";
+    $(".liSide").removeClass("active");
+    for (var x=1; x<=3; x++){
+        li += a.toString();
+        if (x==a){
+            $("li").removeClass("active");
+        }
+        else{
+            $(li).addClass("active");
+            $("#li13").addClass("active");
+        }
+        li = "#liD";
+    }
+}
+
+function viewActiveLA(a){
+    $('.viewDiv').hide();
+    var li = "#liL";
+    $(".liSide").removeClass("active");
+    for (var x=1; x<=3; x++){
+        li += a.toString();
+        if (x==a){
+            $("li").removeClass("active");
+        }
+        else{
+            $(li).addClass("active");
+            $("#li14").addClass("active");
+        }
+        li = "#liL";
+    }
+}
+
+
+var dashboard = function (){
     $(".view-dashboard").show();
-    $(".view-requirement").hide();
-    $(".view-lessons").hide();
-    $(".view-courses").hide();
-    $(".view-account").hide();
-    $(".view-payment").hide();
-    $(".view-gradesEval").hide();
-    document.getElementById("li2").classList.remove('active');
-    document.getElementById("li3").classList.remove('active');
-    document.getElementById("li4").classList.remove('active');
-    document.getElementById("li5").classList.remove('active');
-    document.getElementById("li6").classList.remove('active');
-    document.getElementById("li2A").classList.remove('active');
-    document.getElementById("li2B").classList.remove('active');
-    document.getElementById("li2C").classList.remove('active');
-    document.getElementById("li2D").classList.remove('active');
-    document.getElementById("li1").classList.add('active');
-    document.getElementById("li7").classList.remove('active');
-    document.getElementById("li9").classList.remove('active');
-    document.getElementById("li9A").classList.remove('active');
-    document.getElementById("li9B").classList.remove('active');
-}
-
-var activeStud = function ()
-{
-    document.getElementById("li1").classList.remove('active');
-    document.getElementById("li3").classList.remove('active');
-    document.getElementById("li4").classList.remove('active');
-    document.getElementById("li5").classList.remove('active');
-    document.getElementById("li6").classList.remove('active');
-    document.getElementById("li2A").classList.remove('active');
-    document.getElementById("li2B").classList.remove('active');
-    document.getElementById("li2C").classList.remove('active');
-    document.getElementById("li2D").classList.remove('active');
-    document.getElementById("li7").classList.remove('active');
-    document.getElementById("li9").classList.remove('active');
-    document.getElementById("li9A").classList.remove('active');
-    document.getElementById("li9B").classList.remove('active');
-}
-
-var activeStudA = function ()
-{
-    loadStud();                
     $(".search-box").hide();
-    $(".view-instructor").hide();
-    $(".view-schedule").hide();
-    $(".view-dashboard").hide();
-    $(".view-vehicleA").hide();
-    $(".view-branches").hide();
-    $(".view-viewInstructor").hide();
-    $(".view-viewStudent").hide();
-    $(".view-enrollment").hide();
-    $(".view-student").show();
-    $(".view-requirement").hide();
-    $(".view-lessons").hide();
-    $(".view-account").hide();
-    $(".view-courses").hide();
-    $(".view-payment").hide();
-    $(".view-gradesEval").hide();
-    document.getElementById("li1").classList.remove('active');
-    document.getElementById("li3").classList.remove('active');
-    document.getElementById("li4").classList.remove('active');
-    document.getElementById("li5").classList.remove('active');
-    document.getElementById("li6").classList.remove('active');
-    document.getElementById("li2B").classList.remove('active');
-    document.getElementById("li2C").classList.remove('active');
-    document.getElementById("li2D").classList.remove('active');
-    document.getElementById("li2").classList.add('active');
-    document.getElementById("li2A").classList.add('active');
-    document.getElementById("li7").classList.remove('active');
-    document.getElementById("li9").classList.remove('active');
-    document.getElementById("li9A").classList.remove('active');
-    document.getElementById("li9B").classList.remove('active');
-}
-
-var activeStudB = function ()
-{
-    loadPreReg();    
-    $(".search-box").hide();
-    $(".view-instructor").hide();
-    $(".view-schedule").hide();
-    $(".view-dashboard").hide();
-    $(".view-vehicleA").hide();
-    $(".view-branches").hide();
-    $(".view-viewInstructor").hide();
-    $(".view-viewStudent").hide();
-    $(".view-student").hide();
-    $(".view-enrollment").show();
-    $(".view-requirement").hide();
-    $(".view-lessons").hide();
-    $(".view-account").hide();
-    $(".view-courses").hide();
-    $(".view-payment").hide();
-    $(".view-gradesEval").hide();
-    document.getElementById("li1").classList.remove('active');
-    document.getElementById("li3").classList.remove('active');
-    document.getElementById("li4").classList.remove('active');
-    document.getElementById("li5").classList.remove('active');
-    document.getElementById("li6").classList.remove('active');
-    document.getElementById("li2A").classList.remove('active');
-    document.getElementById("li2C").classList.remove('active');
-    document.getElementById("li2D").classList.remove('active');
-    document.getElementById("li2").classList.add('active');
-    document.getElementById("li2B").classList.add('active');
-    document.getElementById("li7").classList.remove('active');
-    document.getElementById("li9").classList.remove('active');
-    document.getElementById("li9A").classList.remove('active');
-    document.getElementById("li9B").classList.remove('active');
-    resetEnrollment();
-}
-
-var activeStudC = function ()
-{              
-    $(".search-box").hide();
-    $(".view-instructor").hide();
-    $(".view-schedule").hide();
-    $(".view-dashboard").hide();
-    $(".view-vehicleA").hide();
-    $(".view-branches").hide();
-    $(".view-viewInstructor").hide();
-    $(".view-viewStudent").hide();
-    $(".view-enrollment").hide();
-    $(".view-student").hide();
-    $(".view-requirement").hide();
-    $(".view-lessons").hide();
-    $(".view-account").hide();
-    $(".view-courses").hide();
-    $(".view-gradesEval").hide();
-    $(".view-payment").show();
-    document.getElementById("li1").classList.remove('active');
-    document.getElementById("li3").classList.remove('active');
-    document.getElementById("li4").classList.remove('active');
-    document.getElementById("li5").classList.remove('active');
-    document.getElementById("li6").classList.remove('active');
-    document.getElementById("li2B").classList.remove('active');
-    document.getElementById("li2A").classList.remove('active');
-    document.getElementById("li2D").classList.remove('active');
-    document.getElementById("li2").classList.add('active');
-    document.getElementById("li2C").classList.add('active');
-    document.getElementById("li7").classList.remove('active');
-    document.getElementById("li9").classList.remove('active');
-    document.getElementById("li9A").classList.remove('active');
-    document.getElementById("li9B").classList.remove('active');
-}
-
-var activeStudD = function ()
-{
-    $(".search-box").hide();
-    $(".view-instructor").hide();
-    $(".view-schedule").hide();
-    $(".view-dashboard").hide();
-    $(".view-vehicleA").hide();
-    $(".view-branches").hide();
-    $(".view-viewInstructor").hide();
-    $(".view-viewStudent").hide();
-    $(".view-enrollment").hide();
-    $(".view-student").hide();
-    $(".view-requirement").hide();
-    $(".view-lessons").hide();
-    $(".view-account").hide();
-    $(".view-courses").hide();
-    $(".view-payment").hide();
-    $(".view-gradesEval").show();
-    document.getElementById("li1").classList.remove('active');
-    document.getElementById("li3").classList.remove('active');
-    document.getElementById("li4").classList.remove('active');
-    document.getElementById("li5").classList.remove('active');
-    document.getElementById("li6").classList.remove('active');
-    document.getElementById("li2B").classList.remove('active');
-    document.getElementById("li2A").classList.remove('active');
-    document.getElementById("li2C").classList.remove('active');
-    document.getElementById("li2").classList.add('active');
-    document.getElementById("li2D").classList.add('active');
-    document.getElementById("li7").classList.remove('active');
-    document.getElementById("li9").classList.remove('active');
-    document.getElementById("li9A").classList.remove('active');
-    document.getElementById("li9B").classList.remove('active');
 }
 
 var instLoaded = 0;
-var instructor = function ()
-{
+var instructor = function (){
     if(instLoaded == 0){
         loadInst();  
         instLoaded = 1;
     };
     $(".search-box").hide();
-    $(".view-dashboard").hide();
-    $(".view-schedule").hide();
-    $(".view-student").hide();
-    $(".view-enrollment").hide();
-    $(".view-vehicleA").hide();
-    $(".view-branches").hide();
-    $(".view-viewInstructor").hide();
-    $(".view-viewStudent").hide();
     $(".view-instructor").show();
-    $(".view-requirement").hide();
-    $(".view-lessons").hide();
-    $(".view-account").hide();
-    $(".view-courses").hide();
-    $(".view-payment").hide();
-    $(".view-gradesEval").hide();
-    document.getElementById("li1").classList.remove('active');
-    document.getElementById("li2").classList.remove('active');
-    document.getElementById("li4").classList.remove('active');
-    document.getElementById("li5").classList.remove('active');
-    document.getElementById("li6").classList.remove('active');
-    document.getElementById("li2A").classList.remove('active');
-    document.getElementById("li2B").classList.remove('active');
-    document.getElementById("li2C").classList.remove('active');
-    document.getElementById("li2D").classList.remove('active');
-    document.getElementById("li3").classList.add('active');
-    document.getElementById("li7").classList.remove('active');
-    document.getElementById("li9").classList.remove('active');
-    document.getElementById("li9A").classList.remove('active');
-    document.getElementById("li9B").classList.remove('active');
 }
 
 var vehiLoaded = 0;
-var vehicle = function ()
-{
+var vehicle = function (){
     if(vehiLoaded == 0){
         vehiLoaded = 1;
         loadVehi();
     }
-    $(".search-box").hide();
-    $(".view-instructor").hide();
-    $(".view-schedule").hide();
-    $(".view-dashboard").hide();
-    $(".view-student").hide();
-    $(".view-enrollment").hide();
-    $(".view-branches").hide();
-    $(".view-viewInstructor").hide();
-    $(".view-viewStudent").hide();
     $(".view-vehicleA").show();
-    $(".view-requirement").hide();
-    $(".view-lessons").hide();
-    $(".view-courses").hide();
-    $(".view-account").hide();
-    $(".view-payment").hide();
-    $(".view-gradesEval").hide();
-    document.getElementById("li1").classList.remove('active');
-    document.getElementById("li2").classList.remove('active');
-    document.getElementById("li3").classList.remove('active');
-    document.getElementById("li5").classList.remove('active');
-    document.getElementById("li6").classList.remove('active');
-    document.getElementById("li2A").classList.remove('active');
-    document.getElementById("li2B").classList.remove('active');
-    document.getElementById("li2C").classList.remove('active');
-    document.getElementById("li2D").classList.remove('active');
-    document.getElementById("li4").classList.add('active');
-    document.getElementById("li7").classList.remove('active');
-    document.getElementById("li9").classList.remove('active');
-    document.getElementById("li9A").classList.remove('active');
-    document.getElementById("li9B").classList.remove('active');
-}
-
-var schedule = function() 
-{
     $(".search-box").hide();
-    $(".view-dashboard").hide();
-    $(".view-instructor").hide();
-    $(".view-student").hide();
-    $(".view-enrollment").hide();
-    $(".view-vehicleA").hide();
-    $(".view-branches").hide();
-    $(".view-viewInstructor").hide();
-    $(".view-viewStudent").hide();
-    $(".view-schedule").show();
-    $(".view-requirement").hide();
-    $(".view-lessons").hide();
-    $(".view-account").hide();
-    $(".view-courses").hide();
-    $(".view-payment").hide();
-    $(".view-gradesEval").hide();
-    document.getElementById("li1").classList.remove('active');
-    document.getElementById("li2").classList.remove('active');
-    document.getElementById("li3").classList.remove('active');
-    document.getElementById("li4").classList.remove('active');
-    document.getElementById("li6").classList.remove('active');
-    document.getElementById("li2A").classList.remove('active');
-    document.getElementById("li2B").classList.remove('active');
-    document.getElementById("li2C").classList.remove('active');
-    document.getElementById("li2D").classList.remove('active');
-    document.getElementById("li5").classList.add('active');
-    document.getElementById("li7").classList.remove('active');
-    document.getElementById("li9").classList.remove('active');
-    document.getElementById("li9A").classList.remove('active');
-    document.getElementById("li9B").classList.remove('active');
 }
 
-var branches = function ()
-{
+var branches = function (){
     loadBranch();
-    $(".search-box").hide();
-    $(".view-instructor").hide();
-    $(".view-schedule").hide();
-    $(".view-dashboard").hide();
-    $(".view-student").hide();
-    $(".view-enrollment").hide();
-    $(".view-vehicleA").hide();
-    $(".view-viewInstructor").hide();
-    $(".view-viewStudent").hide();
     $(".view-branches").show();
-    $(".view-requirement").hide();
-    $(".view-lessons").hide();
-    $(".view-courses").hide();
-    $(".view-account").hide();
-    $(".view-payment").hide();
-    $(".view-gradesEval").hide();
-    document.getElementById("li1").classList.remove('active');
-    document.getElementById("li2").classList.remove('active');
-    document.getElementById("li3").classList.remove('active');
-    document.getElementById("li4").classList.remove('active');
-    document.getElementById("li5").classList.remove('active');
-    document.getElementById("li2A").classList.remove('active');
-    document.getElementById("li2B").classList.remove('active');
-    document.getElementById("li2C").classList.remove('active');
-    document.getElementById("li2D").classList.remove('active');
-    document.getElementById("li6").classList.add('active');
-    document.getElementById("li7").classList.remove('active');
-    document.getElementById("li9").classList.remove('active');
-    document.getElementById("li9A").classList.remove('active');
-    document.getElementById("li9B").classList.remove('active');
+    $(".search-box").hide();
 }
 
-var accLoad = 0;
-var account = function ()
-{
+var accLoad = 0
+var account = function (){
     if(accLoad == 0){
         loadAccount();
         accLoad =1 ;
     }
-    $(".search-box").hide();
-    $(".view-instructor").hide();
-    $(".view-schedule").hide();
-    $(".view-dashboard").hide();
-    $(".view-student").hide();
-    $(".view-enrollment").hide();
-    $(".view-vehicleA").hide();
-    $(".view-viewInstructor").hide();
-    $(".view-viewStudent").hide();
-    $(".view-branches").hide();
-    $(".view-requirement").hide();
-    $(".view-lessons").hide();
-    $(".view-courses").hide();
     $(".view-account").show();
-    $(".view-payment").hide();
-    $(".view-gradesEval").hide();
-    document.getElementById("li1").classList.remove('active');
-    document.getElementById("li2").classList.remove('active');
-    document.getElementById("li3").classList.remove('active');
-    document.getElementById("li4").classList.remove('active');
-    document.getElementById("li5").classList.remove('active');
-    document.getElementById("li2A").classList.remove('active');
-    document.getElementById("li2B").classList.remove('active');
-    document.getElementById("li2C").classList.remove('active');
-    document.getElementById("li2D").classList.remove('active');
-    document.getElementById("li6").classList.remove('active');
-    document.getElementById("li9").classList.remove('active');
-    document.getElementById("li7").classList.add('active');
-    document.getElementById("li9A").classList.remove('active');
-    document.getElementById("li9B").classList.remove('active');
-}
-
-// var requirements = function ()
-// {
-//     loadReq();
-//     $(".search-box").hide();
-//     $(".view-instructor").hide();
-//     $(".view-schedule").hide();
-//     $(".view-dashboard").hide();
-//     $(".view-student").hide();
-//     $(".view-enrollment").hide();
-//     $(".view-vehicleA").hide();
-//     $(".view-viewInstructor").hide();
-//     $(".view-viewStudent").hide();
-//     $(".view-branches").hide();
-//     $(".view-lessons").hide();
-//     $(".view-account").hide();
-//     $(".view-courses").hide();
-//     $(".view-requirement").show();
-//     document.getElementById("li1").classList.remove('active');
-//     document.getElementById("li2").classList.remove('active');
-//     document.getElementById("li3").classList.remove('active');
-//     document.getElementById("li4").classList.remove('active');
-//     document.getElementById("li5").classList.remove('active');
-//     document.getElementById("li2A").classList.remove('active');
-//     document.getElementById("li2B").classList.remove('active');
-//     document.getElementById("li2C").classList.remove('active');
-//     document.getElementById("li2D").classList.remove('active');
-//     document.getElementById("li6").classList.remove('active');
-//     document.getElementById("li7").classList.remove('active');
-//     document.getElementById("li9").classList.remove('active');
-//     document.getElementById("li8").classList.add('active');
-//     document.getElementById("li9A").classList.remove('active');
-//     document.getElementById("li9B").classList.remove('active');
-// }
-
-var activeCrsLes = function ()
-{
-    document.getElementById("li1").classList.remove('active');
-    document.getElementById("li3").classList.remove('active');
-    document.getElementById("li4").classList.remove('active');
-    document.getElementById("li5").classList.remove('active');
-    document.getElementById("li6").classList.remove('active');
-    document.getElementById("li2A").classList.remove('active');
-    document.getElementById("li2B").classList.remove('active');
-    document.getElementById("li2C").classList.remove('active');
-    document.getElementById("li2D").classList.remove('active');
-    document.getElementById("li7").classList.remove('active');
-    document.getElementById("li2").classList.remove('active');
-}
-
-var lessons = function ()
-{
-    loadLesson();
     $(".search-box").hide();
-    $(".view-instructor").hide();
-    $(".view-schedule").hide();
-    $(".view-dashboard").hide();
-    $(".view-student").hide();
-    $(".view-enrollment").hide();
-    $(".view-vehicleA").hide();
-    $(".view-viewInstructor").hide();
-    $(".view-viewStudent").hide();
-    $(".view-branches").hide();
-    $(".view-requirement").hide();
-    $(".view-account").hide();
-    $(".view-courses").hide();
-    $(".view-lessons").show();
-    $(".view-payment").hide();
-    $(".view-gradesEval").hide();
-    document.getElementById("li1").classList.remove('active');
-    document.getElementById("li2").classList.remove('active');
-    document.getElementById("li3").classList.remove('active');
-    document.getElementById("li4").classList.remove('active');
-    document.getElementById("li5").classList.remove('active');
-    document.getElementById("li2A").classList.remove('active');
-    document.getElementById("li2B").classList.remove('active');
-    document.getElementById("li2C").classList.remove('active');
-    document.getElementById("li2D").classList.remove('active');
-    document.getElementById("li6").classList.remove('active');
-    document.getElementById("li7").classList.remove('active');
-    document.getElementById("li9").classList.add('active');
-    document.getElementById("li9B").classList.add('active');
-    document.getElementById("li9A").classList.remove('active');
 }
 
-var courses = function ()
-{
-    loadCourse();
+var enroll = function (){
+    loadPreReg();
+    $(".view-enrollment").show();
     $(".search-box").hide();
-    $(".view-instructor").hide();
-    $(".view-schedule").hide();
-    $(".view-dashboard").hide();
-    $(".view-student").hide();
-    $(".view-enrollment").hide();
-    $(".view-vehicleA").hide();
-    $(".view-viewInstructor").hide();
-    $(".view-viewStudent").hide();
-    $(".view-branches").hide();
-    $(".view-requirement").hide();
-    $(".view-account").hide();
-    $(".view-lessons").hide();
-    $(".view-courses").show();
-    $(".view-payment").hide();
-    $(".view-gradesEval").hide();
-    document.getElementById("li1").classList.remove('active');
-    document.getElementById("li2").classList.remove('active');
-    document.getElementById("li3").classList.remove('active');
-    document.getElementById("li4").classList.remove('active');
-    document.getElementById("li5").classList.remove('active');
-    document.getElementById("li2A").classList.remove('active');
-    document.getElementById("li2B").classList.remove('active');
-    document.getElementById("li2C").classList.remove('active');
-    document.getElementById("li2D").classList.remove('active');
-    document.getElementById("li6").classList.remove('active');
-    document.getElementById("li7").classList.remove('active');
-    document.getElementById("li9").classList.add('active');
-    document.getElementById("li9B").classList.remove('active');
-    document.getElementById("li9A").classList.add('active');
+    resetEnrollment();
+}
+
+var reports = function (){
+    $(".view-reports").show();
+    $(".search-box").hide();
+}
+
+var cert = function (){
+    $(".view-cert").show();
+    $(".search-box").hide();
+}
+
+var announce = function (){
+    $(".view-announce").show();
+    $(".search-box").hide();
+}
+
+var tlect = function (){
+    $(".view-tlect").show();
+    $(".search-box").hide();
+}
+
+var student = function(){
+    loadStud();
+    $(".view-student").show();
+    $(".search-box").hide();
+}
+
+var attendance = function(){
+    $(".view-attendance").show();
+    $(".search-box").hide();
+}
+
+var payment = function(){
+    $(".view-payment").show();
+    $(".search-box").hide();
+}
+
+var gradesEval = function(){
+    $(".view-gradesEval").show();
+    $(".search-box").hide();
 }

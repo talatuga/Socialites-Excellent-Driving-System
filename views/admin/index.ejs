@@ -37,24 +37,43 @@
                     } */
                 %>
                 
-                
                 <!-- MAJOR PARTIALS -->
                 <% include ./main-partials/dashboard %>
                 <% include ./main-partials/instructor %>
-                <% include ./main-partials/schedule %>
-                <% include ./main-partials/student %>
-                <% include ./main-partials/payment %>
-                <% include ./main-partials/gradesEval %>
-                <% include ./main-partials/enrollment %>
                 <% include ./main-partials/vehicleA %>
                 <% include ./main-partials/branches %>
+                
+                <% include ./main-partials/enrollment %>
+                <% include ./main-partials/schedule %>
+                <% include ./main-partials/tlect %>
+                
+                <% include ./main-partials/reports %>
                 <% include ./main-partials/account %>
                 <% include ./main-partials/lessons %>
                 <% include ./main-partials/courses %>
-                <% include ./main-partials/requirement %>
+                <% include ./main-partials/cert %>
+                <% include ./main-partials/announce %>
+                <%# include ./main-partials/requirement %>
+
                 <!-- MINOR PARTIALS -->
+                <% include ./minor-partials/student %>
+                <% include ./minor-partials/attendance %>
+                <% include ./minor-partials/payment %>
+                <% include ./minor-partials/gradesEval %>
+                
+                <% include ./minor-partials/overallSched %>
+                <% include ./minor-partials/reqSched %>
+                <% include ./minor-partials/cancSched %>
+
+                <% include ./minor-partials/dtpReq %>
+                <% include ./minor-partials/dtpPay %>
+
+                <% include ./minor-partials/laReq %>
+                <% include ./minor-partials/laPay %>
+
                 <% include ./minor-partials/view-student %>
                 <% include ./minor-partials/view-instructor %>
+
                 <!-- ERROR PARTIALS -->
                 <% include ./error-partials/error500 %>
                 <% include ./error-partials/error404 %>

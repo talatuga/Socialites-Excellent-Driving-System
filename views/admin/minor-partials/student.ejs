@@ -1,18 +1,18 @@
-<div class="view-payment">
+<div class="view-student viewDiv">
     <!-- Bread crumb -->
     <div class="row page-titles">
         <div class="col-md-5 align-self-center">
-            <h3 class="text-primary">Payment</h3> 
-        </div>
+            <h3 class="text-primary">Students</h3> </div>
         <div class="col-md-7 align-self-center">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a onclick="dashboard()">Home</a></li>
-                <li class="breadcrumb-item active"><a>Payment</a></li>
+                <li class="breadcrumb-item"><a onclick="dashboard()"> Home</a></li>
+                <li class="breadcrumb-item"><a>Students</a></li>
+                <li class="breadcrumb-item active">List</li>
             </ol>
         </div>
     </div>
     <!-- End Bread crumb -->
-    <!-- Container fluid  -->
+
     <div class="container-fluid">
         <!-- Start of Card  -->
         <div class="studentCard">
@@ -26,8 +26,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"></div>
             </div>
             <div class="row">
                 <!-- Start of col-lg-6 -->
@@ -37,6 +36,12 @@
                         <div class="row">
                             <div class="col-md-6 pull-left">
                                 <h3>List of Students</h3>
+                            </div>
+                            <div class="col-md-6 pull-right" onclick='changeStudTable()'>
+                                <label class="enrSexLbl pull-right" for="studCP2">Past</label>
+                                <input type="radio" class="enrStudCp pull-right" id="studCP2" name="studCP" value="1">
+                                <label class="enrSexLbl pull-right" for="studCP1">Current</label>
+                                <input type="radio" class="enrStudCp pull-right" id="studCP1" name="studCP" value="0">
                             </div>
                         </div><br>
                         <div class="table-responsive">
@@ -76,34 +81,28 @@
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <hr class="hrCustom">
                     <div class="card studCard">
-                        <h3>Payment Record</h3><hr>
-                        <div>
-                            <div class="tempPayTab">
-                                <!-- <h3 class="pull-right">Status: <span class="notPaid">Not Paid</span></h3><br> -->
-                                <div class="pull-right">
-                                    <button type="button" id="btnAddPayment" onclick="addPaymentModal()" class="btnCstom btn btn-warning m-b-10 m-l-5">Add Payment</button>
-                                </div>
-                                <div class="table-responsive">
-                                    <table class="table tblStudPayment1 table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>Transaction #</th>
-                                                <th>Date</th>
-                                                <th>Assessment</th>
-                                                <th>Payment</th>
-                                                <th>Balance</th>
-                                            </tr>
-                                        </thead>
-                                    </table>
-                                    <center><br><h4>No payment made.</h4><br></center>
-                                </div><br><br>
+                        <h3>Student Details</h3><hr>
+                        <div class="row">
+                            <div class="col-md-5 col-lg-5 col-sm-5 col-xs-5">
+                                <span><img src="assets/images/user-medium.png" alt="Student Picture" class="studPic"/></span><br><br>
+                                <center>
+                                    <h6 class="studNum">2015-02355-MN-0</h6><hr>
+                                    <h6 class="studBranch">Main Office</h6>
+                                </center>
                             </div>
-                            <!-- <br><br><br><br> -->
+                            <div class="col-md-7 col-lg-7 col-sm-7 col-xs-7">
+                                <h3 class="studName">Graciella Custodio Tatel</h3>
+                                <span class="fa fa-map-marker fa-red"></span> <span class="studAddress">Sapang Palay, CSJDM, Bulacan</span><br>
+                                <span class="fa fa-phone fa-red"></span> <span class="studPhone">0956 586 7353</span><br>
+                                <span class="fa fa-envelope fa-red"></span> <span class="studEmail">gtatel0517@gmail.com</span>
+                            </div>
+                            <div class="divBottom">
+                                <button type="button" id="btnViewStudent" class="btn btn-primary m-b-10 m-l-5">View Profile</button>
+                            </div>
                         </div> <!-- End of row -->
                     </div>
                 </div> <!-- End of col-lg-6 -->
             </div> <!-- End of row -->
         </div><!-- End of Card  -->
     </div>
-    <!-- End Container fluid  -->
 </div>
