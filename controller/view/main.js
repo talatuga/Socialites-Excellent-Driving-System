@@ -6,7 +6,7 @@ var auth = require('../../middleware/authentication');
 //Routes here.
 router.get('/', renderer.user);
 router.route('/login')
-    .get(renderer.admin)
-    .post(auth.login, renderer.admin);
+    .get(auth.auth, auth.lastHandler)
+    .post(auth.login, auth.lastHandler);
 
 module.exports = router;

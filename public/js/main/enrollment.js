@@ -232,7 +232,6 @@ function checkEnr1 (){
         preRegData.info["email"] = email;
         preRegData.info["civilStatus"] = civ;
         preRegData.info["sex"] = sex;
-        preRegData.info["nationality"] = nat;
         preRegData.info["guardian"] = {
             name: guard,
             telno: gCont,
@@ -327,7 +326,7 @@ function resetStep2(){
 }
 
 function regNext1(){
-    // isCheck1 = checkEnr1();
+    isCheck1 = checkEnr1();
     isCheck1 = 1;
     if (isCheck1=="1"){
         $('.pr2A').hide();
@@ -426,6 +425,7 @@ function regNext2(){
         $('#btnPreregPrev1').show();
         $('#btnPreregNext3').show();
         paymentMeth=0;
+        preRegData.license = c;
     }
 }
 
@@ -454,6 +454,7 @@ function regNext2A(){
             $('#btnPreregPrevA').show();
             $('#btnPreregNext3A').show();
             paymentMeth=0;
+            preRegData.lesson = null;
         }
         else if (checkLesOpt=="lesOpt2"){
             var checkLes = $('input[name="includeLes"]:checked').map(function () {
@@ -478,6 +479,12 @@ function regNext2A(){
                 $('#btnPreregPrevA').show();
                 $('#btnPreregNext3A').show();
                 paymentMeth=0;
+                var check = $('input[name=includeLes]:checked');
+                var lesson = [];
+                for(var x=0; x<check.length; x++){
+                    lesson.push(check[x].value);
+                }
+                preRegData.lesson = lesson;
             } 
         }
     }
@@ -611,14 +618,19 @@ function regDone(){
         swal("Oops!", "Please confirm that you have read and agreed to the terms and agreement first.", "error");
     }
     else{
-        if (paymentMeth==1){
-            $('.oneWeekDeadline').html(Date.parse("next week").toString("MMM dd, yyyy"));
-            // preRegData.license = $('input[name="enrReqP"]:checked').val();
-            $('#successEnrollModal1').modal('show');
-        }
-        else if (paymentMeth==2){
-            $('#successEnrollModal2').modal('show');
-        }
+        preRegData.course = cart.container;
+        preRegData.branch = $('#branchID').val();
+        enrollment.enroll(preRegData.info,preRegData.course, preRegData.branch, paymentMeth, preRegData.license).submit(function(err){
+            if(err) return swal("Failed!", err.message, "error");
+            if (paymentMeth==1){
+                $('.oneWeekDeadline').html(Date.parse("next week").toString("MMM dd, yyyy"));
+                // preRegData.license = $('input[name="enrReqP"]:checked').val();
+                $('#successEnrollModal1').modal('show');
+            }
+            else if (paymentMeth==2){
+                $('#successEnrollModal2').modal('show');
+            }
+        });
     }
 }
 
@@ -631,14 +643,19 @@ function regDoneA(){
         swal("Oops!", "Please confirm that you have read and agreed to the terms and agreement first.", "error");
     }
     else{
-        if (paymentMeth==1){
-            $('.oneWeekDeadline').html(Date.parse("next week").toString("MMM dd, yyyy"));
-            // preRegData.license = $('input[name="enrReqP"]:checked').val();
-            $('#successEnrollModal1A').modal('show');
-        }
-        else if (paymentMeth==2){
-            $('#successEnrollModal2A').modal('show');
-        }
+        preRegData.course = cart.container;
+        preRegData.branch = $('#branchID').val();
+        enrollment.enrollWithAcc(1,preRegData.course, preRegData.lesson,preRegData.branch,paymentMeth).submit(function(err){
+            if(err) return swal("Failed!", err.message, "error");
+            if (paymentMeth==1){
+                $('.oneWeekDeadline').html(Date.parse("next week").toString("MMM dd, yyyy"));
+                // preRegData.license = $('input[name="enrReqP"]:checked').val();
+                $('#successEnrollModal1A').modal('show');
+            }
+            else if (paymentMeth==2){
+                $('#successEnrollModal2A').modal('show');
+            }
+        });
     } 
 }
 

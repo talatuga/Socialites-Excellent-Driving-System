@@ -11,4 +11,6 @@ router.route('/cart')
     .get(middleware.getCart)
     .put(middleware.updateCart);
 
+router.post('/enroll', middleware.enrollWeb);
+
 module.exports = router;

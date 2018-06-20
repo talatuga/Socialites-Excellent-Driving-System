@@ -62,4 +62,25 @@ Student.getPreRegList = function(offset, limit, cb){
     PreRegister.getList(offset, limit, cb);
 }
 
+var Enroll = {};
+Enroll = Object.create(ModelModule);
+Enroll.table = "course_enrolled";
+Enroll.db = db;
+
+Student.enrollCourse = function(data, cb){
+    Enroll.create(data, cb);
+};
+
+Student.getStudentByID = function(accID, cb){
+    var sql = "SELECT id FROM userinfo WHERE userAcc = ?";
+    db.get().query(sql, [accID], function(err, result){
+        if(err) return cb(err);
+        sql = "SELECT id FROM student WHERE userInfo = ?";
+        db.get().query(sql,[result[0].id],function(err2, result2){
+            if(err2) return cb(err2);
+            cb(null, result2[0].id);            
+        });
+    });
+};
+
 module.exports = Student;

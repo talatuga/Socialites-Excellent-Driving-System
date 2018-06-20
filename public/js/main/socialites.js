@@ -152,15 +152,15 @@ var cart = {
     },
     renderTbl: function(){
         $('#cartTbl').html("");
+        $('#cartCtr').html(this.container.length);
         this.container.forEach((x,index)=>{
             var data = course.getLocalData(x);
             var html = "<tr>";
             html += "<td>";
             html += "<span class='cartCrs'>" + course.generateID(data.courseID, data.transmission) + "</span><br>";
-            html += "Number of Hours: <span class='cartHrs'>"+ data.days * parseInt(data.hour/60) +"</span>";
             html += "</td>";
+            html += "<td>"+ data.days * parseInt(data.hour/60) +"</td>";
             html += "<td><span class='cartFree'>"+ (data.days>=20?"2":data.days>=15?"1":"None") +"</span></td>";
-            html += "<td></td>";
             html += "<td>₱<span class='cartPrice'>"+ parseFloat(data.price).formatMoney(0) +"</span></td>";
             html += "<td><a href='#' title='Remove' onclick='cart.delToCart("+ index +")'><i class='icon icon-trash2 iconTrash'></i></a></td>";
             html += "</tr>";
@@ -173,11 +173,11 @@ var cart = {
 };
 
 var branch = {
-    api:"api/web/branch",
+    api:"api/v1/web/branch",
     data: [],
     getData: function(){
         var self = this;
-        return $.get(api, function(res){
+        return $.get(self.api, function(res){
             if(res.success){
                 self.data = res.data;
                 self.renderTbl();
@@ -189,15 +189,101 @@ var branch = {
     renderTbl: function(){
         if(this.data.length>0){
             $('#branchTbl').html("");
+            $('.branchList').html("");
             this.data.forEach((elem,index)=>{
+                var options = "<option value="+ elem.branchID +">"+ "SED-"+ elem.branchName.toUpperCase() +"</option>";
                 var html = "<tr>";
                 html += "</tr>";
-                $('#branchTbl').append(html);
+                $('.branchList').append(options);
+                //$('#branchTbl').append(html);
             });
         }
     },
 };
 
+var lesson = {
+    data: [],
+    api: 'api/v1/util/lesson',
+    getData: function(){
+        var self = this;
+        return $.get(this.api+"/?offset=0&limit=100",function(res){
+            if(res.success){
+                self.data = res.data;
+                self.renderTbl();
+            }else{
+                console.error(res.detail);
+            }
+        }).fail(xhr=>{
+            console.error(xhr.status+":"+res.statusText);
+        });
+    },
+    renderTbl: function(){
+        $('#lesDef').html("");
+        $('#lesCus').html("");
+        this.data.forEach(elem=>{
+            var html = "";
+            var html2 = "";
+            html += "<tr><td>"+ elem.title +"</td></tr>";
+            html2 += "<tr><td><input type='checkbox' name='includeLes' value='"+ elem.id +"' checked></td><td>"+ elem.title +"</td></tr>";
+            $('#lesDef').append(html);
+            $('#lesCus').append(html2);
+        });
+    },
+};
+
 var enrollment = {
-    submitEnrollment: function(){},
+    data: {},
+    enroll: function(info, course, branch, payment, apply){
+        this.data.info = info;
+        this.data.course = course;
+        this.branch = branch;
+        this.payment = payment;
+        this.applyLicense = apply;
+        return this;
+    },
+    enrollWithAcc:function(accID, course, lesson, branch, payment){
+        this.data.account = accID;
+        this.data.course = course;
+        this.data.lesson = lesson;
+        this.branch = branch;
+        this.payment = payment;
+        return this;
+    },
+    submit: function(cb){
+        var data = this.data;
+        return $.post('api/v1/web/enroll', {data: JSON.stringify(data)}, function(res){
+            if(res.success){
+                cb(null);
+            }else{
+                cb(res.detail);
+            }
+        }).fail(xhr=>{
+            cb(xhr.status+":"+xhr.statusText);
+        });
+    },
+};
+
+var account = {
+    checkAuth: function(cb){
+        return $.get('/login',function(res){
+            if(res.success){
+                cb(null);
+            }else{
+                cb(true);
+            }
+        }).fail(xhr=>{
+            console.error("Error");
+        });
+    },
+    signin:function(user,pass,cb){
+        return $.post('/login', {user:user,pass:pass},function(res){
+            if(res.success){
+                cb(null,res.accID);
+            }else{
+                cb(new Error(res.detail));
+            }
+        }).fail(xhr=>{
+            cb(new Error(xhr.status+":"+xhr.statusText));
+        });
+    },
 };

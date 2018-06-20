@@ -3,10 +3,17 @@ function enrollClick (){
 }
 
 function enroll1Click (){
-    $('#usernameEnroll').val("");
-    $('#passwordEnroll').val("");
-    $('#enrollClickModal').modal('hide');
-    $('#enrollLoginModal').modal('show');
+    account.checkAuth(function(err){
+        if(err){
+            $('#usernameEnroll').val("");
+            $('#passwordEnroll').val("");
+            $('#enrollClickModal').modal('hide');
+            $('#enrollLoginModal').modal('show');
+        }else{
+            $('#enrollClickModal').modal('hide');
+            successLoginEnroll();
+        }
+    });
 }
 
 function enroll2Click (){
@@ -15,11 +22,19 @@ function enroll2Click (){
     $('#enrollClickModal').modal('hide');
 }
 
+function successLoginEnroll () 
+{
+    resetEnroll1();
+    enrollmentClick(1);
+    $("#enrollLoginModal").modal('hide');
+}
+
 (function ($) {
     "use strict";
     /*==================================================================
     [ Validate ]*/
     var input = $('.validate-input .input100');
+    $('input[name=enrLes]').removeAttr('checked');
 
     $('.validate-form').on('submit',function(e){
         e.preventDefault();
@@ -35,19 +50,18 @@ function enroll2Click (){
         }
 
         if (check==true){
-            // $.post('/admin', {user: usernameEnroll, pass: usernameEnroll}, function(data){
-            //     if(data.success == false){
-            //         swal("Oops!", "Invalid username or password!", "error");
-            //         return console.log("Failed");
-            //     }
-            //     else{
+            $('.loader').show();
+            $('.preloader').fadeIn();
+            account.signin(username,password,function(err){
+                $('.loader').fadeOut();
+                $('.preloader').fadeOut();
+                if(err){
+                    swal('Failed!', err.message, 'error');
+                }else{
                     successLoginEnroll();
-                // }
-        //     }
-        // );
+                }
+            });
         }
-        // return check;
-
     });
 
     $('.validate-form .input100').each(function(){
@@ -72,13 +86,6 @@ function enroll2Click (){
         var thisAlert = $(input).parent();
 
         $(thisAlert).removeClass('alert-validate');
-    }
-    
-    function successLoginEnroll () 
-    {
-        resetEnroll1();
-        enrollmentClick(1);
-        $("#enrollLoginModal").modal('hide');
     }
 
 })(jQuery);

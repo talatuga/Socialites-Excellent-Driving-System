@@ -11,7 +11,7 @@ WebElement.prototype.getCourse = function(offset,limit,type,cb){
 };
 
 WebElement.prototype.getBranch = function(offset,limit,cb){
-    var sql = "SELECT branchID, location, fulladdress, telno FROM web_branch";
+    var sql = "SELECT branchID, branchName, location, fulladdress, telno FROM web_branch";
     db.get().query(sql, function(err, data){
         if(err) return cb(err);
         cb(null, data);

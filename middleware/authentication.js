@@ -31,6 +31,7 @@ exports.login = function(req, res, next){
                     if(err) return next(new Error(err));
                     if(result){
                         users[id] = {accID: result.id, accType: result.accType};
+                        req.session.accID = id;
                         res.locals.authenticated = 1;
                         next();
                     }else{
@@ -71,5 +72,15 @@ exports.checkAJAX = function(req, res, next){
     }else{
         res.status(403);
         errorHandler.error403(req, res);
+    }
+}
+
+exports.lastHandler = function(req, res, next){
+    if(res.locals.authenticated == 1){
+        res.status(200).send({success: true, accID: req.session.accID});
+    }else{
+        if(res.headersSent){}else{
+            res.status(200).send({success: false});
+        }
     }
 }

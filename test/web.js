@@ -20,3 +20,15 @@ describe('Model test', function(){
         });
     });
 });
+
+describe("Test getStudentID()", function(){
+    var a = require('../model/studentModel');
+    var db = require('../model/db');
+    db.connect(db.MODE_PRODUCTION, function(err){
+        a.getStudentByID(2, function(err,result){
+            console.log(result[0].id)
+            expect(err).null();
+        });
+
+    })
+});
