@@ -45,7 +45,7 @@ exports.update = function(req, res, next){
     if(res.locals.authenticated == 0) return next();    
     //VALIDATIONS
     var id = parseInt(req.params.id);
-    var field = req.params.field == undefined ? null : req.params.field.replace(';','');
+    var field = req.params.field == undefined ? null : req.params.field.replace(/;/g,'');
     var dataInput = JSON.parse(req.body.data);
     var data = dataInput;
     if(field == null){

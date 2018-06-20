@@ -126,27 +126,30 @@ $(function(){
 // });
 
 function resetEnrollment(){
-    $('#enrFN').val("");
-    $('#enrMN').val("");
-    $('#enrSN').val("");
-    $('#enrBday').val("");
-    $('#enrBplace').val("");
-    $('#enrAddress').val("");
-    $('#enrOcc').val("");
-    $('#enrCont').val("");
-    $('#enrEmail').val("");
-    $('#enrGuard').val("");
-    $('#enrGuardCont').val("");
-    $('#enrReqP9').val("");
-    $('select[name="enrCivStatus"]').val('civ0');
-    $('select[name="enrBranchList"]').val('0');
-    $('input[name="enrReqP"]').prop('checked', false);
-    $("#enrReqT1").prop("checked", true);
-    document.getElementById("enrSex1").checked = true;
-    document.getElementById("enrSex2").checked = false;
-    document.getElementById("enrNat1").checked = true;
-    document.getElementById("enrNat2").checked = false;
-    selected = 1;
+    try {
+        $('#enrFN').val("");
+        $('#enrMN').val("");
+        $('#enrSN').val("");
+        $('#enrBday').val("");
+        $('#enrBplace').val("");
+        $('#enrAddress').val("");
+        $('#enrOcc').val("");
+        $('#enrCont').val("");
+        $('#enrEmail').val("");
+        $('#enrGuard').val("");
+        $('#enrGuardCont').val("");
+        $('#enrReqP9').val("");
+        $('select[name="enrCivStatus"]').val('civ0');
+        $('select[name="enrBranchList"]').val('0');
+        $('input[name="enrReqP"]').prop('checked', false);
+        $("#enrReqT1").prop("checked", true);
+        document.getElementById("enrSex1").checked = true;
+        document.getElementById("enrSex2").checked = false;
+        document.getElementById("enrNat1").checked = true;
+        document.getElementById("enrNat2").checked = false;
+        selected = 1;
+    } catch (error) {
+    }
 }
 
 function checkEnr1 (){
