@@ -318,7 +318,6 @@ function regCanc(){
 }
 
 
-
 //---------------------------------
 function resetStep2(){
     selected = 1;
