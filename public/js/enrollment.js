@@ -1,13 +1,3 @@
-$(function(){
-    $('.tblReg tbody tr:first').addClass("highlightTr");
-    $('.tblReg tbody tr').click(function () {
-        var selected = $(this).hasClass("highlightTr");
-        $('.tblReg tbody tr').removeClass("highlightTr");
-        if (!selected)
-            $(this).addClass("highlightTr");
-    });
-});
-
 var preRegLoaded = 0;
 var loadPreReg = function(){
     if(branchLoaded == 0){
@@ -21,6 +11,13 @@ var loadPreReg = function(){
                 if(err) return console.error(err);
                 renderEnrollTbl(preRegAssess.pages[preRegAssess.currPage]);
                 viewPendingStudent(preRegAssess.pages[preRegAssess.currPage][0].id);
+                $('.tblReg tbody tr:first').addClass("highlightTr");
+                $('.tblReg tbody tr').click(function () {
+                    var selected = $(this).hasClass("highlightTr");
+                    $('.tblReg tbody tr').removeClass("highlightTr");
+                    if (!selected)
+                        $(this).addClass("highlightTr");
+                });
                 preRegLoaded = 1;
                 $(".preloader").fadeOut();                  
             })
@@ -46,8 +43,12 @@ function viewRegForm(){
         $('#enrRegGuardCont').val(info.guardian.telno);
         $('.enrCourse').val(profile.data.course);
         $('.enrBranch').val(profile.data.branch);
+        $('input[name=enrRegNat]').removeAttr('checked');
+        $('input[name=enrRegSex]').removeAttr('checked');
+        $('input[name=enrRegSex][value='+ info.sex +']').attr('checked','checked');
+        $('input[name=enrRegNat][value='+ info.nationality +']').attr('checked','checked');
+        $('#viewRegFormModal').modal('show');
     });
-    $('#viewRegFormModal').modal('show');
 }
 
 function remRegForm(){ //Remove or reject registration form
@@ -102,10 +103,16 @@ function saveEnrReg(){ //Save changes on View Registration Modal
                 var data = {
                     data: JSON.stringify(info),
                 }
-                preRegAssess.update();
-                swal("Changes have been saved!", "" ,"success");
-                $('#viewRegFormModal').modal('hide');
-                //DB: Remove registration function here
+                console.log(data);
+                /* preRegAssess.update(data, function(err){
+                    if(err){
+                        swal("Failed!", err ,"error");
+                    }else{
+                        swal("Changes have been saved!", "" ,"success");
+                        $('#viewRegFormModal').modal('hide');
+                        //DB: Remove registration function here
+                    }
+                }); */
             }
         });
     }
@@ -186,9 +193,9 @@ function checkEnrReg (cb){ //Checker of empty fields
             name: guard,
             telno: gCont,
         };
-        preReg["branch"] = branch;
-        preReg["course"] = $('input[name="enrRegCourse"]:checked').val();
-        preReg["license"] = "";
+        preRegData["branch"] = branch;
+        preRegData["course"] = $('input[name="enrRegCourse"]:checked').val();
+        preRegData["license"] = preRegAssess.pages[preRegAssess.currPage][preRegAssess.selected].data.license;
         var age = parseInt(Date.parse("today").toString("yyyy")) - parseInt(Date.parse(preRegData.info.birthdate).toString("yyyy"));
         $('.req').hide();
         if(age < 17){

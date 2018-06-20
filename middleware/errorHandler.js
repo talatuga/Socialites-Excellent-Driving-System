@@ -4,7 +4,7 @@
     May default handler naman ng error ang express pero di sa specific ng system natin.
 */
 
-var logger = require('./logger');
+var logger = require('../bin/logger');
 var renderer = require('./viewRenderer');
 
 exports.error500 = function(err, req, res, next){

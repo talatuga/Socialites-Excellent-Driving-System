@@ -58,8 +58,15 @@ typings/
 .env
 
 public/vendor
+public/js/main/vendor
 public/images
 public/css/*
+
+public/js/main/jquery.easing.1.3.js
+public/js/main/jquery.magnific-popup.js
+public/js/main/jquery.masonry.min.js
+public/js/main/jquery.mixitup.min.js
+public/js/main/plugins.js
 
 !public/css/style.css
 !public/css/login.css

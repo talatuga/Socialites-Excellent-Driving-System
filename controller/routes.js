@@ -1,6 +1,6 @@
 // route.js : This contains the routing of the server.
 var router = require('express').Router();
-var logger = require('../middleware/logger');
+var logger = require('../bin/logger');
 
 router.use(logger.midLogger);
  
