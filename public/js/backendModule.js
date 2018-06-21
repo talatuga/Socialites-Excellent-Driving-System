@@ -721,6 +721,7 @@ var ajaxHandler = {
                 }
                 case "stud" : {
                     stud.refresh();
+                    preRegAssess.refresh();
                     break;
                 }
                 case "util" : {
@@ -1002,7 +1003,7 @@ var preRegAssess = {
         return $.get('api/v1/stud/register?offset='+this.offset+'&limit='+this.limit, function(res){
             if(res.success){
                 self.pages[self.currPage] = res.data;
-                self.offset = res.data[res.data.length-1].id;
+                self.offset = res.data.length==0 ? 0 : res.data[res.data.length-1].id;
                 cb(null);
             }else{
                 cb("Error: " + res.detail);
@@ -1029,6 +1030,9 @@ var preRegAssess = {
         }).fail(function(xhr){
             onFail("Error: " + xhr.status + "\n" + xhr.statusText);
         });
+    },
+    approve: function(cb){
+        
     },
     getLocalData: function(cb){
         this.pages[this.currPage].forEach(x=>{

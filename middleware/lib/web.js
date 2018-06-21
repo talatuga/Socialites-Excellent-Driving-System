@@ -35,6 +35,7 @@ exports.enrollWeb = function(req, res, next){
     if(data.account){
         student.getStudentByID(req.session.accID, function(err, id){
             if(err) return next(err);
+            if(id == false) return res.status(200).send({success: false});
             data.course.forEach(element => {
                 student.enrollCourse([null,id,element,data.branch,data.lesson,null,null,1],function(errr,result){
                     if(errr) return next(errr);

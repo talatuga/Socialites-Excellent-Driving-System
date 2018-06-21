@@ -619,7 +619,8 @@ function regDone(){
     else{
         preRegData.course = cart.container;
         preRegData.branch = $('#branchID').val();
-        enrollment.enroll(preRegData.info,preRegData.course, preRegData.branch, paymentMeth, preRegData.license).submit(function(err){
+        preRegData.special = $('input[name=specialCrs]:checked').length > 0 ? $('#enrPickup').val() : null;
+        enrollment.enroll(preRegData.info,preRegData.course, preRegData.branch, paymentMeth, preRegData.license,preRegData.special).submit(function(err){
             if(err) return swal("Failed!", err.message, "error");
             if (paymentMeth==1){
                 $('.oneWeekDeadline').html(Date.parse("next week").toString("MMM dd, yyyy"));
@@ -644,7 +645,8 @@ function regDoneA(){
     else{
         preRegData.course = cart.container;
         preRegData.branch = $('#branchID').val();
-        enrollment.enrollWithAcc(1,preRegData.course, preRegData.lesson,preRegData.branch,paymentMeth).submit(function(err){
+        preRegData.special = $('input[name=specialCrs]:checked').length > 0 ? $('#enrPickup').val() : null;
+        enrollment.enrollWithAcc(1,preRegData.course, preRegData.lesson,preRegData.branch,paymentMeth, preRegData.special).submit(function(err){
             if(err) return swal("Failed!", err.message, "error");
             if (paymentMeth==1){
                 $('.oneWeekDeadline').html(Date.parse("next week").toString("MMM dd, yyyy"));
@@ -721,4 +723,3 @@ var preregister = {
         });
     }
 }
-

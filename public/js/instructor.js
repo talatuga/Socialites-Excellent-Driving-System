@@ -524,6 +524,7 @@ var viewInstProfile = function(id){
         $('.instAddress').html(profile.address);
         $('.instPhone').html(profile.telno);
         $('.instEmail').html(profile.email);
+        $('.instLicense').html(profile.license);
         $('.instDateHired').html(Date.parse(profile.dateRegistered).toString("MMM d, yyyy"));
         if(profile.dateRetired != null){
             $('.instDateResigned').html(Date.parse(profile.dateRetired).toString("MMM d, yyyy"));
@@ -545,8 +546,9 @@ var renderInstEdit = function(){
         var name = profile.fullname.split("_");
         $('#editInstAccFN').val(name[0]);        
         $('#editInstAccMN').val(name[1]);        
-        $('#editInstAccLN').val(name[2]);        
-        //$('input[name="editInstAccSex"][value="'+ profile.sex +'"]').attr('checked', 'checked');
+        $('#editInstAccLN').val(name[2]); 
+        $('input[name="editInstAccSex"]').removeAttr('checked');       
+        $('input[name="editInstAccSex"][value="'+ profile.sex +'"]').attr('checked', 'checked');
         $('#editInstAccBday').val(Date.parse(profile.birthdate).toString("yyyy-MM-dd"));        
         $('#editInstAccPhone').val(profile.telno);            
         $('#editInstAccEmail').val(profile.email);            

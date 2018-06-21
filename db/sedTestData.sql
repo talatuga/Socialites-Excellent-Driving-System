@@ -10,13 +10,6 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 
-INSERT INTO `account` (`id`, `studID`, `feeType`, `isAircon`, `amount`, `balance`, `data`) VALUES
-(1, '04220', 1, 0, 300, 0, '2018-05-16 07:10:39'),
-(2, '04325', 1, 1, 500, 100, '2018-05-16 07:13:48'),
-(3, '06597', 2, 1, 600, 0, '2018-05-16 07:15:42'),
-(4, '89432', 0, 0, 700, 200, '2018-05-16 07:16:40'),
-(5, '34291', 2, 1, 200, 400, '2018-05-16 07:17:40');
-
 INSERT INTO `accounttype` (`id`, `title`, `permission`) VALUES
 (1, 'admin', 'r,w-a'),
 (2, 'instructor', 'rw+');
@@ -36,9 +29,7 @@ INSERT INTO `branch` (`id`, `address`, `telno`, `name`, `purgeFlag`) VALUES
 (2, 'Taguig City', '421-4315', 'SEDTC', 1),
 (3, 'Pasay City', '751-5331', 'SEDPC', 1),
 (4, 'Makati City', '752-2413', 'SEDMC', 1),
-(5, 'Pasig City', '750-5239', 'SEDPC', 0),
-(8, '123asd_asvsd_Queasfaw_1233_qwcfq', '1453545345/3453453553', 'asdasd', 0),
-(9, 'asdasd_ASD_avsfd_3524_fvwad', '12123123/3234324', 'asd', 0);
+(5, 'Pasig City', '750-5239', 'SEDPC', 1);
 
 INSERT INTO `course` (`id`, `carType`, `amount`, `days`, `status`) VALUES
 (1, 'a', 1500, 5, 1),
@@ -70,17 +61,12 @@ INSERT INTO `guardian` (`id`, `fullname`, `telno`, `refAcc`, `purgeFlag`) VALUES
 (4, 'Ma. Elena Magno', '942-421', 4, 0),
 (5, 'Alberto T. Reyes', '890-9866', 5, 0);
 
-INSERT INTO `instructor` (`id`, `userInfo`, `educAttain`, `vacant`, `dateRegistered`, `dateRetired`, `status`) VALUES
-('12345', 1, 2, 'Monday', '2018-05-20 15:12:15', NULL, 1),
-('23456', 2, 2, 'Tuesday', '2018-05-20 15:12:15', NULL, 1),
-('34567', 3, 2, 'Friday', '2018-05-20 15:12:15', NULL, 1),
-('45678', 4, 2, 'Sunday', '2018-05-20 15:12:15', NULL, 1),
-('56789', 5, 2, 'Monday', '2018-05-20 15:12:15', NULL, 2),
-('INST-014008', 8, 3, '', '2018-05-20 17:05:05', '2018-05-23', 3);
+INSERT INTO `instructor` (`id`, `license`, `licenseExp`, `userInfo`, `educAttain`, `vacant`, `dateRegistered`, `dateRetired`, `status`) VALUES
+('INST-014008', 'A2121121111', '2018-06-14', 8, 3, 'Monday', '2018-05-20 17:05:05', '2018-05-23', 3);
 
 INSERT INTO `lesson` (`id`, `title`, `prerequisite`, `description`, `purgeFlag`) VALUES
-(1, 'start and stop', NULL, '', 0),
-(2, 'Backing and turn', 1, '', 1),
+(1, 'start and stop', NULL, '', 1),
+(2, 'Backing and tur', 1, '', 1),
 (3, 'Road crossing ', 2, '', 1),
 (4, 'Manuevering', 1, '', 1),
 (5, 'Hanging', 3, '', 1),
@@ -88,9 +74,8 @@ INSERT INTO `lesson` (`id`, `title`, `prerequisite`, `description`, `purgeFlag`)
 (7, '12312', 4, 'vasada', 0),
 (8, 'asdas', 2, 'vasdasd', 0);
 
-INSERT INTO `preRegStudent` (`id`, `data`, `dateSubmit`, `status`) VALUES
-(1, '{\"info\":{\"fullname\":\"Christian Paul _Rojero_Tupas\",\"birthdate\":\"1998-12-08\",\"birthplace\":\"Manila\",\"address\":\"#18 Guyabano St. Amparo Capri Q.C\",\"telno\":\"09094527651\",\"occupation\":\"programmer\",\"email\":\"christianpaultupas@gmail.com\",\"civilStatus\":\"civ1\",\"sex\":\"Male\",\"nationality\":\"Filipino\",\"guardian\":{\"name\":\"graciella tatel\",\"telno\":\"09185671538\"}},\"course\":0,\"branch\":\"1\",\"license\":\"2\"}', '2018-05-24 02:38:25', 1),
-(2, '{\"info\":{\"fullname\":\"Christian Paul_Rojero_Tupas\",\"birthdate\":\"1998-12-08\",\"birthplace\":\"Manila\",\"address\":\"#18 Guyabano St. Amparo Capri Novaliches Q.C\",\"telno\":\"09185671538\",\"occupation\":\"Student\",\"email\":\"christianpaultupas@gmail.com\",\"civilStatus\":\"Divorced\",\"sex\":\"Male\",\"nationality\":\"Filipino\",\"guardian\":{\"name\":\"edgar p. tupas\",\"telno\":\"090945276541\"}},\"course\":0,\"branch\":\"2\",\"license\":\"1\"}', '2018-05-24 05:36:00', 1);
+INSERT INTO `preregstudent` (`id`, `data`, `dateSubmit`, `status`) VALUES
+(8, '{\"info\":{\"fullname\":\"Christian Paul_Rojero_Tupas\",\"birthdate\":\"1998-12-08\",\"birthplace\":\"Quezon City\",\"address\":\"Here at my house\",\"telno\":\"09185671538\",\"occupation\":\"Student\",\"email\":\"christianpaultupas@gmail.com\",\"civilStatus\":\"Single\",\"sex\":\"Male\",\"guardian\":{\"name\":\"janelle gabat\",\"telno\":\"09122035856\"}},\"payment\":1,\"course\":[1],\"applyLicense\":\"3\",\"branch\":\"3\"}', '2018-06-21 03:48:08', 1);
 
 INSERT INTO `requirement` (`id`, `title`, `description`, `importance`) VALUES
 (1, 'license', 'To apply drivers permit at LTO', 1);
@@ -102,16 +87,16 @@ INSERT INTO `schedule` (`id`, `date`, `time`, `hour`, `studID`, `instID`, `branc
 (4, '2018-05-29', '14:30:00', 1, '34591', '56789', 2, 0),
 (5, '2018-05-30', '16:00:00', 1, '89432', '45678', 5, 0);
 
-INSERT INTO `student` (`id`, `userInfo`, `dateRegistered`, `status`) VALUES
-('04220', 1, '2017-05-17', 1),
-('04325', 3, '2017-12-04', 1),
-('06597', 4, '2018-02-18', 1),
-('34591', 2, '2018-01-30', 1),
-('89432', 5, '2017-08-22', 1);
+INSERT INTO `student` (`id`, `userInfo`, `license`, `dateRegistered`, `status`) VALUES
+('04220', 1, '', '2017-05-17', 1),
+('04325', 3, '', '2017-12-04', 1),
+('06597', 4, '', '2018-02-18', 1),
+('34591', 2, '', '2018-01-30', 1),
+('89432', 5, '', '2017-08-22', 1);
 
 INSERT INTO `useraccount` (`id`, `username`, `password`, `accType`, `status`) VALUES
 (1, 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 1, 1),
-(14, 'paul', 'e8383d7eb027388fa68def9a6ae6b4f28850f4df', 2, 0);
+(14, 'paul', 'e8383d7eb027388fa68def9a6ae6b4f28850f4df', 2, 1);
 
 INSERT INTO `userinfo` (`id`, `userAcc`, `fullname`, `address`, `telno`, `birthdate`, `birthplace`, `sex`, `civilStatus`, `email`, `userType`) VALUES
 (1, 1, 'Janelle Joy R. Gabat', '31-D G.L. Jaena St. West Rembo, Makati City ', '882-7273', '1998-12-18', 'Makati City', 'F', 'Single', 'janellejoygabat@gmail.com', 1),
@@ -129,6 +114,13 @@ INSERT INTO `vehicle` (`id`, `model`, `brand`, `transmission`, `plate`, `driver`
 (567, 'Accent', 'Hyundai', 'M', 'FAS', '56789', 4, 2),
 (568, 'paul', 'wagon', 'M', 'SEX699', NULL, 5, 1),
 (569, 'LX34', 'Ford', 'M', 'LAS295', NULL, 3, 1);
+
+INSERT INTO `web_branch` (`id`, `branchID`, `branchName`, `location`, `fulladdress`, `telno`) VALUES
+(1, 3, 'Pasay', 'Pasay', 'Cartimar Shopping Center Rm. 1-A', '833-20-43');
+
+INSERT INTO `web_course` (`id`, `courseID`, `transmission`, `days`, `hour`, `price`) VALUES
+(1, 2, 'm', 5, 60, 2500),
+(2, 1, 'a', 5, 60, 3500);
 SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 

@@ -138,3 +138,19 @@ exports.preRegEdit = function(req, res, next){
         res.status(200).send({success: true, detail: "Successfully Modify"});
     })
 }
+
+exports.enroll = function(req, res, next){
+    var dataIn = JSON.parse(req.body.data);
+    var data = [null];
+    data.push(dataIn.studID);
+    data.push(dataIn.courseID);
+    data.push(dataIn.branchID);
+    data.push(dataIn.lessons);
+    data.push(null);
+    data.push(null);
+    data.push(1);
+    student.enrollCourse(data, function(err, result){
+        if(err) return next(err);
+        res.status(200).send({success: true});
+    });
+}

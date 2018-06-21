@@ -103,8 +103,7 @@ function saveEnrReg(){ //Save changes on View Registration Modal
                 var data = {
                     data: JSON.stringify(info),
                 }
-                console.log(data);
-                /* preRegAssess.update(data, function(err){
+                preRegAssess.update(data, function(err){
                     if(err){
                         swal("Failed!", err ,"error");
                     }else{
@@ -112,7 +111,7 @@ function saveEnrReg(){ //Save changes on View Registration Modal
                         $('#viewRegFormModal').modal('hide');
                         //DB: Remove registration function here
                     }
-                }); */
+                });
             }
         });
     }
@@ -197,14 +196,19 @@ function checkEnrReg (cb){ //Checker of empty fields
         preRegData.info["email"] = email;
         preRegData.info["civilStatus"] = civ;
         preRegData.info["sex"] = sex;
-        preRegData.info["nationality"] = nat;
         preRegData.info["guardian"] = {
             name: guard,
             telno: gCont,
         };
-        preRegData["branch"] = branch;
-        preRegData["course"] = $('input[name="enrRegCourse"]:checked').val();
-        preRegData["license"] = preRegAssess.pages[preRegAssess.currPage][preRegAssess.selected].data.license;
+        //preRegData["course"] = $('input[name="enrRegCourse"]:checked').val();
+        preRegAssess.getLocalData(function(x){
+            preRegData["special"] = x.data.special;
+            preRegData["payment"] = x.data.payment;
+            preRegData["course"] = x.data.course;
+            preRegData["applyLicense"] = x.data.applyLicense;
+            preRegData["branch"] = x.data.branch;
+        });
+        console.log(preRegData);
         var age = parseInt(Date.parse("today").toString("yyyy")) - parseInt(Date.parse(preRegData.info.birthdate).toString("yyyy"));
         $('.req').hide();
         if(age < 17){
@@ -224,18 +228,23 @@ function checkEnrReg (cb){ //Checker of empty fields
 
 var renderEnrollTbl = function(data){
     $('#preRegTbl').html("");    
-    data.forEach(x=>{
-        office.selected = x.data.branch;
+    var task = function(_data, cb){
+        var temp = _data;
+        office.selected = temp.data.branch;
         office.getLocalData(function(branch){
-            x.data["branchName"] = branch.name;
+            temp.data["branchName"] = branch.name;
             var html = "";
-            html += "<tr onclick='viewPendingStudent("+ x.id +")'>";
-            html += "<td>"+ Date.parse(x.dateSubmit).toString("MMM dd, yyyy") +"</td>";
-            html += "<td>"+ x.data.info.fullname.replace(/_/g,' ') +"</td>";
+            html += "<tr onclick='viewPendingStudent("+ temp.id +")'>";
+            html += "<td>"+ Date.parse(temp.dateSubmit).toString("MMM dd, yyyy") +"</td>";
+            html += "<td>"+ temp.data.info.fullname.replace(/_/g,' ') +"</td>";
             html += "<td>"+ branch.name +"</td>";
             html += "</tr>";
-            $('#preRegTbl').append(html);            
+            $('#preRegTbl').append(html); 
+            cb(null);      
         });
+    }
+    queryer.start(task,data,function(err,done){
+        if(err) return console.error(err);
     });
 }
 
@@ -244,6 +253,7 @@ var viewPendingStudent = function(id){
     preRegAssess.getLocalData(function(profile){
         $('.regEnrName').html(profile.data.info.fullname.replace(/_/g, ' '));
         $('.regEnrBranch').html(profile.data.branchName);
+        $('.regPaymeth').html(profile.data.payment == 1 ? "PAY ON BRANCH" : "ONLINE PAYMENT");
         $('.regEnrDeadline').html(Date.parse(profile.dateSubmit).addWeeks(1).toString("MMM dd, yyyy"));
         var age = parseInt(Date.parse("today").toString("yyyy")) - parseInt(Date.parse(profile.data.info.birthdate).toString("yyyy"));
         $('.reqForm').hide();

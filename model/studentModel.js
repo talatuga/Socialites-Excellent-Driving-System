@@ -59,7 +59,12 @@ Student.preRegEdit = function(id, data, cb){
 }
 
 Student.getPreRegList = function(offset, limit, cb){
-    PreRegister.getList(offset, limit, cb);
+    var sql = "SELECT * FROM " + PreRegister.table + " WHERE id > ? AND status > 0 ORDER BY id ASC LIMIT ?";
+    db.get().query(sql, [offset, limit], function(err,result){
+        if(err) return cb(err);
+        cb(null, result);
+    });
+    //PreRegister.getList(offset, limit, cb);
 }
 
 var Enroll = {};
@@ -75,6 +80,7 @@ Student.getStudentByID = function(accID, cb){
     var sql = "SELECT id FROM userinfo WHERE userAcc = ?";
     db.get().query(sql, [accID], function(err, result){
         if(err) return cb(err);
+        if(result.length < 1) return cb(null, false);
         sql = "SELECT id FROM student WHERE userInfo = ?";
         db.get().query(sql,[result[0].id],function(err2, result2){
             if(err2) return cb(err2);

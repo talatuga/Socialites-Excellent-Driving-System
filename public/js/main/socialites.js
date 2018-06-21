@@ -188,7 +188,7 @@ var branch = {
     },
     renderTbl: function(){
         if(this.data.length>0){
-            $('#branchTbl').html("");
+            //$('#branchTbl').html("");
             $('.branchList').html("");
             this.data.forEach((elem,index)=>{
                 var options = "<option value="+ elem.branchID +">"+ "SED-"+ elem.branchName.toUpperCase() +"</option>";
@@ -233,20 +233,22 @@ var lesson = {
 
 var enrollment = {
     data: {},
-    enroll: function(info, course, branch, payment, apply){
+    enroll: function(info, course, branch, payment, apply, special){
         this.data.info = info;
         this.data.course = course;
-        this.branch = branch;
-        this.payment = payment;
-        this.applyLicense = apply;
+        this.data.branch = branch;
+        this.data.payment = payment;
+        this.data.applyLicense = apply;
+        this.data.special = special;
         return this;
     },
-    enrollWithAcc:function(accID, course, lesson, branch, payment){
+    enrollWithAcc:function(accID, course, lesson, branch, payment, special){
         this.data.account = accID;
         this.data.course = course;
         this.data.lesson = lesson;
-        this.branch = branch;
-        this.payment = payment;
+        this.data.branch = branch;
+        this.data.payment = payment;
+        this.data.special = special;
         return this;
     },
     submit: function(cb){
@@ -255,7 +257,7 @@ var enrollment = {
             if(res.success){
                 cb(null);
             }else{
-                cb(res.detail);
+                cb(new Error("Invalid Account Type!"));
             }
         }).fail(xhr=>{
             cb(xhr.status+":"+xhr.statusText);
