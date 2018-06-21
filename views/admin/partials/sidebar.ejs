@@ -28,7 +28,7 @@
                     <ul aria-expanded="false" class="colSide collapse">
                         <li id="liS1"><a id="student1" onclick="viewActiveStud(1)"><span class="fa fa-circle-o"></span> List</a></li>
                         <!-- <li id="liS2"><a id="student2" onclick="viewActiveStud(2)"><span class="fa fa-circle-o"></span> Attendance</a></li> -->
-                        <li id="liS3"><a id="student3" onclick="viewActiveStud(3)"><span class="fa fa-circle-o"></span> Payment</a></li>
+                        <!-- <li id="liS3"><a id="student3" onclick="viewActiveStud(3)"><span class="fa fa-circle-o"></span> Payment</a></li> -->
                         <li id="liS4"><a id="student4" onclick="viewActiveStud(4)"><span class="fa fa-circle-o"></span> Grades &amp; Evaluation</a></li>
                     </ul>
                 </li>
@@ -44,12 +44,16 @@
                     <i class="icon icon-pin139 tiSide" style="font-size: 20px;"></i>
                     <span class="hide-menu sidebarMenu">Branches</span></a>
                 </li>
+                <li class="liSide" id="li16"> <a class="sidebarMenu" id="payment" onclick="viewActive(16)">
+                    <i class="icon icon-money2 tiSide" style="font-size: 20px;"></i>
+                    <span class="hide-menu sidebarMenu">Payment</span></a>
+                </li>
 
                 <!-- SERVICES -->
                 <li class="nav-divider"></li>
                 <li class="nav-label">Business Process &amp; Services</li>
                 <li class="liSide" id="li12"> <a class="sidebarMenu" id="enrolment" onclick="viewActive(12)">
-                    <i class="icon icon-line-graphic9 tiSide" style="font-size: 20px;"></i>
+                    <i class="icon icon-business-5 tiSide" style="font-size: 20px;"></i>
                     <span class="hide-menu sidebarMenu">Enrolment</span></a>
                 </li>
                 <li class="liSide" id="li5"> <a class="has-arrow sidebarMenu" href="#" aria-expanded="false" id="schedule" onclick="viewActiveSched()">
@@ -64,25 +68,13 @@
                             <span class="fa fa-circle-o"></span> Canceled/Forfeited</a></li>
                     </ul>
                 </li>
-                <li class="liSide" id="li13"> <a class="has-arrow sidebarMenu" href="#" aria-expanded="false" id="dtp" onclick="viewActiveDTP()">
+                <li class="liSide" id="li13"> <a class="sidebarMenu" id="dtp" onclick="viewActive(13)">
                     <i class="icon icon-group47 tiSide" style="font-size: 20px;"></i>
                     <span class="hide-menu sidebarMenu">Driver's Training Program</span></a>
-                    <ul aria-expanded="false" class="colSide collapse">
-                        <li id="liD1"><a id="dtp1" onclick="viewActiveDTP(1)">
-                            <span class="fa fa-circle-o"></span> Requests</a></li>
-                        <li id="liD2"><a id="dtp2" onclick="viewActiveDTP(2)">
-                            <span class="fa fa-circle-o"></span> Payment</a></li>
-                    </ul>
                 </li>
-                <li class="liSide" id="li14"> <a class="has-arrow sidebarMenu" href="#" aria-expanded="false" id="license" onclick="viewActiveLA()">
+                <li class="liSide" id="li14"> <a class="sidebarMenu" id="license" onclick="viewActive(14)">
                     <i class="icon icon-license tiSide" style="font-size: 20px;"></i>
                     <span class="hide-menu sidebarMenu">Licensing Assistance</span></a>
-                    <ul aria-expanded="false" class="colSide collapse">
-                        <li id="liL1"><a id="license1" onclick="viewActiveLA(1)">
-                            <span class="fa fa-circle-o"></span> Requests</a></li>
-                        <li id="liL2"><a id="license2" onclick="viewActiveLA(2)">
-                            <span class="fa fa-circle-o"></span> Payment</a></li>
-                    </ul>
                 </li>
                 <li class="liSide" id="li15"> <a class="sidebarMenu" id="trLect" onclick="viewActive(15)">
                     <i class="icon icon-human57 tiSide" style="font-size: 20px;"></i>

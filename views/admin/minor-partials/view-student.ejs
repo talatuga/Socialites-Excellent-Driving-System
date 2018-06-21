@@ -1,11 +1,11 @@
-<div class="view-viewStudent">
+<div class="view-viewStudent viewDiv">
     <!-- Bread crumb -->
     <div class="row page-titles">
-        <div class="col-md-8 align-self-center">
+        <div class="col-md-6 align-self-center">
             <span class="fa fa-chevron-left float-left backStud"></span>
             <h3 class="text-primary">Student Information</h3> 
         </div>
-        <div class="col-md-4 align-self-center">
+        <div class="col-md-6 align-self-center">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a onclick="dashboard()"> Home</a></li>
                 <li class="breadcrumb-item"><a onclick="activeStud()">Students</a></li>
@@ -86,23 +86,36 @@
                             <div class="tab-pane" id="paymentS" role="tabpanel">
                                 <div class="card-body">
                                     <div class="studTab">
-                                        <div class="tempPayTab">
-                                            <h3 class="pull-right">Status: <span class="notPaid">Not Paid</span></h3><br>
-                                            <div class="table-responsive">
-                                                <table class="table tblStudPayment1 table-hover">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Transaction #</th>
-                                                            <th>Date</th>
-                                                            <th>Assessment</th>
-                                                            <th>Payment</th>
-                                                            <th>Balance</th>
-                                                        </tr>
-                                                    </thead>
-                                                </table>
-                                                <center><br><h4>No payment made.</h4><br></center>
-                                            </div><br><br>
-                                        </div> <!-- End of tempPayTab -->
+                                        <table class="table tblStudPayment1 table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>OR #</th>
+                                                    <th>Date</th>
+                                                    <th>Type of Fee</th>
+                                                    <th>Amount</th>
+                                                    <th>Payment</th>
+                                                    <th>Balance</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1101</td>
+                                                    <td>06-21-2018</td>
+                                                    <td>Tuition Fee</td>
+                                                    <td>5,000.00</td>
+                                                    <td>5,000.00</td>
+                                                    <td>0.00</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>1102</td>
+                                                    <td>06-21-2018</td>
+                                                    <td>Licensing A. Fee</td>
+                                                    <td>2,500.00</td>
+                                                    <td>2,000.00</td>
+                                                    <td>500.00</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                         <div class="payTab">
                                             <h3 class="pull-right">Status: <span class="studPayStatus">Fully Paid</span></h3><br>
                                             <div class="table-responsive">
@@ -128,10 +141,6 @@
                                                 </table>
                                             </div><br><br>
                                         </div> <!-- End of payTab -->
-                                        <div class="pull-right">
-                                            <button type="button" id="btnAddPayment" onclick="addPaymentModal()" class="btn btn-warning m-b-10 m-l-5">Add Payment</button>
-                                            <!-- <button type="button" id="btnEditPayment" class="btn btn-light m-b-10 m-l-5">Edit Payment</button> -->
-                                        </div>
                                     </div>
                                 </div>
                             </div>

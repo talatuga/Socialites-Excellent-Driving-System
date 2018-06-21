@@ -1,0 +1,109 @@
+<div class="view-payment viewDiv">
+    <!-- Bread crumb -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h3 class="text-primary">Payment</h3> 
+        </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a onclick="dashboard()">Home</a></li>
+                <li class="breadcrumb-item active"><a>Payment</a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- End Bread crumb -->
+    <!-- Container fluid  -->
+    <div class="container-fluid">
+        <!-- Start of Card  -->
+        <div class="studentCard">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <div class="input-group input-group-flat">
+                            <span class="input-group-btn"><button class="btn btn-custom" type="submit"><i class="ti-search"></i></button></span>
+                            <input type="text" id="searchStudent" class="form-control" placeholder="Search..." style="font-size: 12px;">
+                            <span class="input-group-btn"><button class="btn btn-primary input-group-close-icon" type="button" onclick="clrSearchStudent()"><i class="ti-close"></i></button></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <hr class="hrCustom">
+                    <div class="card studCard">
+                        <h3>Payment Record <small>(with balances)</small></h3>
+                        <div>
+                            <div class="tempPayTab">
+                                <div class="table-responsive">
+                                    <table class="table tblStudPayment1 table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Name</th>
+                                                <th>Type of Fee</th>
+                                                <th>Amount</th>
+                                                <th>Payment</th>
+                                                <th>Balance</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>06-21-2018</td>
+                                                <td>Graciella C. Tatel</td>
+                                                <td>Tuition Fee</td>
+                                                <td>5,000.00</td>
+                                                <td>2,500.00</td>
+                                                <td>2,500.00</td>
+                                                <td>
+                                                    <a data-toggle="modal" data-target="#addPaymentModal" class="pCurs"><i class="icon icon-plus-circle"></i></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>06-21-2018</td>
+                                                <td>Perrine B. Laganzo</td>
+                                                <td>Licensing A. Fee</td>
+                                                <td>2,500.00</td>
+                                                <td>2,000.00</td>
+                                                <td>500.00</td>
+                                                <td>
+                                                    <a data-toggle="modal" data-target="#addPaymentModal" class="pCurs"><i class="icon icon-plus-circle"></i></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>06-21-2018</td>
+                                                <td>Christian R. Tupas</td>
+                                                <td>DTP Fee</td>
+                                                <td>20,000.00</td>
+                                                <td>0.00</td>
+                                                <td>20,000.00</td>
+                                                <td>
+                                                    <a data-toggle="modal" data-target="#addPaymentModal" class="pCurs"><i class="icon icon-plus-circle"></i></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>06-21-2018</td>
+                                                <td>Janelle R. Gabat</td>
+                                                <td>Tuition Fee</td>
+                                                <td>2,500.00</td>
+                                                <td>1,500.00</td>
+                                                <td>1,000.00</td>
+                                                <td>
+                                                    <a data-toggle="modal" data-target="#addPaymentModal" class="pCurs"><i class="icon icon-plus-circle"></i></a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div><br><br>
+                            </div>
+                            <!-- <br><br><br><br> -->
+                        </div> <!-- End of row -->
+                    </div>
+                </div> <!-- End of col-lg-6 -->
+            </div> <!-- End of row -->
+        </div><!-- End of Card  -->
+    </div>
+    <!-- End Container fluid  -->
+</div>

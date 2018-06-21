@@ -19,10 +19,10 @@ $(function() {
 function viewActive (a){
     $('.viewDiv').hide();
     var li = "#li";
-    for (var x=1; x<=16; x++){
+    for (var x=1; x<=17; x++){
         li += a.toString();
         if (x==a){
-            if (a==2 || a==9 || a==5 || a==13){
+            if (a==2 || a==9 || a==5){
                 $('.colSide').addClass("in");
             }
             else{
@@ -45,11 +45,13 @@ function viewActive (a){
     else if (a==10) cert();
     else if (a==11) announce();
     else if (a==12) enroll();
+    else if (a==13) dtp();
+    else if (a==14) license();
     else if (a==15) tlect();
+    else if (a==16) payment();
 }
 
 function viewActiveStud(a){
-    $('.viewDiv').hide();
     var li = "#liS";
     $(".liSide").removeClass("active");
     for (var x=1; x<=5; x++){
@@ -63,14 +65,12 @@ function viewActiveStud(a){
         }
         li = "#liS";
     }
+    $('.viewDiv').hide();
     if (a==1) student();
-    else if (a==2) attendance();
-    else if (a==3) payment();
     else if (a==4) gradesEval();
 }
 
 function viewActiveCrs(a){
-    $('.viewDiv').hide();
     var li = "#liC";
     $(".liSide").removeClass("active");
     for (var x=1; x<=3; x++){
@@ -84,10 +84,11 @@ function viewActiveCrs(a){
         }
         li = "#liC";
     }
+    if (a==1) courses();
+    else if (a==2) lessons();
 }
 
 function viewActiveSched(a){
-    $('.viewDiv').hide();
     var li = "#liSH";
     $(".liSide").removeClass("active");
     for (var x=1; x<=4; x++){
@@ -102,41 +103,6 @@ function viewActiveSched(a){
         li = "#liSH";
     }
 }
-
-function viewActiveDTP(a){
-    $('.viewDiv').hide();
-    var li = "#liD";
-    $(".liSide").removeClass("active");
-    for (var x=1; x<=3; x++){
-        li += a.toString();
-        if (x==a){
-            $("li").removeClass("active");
-        }
-        else{
-            $(li).addClass("active");
-            $("#li13").addClass("active");
-        }
-        li = "#liD";
-    }
-}
-
-function viewActiveLA(a){
-    $('.viewDiv').hide();
-    var li = "#liL";
-    $(".liSide").removeClass("active");
-    for (var x=1; x<=3; x++){
-        li += a.toString();
-        if (x==a){
-            $("li").removeClass("active");
-        }
-        else{
-            $(li).addClass("active");
-            $("#li14").addClass("active");
-        }
-        li = "#liL";
-    }
-}
-
 
 var dashboard = function (){
     $(".view-dashboard").show();
@@ -224,5 +190,27 @@ var payment = function(){
 
 var gradesEval = function(){
     $(".view-gradesEval").show();
+    $(".search-box").hide();
+}
+
+var dtp = function(){
+    $(".view-dtp").show();
+    $(".search-box").hide();
+}
+
+var license = function(){
+    $(".view-license").show();
+    $(".search-box").hide();
+}
+
+var courses = function(){
+    loadCourse();
+    $(".view-courses").show();
+    $(".search-box").hide();
+}
+
+var lessons = function(){
+    loadLesson();
+    $(".view-lessons").show();
     $(".search-box").hide();
 }

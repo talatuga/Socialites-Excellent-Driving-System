@@ -8223,3 +8223,7 @@ tiCustom
 .trNum{
   color: #5D0000;
 }
+
+.pCurs{
+  cursor: pointer;
+}
