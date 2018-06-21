@@ -8212,3 +8212,14 @@ tiCustom
   border-bottom: solid 2px #5D0000;
   overflow: hidden;
 }
+.stot h5, .stot h3{
+  color: black;
+}
+
+.stot1 h3{
+  color: black;
+}
+
+.trNum{
+  color: #5D0000;
+}

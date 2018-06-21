@@ -118,8 +118,13 @@ function saveEnrReg(){ //Save changes on View Registration Modal
     }
 }
 
+function openPayment(){
+    $('#addPaymentModal').modal('show');
+}
+
 function appRegForm(){ //Approve Registration
-    $('#enrRegFN').modal('show');
+    $('#addPaymentModal').modal('hide');
+    // $('#enrRegFN').modal('show');
     swal({
         title: "Warning!",
         text: "Are you sure you want to approve this registration form?",
@@ -141,6 +146,9 @@ function appRegForm(){ //Approve Registration
                     $('#viewRegFormModal').modal('hide');
                 }
             });
+        }
+        else{
+            $('#addPaymentModal').modal('show');  
         }
     });
 }

@@ -1,0 +1,142 @@
+<!-- View Registration Modal -->
+<div class="modal fade" id="viewRegFormModal" tabindex="-1" role="dialog" aria-labelledby="viewRegFormModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+            <h2>View Registration Form</h2>
+            <div>
+                <form class="enrRegForm">
+                    <hr class="hrCustom"><br>
+                    <div class="row">
+                        <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                            <div>
+                                <h5 class="h5Enr">Name<span class="asterisk">*</span></h5>
+                                <input type="text" class="txtEnr" required name="enrRegFN" id="enrRegFN" placeholder="*First Name"><br>
+                                <input type="text" class="txtEnr" required name="enrRegMN" id="enrRegMN" placeholder="Middle Name"><br>
+                                <input type="text" class="txtEnr" required name="enrRegSN" id="enrRegSN" placeholder="*Surname"><br>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                            <div>
+                                <h5 class="h5Enr">Course<span class="asterisk">*</span></h5>
+                                <input type="text" class="txtEnr" required name="enrRegCourse" id="enrRegCourse" disabled><br>
+                            </div><hr>
+                            <div class="divRegSpecCourse"> 
+                                <!-- Mahahide dapat to pag di special yung course -->
+                                <h5 class="h5Enr">Pickup Place<span class="asterisk">*</span></h5>
+                                <input type="text" class="txtEnr" required name="enrRegPickup" id="enrRegPickup"><br>
+                            </div><hr>
+                        </div>
+                    </div><hr>
+                    <div>
+                        <h5 class="h5Enr">Birth Date<span class="asterisk">*</span></h5>
+                        <input type="date" class="txtEnr" required name="enrRegBday" id="enrRegBday" placeholder="mm/dd/yyyy"><br>
+                    </div><hr>
+                    <div>
+                        <h5 class="h5Enr">Birth Place<span class="asterisk">*</span></h5>
+                        <input type="text" class="txtEnr" required name="enrRegBplace" id="enrRegBplace" placeholder="*Birthplace"><br>
+                    </div><hr>
+                    <div>
+                        <h5 class="h5Enr">Sex<span class="asterisk">*</span></h5>
+                        <input type="radio" class="enrSexRD" id="enrRegSex1" name="enrRegSex" value="Male" checked>
+                            <label class="enrSexLbl" for="enrRegSex1">Male</label><br>
+                        <input type="radio" class="enrSexRD" id="enrRegSex2" name="enrRegSex" value="Female">
+                            <label class="enrSexLbl" for="enrRegSex2">Female</label>
+                    </div><hr>
+                    <div>
+                        <h5 class="h5Enr">Address<span class="asterisk">*</span></h5>
+                        <textarea rows="3" class="enrTxtArea" id="enrRegAddress" placeholder="*Address"></textarea>
+                    </div><hr>
+                    <div>
+                        <h5 class="h5Enr">Civil Status<span class="asterisk">*</span></h5>
+                        <select class="enrCivStatus" name="enrRegCivStatus">
+                            <option value="civ0">---</option>
+                            <option value="Single">Single</option>
+                            <option value="Married">Married</option>
+                            <option value="Divorced">Divorced</option>
+                            <option value="Separated">Separated</option>
+                            <option value="Widowed">Widowed</option>
+                        </select>
+                    </div><hr>
+                    <div>
+                        <h5 class="h5Enr">Occupation</h5>
+                        <input type="text" class="txtEnr" required name="enrRegOcc" id="enrRegOcc" placeholder="Occupation"><br>
+                    </div><hr>
+                    <div>
+                        <h5 class="h5Enr">Contact<span class="asterisk">*</span></h5>
+                        <input type="number" class="txtEnr" required name="enrRegCont" id="enrRegCont" placeholder="*Contact Number"><br>
+                        <input type="email" class="txtEnr" required name="enrRegEmail" id="enrRegEmail" placeholder="Email Address"><br>
+                    </div><hr>
+                    <div>
+                        <h5 class="h5Enr">Guardian Information<span class="asterisk">*</span></h5>
+                        <input type="text" class="txtEnr" required name="enrRegGuard" id="enrRegGuard" placeholder="*Parent/Guardian Name"><br>
+                        <input type="number" class="txtEnr" required name="enrRegGuardCont" id="enrRegGuardCont" placeholder="*Contact Number"><br>
+                    </div><hr>
+                </form>
+            <hr></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="btnCancAddInst" class="btn btn-light" data-dismiss="modal">Cancel</button>
+        <button type="button" id="btnNextAddInst" onclick="saveEnrReg()" class="btn btn-primary">Save Changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Payment Modal -->
+<div class="modal fade" id="addPaymentModal" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="addPaymentModal">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <center>
+            <h6>Approve Enrolment</h6>
+            <h2>ADD PAYMENT</h2>
+        </center>
+        <hr class="hrCustom">
+        <div class="stot">
+            <form class="formAddPay">
+                <div>
+                    <h5 class="h5Enr">Transaction Number: <span class="trNum">TR-1101</span></h5>
+                </div><hr>
+                <div>
+                    <h5 class="h5Enr">Date<span class="asterisk">*</span></h5>
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                            <input type="date" class="txtEnr1 addPayDate" required placeholder="mm/dd/yyyy"><br>
+                        </div>
+                    </div>
+                </div><hr>
+                <div>
+                    <h5 class="h5Enr">Assessment<span class="asterisk">*</span></h5>
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                            <input type="number" class="txtEnr1 totAssessFee" required disabled><br>
+                        </div>
+                    </div>
+                </div><hr>
+                <div>
+                    <h5 class="h5Enr">Amount of Payment<span class="asterisk">*</span></h5>
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                            <input type="number" class="txtEnr1 addPayTxt" required><br>
+                        </div>
+                    </div>
+                </div><hr>
+                <!-- <div>
+                    <h5 class="h5Enr">Balance<span class="asterisk">*</span></h5>
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                            <input type="number" class="txtEnr1 addPayBal" required disabled><br>
+                        </div>
+                    </div>
+                </div><hr> -->
+            </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" onclick="appRegForm()">Add Payment</button>
+      </div>
+    </div>
+  </div>
+</div>
