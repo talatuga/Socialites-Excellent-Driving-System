@@ -295,13 +295,12 @@ function regCanc(){
         confirmButtonColor: "#DD6B55",
         confirmButtonText: "Yes",
         cancelButtonText: "No",
-        closeOnConfirm: false,
+        closeOnConfirm: true,
         closeOnCancel: true
     },
     function(isConfirm){
         if (isConfirm) {
             resetEnrollment();
-            swal("Changes have been discarded!", "" ,"success")
             $('.pr2A').hide();
             $('.pr2').hide();
             $('.pr3').hide();

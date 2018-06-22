@@ -8227,3 +8227,6 @@ tiCustom
 .pCurs{
   cursor: pointer;
 }
+#addPayName{
+  text-transform: uppercase;
+}
