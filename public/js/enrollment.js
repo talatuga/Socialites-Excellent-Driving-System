@@ -10,7 +10,11 @@ var loadPreReg = function(){
             preRegAssess.getList(err=>{
                 if(err) return console.error(err);
                 renderEnrollTbl(preRegAssess.pages[preRegAssess.currPage]);
-                viewPendingStudent(preRegAssess.pages[preRegAssess.currPage][0].id);
+                if(preRegAssess.pages[preRegAssess.currPage].length==0){
+                    viewPendingStudent(-1);
+                }else{
+                    viewPendingStudent(preRegAssess.pages[preRegAssess.currPage][0].id);
+                }
                 $('.tblReg tbody tr:first').addClass("highlightTr");
                 $('.tblReg tbody tr').click(function () {
                     var selected = $(this).hasClass("highlightTr");
@@ -26,6 +30,7 @@ var loadPreReg = function(){
 }
 
 function viewRegForm(){
+    $('#enrRegPickup').removeAttr('disabled');
     preRegAssess.getLocalData(function(profile){
         var name = profile.data.info.fullname.split('_');
         var info = profile.data.info;
@@ -41,7 +46,7 @@ function viewRegForm(){
         $('#enrRegEmail').val(info.email);
         $('#enrRegGuard').val(info.guardian.name);
         $('#enrRegGuardCont').val(info.guardian.telno);
-        $('#enrRegPickup').val(profile.data.special);
+        $('#enrRegPickup').val(profile.data.special.location);
         $('.enrCourse').val(profile.data.course);
         $('.enrBranch').val(profile.data.branch);
         $('input[name=enrRegNat]').removeAttr('checked');
@@ -49,6 +54,9 @@ function viewRegForm(){
         $('input[name=enrRegSex][value='+ info.sex +']').attr('checked','checked');
         $('input[name=enrRegNat][value='+ info.nationality +']').attr('checked','checked');
         $('#viewRegFormModal').modal('show');
+        if(profile.data.special.location==""){
+            $('#enrRegPickup').attr('disabled','true');
+        }
     });
 }
 
@@ -143,7 +151,11 @@ function appRegForm(){ //Approve Registration
         },
         function(isConfirm){
             if (isConfirm) {
-                preRegAssess.delete(function(err){
+                var data = {
+                    info: preRegAssess.selected,
+                    license: "",
+                };
+                preRegAssess.approve(data, function(err){
                     if(err){
                         swal("Failed!", err.message, "error");
                     }else{
@@ -152,6 +164,15 @@ function appRegForm(){ //Approve Registration
                         $('#addPaymentModal').modal('hide');
                     }
                 });
+                /* preRegAssess.delete(function(err){
+                    if(err){
+                        swal("Failed!", err.message, "error");
+                    }else{
+                        swal("Enrolment form is approved!", "Student account is created! Remaining balance: " + bal + "" ,"success");
+                        $('#viewRegFormModal').modal('hide');
+                        $('#addPaymentModal').modal('hide');
+                    }
+                }); */
             }
             else{
                 $('#addPaymentModal').modal('show');  
@@ -216,7 +237,6 @@ function checkEnrReg (cb){ //Checker of empty fields
             preRegData["applyLicense"] = x.data.applyLicense;
             preRegData["branch"] = x.data.branch;
         });
-        console.log(preRegData);
         var age = parseInt(Date.parse("today").toString("yyyy")) - parseInt(Date.parse(preRegData.info.birthdate).toString("yyyy"));
         $('.req').hide();
         if(age < 17){
@@ -237,6 +257,31 @@ function checkEnrReg (cb){ //Checker of empty fields
 var renderEnrollTbl = function(data){
     $('#preRegTbl').html("");    
     var task = function(_data, cb){
+        var getReq = function(id){
+            switch(parseInt(id)){
+                case 1:{
+                    return "TA-SDP";
+                }
+                case 2:{
+                    return "TA-SDPS";
+                }
+                case 3:{
+                    return "WSDP";
+                }
+                case 4:{
+                    return "WNPL";
+                }
+                case 5:{
+                    return "WPL";
+                }
+                case 6:{
+                    return "TA-NPL";
+                }
+                case 7:{
+                    return "TA-PL";
+                }
+            }
+        };
         var temp = _data;
         office.selected = temp.data.branch;
         office.getLocalData(function(branch){
@@ -245,7 +290,7 @@ var renderEnrollTbl = function(data){
             html += "<tr onclick='viewPendingStudent("+ temp.id +")'>";
             html += "<td>"+ Date.parse(temp.dateSubmit).toString("MMM dd, yyyy") +"</td>";
             html += "<td>"+ temp.data.info.fullname.replace(/_/g,' ') +"</td>";
-            html += "<td>"+ branch.name +"</td>";
+            html += "<td>"+ getReq(temp.data.applyLicense) +"</td>";
             html += "</tr>";
             $('#preRegTbl').append(html); 
             cb(null);      
@@ -257,6 +302,10 @@ var renderEnrollTbl = function(data){
 }
 
 var viewPendingStudent = function(id){
+    $('.regEnrName').html("");
+    $('.regEnrBranch').html("");
+    $('.regPaymeth').html("");
+    $('.regEnrDeadline').html("");
     preRegAssess.selected = id;
     preRegAssess.getLocalData(function(profile){
         $('.regEnrName').html(profile.data.info.fullname.replace(/_/g, ' '));

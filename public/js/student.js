@@ -38,6 +38,7 @@ var loadStud = function(){
         stud.getList(function(err){
             if(err) return swal("Failed!",err.message,"error");
             renderStudentTable(stud.pages.current[stud.currPage[0]], function(){
+                viewStud(stud.pages.current[stud.currPage[0]][0].id);
                 $('tableStud').addClass("highlightTr");                
                 $('.tableStud tbody tr').click(function () {
                     var selected = $(this).hasClass("highlightTr");
@@ -430,8 +431,9 @@ var viewStud = function(id){
         $('.studNum').html(profile.studID);
         $('.studName').html(profile.fullname.replace(/_/g, " "));
         $('.studAddress').html(profile.address);
-        $('.studPhone').html(profile.fullname);
+        $('.studPhone').html(profile.telno);
         $('.studEmail').html(profile.email);
+        $('enrolledCrs').html("");
         renderEditInfo();
     });
 }

@@ -4,7 +4,7 @@ var router = require('express').Router();
 var middleware = require('../../middleware/lib/student');
 
 router.route('/register')
-    .post(middleware.preReg)
+    .post(middleware.register)
     .get(middleware.getPreRegList);
 router.route('/register/:id')
     .put(middleware.preRegEdit)

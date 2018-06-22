@@ -8,6 +8,7 @@ $(function () {
     $('#searchBranch').on('keyup', function(e){
         search.keypress($('#searchBranch').val());
     });
+    loadBranch();
 });
 
 var branchLoaded = 0;

@@ -61,6 +61,7 @@ public/vendor
 public/js/main/vendor
 public/images
 public/css/*
+public/css/main/*
 
 public/js/main/jquery.easing.1.3.js
 public/js/main/jquery.magnific-popup.js
@@ -71,4 +72,4 @@ public/js/main/plugins.js
 !public/css/main/style.css
 !public/css/style.css
 !public/css/login.css
-!public/css/main/style.css
+!public/css/main

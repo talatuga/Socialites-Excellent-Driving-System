@@ -24,9 +24,10 @@ exports.create = function(req, res, next){
     info.push(dataIn.info.email);
     info.push(2);
  
-    var inst = [];
+    var inst = [null];
     inst.push(null);
-    inst.push(null);
+    inst.push(dataIn.license);
+    inst.push(Date.parse("next 5 years").toString("yyyy-MM-dd"));
     inst.push(dataIn.info.education);
     inst.push("");
     inst.push(null);
@@ -96,6 +97,10 @@ exports.update = function(req, res, next){
     data.credential["username"] = dataIn.username;
     data.credential["password"] = dataIn.password;
     data.credential["type"] = 2;
+
+    data["license"] = dataIn.license;
+    data["educ"] = dataIn.education;
+    //data["vacant"] = dataIn.vacant;
     
     instructor.update(id, data, function(err, result){
         if(err) return next(err);
