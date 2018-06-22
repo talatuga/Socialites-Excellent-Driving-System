@@ -86,15 +86,61 @@ exports.del = function(req, res, next){
 
 exports.delAll = function(req, res, next){}
 
-exports.preReg = function(req, res, next){
-    var data = [null];
+exports.register = function(req, res, next){
+    var data = JSON.parse(req.body.data);
+    var generatePass = function(length){
+        var alphanum = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+        var result = "";
+        for(var x=0; x<length; x++){
+            result += alphanum[parseInt(Math.random()*alphanum.length-1)];
+        }
+        return result;
+    };
+    var generateID = function(accID,infoID){
+        accID = accID + "";
+        infoID = infoID + "";
+        var pad = "000";
+        return (pad.substring(0,pad.length-accID.length)+accID) + (pad.substring(0,pad.length-infoID.length)+infoID);
+    };
+    var accountModel = require('../../model/userAccModel');
+    student.getPreRegList(data.info-1,1,function(er, result){
+        if(er) return next(er);
+        var infoData = result[0];
+        infoData.data = JSON.parse(infoData.data);
+        accountModel.register([infoData.data.info.email,generatePass(10),3],function(err, accID){
+            if(err) return next(err);
+            var infoModel = require('../../model/userInfoModel');
+            var info = [accID];
+            info.push(infoData.data.info.fullname);
+            info.push(infoData.data.info.address);
+            info.push(infoData.data.info.telno);
+            info.push(infoData.data.info.birthdate);
+            info.push(infoData.data.info.birthplace);
+            info.push(infoData.data.info.sex);
+            info.push(infoData.data.info.civilStatus);
+            info.push(infoData.data.info.email);
+            info.push(3);
+            infoModel.register(info, function(errr, infoID){
+                if(errr) return next(errr);
+                var id = generateID(accID,infoID);
+                student.create([id,infoID,data.license,null,1],function(errrr, result){
+                    if(errrr) return next(errrr);
+                    student.preRegDel(data.info,function(e){
+                        if(e) return next(e);
+                        res.status(200).send({success:result});
+                    });
+                });
+            });
+        });
+    });
+    /* var data = [null];
     data.push(req.body.data);
     data.push(null);
     data.push(1);
     student.preRegStud(data, function(err, done){
         if(err) return next(err);
         res.status(200).send({success: true, detail: "Successfully Added!"});
-    });
+    }); */
 }
 
 exports.getPreRegList = function(req, res, next){
@@ -133,7 +179,7 @@ exports.preRegEdit = function(req, res, next){
     data.push(dataIn.data);
     data.push(dataIn.dateSubmit);
     data.push(1);
-    student.preRegEdit(id, data, function(err){
+    student.preRegEdit(id, dataIn.data, function(err){
         if(err) return next(err);
         res.status(200).send({success: true, detail: "Successfully Modify"});
     })

@@ -40,7 +40,7 @@ $(function () {
     });
     
     $('#searchInst').on('click', function(e){
-        search.init(inst.pages[inst.currPage], ["fullname","instID"], function(data){
+        search.init(inst.pages[inst.currPage], ["fullname","instID","license"], function(data){
             renderInstTablePage(data);
         });
     });
@@ -95,6 +95,7 @@ function nextInst ()
     var email = $("#newInstEmail").val();
     var educ = $('select[name="newInstEduc"]').val();
     var gender = $('input[name="newInstGender"]:checked').val();
+    var license = $('#newInstLicense').val();
 
     fn = fn.replace(/\s+/g, '');
     sn = sn.replace(/\s+/g, '');
@@ -131,6 +132,7 @@ function nextInst ()
                 education: educ, 
                 sex: gender,
             };
+            inst.registrationDetail["license"] = license;
 
             $(".defMod1Inst").removeClass("activeDefModInst");
             $(".defMod2Inst").addClass("activeDefModInst");
@@ -220,6 +222,7 @@ function resetSettingsInst (){
     $("#editInstAccCPW").prop("disabled", true);
     $("#editInstAccEduc").prop("disabled", true);
     $("#editInstAccSex").prop("disabled", true);
+    $("#editInstLicense").attr("disabled","true");
     $('.btnCancUpdInst').hide();
     $('.btnResetUpdInst').hide();
     $('.btnSaveUpdInst').hide();
@@ -238,6 +241,7 @@ function enableFields (){
     $("#editInstAccCPW").removeAttr("disabled");
     $("#editInstAccEduc").removeAttr("disabled");
     $("#editInstAccSex").removeAttr("disabled");
+    $("#editInstLicense").removeAttr("disabled");
 }
 
 function updateInst (){
@@ -291,6 +295,7 @@ function saveUpdInst(){
     var un = $("#editInstAccUN").val();
     var pw = $("#editInstAccPW").val();
     var cpw = $("#editInstAccCPW").val();
+    var lic = $("#editInstLicense").val();
 
     a = fn.replace(/\s+/g, '');
     b = sn.replace(/\s+/g, '');
@@ -332,6 +337,7 @@ function saveUpdInst(){
                             education: educ,
                             username: un,
                             password: pw, 
+                            license: lic,
                         };
                         inst.update(data, function(err, done){
                             if(err){
@@ -414,6 +420,7 @@ function saveUpdInst(){
                                 education: educ,
                                 username: un,
                                 password: pw, 
+                                license: lic,
                             };
                             inst.update(data, function(err, done){
                                 if(err){
@@ -554,6 +561,7 @@ var renderInstEdit = function(){
         $('#editInstAccEmail').val(profile.email);            
         $('#editInstAccAdd').val(profile.address);            
         $('#editInstAccEduc').val(profile.educAttain);   
-        $('#editInstAccUN').val(profile.username);            
+        $('#editInstAccUN').val(profile.username);   
+        $("#editInstLicense").val(profile.license);         
     });
 }

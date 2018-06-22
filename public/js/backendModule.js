@@ -1031,8 +1031,25 @@ var preRegAssess = {
             onFail("Error: " + xhr.status + "\n" + xhr.statusText);
         });
     },
-    approve: function(cb){
-        
+    approve: function(data, cb){
+        var onFail = function(detail){
+            var err = new Error(detail);
+            cb(err);
+        };
+        return $.ajax({
+            type: "POST",
+            url: "api/v1/stud/register",
+            data: {data:JSON.stringify(data)},
+            success: function(res){
+                if(res.success){
+                    cb(null);
+                }else{
+                    onFail(res.detail);
+                }
+            },
+        }).fail(function(xhr){
+            onFail("Error: " + xhr.status + "\n" + xhr.statusText);
+        }); 
     },
     getLocalData: function(cb){
         this.pages[this.currPage].forEach(x=>{

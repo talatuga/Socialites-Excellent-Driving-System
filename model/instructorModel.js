@@ -101,7 +101,11 @@ Instructor.update = function(id, data, cb){
         if(err) return cb(err);
         UserInfo.update(data.infoID, data.info, null, function(err, done1){
             if(err) return cb(err);
-            cb(null, true);
+            var sql = "UPDATE " + Instructor.table + " SET license = ?, educAttain = ? WHERE id = ?";
+            db.get().query(sql, [data.license, data.educ,/*  data.vacant, */ id], function(err, result){
+                if(err) return cb(err);
+                cb(null, true);
+            });
         });
     });
 }

@@ -465,8 +465,7 @@ function doneDef(){ //All steps done
     queryer.start(car.addDefect, checkedValuesData, function(err, done){
         if(err) return console.error(err);
         else{
-            console.log("Done.");
-            swal("Success!", count + " defects have been added to vehicle details!", "success");
+            swal("Success!", counter + " defects have been added to vehicle details!", "success");
             $('#addNewDefectModal').modal('hide');
         }
     });

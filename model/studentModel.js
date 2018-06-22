@@ -55,7 +55,7 @@ Student.preRegDel = function(id, cb){
 }
 
 Student.preRegEdit = function(id, data, cb){
-    PreRegister.update(id, data, null, cb);
+    PreRegister.update(id, data, "data", cb);
 }
 
 Student.getPreRegList = function(offset, limit, cb){
