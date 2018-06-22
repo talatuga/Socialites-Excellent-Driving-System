@@ -104,6 +104,9 @@ function viewActiveSched(a){
         li = "#liSH";
     }
     $('.viewDiv').hide();
+    if (a==3) schedule();
+    else if (a==2) schedCanceled();
+    else if (a==1) schedRequest();
 }
 
 var dashboard = function (){
@@ -208,5 +211,20 @@ var license = function(){
 var courses = function(){
     loadCourse();
     $(".view-courses").show();
+    $(".search-box").hide();
+}
+
+var schedule = function (){
+    $(".view-schedule").show();
+    $(".search-box").hide();
+}
+
+var schedRequest = function (){
+    $(".view-reqSched").show();
+    $(".search-box").hide();
+}
+
+var schedCanceled = function (){
+    $(".view-cancSched").show();
     $(".search-box").hide();
 }
