@@ -147,6 +147,16 @@ function payMeth1(){
     $('.paymentOptionDiv').hide();
     $('.paymentOptionDiv1').show();
     paymentMeth = 1;
+    $('.payCourse').html("");
+    var ids = [];
+    var total = 0;
+    cart.container.forEach(x=>{
+        var data = course.getLocalData(x);
+        ids.push(course.generateID(data.id, data.transmission));
+        total += x.price;
+    });
+    $('.payCourse').html(ids.join());
+    $('.payPrice').html(total.formatMoney(0));
 }
 
 function paymentBack(){
