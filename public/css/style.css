@@ -8230,3 +8230,7 @@ tiCustom
 #addPayName{
   text-transform: uppercase;
 }
+.btnLicense{
+  font-size: 14px;
+  width: 80px;
+}

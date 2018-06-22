@@ -208,9 +208,3 @@ var courses = function(){
     $(".view-courses").show();
     $(".search-box").hide();
 }
-
-var lessons = function(){
-    loadLesson();
-    $(".view-lessons").show();
-    $(".search-box").hide();
-}
