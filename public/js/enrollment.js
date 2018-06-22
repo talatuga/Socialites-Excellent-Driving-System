@@ -119,38 +119,45 @@ function saveEnrReg(){ //Save changes on View Registration Modal
 }
 
 function openPayment(){
+    $('#paymentEnroll').val("")
     $('#addPaymentModal').modal('show');
 }
 
 function appRegForm(){ //Approve Registration
-    $('#addPaymentModal').modal('hide');
-    // $('#enrRegFN').modal('show');
-    swal({
-        title: "Warning!",
-        text: "Are you sure you want to approve this registration form?",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#DD6B55",
-        confirmButtonText: "Yes",
-        cancelButtonText: "Cancel",
-        closeOnConfirm: false,
-        closeOnCancel: true
-    },
-    function(isConfirm){
-        if (isConfirm) {
-            preRegAssess.delete(function(err){
-                if(err){
-                    swal("Failed!", err.message, "error");
-                }else{
-                    swal("Registration has been accepted", "" ,"success");
-                    $('#viewRegFormModal').modal('hide');
-                }
-            });
-        }
-        else{
-            $('#addPaymentModal').modal('show');  
-        }
-    });
+    var x = $('#paymentEnroll').val();
+    var bal="0.00"; 
+    if (x=="" || x==0 || x==0.00){
+        swal("Oops!", "Please enter amount of payment.", "error");
+    }
+    else{
+        swal({
+            title: "Warning!",
+            text: "Are you sure you want to approve this enrolment form?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes",
+            cancelButtonText: "Cancel",
+            closeOnConfirm: false,
+            closeOnCancel: true
+        },
+        function(isConfirm){
+            if (isConfirm) {
+                preRegAssess.delete(function(err){
+                    if(err){
+                        swal("Failed!", err.message, "error");
+                    }else{
+                        swal("Enrolment form is approved!", "Student account is created! Remaining balance: " + bal + "" ,"success");
+                        $('#viewRegFormModal').modal('hide');
+                        $('#addPaymentModal').modal('hide');
+                    }
+                });
+            }
+            else{
+                $('#addPaymentModal').modal('show');  
+            }
+        });
+    }
 }
 
 function checkEnrReg (cb){ //Checker of empty fields

@@ -83,7 +83,7 @@
   </div>
 </div>
 
-<!-- Add Payment Modal -->
+<!-- Add Payment Enrollment Modal -->
 <div class="modal fade" id="addPaymentModal" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="addPaymentModal">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
@@ -95,13 +95,12 @@
         <hr class="hrCustom">
         <div class="stot">
             <form class="formAddPay">
-                <h4>Name: <span class="addPayName">Graciella C. Tatel</span></h4>
-                <h5></h5>
+                <h5>Name: <span class="addPayName">Graciella C. Tatel</span></h5>
+                <h5>Date: <span class="addPayDate">June 23, 2018</span></h5><br>
                 <div class="table-responsive">
                     <table class="table tblAddPayment tblCustom">
                         <thead>
                             <tr>
-                                <th>Date</th> <!-- Date today -->
                                 <th>Type of Fee</th>
                                 <th>Course</th>
                                 <th>Assessment</th>
@@ -109,56 +108,72 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>06-21-2018</td>
                                 <td>Tuition Fee</td>
                                 <td>CRS-M001</td>
                                 <td>5,000.00</td>
                             </tr>
                         </tbody>
                     </table>
-                </div><br>
-                <div>
+                </div><br><br>
+                <div class="pull-right">
                     <h4 style="text-align: right;">Total Assessment: &#8369;<span class="totAssess">5,000.00</span></h4>
+                    <h4 style="text-align: right; float: left; margin-right: 10px;">Payment:</h4>
+                    <input type="number" id="paymentEnroll">
                 </div><br>
-
-                <!-- <div>
-                    <h5 class="h5Enr">Date<span class="asterisk">*</span></h5>
-                    <div class="row">
-                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-                            <input type="date" class="txtEnr1 addPayDate" required placeholder="mm/dd/yyyy"><br>
-                        </div>
-                    </div>
-                </div><hr>
-                <div>
-                    <h5 class="h5Enr">Assessment<span class="asterisk">*</span></h5>
-                    <div class="row">
-                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-                            <input type="number" class="txtEnr1 totAssessFee" required disabled><br>
-                        </div>
-                    </div>
-                </div><hr>
-                <div>
-                    <h5 class="h5Enr">Amount of Payment<span class="asterisk">*</span></h5>
-                    <div class="row">
-                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-                            <input type="number" class="txtEnr1 addPayTxt" required><br>
-                        </div>
-                    </div>
-                </div><hr> -->
-                <!-- <div>
-                    <h5 class="h5Enr">Balance<span class="asterisk">*</span></h5>
-                    <div class="row">
-                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-                            <input type="number" class="txtEnr1 addPayBal" required disabled><br>
-                        </div>
-                    </div>
-                </div><hr> -->
             </form>
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" onclick="appRegForm()">Add Payment</button>
+        <button type="button" class="btn btn-primary" onclick="appRegForm()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Payment Modal -->
+<div class="modal fade" id="addPaymentModal1" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="addPaymentModal1">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <center>
+            <h6>Socialites Excellent Driving</h6>
+            <h2>ADD PAYMENT</h2>
+        </center>
+        <hr class="hrCustom">
+        <div class="stot">
+            <form class="formAddPay">
+                <h5>Name: <span class="addPayName">Graciella C. Tatel</span></h5>
+                <h5>Date: <span class="addPayDate">June 23, 2018</span></h5><br>
+                <div class="table-responsive">
+                    <table class="table tblAddPayment tblCustom">
+                        <thead>
+                            <tr>
+                                <th>Type of Fee</th>
+                                <th>Assessment</th>
+                                <th>Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Tuition Fee</td>
+                                <td>5,000.00</td>
+                                <td>2,500.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div><br><br>
+                <div class="pull-right">
+                    <h4 style="text-align: right;">Total Balance: &#8369;<span class="totAmount">2,500.00</span></h4>
+                    <h4 style="text-align: right; float: left; margin-right: 10px;">Payment:</h4>
+                    <input type="number" id="paymentBalEnroll">
+                </div><br>
+            </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" onclick="addPaymentBal()">Save</button>
       </div>
     </div>
   </div>
