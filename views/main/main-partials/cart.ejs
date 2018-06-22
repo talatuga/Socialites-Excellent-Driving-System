@@ -32,10 +32,13 @@
                     <div class="cartList">
                         <table class="tblCrs tblCart table-striped">
                             <thead>
-                                <th width="250px">COURSE</th>
-                                <th width="250px">NUMBER OF HOURS</th>
+                                <th width="150px">COURSE</th>
+                                <th width="200px">NUMBER OF HOURS</th>
                                 <th width="200px">FREE HOURS</th>
                                 <th width="150px">PRICE</th>
+                                <th width="180px"><span style="float:left">SPECIAL COURSE </span>
+                                    <a data-toggle="modal" data-target="#specialCrsInfoModal" style="cursor: pointer;">
+                                        <i  class="icon icon-question-circle iconServices" style="padding-left: 5px; color: white;float:right"></i></a></th>
                                 <th></th>
                             </thead>
                             <tbody id="cartTbl">
@@ -44,6 +47,10 @@
                                     <td><span class="cartHrs">5</span></td>
                                     <td><span class="cartFree"></span>None</td>
                                     <td>&#8369;<span class="cartPrice">2,500</span></td>
+                                    <td>
+                                        <input type="checkbox" name="specialCrs" onchange="specialCrsChange()" style="margin-left: 100px;"> Yes
+                                    </td>
+                                    <td><a href='#' title='Remove' onclick='cart.delToCart("+ index +")'><i class='icon icon-trash2 iconTrash'></i></a></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -57,9 +64,6 @@
                     <option>SED-Fortunata</option>
                     <option>SED-Market</option>
                 </select><br><br>
-                <input type="checkbox" name="specialCrs" id="specialCrs" style="margin-left: 100px;"> Upgrade to special course
-                <a data-toggle="modal" data-target="#specialCrsInfoModal" style="cursor: pointer;">
-                    <i  class="icon icon-question-circle iconServices" style="padding-left: 5px;"></i></a><br><br>
                 <div class="divPickup" style="margin-left: 100px; width: 50%;">
                     <h5 class="h5Enr">Pickup Place<span class="asterisk">*</span></h5>
                     <textarea rows="3" class="enrTxtArea" id="enrPickup" name="enrPickup" placeholder="*Pickup Place"></textarea>

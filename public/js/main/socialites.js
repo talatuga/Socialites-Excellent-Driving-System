@@ -93,6 +93,7 @@ var cart = {
                     return;
                 }
                 $('.cart_'+id).attr('disabled', 'true');
+                cartClick();
             });
         }
     },
@@ -162,12 +163,26 @@ var cart = {
             html += "<td>"+ data.days * parseInt(data.hour/60) +"</td>";
             html += "<td><span class='cartFree'>"+ (data.days>=20?"2":data.days>=15?"1":"None") +"</span></td>";
             html += "<td>₱<span class='cartPrice'>"+ parseFloat(data.price).formatMoney(0) +"</span></td>";
+            html += "<td><input type='checkbox' name='specialCrs'> Yes</td>"; //DB: Added special course checkbox
             html += "<td><a href='#' title='Remove' onclick='cart.delToCart("+ index +")'><i class='icon icon-trash2 iconTrash'></i></a></td>";
             html += "</tr>";
             $('#cartTbl').append(html);
         });
         $('.iconTrash').on('click', function(e){
             e.preventDefault();
+        });
+        var pickup;        
+        $('input[name=specialCrs]').change(function(){
+            if (this.checked){
+                $('.divPickup').show();
+                $('#enrPickup').val("");
+                pickup=1;
+            }
+            else{
+                $('.divPickup').hide();
+                $('#enrPickup').val("");
+                pickup=2;
+            }
         });
     },
 };
