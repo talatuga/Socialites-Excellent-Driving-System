@@ -84,6 +84,7 @@ function viewActiveCrs(a){
         }
         li = "#liC";
     }
+    $('.viewDiv').hide();
     if (a==1) courses();
     else if (a==2) lessons();
 }
@@ -102,6 +103,7 @@ function viewActiveSched(a){
         }
         li = "#liSH";
     }
+    $('.viewDiv').hide();
 }
 
 var dashboard = function (){
