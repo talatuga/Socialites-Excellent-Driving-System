@@ -41,6 +41,7 @@ function viewRegForm(){
         $('#enrRegEmail').val(info.email);
         $('#enrRegGuard').val(info.guardian.name);
         $('#enrRegGuardCont').val(info.guardian.telno);
+        $('#enrRegPickup').val(profile.data.special);
         $('.enrCourse').val(profile.data.course);
         $('.enrBranch').val(profile.data.branch);
         $('input[name=enrRegNat]').removeAttr('checked');
@@ -169,7 +170,7 @@ function checkEnrReg (cb){ //Checker of empty fields
     var crs = $('select[name="enrRegBranch"]').val();
     var branch = $('select[name="enrRegCivStatus"]').val();
     var sex = $('input[name="enrRegSex"]:checked').val();
-    var nat = $('input[name="enrRegNat"]:checked').val();
+    var pick = $('#enrRegPickup').val();
     
     a = fn.replace(/\s+/g, '');
     b = sn.replace(/\s+/g, '');
@@ -196,13 +197,13 @@ function checkEnrReg (cb){ //Checker of empty fields
         preRegData.info["email"] = email;
         preRegData.info["civilStatus"] = civ;
         preRegData.info["sex"] = sex;
+        preRegData["special"] = pick;
         preRegData.info["guardian"] = {
             name: guard,
             telno: gCont,
         };
         //preRegData["course"] = $('input[name="enrRegCourse"]:checked').val();
         preRegAssess.getLocalData(function(x){
-            preRegData["special"] = x.data.special;
             preRegData["payment"] = x.data.payment;
             preRegData["course"] = x.data.course;
             preRegData["applyLicense"] = x.data.applyLicense;

@@ -152,8 +152,8 @@ function payMeth1(){
     var total = 0;
     cart.container.forEach(x=>{
         var data = course.getLocalData(x);
-        ids.push(course.generateID(data.id, data.transmission));
-        total += x.price;
+        ids.push(course.generateID(data.courseID, data.transmission));
+        total += $('#special'+data.courseID+':checked').length!=0?(data.price*2):data.price;
     });
     $('.payCourse').html(ids.join());
     $('.payPrice').html(total.formatMoney(0));
@@ -628,7 +628,10 @@ function regDone(){
     else{
         preRegData.course = cart.container;
         preRegData.branch = $('#branchID').val();
-        preRegData.special = $('input[name=specialCrs]:checked').length > 0 ? $('#enrPickup').val() : null;
+        preRegData.special = {
+            course: getSpecialCourseID(),
+            location: $('input[name=specialCrs]:checked').length > 0 ? $('#enrPickup').val() : null,
+        };
         enrollment.enroll(preRegData.info,preRegData.course, preRegData.branch, paymentMeth, preRegData.license,preRegData.special).submit(function(err){
             if(err) return swal("Failed!", err.message, "error");
             if (paymentMeth==1){
@@ -654,7 +657,10 @@ function regDoneA(){
     else{
         preRegData.course = cart.container;
         preRegData.branch = $('#branchID').val();
-        preRegData.special = $('input[name=specialCrs]:checked').length > 0 ? $('#enrPickup').val() : null;
+        preRegData.special = {
+            course: getSpecialCourseID(),
+            location: $('input[name=specialCrs]:checked').length > 0 ? $('#enrPickup').val() : null,
+        };
         enrollment.enrollWithAcc(1,preRegData.course, preRegData.lesson,preRegData.branch,paymentMeth, preRegData.special).submit(function(err){
             if(err) return swal("Failed!", err.message, "error");
             if (paymentMeth==1){
@@ -731,4 +737,13 @@ var preregister = {
             onfail("Error: " + xhr.status + "\n" + xhr.statusText);
         });
     }
+}
+
+var getSpecialCourseID = function(){
+    var items = $('input[name=specialCrs]:checked');
+    var ids = [];
+    for(var x=0; x<items.length; x++){
+        ids.push(items[x].value);
+    }
+    return ids;
 }

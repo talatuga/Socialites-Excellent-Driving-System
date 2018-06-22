@@ -11,7 +11,23 @@ $(function() {
         $('.view-viewStudent').hide();
         $('.view-student').show();
     });
-
+    $('.searchStud').on('click', function(e){
+        console.log("Searching Students...");
+        search.init(stud.pages[stud.tableType==0?"current":"past"][stud.currPage[stud.tableType==0?"0":"1"]], ["fullname","email","studID"], function(data){
+            renderStudentTable(data,function(){
+                $('tableStud').addClass("highlightTr");                
+                $('.tableStud tbody tr').click(function () {
+                    var selected = $(this).hasClass("highlightTr");
+                    $('.tableStud tbody tr').removeClass("highlightTr");
+                    if (!selected)
+                        $(this).addClass("highlightTr");
+                });
+            });            
+        });
+    });
+    $('.searchStud').on('keyup', function(e){
+        search.keypress($('.searchStud').val());
+    });
     //getStudent(1, studentTable.offset, studentTable.limit).then(renderStudentTable); // <--- tawagin yung getStudent() then after yung renderStudentTable().    
 });
 
@@ -327,7 +343,7 @@ var renderStudentTable = function(data, cb){ // <--- nag declare ng var na may l
         $('#studentTable').html(html); // <--- hahanapin yung element sa html na may id na studentTable and papalitan yung html nun nung laman nung html string.       
         cb();
     }
-    if(data == undefined) return render();
+    if(data == undefined || data.length == 0) return render();
     var loopCounter = data.length; // <--- declare ng counter. di kasi gumagana yung break; sa forEach() and Asynchronous kasi siya.
     data.forEach(element => { // <--- expecting na array yung data, gagamitin natin yung forEach() which is asynchronous function. ilalagay sa element variable yung bawat element nung data and i perform yung action below it.       
         html += "<tr onclick='viewStud("+ element.id +")'>";
