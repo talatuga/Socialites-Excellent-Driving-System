@@ -1,4 +1,4 @@
-<div class="view-schedule">
+<div class="view-schedule viewDiv">
     <!-- Bread crumb -->
     <div class="row page-titles">
         <div class="col-md-5 align-self-center">
@@ -6,7 +6,8 @@
         <div class="col-md-7 align-self-center">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a onclick="dashboard()">Home</a></li>
-                <li class="breadcrumb-item active">Schedule</li>
+                <li class="breadcrumb-item"><a>Schedule</a></li>
+                <li class="breadcrumb-item active">Overall Schedule</li>
             </ol>
         </div>
     </div>
@@ -23,9 +24,9 @@
                 </div>
             </div>
             <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
-                <div class="pull-right">
+                <!-- <div class="pull-right">
                     <button type="button" id="btnAddSched" class="btn btn-success m-b-10 m-l-5">New Schedule</button>
-                </div>
+                </div> -->
             </div>
         </div>
         <div class="row">
@@ -38,10 +39,43 @@
                 <div class="card cardBT card100">
                     <center>
                         <h4 style="font-weight: bold;">TODAY'S SCHEDULE</h4>
-                        <h3 class="schedCount">1</h3>
+                        <h3 class="schedCount">31</h3>
                     </center>
                 </div>
-                <div class="card card501">
+                <div class="card p-30">
+                    <div class="media">
+                        <div class="media-left meida media-middle">
+                            <span><i class="icon icon-business15 tiSide f-s-40 color-danger"></i></span>
+                        </div>
+                        <div class="media-body media-text-right">
+                            <h2>14</h2>
+                            <p class="m-b-0">SED-Main</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card p-30">
+                    <div class="media">
+                        <div class="media-left meida media-middle">
+                            <span><i class="icon icon-business15 tiSide f-s-40 color-warning"></i></span>
+                        </div>
+                        <div class="media-body media-text-right">
+                            <h2>8</h2>
+                            <p class="m-b-0">SED-Fortunata</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card p-30">
+                    <div class="media">
+                        <div class="media-left meida media-middle">
+                            <span><i class="icon icon-business15 tiSide f-s-40 color-success"></i></span>
+                        </div>
+                        <div class="media-body media-text-right">
+                            <h2>9</h2>
+                            <p class="m-b-0">SED-Cartimar</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="card card501">
                     <h4 style="font-weight: bold;">Schedule Details</h4><hr>
                     <form>
                         <div>
@@ -73,7 +107,7 @@
                             <button type="button" id="btnUpdSched" class="btn btn-warning m-b-10 m-l-5" style="width: 100%">Update</button>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

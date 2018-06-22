@@ -84,6 +84,7 @@ function viewActiveCrs(a){
         }
         li = "#liC";
     }
+    $('.viewDiv').hide();
     if (a==1) courses();
     else if (a==2) lessons();
 }
@@ -102,6 +103,10 @@ function viewActiveSched(a){
         }
         li = "#liSH";
     }
+    $('.viewDiv').hide();
+    if (a==3) schedule();
+    else if (a==2) schedCanceled();
+    else if (a==1) schedRequest();
 }
 
 var dashboard = function (){
@@ -209,8 +214,17 @@ var courses = function(){
     $(".search-box").hide();
 }
 
-var lessons = function(){
-    loadLesson();
-    $(".view-lessons").show();
+var schedule = function (){
+    $(".view-schedule").show();
+    $(".search-box").hide();
+}
+
+var schedRequest = function (){
+    $(".view-reqSched").show();
+    $(".search-box").hide();
+}
+
+var schedCanceled = function (){
+    $(".view-cancSched").show();
     $(".search-box").hide();
 }

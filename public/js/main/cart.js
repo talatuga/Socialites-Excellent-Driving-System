@@ -1,6 +1,6 @@
 var a;
 $(function(){
-    $('#specialCrs').change(function(){
+    $('input[name=specialCrs]').change(function(){
         if (this.checked){
             $('.divPickup').show();
             $('#enrPickup').val("");
@@ -13,6 +13,20 @@ $(function(){
         }
     });
 });
+
+
+function specialCrsChange(){
+    if (this.checked){
+            $('.divPickup').show();
+            $('#enrPickup').val("");
+            a=1;
+        }
+        else{
+            $('.divPickup').hide();
+            $('#enrPickup').val("");
+            a=2;
+        }
+}
 
 function enrollClick (){
     var x = $('#enrPickup').val();

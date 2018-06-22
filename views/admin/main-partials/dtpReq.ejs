@@ -1,0 +1,92 @@
+<div class="view-dtp viewDiv">
+    <!-- Bread crumb -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h3 class="text-primary">Driver's Training Program</h3> 
+        </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a onclick="dashboard()">Home</a></li>
+                <li class="breadcrumb-item active"><a>Driver's Training Program</a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- End Bread crumb -->
+    <!-- Container fluid  -->
+    <div class="container-fluid">
+        <!-- Start of Card  -->
+        <div class="studentCard">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <div class="input-group input-group-flat">
+                            <span class="input-group-btn"><button class="btn btn-custom" type="submit"><i class="ti-search"></i></button></span>
+                            <input type="text" id="searchInst" class="form-control" placeholder="Search..." style="font-size: 12px;">
+                            <span class="input-group-btn"><button class="btn btn-primary input-group-close-icon" type="button" onclick="clrSearchStudentC()"><i class="ti-close"></i></button></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                </div>
+            </div>
+            <div class="row">
+                <!-- Start of col-lg-5 -->
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-126">
+                    <hr class="hrCustom">
+                    <div class="card instCard">
+                        <h3>Requests</h3><br>
+                        <div class="table-responsive">
+                            <table class="table tblDtpReq tblCustom table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Date Requested</th>
+                                        <th>Company</th>
+                                        <th>Sender</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>06-21-2018</td>
+                                        <td>Vethealth Corporation</td>
+                                        <td>Ms. Graciella C. Tatel</td>
+                                    </tr>
+                                    <tr>
+                                        <td>06-21-2018</td>
+                                        <td>Accenture</td>
+                                        <td>Mr. Kenard Smith B. Bautista</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- End of col-lg-5 -->
+
+                <!-- Start of col-lg-6 -->
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <hr class="hrCustom">
+                    <div class="card instCard">
+                        <h3>Request Information</h3><hr>
+                        <div style="padding-left:10px">
+                            <h3 class="dtpCompName boldface">Vethealth Corporation</h3><br>
+                            <h5>Sender: <span class="dtpSender boldface">Ms. Graciella C. Tatel</span></h5>
+                            <h5>Sender Email: <a href="#"><span class="dtpEmail boldface">gtatel0517@gmail.com</span></a></h5>
+                            <h5>Requested Date: <span class="dtpDate boldface">June 29, 2018</span></h5>
+                            <h5>Requested Venue: <span class="dtpVenue boldface">PUP, Sta. Mesa, Bulwagang Balagtas</span></h54>
+                            <h5>Attendees: <span class="dtpAttendees boldface">45</span></h5>
+                        </div>  
+                        <div class="row divBottom">
+                            <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                                <button type="button" id="btnUpdBrnch" onclick="acceptDtp()" class="btn btn-primary m-b-10 m-l-5">Accept</button>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                                <button type="button" id="btnRemBrnch" onclick="rejectDtp()" class="btn btn-danger m-b-10 m-l-5">Reject</button>
+                            </div>
+                        </div>   
+                    </div>
+                </div> <!-- End of col-lg-6 -->
+            </div> <!-- End of row -->
+        </div><!-- End of Card  -->
+    </div>
+    <!-- End Container fluid  -->
+</div>
