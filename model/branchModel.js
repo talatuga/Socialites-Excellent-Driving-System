@@ -16,4 +16,13 @@ Branch.getList = function(offset, limit, cb){
     });
 };
 
+var WebBranch = {};
+WebBranch = Object.create(ModelModule);
+WebBranch.table = "web_branch";
+WebBranch.db = db;
+
+Branch.createWebBranch = function(data,cb){
+    WebBranch.create(data,cb);
+};
+
 module.exports = Branch;

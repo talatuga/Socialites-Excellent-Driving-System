@@ -12,8 +12,20 @@ Course = Object.create(ModelModule);
 Course.table = "course";
 Course.db = db;
 
+var WebCourse = {};
+WebCourse = Object.create(ModelModule);
+WebCourse.table = "web_course";
+WebCourse.db = db;
+
 Lesson.addCourse = function(data, cb){
-    Course.create(data, cb);
+    Course.create(data, function(err,result){
+        if(err) return cb(err);
+        var data2 = [null,result.insertId,data[1],data[3],60,data[2]];
+        WebCourse.create(data2,function(er){
+            if(er) return cb(er);
+            cb(null);
+        });
+    });
 }
 
 Lesson.editCourse = function(id, data, cb){

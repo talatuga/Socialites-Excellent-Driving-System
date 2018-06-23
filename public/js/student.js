@@ -433,7 +433,7 @@ var viewStud = function(id){
         $('.studAddress').html(profile.address);
         $('.studPhone').html(profile.telno);
         $('.studEmail').html(profile.email);
-        $('enrolledCrs').html("");
+        $('.enrolledCrs').html("");
         renderEditInfo();
     });
 }

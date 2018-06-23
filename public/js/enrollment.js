@@ -127,8 +127,59 @@ function saveEnrReg(){ //Save changes on View Registration Modal
 }
 
 function openPayment(){
-    $('#paymentEnroll').val("")
-    $('#addPaymentModal').modal('show');
+    if(preRegAssess.selected != -1){
+        var total = 0;
+        preRegAssess.getLocalData(function(profile){
+            $('.addPayName').html(profile.data.info.fullname.replace(/_/g," "));
+            $('.addPayDate').html(Date.parse("today").toString("MMM dd, yyyy"));
+            profile.data.course.forEach((e,i)=>{
+                $('.paymentModal').html("");
+                courseModule.selected = e;
+                courseModule.getLocalData(function(data){
+                    var price = profile.data.special.course.indexOf(data.id) == -1 ? data.amount : (data.amount * 2);
+                    total += price;
+                    var html = "<tr>";
+                    html += "<td>Tuition Fee</td>";
+                    html += "<td><span>"+ data.courseID + (profile.data.special.course.indexOf(data.id) == -1 ? "" : "(SPECIAL)") +"</span></td>";
+                    html += "<td>"+ price.formatMoney(2) +"</td>";
+                    html += "</tr>";
+                    $('.paymentModal').append(html);
+                });
+                $('.totAssess').html(total);
+            });
+            if(profile.data.applyLicense == 2){
+                total += 500;
+                $('.totAssess').html(total);
+                var html = "<tr>";
+                html += "<td>Apply</td>";
+                html += "<td>Student Driver's Permit</td>";
+                html += "<td>500</td>";
+                html += "</tr>";
+                $('.paymentModal').append(html);
+            }else if(profile.data.applyLicense == 6){
+                total += 500;
+                $('.totAssess').html(total);
+                var html = "<tr>";
+                html += "<td>Apply</td>";
+                html += "<td>Non-Professional License</td>";
+                html += "<td>500</td>";
+                html += "</tr>";
+                $('.paymentModal').append(html);
+            }else if(profile.data.applyLicense == 7){
+                total += 500;
+                $('.totAssess').html(total);
+                var html = "<tr>";
+                html += "<td>Apply</td>";
+                html += "<td>Professional License</td>";
+                html += "<td>500</td>";
+                html += "</tr>";
+                $('.paymentModal').append(html);
+            }
+            $('.totAssess').html(total.formatMoney(2));
+        });
+        $('#paymentEnroll').val("")
+        $('#addPaymentModal').modal('show');
+    }
 }
 
 function appRegForm(){ //Approve Registration

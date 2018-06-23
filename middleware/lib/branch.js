@@ -22,7 +22,11 @@ exports.create = function(req, res, next){
 
     branch.create(data, function(err, done){
         if(err) return next(err);
-        res.status(200).send({success: true, detail: "Successfully Added!"});
+        var address = dataIn.address.split("_");
+        branch.createWebBranch([null,done.insertId,dataIn.name,address[2],address.join(" "),dataIn.telno], function(er, result){
+            if(er) return next(er);
+            res.status(200).send({success: true, detail: "Successfully Added!"});
+        });
     });
 }
 

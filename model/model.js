@@ -17,7 +17,7 @@ var Model = {
                     if(err) {
                         return cb(err);
                     }
-                    cb(null, true);
+                    cb(null, result);
                 });
             };
             sql += " ("+ fields.join() +") VALUES ("+ Array(fields.length).fill("?").join() +");";

@@ -116,7 +116,7 @@ exports.register = function(req, res, next){
             info.push(infoData.data.info.telno);
             info.push(infoData.data.info.birthdate);
             info.push(infoData.data.info.birthplace);
-            info.push(infoData.data.info.sex);
+            info.push(infoData.data.info.sex[0]);
             info.push(infoData.data.info.civilStatus);
             info.push(infoData.data.info.email);
             info.push(3);
