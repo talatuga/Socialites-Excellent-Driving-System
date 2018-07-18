@@ -214,6 +214,12 @@ var courses = function(){
     $(".search-box").hide();
 }
 
+var lessons = function(){
+    loadLesson();
+    $(".view-lessons").show();
+    $(".search-box").hide();
+}
+
 var schedule = function (){
     $(".view-schedule").show();
     $(".search-box").hide();

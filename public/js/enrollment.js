@@ -317,13 +317,13 @@ var renderEnrollTbl = function(data){
                     return "TA-SDPS";
                 }
                 case 3:{
-                    return "WSDP";
+                    return "W-SDP";
                 }
                 case 4:{
-                    return "WNPL";
+                    return "W-NPL";
                 }
                 case 5:{
-                    return "WPL";
+                    return "W-PL";
                 }
                 case 6:{
                     return "TA-NPL";

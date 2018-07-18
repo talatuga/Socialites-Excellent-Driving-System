@@ -20,7 +20,8 @@
     <div>
         <div class="row">
             <div class="col-sm-6 col-md-6" style="padding-left: 100px;">
-                <a href="#courses" onclick="coursesClick()" class="aAddCart"><i class="icon icon-chevron-left"></i> Continue Shopping</a>
+                <a href="#courses" onclick="coursesClick(1)" class="aAddCart aAddCart1"><i class="icon icon-chevron-left"></i> Continue Selecting Courses</a>
+                <a href="#courses" onclick="coursesClick(1)" class="aAddCart aAddCart2"><i class="icon icon-chevron-left"></i> Select Courses</a>
             </div>
             <div class="col-sm-6 col-md-6">
                 <p class="pCart1">Your cart contains: <span id="cartCtr">1</span> item/s</p>
@@ -36,9 +37,9 @@
                                 <th width="200px">NUMBER OF HOURS</th>
                                 <th width="200px">FREE HOURS</th>
                                 <th width="150px">PRICE</th>
-                                <th width="180px"><span style="float:left">SPECIAL COURSE </span>
+                                <th width="180px"><span style="float:left">SPECIAL COURSE 
                                     <a data-toggle="modal" data-target="#specialCrsInfoModal" style="cursor: pointer;">
-                                        <i  class="icon icon-question-circle iconServices" style="padding-left: 5px; color: white;float:right"></i></a></th>
+                                        <i  class="fa fa-question iconServices" style="padding-left: 5px; color: rgb(251, 255, 0); font-size: 18px"></i></a></span></th>
                                 <th></th>
                             </thead>
                             <tbody id="cartTbl">
@@ -55,19 +56,24 @@
                             </tbody>
                         </table>
                     </div>
+                    <center><div class="noSelCrsDiv">
+                        <h4 color: black;>There are no selected courses.</h4>
+                    </div></center>
                 </div>
-                <label style="padding-left: 100px;">Preferred Branch:</label><br>
-                <select class="branchList" id="branchID" style="margin-left: 100px;">
-                    <option>SED-Main</option>
-                    <option>SED-Cartimar</option>
-                    <option>SED-Cubao</option>
-                    <option>SED-Fortunata</option>
-                    <option>SED-Market</option>
-                </select><br><br>
-                <div class="divPickup" style="margin-left: 100px; width: 50%;">
-                    <h5 class="h5Enr">Pickup Place<span class="asterisk">*</span></h5>
-                    <textarea rows="3" class="enrTxtArea" id="enrPickup" name="enrPickup" placeholder="*Pickup Place"></textarea>
-                <hr></div>
+                <div class="selectBranch">
+                    <label style="padding-left: 100px;">Preferred Branch:</label><br>
+                    <select class="branchList" id="branchID" style="margin-left: 100px;">
+                        <option>SED-Main</option>
+                        <option>SED-Cartimar</option>
+                        <option>SED-Cubao</option>
+                        <option>SED-Fortunata</option>
+                        <option>SED-Market</option>
+                    </select><br><br>
+                    <div class="divPickup" style="margin-left: 100px; width: 50%;">
+                        <h5 class="h5Enr">Pickup Place<span class="asterisk">*</span></h5>
+                        <textarea rows="3" class="enrTxtArea" id="enrPickup" name="enrPickup" placeholder="*Pickup Place"></textarea>
+                    <hr></div>
+                </div>
             </div>
         </div><!-- End off row -->
             <a class="btn btn-lg btnCstm btnEnroll pull-right" onclick="enrollClick()">ENROLL</a>

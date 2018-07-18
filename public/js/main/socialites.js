@@ -154,7 +154,24 @@ var cart = {
     renderTbl: function(){
         $('#cartTbl').html("");
         $('#cartCtr').html(this.container.length);
+        if ($('#cartCtr').html()==0){
+            $('.cartList').hide();
+            $('.selectBranch').hide();
+            $('.btnEnroll').hide();
+            $('.aAddCart2').show();
+            $('.aAddCart1').hide();
+            $('.noSelCrsDiv').show();
+        }else{
+            $('.cartList').show();
+            $('.selectBranch').show();
+            $('.btnEnroll').show();
+            $('.aAddCart1').show();
+            $('.aAddCart2').hide();
+            $('.noSelCrsDiv').hide();
+        }
+        var priceData;
         this.container.forEach((x,index)=>{
+            // priceData=parseFloat(data.price).formatMoney(0);
             var data = course.getLocalData(x);
             var html = "<tr>";
             html += "<td>";
@@ -182,7 +199,7 @@ var cart = {
                 $('.divPickup').hide();
                 $('#enrPickup').val("");
                 pickup=2;
-            }
+            } //DB: Price must be doubled when checkbox is clicked
         });
     },
 };

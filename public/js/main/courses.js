@@ -1,4 +1,7 @@
 $(function(){
+    $('#crsActive1').addClass("crsActive");
+    $('#crsActive2').removeClass("crsActive");
+
     $(".toKnowCrs1").show();
     $(".toKnowCrs2").hide();
     Number.prototype.formatMoney = function(c, d, t){
@@ -18,13 +21,21 @@ $(function(){
 });
 
 function crs1Click (){
+    $('#crsActive1').addClass("crsActive");
+    $('#crsActive2').removeClass("crsActive");
     $(".toKnowCrs1").show();
     $(".toKnowCrs2").hide();
+    $('#crs2').hide();
+    $('#crs1').show();
     renderCourse(0);
 }
 function crs2Click (){
+    $('#crsActive2').addClass("crsActive");
+    $('#crsActive1').removeClass("crsActive");
     $(".toKnowCrs1").hide();
     $(".toKnowCrs2").show();
+    $('#crs1').hide();
+    $('#crs2').show();
     renderCourse(1);
 }
 

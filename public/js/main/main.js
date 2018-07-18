@@ -2,6 +2,22 @@
 jQuery(document).ready(function ($) {
 
     $("#enroll").hide();
+    $('#signupNL').click(function(){
+        var email = $("#emailNL").val();
+        if (email=="" || email==null || email.length==0){
+            swal("Oops!", "Please enter your email address first.", "error");
+        }else if(!isEmail(email)){
+            swal("Oops!", "Please enter a valid email address.", "error");
+        }else{
+            swal("Yeey!", "Thanks for subscribing! You will now receive announcements, random driving tips and tutorials, news and many more!", "success");
+            $("#emailNL").val("");
+        }
+    });
+    
+    function isEmail(email) {
+        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        return regex.test(email);
+    }
 
     $(window).load(function () {
         $(".loaded").fadeOut();

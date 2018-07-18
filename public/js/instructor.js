@@ -69,6 +69,7 @@ function resetNewInstr() //resets fields on add instructor modal
     $("#newInstAddress").val("");
     $("#newInstPhone").val("");
     $("#newInstEmail").val("");
+    $("#newInstLicense").val("");
     $('select[name="newInstEduc"]').val(0);
     document.getElementById("g1NI").checked = true;
     document.getElementById("g2NI").checked = false;
@@ -111,7 +112,9 @@ function nextInst ()
         else {
             var email = $("#newInstEmail").val();
             $("#newInstUsername").val(email);
-            
+            $("#newInstPassword").val("");
+            $("#newInstConfPassword").val("");
+        
             //SD: need more validation here please.
             fn = $("#newInstFirstname").val();
             mn = $("#newInstMidname").val();

@@ -9,6 +9,7 @@ $(function() {
     $("#courses").hide();
     $("#cart").hide();
     $("#enrollment").hide();
+    $("#announcements").hide();
     $("#homeCls").show();
 });
 
@@ -23,11 +24,21 @@ var homeClick = function()
     $("#courses").hide();
     $("#cart").hide();
     $("#enrollment").hide();
+    $("#announcements").hide();
+    $("#login").hide();
     $("#homeCls").show();
 }
 
-var servicesClick = function() 
+var servicesClick = function(a) 
 {
+    if (a==1){
+        serv1Click();
+    }else if(a==2){
+        serv2Click();
+    }
+    else if(a==3){
+        serv3Click();
+    }
     $("#main_menu").addClass("menu-scroll");
     $("#homeCls").hide();
     $("#aboutus").hide();
@@ -38,6 +49,7 @@ var servicesClick = function()
     $("#courses").hide();
     $("#cart").hide();
     $("#enrollment").hide();
+    $("#announcements").hide();
     $("#service").show();
 }
 
@@ -53,6 +65,7 @@ var branchesClick = function()
     $("#courses").hide();
     $("#cart").hide();
     $("#enrollment").hide();
+    $("#announcements").hide();
     $("#branches").show();
 }
 
@@ -68,6 +81,7 @@ var aboutusClick = function()
     $("#courses").hide();
     $("#cart").hide();
     $("#enrollment").hide();
+    $("#announcements").hide();
     $("#aboutus").show();
 }
 
@@ -83,6 +97,7 @@ var galleryClick = function()
     $("#courses").hide();
     $("#cart").hide();
     $("#enrollment").hide();
+    $("#announcements").hide();
     $("#gallery").show();
 }
 
@@ -98,11 +113,13 @@ var tipsClick = function()
     $("#courses").hide();
     $("#cart").hide();
     $("#enrollment").hide();
+    $("#announcements").hide();
     $("#tips").show();
 }
 
 var loginClick = function() 
 {
+    gobackLogin();
     $("#main_menu").addClass("menu-scroll");
     $("#homeCls").hide();
     $("#service").hide();
@@ -113,11 +130,17 @@ var loginClick = function()
     $("#courses").hide();
     $("#cart").hide();
     $("#enrollment").hide();
+    $("#announcements").hide();
     $("#login").show();
 }
 
-var coursesClick = function() 
+var coursesClick = function(a) 
 {
+    if (a==1){
+        crs1Click();
+    }else if(a==2){
+        crs2Click();
+    }
     cart.checkCart();
     $("#main_menu").addClass("menu-scroll");
     $("#homeCls").hide();
@@ -129,6 +152,7 @@ var coursesClick = function()
     $("#login").hide();
     $("#cart").hide();
     $("#enrollment").hide();
+    $("#announcements").hide();
     $("#courses").show();
 }
 
@@ -149,6 +173,7 @@ var cartClick = function()
     $("#enrollment").hide();
     $('.divPickup').hide();
     $('#specialCrs').prop('checked', false);
+    $("#announcements").hide();
     $("#cart").show();
 }
 
@@ -164,6 +189,7 @@ var enrollmentClick = function(a)
     $("#login").hide();
     $("#courses").hide();
     $("#cart").hide();
+    $("#announcements").hide();
     $("#enrollment").show();
 
     if (a==1){
@@ -184,4 +210,20 @@ var enrollmentClick = function(a)
         $('.btnsHasAcc').hide();
         $('.btnsNoAcc').show();
     }
+}
+
+var announceClick = function() 
+{
+    $("#main_menu").addClass("menu-scroll");
+    $("#homeCls").hide();
+    $("#aboutus").hide();
+    $("#gallery").hide();
+    $("#tips").hide();
+    $("#login").hide();
+    $("#branches").hide();
+    $("#courses").hide();
+    $("#cart").hide();
+    $("#enrollment").hide();
+    $("#service").hide();
+    $("#announcements").show();
 }
