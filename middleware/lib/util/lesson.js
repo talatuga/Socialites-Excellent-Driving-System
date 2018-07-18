@@ -9,6 +9,7 @@ exports.create = function(req, res, next){
     data.push(dataIn.title);
     data.push(dataIn.prerequisite);
     data.push(dataIn.description);
+    data.push(dataIn.duration);
     data.push(1);
     lesson.create(data, function(err, result){
         if(err) return next(err);
@@ -84,6 +85,7 @@ exports.addCourse = function(req, res, next){
     var dataIn = JSON.parse(req.body.data);
     
     var data = [null];
+    data.push(dataIn.desc);
     data.push(dataIn.carType);
     data.push(dataIn.price);
     data.push(dataIn.days);

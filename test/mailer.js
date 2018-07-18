@@ -4,6 +4,7 @@ var model = require('../model/vehicleModel');
 
 describe('Send Email',function(){
     it('should send a test mail', function(){
+        require('dotenv').config();
         var mailer = require('../bin/emailer');
         var Mailer = new mailer();
 

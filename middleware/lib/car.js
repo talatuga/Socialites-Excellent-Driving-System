@@ -8,8 +8,10 @@ exports.create = function(req, res, next){
     data.push(dataInput.model);
     data.push(dataInput.brand);
     data.push(dataInput.transType);
+    data.push(dataInput.price);
     data.push(dataInput.plate);
     data.push(null);
+    data.push(1);
     data.push(offdayViaPlate(dataInput.plate));
     data.push(1);
 
@@ -107,6 +109,73 @@ exports.delDefect = function(req, res, next){
         res.status(200).send({success: true, detail: "Successfully deleted!"});
     });    
 }
+
+exports.addCodingScheme = function(req, res, next){
+    var data = JSON.parse(req.body.data);
+    var location = data.location;
+    var scheme = data.pattern;
+
+    car.addScheme(location,scheme, function(err, id){
+        if(err) return next(err);
+        res.status(200).send({success: true, detail: "Coding Scheme Successfully Added", data:{id:id}});
+    });
+}
+
+exports.editCodingScheme = function(req, res, next){
+    var id = req.params.id;
+    if(id.match(/[0-9]/g)){
+        var data = JSON.parse(req.body.data);
+        var field = [];
+        var value = [];
+        var input = Object.keys(data);
+        if(input.length >= 2){
+            input.forEach(function(elem){
+                field.push(elem);
+                value.push(data[elem]);
+            });
+        }else{
+            field = input[0];
+            value = data[input[0]];
+        }
+        car.editScheme(id, field, value, function(err){
+            if(err) return next(err);
+            res.status(200).send({success: true, detail: "Successfully modified"});
+        });
+    }else{
+        res.status(400).send({success: false, detail:"Invalid ID in request URL"});
+    }
+}
+
+exports.delCodingScheme = function(req, res, next){
+    var id = req.params.id;
+    if(id.match(/[0-9]/g)){
+        car.delScheme(id, function(err){
+            if(err) return next(err);
+            res.status(200).send({success: true, detail:"Successfully Deleted"});
+        })
+    }else{
+        res.status(400).send({success: false, detail:"Invalid ID in request URL"});
+    }
+};
+
+exports.getCodingScheme = function(req, res, next){
+    var id = req.params.id;
+    var run = function(){
+        car.getScheme(id, function(err,data){
+            if(err) return next(err);
+            res.status(200).send({success: true, data: data});
+        })
+    };
+    if(id){
+        if(id.match(/[0-9]/g)){
+            run();
+        }else{
+            res.status(400).send({success: false, detail:"Invalid ID in request URL"});
+        }
+    }else{
+        run();
+    }
+};
 
 var offdayViaPlate = function(plate){
     var lastDigit = plate[plate.length-1];

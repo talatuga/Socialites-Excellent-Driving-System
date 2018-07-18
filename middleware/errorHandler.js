@@ -10,12 +10,14 @@ var renderer = require('./viewRenderer');
 exports.error500 = function(err, req, res, next){
     console.error("[SERVER] " + err + " Check error.log for information.");
     logger.errLogger(err.stack);
-    if(req.xhr == true){
-        return res.status(500).send({success: false, error: 500, detail: "Internal Server Error. Sorry for the inconvience. We'll fix it soon."});
-    }else{
-        res.status(500);
-        res.locals.data = {title: "Error: 500", detail: "Internal Server Error. We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."};
-        return renderer.error(req, res);
+    if(!res.headerSent){
+        if(req.xhr == true){
+            return res.status(500).send({success: false, error: 500, detail: "Internal Server Error. Sorry for the inconvience. We'll fix it soon."});
+        }else{
+            res.status(500);
+            res.locals.data = {title: "Error: 500", detail: "Internal Server Error. We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."};
+            return renderer.error(req, res);
+        }
     }
 }
 
