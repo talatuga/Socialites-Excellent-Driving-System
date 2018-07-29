@@ -1,6 +1,6 @@
-var checkedReqP, checkedValReq, countT=0, countP=0, textReq;
+var checkedReqP, checkedValReq, checkedDays, countT=0, countP=0, countDays=0, textReq;
 var checkedReqT = 1, canCancel = 1;
-var isCheck1, isCheck2, isCheck3;
+var isCheck1, isCheck2, isCheck3, isCheck3New;
 var selected, checkLesOpt;
 var selectedCourse = 0;
 var paymentMeth=0, payHide=1;
@@ -23,6 +23,7 @@ $(function(){
     $('.pr2A').hide();
     $('.pr2').hide();
     $('.pr3').hide();
+    $('.pr3New').hide();
     $('.pr4').hide();
     $('.pr1').show();
 
@@ -118,6 +119,8 @@ $(function(){
 function resetEnroll1 (){
     $('#btnCancPreregA').show();
     $('#btnPreregNext2A').show();
+    $('#btnPreregPrevAddA').hide();
+    $('#btnPreregNextAddA').hide();
     $('#btnPreregPrev2A').hide();
     $('#btnPreregDoneA').hide();
 
@@ -130,6 +133,8 @@ function resetEnroll2 (){
     $('#btnPreregNext2').hide();
     $('#btnPreregPrev1').hide();
     $('#btnPreregNext3').hide();
+    $('#btnPreregPrevAdd').hide();
+    $('#btnPreregNextAdd').hide();
     $('#btnPreregPrev2').hide();
     $('#btnPreregDone').hide();
 
@@ -187,11 +192,19 @@ function resetEnrollment(){
     $('select[name="enrCivStatus"]').val('civ0');
     $('select[name="enrBranchList"]').val('0');
     $('input[name="enrReqP"]').prop('checked', false);
+    $('input[name="includeLes"]').prop('checked', true);
     $("#enrReqT1").prop("checked", true);
+    $("#enrLes1").prop("checked", false);
+    $("#enrLes2").prop("checked", false);
     document.getElementById("enrSex1").checked = true;
     document.getElementById("enrSex2").checked = false;
     $('input[name="agree"]').prop('checked', false);
     $('input[name="confirmCourse"]').prop('checked', false);
+    $("#manualVehiclesSelect").val('0');
+    $("#autoVehiclesSelect").val('0');
+    $('input[name="prefDaysCB"]').prop('checked', false);
+    $('.lessonsOpt2').hide();
+    $('.lessonsOpt1').hide();
     selected = 1;
 }
 
@@ -284,6 +297,19 @@ function checkEnr2A (){
     } 
 }
 
+function checkEnr3New (){
+    var selected_manual = $('#manualVehiclesSelect').val();
+    checkedDays = $('input[name="prefDaysCB"]:checked').map(function () {
+        return this.value;
+    }).get();
+    countDays = $('input[name="prefDaysCB"]:checked').length;
+
+    if (countDays==0 || selected_manual==0) return "0";
+    else{
+        return "1";
+    }
+}
+
 function regCanc(){
     // isCheck2 = checkEnr2();
     // isCheck3 = checkEnr3();
@@ -304,6 +330,7 @@ function regCanc(){
             $('.pr2A').hide();
             $('.pr2').hide();
             $('.pr3').hide();
+            $('.pr3New').hide();
             $('.pr4').hide();
             $('.pr1').show();
 
@@ -340,6 +367,7 @@ function regNext1(){
         $('.pr2A').hide();
         $('.pr1').hide();
         $('.pr3').hide();
+        $('.pr3New').hide();
         $('.pr4').hide();
         $('.pr2').show();
 
@@ -350,6 +378,8 @@ function regNext1(){
         $('#btnPreregPrev1').hide();
         $('#btnPreregNext3').hide();
         $('#btnPreregDone').hide();
+        $('#btnPreregPrevAdd').hide();
+        $('#btnPreregNextAdd').hide();
 
         $('#btnCancPrereg').show();
         $('#btnPreregPrev').show();
@@ -365,6 +395,7 @@ function regPrev1(){
     $('.pr2A').hide();
     $('.pr2').hide();
     $('.pr3').hide();
+    $('.pr3New').hide();
     $('.pr4').hide();
     $('.pr1').show();
 
@@ -374,6 +405,8 @@ function regPrev1(){
     $('#btnPreregNext3').hide();
     $('#btnPreregPrev2').hide();
     $('#btnPreregDone').hide();
+    $('#btnPreregPrevAdd').hide();
+    $('#btnPreregNextAdd').hide();
 
     $('#btnCancPrereg').show();
     $('#btnPreregNext1').show();
@@ -386,6 +419,7 @@ function regPrev1A(){
     $('.pr1').hide();
     $('.pr2').hide();
     $('.pr3').hide();
+    $('.pr3New').hide();
     $('.pr4').hide();
     $('.pr2A').show();
 
@@ -397,9 +431,13 @@ function regPrev1A(){
 
     $('#btnPreregPrevA').hide();
     $('#btnPreregNext3A').hide();
+
+    $('#btnPreregPrevAddA').hide();
+    $('#btnPreregNextAddA').hide();
 }
 
 function regNext2(){
+    $('.step3').html("Step 3: Preferred vehicle and schedule.");
     isCheck2 = checkEnr2();
     if (isCheck2==0){
         swal("Oops!", "Please select at least one.", "error");
@@ -419,7 +457,8 @@ function regNext2(){
         $('.pr1').hide();
         $('.pr2').hide();
         $('.pr4').hide();
-        $('.pr3').show();
+        $('.pr3').hide();
+        $('.pr3New').show();
     
         $('#btnPreregPrev').hide();
         $('#btnPreregNext2').hide();
@@ -428,16 +467,19 @@ function regNext2(){
         $('#btnPreregNext2').hide();
         $('#btnPreregPrev2').hide();
         $('#btnPreregDone').hide();
+        $('#btnPreregPrev1').hide();
+        $('#btnPreregNext3').hide();
 
         $('#btnCancPrereg').show();
-        $('#btnPreregPrev1').show();
-        $('#btnPreregNext3').show();
+        $('#btnPreregPrevAdd').show();
+        $('#btnPreregNextAdd').show();
         paymentMeth=0;
         preRegData.license = c;
     }
 }
 
 function regNext2A(){
+    $('.step3').html("Step 2: Preferred vehicle and schedule.");
     isCheck2 = checkEnr2A();
     if (isCheck2==0){
         swal("Oops!", "Please select which lessons you wish to tackle first!", "error");
@@ -451,16 +493,18 @@ function regNext2A(){
             $('.pr1').hide();
             $('.pr2').hide();
             $('.pr4').hide();
-            $('.pr3').show();
+            $('.pr3').hide();
+            $('.pr3New').show();
         
             $('#btnPreregNext2A').hide();
-
             $('#btnPreregPrev2A').hide();
             $('#btnPreregDoneA').hide();
+            $('#btnPreregPrevA').hide();
+            $('#btnPreregNext3A').hide();
 
             $('#btnCancPreregA').show();
-            $('#btnPreregPrevA').show();
-            $('#btnPreregNext3A').show();
+            $('#btnPreregPrevAddA').show();
+            $('#btnPreregNextAddA').show();
             paymentMeth=0;
             preRegData.lesson = null;
         }
@@ -502,6 +546,7 @@ function regPrev2(){
     $('.pr2A').hide();
     $('.pr1').hide();
     $('.pr3').hide();
+    $('.pr3New').hide();
     $('.pr4').hide();
     $('.pr2').show();
 
@@ -512,12 +557,112 @@ function regPrev2(){
     $('#btnPreregPrev2').hide();
     $('#btnPreregDone').hide();
 
+    $('#btnPreregPrevAdd').hide();
+    $('#btnPreregNextAdd').hide();
+
     $('#btnCancPrereg').show();
     $('#btnPreregPrev').show();
     $('#btnPreregNext2').show();    
 
     $('.tblIncluLes').hide();
     $('.noSelCorsDiv').show();
+}
+
+function regPrevAddA(){
+    $('.pr2A').hide();
+    $('.pr1').hide();
+    $('.pr2').hide();
+    $('.pr4').hide();
+    $('.pr3').hide();
+    $('.pr3New').show();
+
+    $('#btnPreregNext2A').hide();
+    $('#btnPreregPrev2A').hide();
+    $('#btnPreregDoneA').hide();
+    $('#btnPreregPrevA').hide();
+    $('#btnPreregNext3A').hide();
+
+    $('#btnCancPreregA').show();
+    $('#btnPreregPrevAddA').show();
+    $('#btnPreregNextAddA').show();
+}
+
+function regNextAddA(){
+    isCheck3New = checkEnr3New();
+    if (isCheck3New==0){
+        swal("Oops!", "Please fill out all required fields.", "error");
+    }else{
+        $('.step4').html("Step 3: Select payment method.");
+        $('.pr2A').hide();
+        $('.pr1').hide();
+        $('.pr2').hide();
+        $('.pr4').hide();
+        $('.pr3New').hide();
+        $('.pr3').show();
+    
+        $('#btnPreregNext2A').hide();
+        $('#btnPreregPrev2A').hide();
+        $('#btnPreregDoneA').hide();
+        $('#btnPreregPrevAddA').hide();
+        $('#btnPreregNextAddA').hide();
+
+        $('#btnCancPreregA').show();
+        $('#btnPreregPrevA').show();
+        $('#btnPreregNext3A').show();
+        preRegData.lesson = null;
+    }
+}
+
+function regPrevAdd(){
+    $('.pr2A').hide();
+    $('.pr1').hide();
+    $('.pr2').hide();
+    $('.pr4').hide();
+    $('.pr3').hide();
+    $('.pr3New').show();
+
+    $('#btnPreregPrev').hide();
+    $('#btnPreregNext2').hide();
+    $('#btnPreregNext1').hide();
+    $('#btnPreregPrev').hide();
+    $('#btnPreregNext2').hide();
+    $('#btnPreregPrev2').hide();
+    $('#btnPreregDone').hide();
+    $('#btnPreregPrev1').hide();
+    $('#btnPreregNext3').hide();
+
+    $('#btnCancPrereg').show();
+    $('#btnPreregPrevAdd').show();
+    $('#btnPreregNextAdd').show();
+}
+
+function regNextAdd(){
+    isCheck3New = checkEnr3New();
+    if (isCheck3New==0){
+        swal("Oops!", "Please fill out all required fields.", "error");
+    }else{
+        $('.step4').html("Step 4: Select payment method.");
+        $('.pr2A').hide();
+        $('.pr1').hide();
+        $('.pr2').hide();
+        $('.pr4').hide();
+        $('.pr3New').hide();
+        $('.pr3').show();
+    
+        $('#btnPreregPrev').hide();
+        $('#btnPreregNext2').hide();
+        $('#btnPreregNext1').hide();
+        $('#btnPreregPrev').hide();
+        $('#btnPreregNext2').hide();
+        $('#btnPreregPrev2').hide();
+        $('#btnPreregDone').hide();
+        $('#btnPreregPrevAdd').hide();
+        $('#btnPreregNextAdd').hide();
+    
+        $('#btnCancPrereg').show();
+        $('#btnPreregPrev1').show();
+        $('#btnPreregNext3').show();
+    }
 }
 
 function regPrev3(){
@@ -532,6 +677,8 @@ function regPrev3(){
     $('#btnPreregNext2').hide();
     $('#btnPreregPrev2').hide();
     $('#btnPreregDone').hide();
+    $('#btnPreregPrevAdd').hide();
+    $('#btnPreregNextAdd').hide();
 
     $('#btnCancPrereg').show();
     $('#btnPreregPrev1').show();
@@ -567,10 +714,12 @@ function regNext3(){
             swal("Oops!", "Please confirm your enrolled course first", "error");
         }
         else{
+            $('.step5').html("Step 5: Terms and Agreements");
             $('.pr2A').hide();
             $('.pr1').hide();
             $('.pr2').hide();
             $('.pr3').hide();
+            $('.pr3New').hide();
             $('.pr4').show();
         
             $('#btnPreregPrev').hide();
@@ -578,6 +727,8 @@ function regNext3(){
             $('#btnPreregNext1').hide();
             $('#btnPreregPrev1').hide();
             $('#btnPreregNext3').hide();
+            $('#btnPreregPrevAdd').hide();
+            $('#btnPreregNextAdd').hide();
         
             $('#btnCancPrereg').show();
             $('#btnPreregPrev2').show();
@@ -599,10 +750,12 @@ function regNext3A(){
             swal("Oops!", "Please confirm your enrolled course first", "error");
         }
         else{
+            $('.step5').html("Step 4: Terms and Agreements");
             $('.pr2A').hide();
             $('.pr1').hide();
             $('.pr2').hide();
             $('.pr3').hide();
+            $('.pr3New').hide();
             $('.pr4').show();
         
             $('#btnPreregNext2A').hide();

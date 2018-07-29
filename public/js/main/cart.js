@@ -72,10 +72,10 @@ function successLoginEnroll ()
     "use strict";
     /*==================================================================
     [ Validate ]*/
-    var input = $('.validate-input .input100');
+    var input = $('.validate-input1 .input100');
     $('input[name=enrLes]').removeAttr('checked');
 
-    $('.validate-form').on('submit',function(e){
+    $('.validate-form1').on('submit',function(e){
         e.preventDefault();
         var username = $('#usernameEnroll').val();
         var password = $('#usernameEnroll').val();
@@ -103,7 +103,7 @@ function successLoginEnroll ()
         }
     });
 
-    $('.validate-form .input100').each(function(){
+    $('.validate-form1 .input100').each(function(){
         $(this).focus(function(){
            hideValidate(this);
         });

@@ -8237,3 +8237,57 @@ tiCustom
 .boldface{
   font-weight: bold;
 }
+/*
+   Separator
+   */
+   .separator {
+       width: 10px;
+       height: 10px;
+       margin: 20px auto;
+       background: #e74c3c;
+       position: relative;
+       display: inline-block;
+       border-radius: 50%;
+   }
+   .separator:after {
+       position: absolute;
+       left:5%;
+       bottom:4px;
+       height: 1px;
+       width: 80px;
+       background: #eee;
+       content:"";
+       display: inline-block;
+       margin-left: 20px;
+   }
+   .separator:before {
+       position: absolute;
+       right: 5%;
+       bottom:4px;
+       height: 1px;
+       width: 80px;
+       background: #eee;
+       content:"";
+       display: inline-block;
+       margin-right: 20px;
+   }
+   .separator2 {
+       height: 4px;
+       width:40px;
+       margin: 10px 0px;
+       background: #eeeeee;
+       position: relative;
+   }
+   
+   .separator3 {
+       height: 2px;
+       width: 40px;
+       margin:20px auto;
+       background: #888888;
+   }
+   .separator4 {
+       height: 2px;
+       width: 400px;
+       margin:20px 0px;
+       background: #f38181;
+   }

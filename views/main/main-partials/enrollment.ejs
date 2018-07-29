@@ -25,7 +25,7 @@
                 <div class="separator"></div>
             </center>
             <form class="enrForm">
-                <div class="row">
+                <div class="row" style="color:black;">
                     <div class="col-md-6 col-sm-6 col-lg-6 col-xs-12">
                         <div>
                             <h5 class="h5Enr">Name<span class="asterisk">*</span></h5>
@@ -87,11 +87,11 @@
         <div class="card pr2">
             <center>
                 <h2>Step 2: Student Driver's Permit/License</h2>
-                <h5>Select at least one below to bring on your first day of schedule.</h5>
+                <h5>Select one required document that you already have to bring on your first day of schedule. If none, please select To Apply... </h5>
                 <div class="separator"></div>
             </center>
             <form class="enrForm">
-                <div class="row">
+                <div class="row" style="color:black;">
                     <div class="col-md-5 col-sm-5 col-lg-5 col-xs-12">
                         <div class="card cardServlist">
                             <center>
@@ -228,13 +228,13 @@
 
         <div class="card pr3">
             <center>
-                <h2>Step 3: Select payment method.</h2>
+                <h2 class="step4">Step 4: Select payment method.</h2>
                 <h5>Choose one payment method.</h5>
                 <div class="separator"></div>
             </center>
             <form class="enrForm">
                 <div class="paymentOptionDiv" id="paymentOptionDiv">
-                    <div class="row">
+                    <div class="row" style="color:black;">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <center>
                                 <div class="btn btnPayment btnPayMeth1" onclick="payMeth1()">
@@ -293,14 +293,91 @@
             </form>
         </div>
 
+        <div class="card pr3New">
+            <center>
+                <h2 class="step3">Step 3: Preferred vehicle and schedule.</h2>
+                <h5>Select one preferred vehicle and at least one preferred date for lessons/appointments. </h5>
+                <div class="separator"></div>
+            </center>
+            <form class="prefDaysVehiForm">
+                <div>
+                    <h3 class="prefH3">Preferred Vehicle</h3><br>
+                    <!-- <h5 class="h5man" style="color: black;">*Since you enrolled for a manual course, choose only one manual transmission vehicle below.</h5></td>
+                            <h5 class="h5auto" style="color: black;">*Since you enrolled for an automatic course, choose only one automatic transmission vehicle below.</h5></td>
+                            <h5 class="h5both" style="color: black;">*Since you enrolled for both manual and automatic courses, choose only one manual and one automatic transmission vehicles below.</h5> -->
+                    <h5 style="color: black;">*Choose only one vehicle you prefer for lessons. You may still change this upon choosing of schedule.</h5>
+                    <table>
+                        <tr id="trManualVehicle">
+                            <td><label style="color: black;">Manual Transmission Vehicles:</label></td>
+                            <td>
+                                <select id="manualVehiclesSelect">
+                                    <option value="0">---</option>
+                                    <option value="1">Toyota Atlis</option>
+                                    <option value="2">Toyota Vios</option>
+                                    <option value="3">Toyota Innova</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <!-- <tr id="trAutoVehicle">
+                            <td><label style="color: black;">Automatic Transmission Vehicles:</label></td>
+                            <td>
+                                <select id="autoVehiclesSelect">
+                                <option id="0">---</option>
+                                <option id="1">Hyundai</option>
+                                <option id="2">Hyundai II</option>
+                                <option id="3">Hyundai III</option>
+                            </select>
+                            </td>
+                        </tr> -->
+                    </table>
+                </div>
+
+                <div>
+                    <br><br><br>
+                    <h3 class="prefH3">Preferred Schedule</h3><br>
+                    <h5 style="color: black">*Select all your available or preferred days for lessons/appointments. You may still change this upon choosing of schedule.</h5>
+                       <table class="tblDays">
+                            <tr>
+                                <td><input type="checkbox" name="prefDaysCB"></td>
+                                <td>Sunday</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" name="prefDaysCB"></td>
+                                <td>Monday</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" name="prefDaysCB"></td>
+                                <td>Tuesday</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" name="prefDaysCB"></td>
+                                <td>Wednesday</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" name="prefDaysCB"></td>
+                                <td>Thursday</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" name="prefDaysCB"></td>
+                                <td>Friday</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" name="prefDaysCB"></td>
+                                <td>Saturday</td>
+                            </tr>
+                        </table>
+                </div>
+            </form>
+        </div>
+
         <div class="card pr4">
             <center>
-                <h2>Step 3: Terms and Agreements</h2>
+                <h2 class="step5">Step 5: Terms and Agreements</h2>
                 <h5>Please read thoroughly.</h5>
                 <div class="separator"></div>
             </center>
             <form class="enrForm">
-                <div style="padding-left: 100px; padding-right: 100px;">
+                <div style="padding-left: 100px; padding-right: 100px; color: black;">
                         Forfeit of appointed time: If a student misses his appointed lesson twice in a row without notifying the office about his absence, the appointed time will therefore be forfeited. The Institute may assign his time and instructor to another student. The student has to make new arrangements with the office upon the resumption of his lessons. Only the time is forfeited not the driving lessons. Notice of the absence may be called in to the branch you are enrolled in.<br><br>
                         The student driver agrees that if any lesson has not been driven within a period of 90 days from the date of enrolment, the corresponding tuition is hereby forfeited. If a student has not yet started his driving lesson one month after enrolment and there has been a change in tuition fees, he/she agrees to pay the resulting balance. Tuition fees are not refundable, only transferable to any person chosen by the enrolee. <br><br>
                         The student is free from any financial obligation arising from an accident except when the accident is due to a deliberate act by the student gross carelessness on his part, non compliance with the driving instructions, or when he is driving under the influence of drugs or alcohol; In which cases the student shall be liable up to at least 1/3 of the cost damage incurred. In case any physical or death resulting from accidents, the student waives his right to claim damages from the Institute. The Institute reserves the right to withhold driving privileges from physically unfit or grossly un-cooperative students.<br><br>
@@ -313,30 +390,36 @@
 
         <div class="btnsNoAcc" style="padding-bottom: 20px;">
             <center>
-                <button type="button" id="btnCancPrereg" onclick="regCanc()" class="btnPrereg btn btn-danger m-b-10 m-l-5">Cancel</button>
-                <button type="button" id="btnPreregNext1" onclick="regNext1()" class="btnPrereg btn btn-light m-b-10 m-l-5">Next</button>
+                <button type="button" id="btnCancPrereg" onclick="regCanc()" class="btnPrereg btn btn-danger m-b-10 m-l-5">Cancel</button> <!-- Cancel -->
+                <button type="button" id="btnPreregNext1" onclick="regNext1()" class="btnPrereg btn btn-light m-b-10 m-l-5">Next</button> <!-- Step 1 Next: Enroll2 -->
         
-                <button type="button" id="btnPreregPrev" onclick="regPrev1()" class="btnPrereg btn btn-light1 m-b-10 m-l-5">Previous</button>
-                <button type="button" id="btnPreregNext2" onclick="regNext2()" class="btnPrereg btn btn-light m-b-10 m-l-5">Next</button>
+                <button type="button" id="btnPreregPrev" onclick="regPrev1()" class="btnPrereg btn btn-light1 m-b-10 m-l-5">Previous</button> <!-- Step 2 Prev: Enroll2 -->
+                <button type="button" id="btnPreregNext2" onclick="regNext2()" class="btnPrereg btn btn-light m-b-10 m-l-5">Next</button> <!-- Step 2 Next: Enroll2 -->
         
-                <button type="button" id="btnPreregPrev1" onclick="regPrev2()" class="btnPrereg btn btn-light1 m-b-10 m-l-5">Previous</button>
-                <button type="button" id="btnPreregNext3" onclick="regNext3()" class="btnPrereg btn btn-light m-b-10 m-l-5">Next</button>
+                <button type="button" id="btnPreregPrevAdd" onclick="regPrev2()" class="btnPrereg btn btn-light1 m-b-10 m-l-5">Previous</button> <!-- Step 3 Prev: Enroll2 -->
+                <button type="button" id="btnPreregNextAdd" onclick="regNextAdd()" class="btnPrereg btn btn-light m-b-10 m-l-5">Next</button> <!-- Step 3 Next: Enroll2 -->
 
-                <button type="button" id="btnPreregPrev2" onclick="regPrev3()" class="btnPrereg btn btn-light1 m-b-10 m-l-5">Previous</button>
-                <button type="button" id="btnPreregDone" onclick="regDone()" class="btnPrereg btn btn-light m-b-10 m-l-5">Enroll</button>
+                <button type="button" id="btnPreregPrev1" onclick="regPrevAdd()" class="btnPrereg btn btn-light1 m-b-10 m-l-5">Previous</button> <!-- Step 4 Prev: Enroll2 -->
+                <button type="button" id="btnPreregNext3" onclick="regNext3()" class="btnPrereg btn btn-light m-b-10 m-l-5">Next</button> <!-- Step 4 Next: Enroll2 -->
+ 
+                <button type="button" id="btnPreregPrev2" onclick="regPrev3()" class="btnPrereg btn btn-light1 m-b-10 m-l-5">Previous</button> <!-- Step 5 Prev: Enroll2 -->
+                <button type="button" id="btnPreregDone" onclick="regDone()" class="btnPrereg btn btn-light m-b-10 m-l-5">Enroll</button> <!-- Done enroll: Enroll2 -->
             </center>        
         </div>
 
         <div class="btnsHasAcc" style="padding-bottom: 20px;">
             <center>
-                <button type="button" id="btnCancPreregA" onclick="regCanc()" class="btnPrereg btn btn-danger m-b-10 m-l-5">Cancel</button>
-                <button type="button" id="btnPreregNext2A" onclick="regNext2A()" class="btnPrereg btn btn-light m-b-10 m-l-5">Next</button>
+                <button type="button" id="btnCancPreregA" onclick="regCanc()" class="btnPrereg btn btn-danger m-b-10 m-l-5">Cancel</button> <!-- Cancel -->
+                <button type="button" id="btnPreregNext2A" onclick="regNext2A()" class="btnPrereg btn btn-light m-b-10 m-l-5">Next</button> <!-- Step 1 Next: Enroll1 -->
 
-                <button type="button" id="btnPreregPrevA" onclick="regPrev1A()" class="btnPrereg btn btn-light1 m-b-10 m-l-5">Previous</button>
-                <button type="button" id="btnPreregNext3A" onclick="regNext3A()" class="btnPrereg btn btn-light m-b-10 m-l-5">Next</button>
+                <button type="button" id="btnPreregPrevAddA" onclick="regPrev1A()" class="btnPrereg btn btn-light1 m-b-10 m-l-5">Previous</button> <!-- Step 2 Prev: Enroll1 -->
+                <button type="button" id="btnPreregNextAddA" onclick="regNextAddA()" class="btnPrereg btn btn-light m-b-10 m-l-5">Next</button> <!-- Step 2 Next: Enroll1 -->
 
-                <button type="button" id="btnPreregPrev2A" onclick="regPrev3A()" class="btnPrereg btn btn-light1 m-b-10 m-l-5">Previous</button>
-                <button type="button" id="btnPreregDoneA" onclick="regDoneA()" class="btnPrereg btn btn-light m-b-10 m-l-5">Enroll</button>
+                <button type="button" id="btnPreregPrevA" onclick="regPrevAddA()" class="btnPrereg btn btn-light1 m-b-10 m-l-5">Previous</button> <!-- Step 3 Prev: Enroll1 -->
+                <button type="button" id="btnPreregNext3A" onclick="regNext3A()" class="btnPrereg btn btn-light m-b-10 m-l-5">Next</button> <!-- Step 3 Next: Enroll1 -->
+
+                <button type="button" id="btnPreregPrev2A" onclick="regPrev3A()" class="btnPrereg btn btn-light1 m-b-10 m-l-5">Previous</button> <!-- Step 4 Prev: Enroll1 -->
+                <button type="button" id="btnPreregDoneA" onclick="regDoneA()" class="btnPrereg btn btn-light m-b-10 m-l-5">Enroll</button> <!-- Done enroll: Enroll1 -->
             </center>        
         </div>
     </div>

@@ -21,7 +21,7 @@ var logInst = function()
 }
 var gobackLogin = function(){
     clrFields();
-    $('.limiter1').hide();
+    $('.limiter1').show();
     $('.limiter2').hide();
 }
 var clrFields = function(){

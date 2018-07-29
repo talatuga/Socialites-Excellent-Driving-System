@@ -16,57 +16,66 @@
     <div class="container-fluid">
         <!-- Start of Card  -->
         <div class="studentCard">
-            <div class="row studentCard">
-                <!-- Start of col-lg-5 -->
-                <div class="card col-lg-6 scrollXCard">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <div class="form-group">
                         <div class="input-group input-group-flat">
                             <span class="input-group-btn"><button class="btn btn-custom" type="submit"><i class="ti-search"></i></button></span>
                             <input type="text" id="searchVehiA" class="form-control" placeholder="Search..." style="font-size: 12px;">
                             <span class="input-group-btn"><button class="btn btn-primary input-group-close-icon" type="button" onclick="clrSearchVehiA()"><i class="ti-close"></i></button></span>
                         </div>
-                    </div><br>
-                    <h3>List of Vehicles</h3><br>
-                    <div class="table-responsive">
-                        <table class="table tblVehicle table-hover">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Brand</th>
-                                    <th>Model</th>
-                                    <th>Transmission</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody id="carTableA">
-                                <tr class="highlightTr">
-                                    <td>1</td>
-                                    <td>Toyota</td>
-                                    <td>Vios (Sedan)</td>
-                                    <td>Automatic</td>
-                                    <td><span class="text-success">Available</span></td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Toyota</td>
-                                    <td>Corolla Atlis (Sedan)</td>
-                                    <td>Manual</td>
-                                    <td><span class="text-success">Available</span></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="pull-right">
+                        <button type="button" id="btnNewVehicle" onclick="openNewVehicle()" class="btn btn-success m-b-10 m-l-5">New Vehicle</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Start of col-lg-5 -->
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <hr class="hrCustom">
+                    <div class="card instCard">
+                        <h3>List of Vehicles</h3><br>
+                        <div class="table-responsive">
+                            <table class="table tblVehicle table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Brand</th>
+                                        <th>Model</th>
+                                        <th>Transmission</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="carTableA">
+                                    <tr class="highlightTr">
+                                        <td>1</td>
+                                        <td>Toyota</td>
+                                        <td>Vios (Sedan)</td>
+                                        <td>Automatic</td>
+                                        <td><span class="text-success">Available</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Toyota</td>
+                                        <td>Corolla Atlis (Sedan)</td>
+                                        <td>Manual</td>
+                                        <td><span class="text-success">Available</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
                 <!-- End of col-lg-5 -->
 
                 <!-- Start of col-lg-6 -->
-                <div class="col-lg-6 scrollXCard">
-                    <div class="card">
-                        <div class="pull-right">
-                            <button type="button" id="btnNewVehicle" onclick="openNewVehicle()" class="btn btn-success m-b-10 m-l-5">New Vehicle</button>
-                        </div>
-                    </div>
-                    <div class="card hideScroll">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <hr class="hrCustom">
+                    <div class="card instCard">
                         <h3>Vehicle Information</h3><hr>
                         <div style="padding-left: 30px;">
                             <div class="row">

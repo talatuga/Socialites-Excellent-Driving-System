@@ -34,7 +34,7 @@
             </div>
             <div class="row">
                 <!-- Start of col-lg-5 -->
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-126">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <hr class="hrCustom">
                     <div class="card instCard">
                         <h3>List of Instructors</h3><br>
@@ -109,7 +109,7 @@
 
 <!-- New Instructor Modal -->
 <div class="modal fade" id="newInstructorModal" tabindex="-1" role="dialog" aria-labelledby="newInstructorModal" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+  <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-body">
         <center>
@@ -126,64 +126,58 @@
         </center>
         <div class="divMod1Inst">
             <center><h5>This includes instructor's personal information and educational attainment.</h5><hr width="20%"></center>
-            <form>
-                <div class="table-responsive">
-                <table class="table customtbl">
-                    <thead></thead>
-                    <tbody>
-                        <tr>
-                            <td width="30%"><label class="control-label customLbl pull-right" for="newInstFirstname">First Name: <span class="asterisk">*</span></label></td>
-                            <td><input type="text" required class="vehiTxtInput pull-left input-flat" id="newInstFirstname" placeholder="ex: Juan"></td>
-                        </tr>
-                        <tr>
-                            <td><label class="control-label customLbl pull-right" for="newInstMidname">Middle Name: </label></td>
-                            <td><input type="text" class="vehiTxtInput pull-left input-flat" id="newInstMidname" placeholder="ex: Santos"></td>
-                        </tr>
-                        <tr>
-                            <td><label class="control-label customLbl pull-right" for="newInstSurname">Surname: <span class="asterisk">*</span></label></td>
-                            <td><input type="text" required class="vehiTxtInput pull-left input-flat" id="newInstSurname" placeholder="ex: Dela Cruz"></td>
-                        </tr>
-                        <tr>
-                            <td width="30%"><label class="control-label customLbl pull-right" for="newInstGender">Sex: <span class="asterisk">*</span></label></td>
-                            <td class="pull-left"><label><input type="radio" class="sexRD flat" checked name="newInstGender" id="g1NI" value="M"> Male</label>
-                                &nbsp;&nbsp;&nbsp;&nbsp;<label><input type="radio" class="sexRD flat" name="newInstGender" id="g2NI" value="F"> Female</label></td>
-                        </tr>
-                        <tr>
-                            <td><label class="control-label customLbl pull-right" for="newInstBday">Date of Birth: <span class="asterisk">*</span></label></td>
-                            <td><input type="date" required class="vehiTxtInput pull-left input-flat" id="newInstBday" placeholder="dd/mm/yyyy"></td>
-                        </tr>
-                        <tr>
-                            <td><label class="control-label customLbl pull-right" for="newInstAddress">Current Address: <span class="asterisk">*</span></label></td>
-                            <td><input type="text" required class="vehiTxtInput pull-left input-flat" id="newInstAddress" placeholder="ex: Blk 43 Lot 1, Novaliches, Quezon City"></td>
-                        </tr>
-                        <tr>
-                            <td><label class="control-label customLbl pull-right" for="newInstPhone">Phone Number: <span class="asterisk">*</span></label></td>
-                            <td><input type="number" required class="vehiTxtInput pull-left input-flat" id="newInstPhone" placeholder="ex: 09123456789" max="99999999999" min="99999999999"></td>
-                        </tr>
-                        <tr>
-                            <td><label class="control-label customLbl pull-right" for="newInstEmail">Email Address: <span class="asterisk">*</span></label></td>
-                            <td><input type="email" required class="vehiTxtInput pull-left input-flat" id="newInstEmail" placeholder="ex: juansdcruz@gmail.com"></td>
-                        </tr>
-                        <tr>
-                            <td><label class="control-label customLbl pull-right" for="newInstLicense">Driver's License No.: <span class="asterisk">*</span></label></td>
-                            <td><input type="text" required class="vehiTxtInput pull-left input-flat" id="newInstLicense" placeholder="ex: A01-10-123456"></td>
-                        </tr>
-                        <tr>
-                            <td><label class="control-label customLbl1 pull-right" for="newInstEduc">Highest Educational Attainment: <span class="asterisk">*</span></label></td>
-                            <td><br><select required class="vehiTxtInput pull-left input-flat" name="newInstEduc" id="newInstEduc">
-                                <option value="0">---</option>
-                                <option value="1">Pre-Primary/Pre-School</option>
-                                <option value="2">Primary/Elementary</option>
-                                <option value="3">Secondary/High School</option>
-                                <option value="4">Post-Secondary Non-Tertiary/Technical-Vocational</option>
-                                <option value="5">Tertiary/Baccalaureate</option>
-                                <option value="6">Tertiary/Post-Graduate</option>
-                            </select></td>
-                        </tr>
-                    </tbody>
-                </table>
-                </div>
-                <!-- <center><h3>Educational Information</h3></center> -->
+            <form class="formAddInst">
+                <div>
+                    <h5 class="h5Enr">Full Name<span class="asterisk">*</span></h5>
+                    <input type="text" class="txtEnr" required name="brName" id="newInstFirstname" placeholder="First Name"><br>
+                    <small style="padding-left: 10px;">First Name</small>
+                    <input type="text" class="txtEnr" required name="brName" id="newInstMidname" placeholder="Middle Name"><br>
+                    <small style="padding-left: 10px;">Middle Name</small>
+                    <input type="text" class="txtEnr" required name="brName" id="newInstSurname" placeholder="Surname"><br>
+                    <small style="padding-left: 10px;">Surname</small>
+                </div><hr>
+                <div>
+                    <h5 class="h5Enr">Sex<span class="asterisk">*</span></h5>
+                    <label><input type="radio" class="sexRD flat" checked name="newInstGender" id="g1NI" value="M"> Male</label>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<label><input type="radio" class="sexRD flat" name="newInstGender" id="g2NI" value="F"> Female</label>
+                </div><hr>
+                <div>
+                    <h5 class="h5Enr">Birth Date<span class="asterisk">*</span></h5>
+                    <input type="date" required class="txtEnr pull-left" id="newInstBday" placeholder="dd/mm/yyyy"><br>
+                </div><hr>
+                <div>
+                    <h5 class="h5Enr">Address<span class="asterisk">*</span></h5>
+                    <input type="text" required class="txtEnr pull-left" id="newInstAddress" placeholder="ex: Blk 43 Lot 1, Novaliches, Quezon City"><br>
+                </div><hr>
+                <div>
+                    <h5 class="h5Enr">Contact Information<span class="asterisk">*</span></h5>
+                    <input type="email" class="txtEnr" required id="newInstEmail" placeholder="ex: juansdcruz@gmail.com"><br>
+                    <small style="padding-left: 10px;">Email Address</small>
+                    <input type="text" class="txtEnr" required name="brAddL2" id="newInstPhone"  placeholder="ex: 09123456789" max="99999999999" min="99999999999"><br>
+                    <small style="padding-left: 10px;">Contact Number</small>
+                </div><hr>
+                <div>
+                    <h5 class="h5Enr">Driver's License Details<span class="asterisk">*</span></h5>
+                    <input type="text" class="txtEnr" required id="newInstLicense" placeholder="ex: A01-10-123456"><br>
+                    <small style="padding-left: 10px;">License Number</small>
+                    <input type="text" class="txtEnr" required id="newInstLicenseDI" placeholder="ex: dd/mm/yyyy"><br>
+                    <small style="padding-left: 10px;">Date of Issuance</small>
+                    <input type="text" class="txtEnr" required id="newInstLicenseDE" placeholder="ex: dd/mm/yyyy"><br>
+                    <small style="padding-left: 10px;">Date of Expiry</small>
+                </div><hr>
+                <div>
+                    <h5 class="h5Enr">Educational Background<span class="asterisk">*</span></h5>
+                    <select required class="txtEnr" name="newInstEduc" id="newInstEduc">
+                        <option value="0">---</option>
+                        <option value="1">Pre-Primary/Pre-School</option>
+                        <option value="2">Primary/Elementary</option>
+                        <option value="3">Secondary/High School</option>
+                        <option value="4">Post-Secondary Non-Tertiary/Technical-Vocational</option>
+                        <option value="5">Tertiary/Baccalaureate</option>
+                        <option value="6">Tertiary/Post-Graduate</option>
+                    </select><br>
+                    <small style="padding-left: 10px;">Highest Educational Attainment</small>
+                </div><hr>
             </form>
         </div>
 

@@ -1672,22 +1672,49 @@ Author URI: http://bootstrapthemes.co
        font-size: 15px;
        width: 100%;
    }
+
+   .tblDays{
+    font-family: 'source_sans_proregular';
+    font-size: 15px;
+    width: 20%;
+}
    
    .tblBrnch thead, .tblCrs thead{
        background-color: #660b01;
    }
+
+   .tblDays thead{
+        background-color: white;
+        color: black;
+}
    
    .tblBrnch thead th, .tblCrs thead th{
        background-color: #660b01;
        padding: 15px;
        color: #fff;
    }
+
+   .tblDays thead th{
+    padding: 15px;
+    text-align: center;
+}
    
    .tblBrnch tbody tr td, .tblCrs tbody tr td{
        padding: 15px;
        color: #000;
    }
-   
+
+   .tblDays tbody tr td{
+    /* padding: 5px; */
+    color: #000;
+}
+    .prefH3{
+        padding: 8px;
+        background-color: #660B01;
+        color: white;
+        text-align: center;
+    }
+
    .brList{
        margin: 20px;
    }
@@ -2683,7 +2710,6 @@ Author URI: http://bootstrapthemes.co
 .limiter {
     width: 100%;
     margin: 0 auto;
-    overflow: hidden;
   }
   
   .container-login100 {
@@ -2996,4 +3022,10 @@ Author URI: http://bootstrapthemes.co
 
 #home{
     overflow: hidden;
+}
+
+#autoVehiclesSelect, #manualVehiclesSelect{
+    width: 300px;
+    font-size: 15px;
+    margin: 10px;
 }
