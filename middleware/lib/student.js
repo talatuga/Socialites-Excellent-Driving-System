@@ -1,4 +1,5 @@
 var student = require('../../model/studentModel');
+var Email = require('../../bin/emailer');
 
 exports.create = function(req, res, next){
     var data = req.body["data[]"];
@@ -65,7 +66,7 @@ exports.update = function(req, res, next){
     }
 }
 
-exports.updateAll = function(req, res, next){
+exports.updateAll = function(req, res, next){ //Deprecated. Soon to delete from API
     var data = [];
     //VALIDATIONS
     
@@ -84,18 +85,11 @@ exports.del = function(req, res, next){
     });
 }
 
-exports.delAll = function(req, res, next){}
+exports.delAll = function(req, res, next){} //Deprecated. Soon to delete from API
 
 exports.register = function(req, res, next){
     var data = JSON.parse(req.body.data);
-    var generatePass = function(length){
-        var alphanum = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
-        var result = "";
-        for(var x=0; x<length; x++){
-            result += alphanum[parseInt(Math.random()*alphanum.length-1)];
-        }
-        return result;
-    };
+    var password = require('../../bin/util/tokenGenerator').generateToken(15);
     var generateID = function(accID,infoID){
         accID = accID + "";
         infoID = infoID + "";
@@ -107,7 +101,7 @@ exports.register = function(req, res, next){
         if(er) return next(er);
         var infoData = result[0];
         infoData.data = JSON.parse(infoData.data);
-        accountModel.register([infoData.data.info.email,generatePass(10),3],function(err, accID){
+        accountModel.register([infoData.data.info.email,password,3],function(err, accID){
             if(err) return next(err);
             var infoModel = require('../../model/userInfoModel');
             var info = [accID];
@@ -128,19 +122,20 @@ exports.register = function(req, res, next){
                     student.preRegDel(data.info,function(e){
                         if(e) return next(e);
                         res.status(200).send({success:result});
+                        var accountMail = new Email();
+                        var mailBody = {
+                            subject: "Welcome to Socialites Driving Excellent!",
+                            body: "\tTo login to your own personal Dashboard, use your email as Username.\n This is your password: " + password + "\n\t\t-Welcome from SED family",
+                        };
+                        accountMail.send(dataIn.info.email,mailBody,function(err, response){
+                            if(err) return next(err);
+                            require('../../bin/logger').logger("E-Mail Send to " + dataIn.info.email);
+                        });
                     });
                 });
             });
         });
     });
-    /* var data = [null];
-    data.push(req.body.data);
-    data.push(null);
-    data.push(1);
-    student.preRegStud(data, function(err, done){
-        if(err) return next(err);
-        res.status(200).send({success: true, detail: "Successfully Added!"});
-    }); */
 }
 
 exports.getPreRegList = function(req, res, next){

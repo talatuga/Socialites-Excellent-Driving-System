@@ -1,12 +1,12 @@
 var mailer = require('nodemailer');
 
-var Mailer = function(account){
-    this.email = account.email;
+var Mailer = function(){
+    this.email = process.env.EMAIL_USER;
     this.transporter = mailer.createTransport({
-        service: account.service,
+        service: process.env.EMAIL_SERVICE,
         auth:{
-            user: account.email,
-            pass: account.password,
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS,
         },
     });
 };

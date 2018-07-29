@@ -77,3 +77,7 @@ exports.delete = function(req, res, next){
         res.status(200).send({success: true, detail:"Successfully Deleted."});
     });    
 }
+
+exports.changePass = function(req, res, next){
+    
+}

@@ -1,17 +1,19 @@
 var instructor = require('../../model/instructorModel');
+var Email = require('../../bin/emailer');
 
 exports.create = function(req, res, next){
     var dataIn = JSON.parse(req.body.data);
     //Validation
+    var password = require('../../bin/util/tokenGenerator').generateToken(15);
     var data = {
         credential: [],
         info: [],
         inst: []
     };
     var credential = [];
-    credential.push(dataIn.credential.username);
-    credential.push(dataIn.credential.password);
-    credential.push(dataIn.credential.usertype);
+    credential.push(dataIn.info.email);
+    credential.push(password);
+    credential.push(2);
     
     var info = [];
     info.push(dataIn.info.fullname);
@@ -41,6 +43,15 @@ exports.create = function(req, res, next){
     instructor.register(data, function(err, result){
         if(err) return next(err);
         res.status(200).send({success: true, detail: "Successfully Created!"});
+        var accountMail = new Email();
+        var mailBody = {
+            subject: "Welcome to Socialites Driving Excellent!",
+            body: "\tTo login to your own personal Dashboard, use your email as Username.\n This is your password: " + password + "\n\t\t-Welcome from SED family",
+        };
+        accountMail.send(dataIn.info.email,mailBody,function(err, response){
+            if(err) return next(err);
+            require('../../bin/logger').logger("E-Mail Send to " + dataIn.info.email);
+        });
     });
 }
 

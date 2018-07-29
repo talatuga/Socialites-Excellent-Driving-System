@@ -4,12 +4,9 @@ var model = require('../model/vehicleModel');
 
 describe('Send Email',function(){
     it('should send a test mail', function(){
+        require('dotenv').config();
         var mailer = require('../bin/emailer');
-        var Mailer = new mailer({
-            service:"gmail", 
-            email:"christianpaultupas@gmail.com", 
-            password:""
-        });
+        var Mailer = new mailer();
 
         //var result;
         Mailer.send("christianpaultupas@gmail.com",{subject:"TEST MAIL FROM SED", body:"HELLO WORLD!"},function(err,done){

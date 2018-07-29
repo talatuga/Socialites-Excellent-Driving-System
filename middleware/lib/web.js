@@ -1,5 +1,6 @@
 var Model = require('../../model/webModel');
 var webModel = new Model();
+var validation = require('../../bin/util/validation');
 
 exports.getCourse = function(req, res, next){
     webModel.getCourse(null,null, req.query.type, function(err, result){
@@ -49,4 +50,34 @@ exports.enrollWeb = function(req, res, next){
             res.status(200).send({success: true});
         });
     }
+};
+
+exports.subscribe = function(req, res, next){
+    var email = req.body.email;
+    var validator = new validation();
+    validator.add(email,validator.common.email);
+    validator.check().then(function(){
+        webModel.subcribeNewsletter(email, function(err){
+            if(err) return next(err);
+            res.status(200).send({success: true});
+        });
+    }).catch(function(e){
+        res.status(400).send({success: false, detail: "Invalid Email!"});
+    });
+};
+
+exports.unsubscribe = function(req, res, next){
+    var email = req.params.email;
+    var token = req.params.token;
+
+    var validator = new validation();
+    validator.add(email, validator.common.email);
+    validator.check().then(function(){
+        webModel.unsubscribeNewsletter(email,token, function(err){
+            if(err) return next(err);
+            res.status(200).send("<h1>Successfully Unsubscribe to SED Newsletter</h1>");
+        });
+    }).catch(function(e){
+        res.status(400).send("<h1>400 Bad Request</h1><b><p>request maybe expired.</p>");
+    });
 };
