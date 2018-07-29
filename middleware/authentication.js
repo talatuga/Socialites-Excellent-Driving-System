@@ -76,11 +76,15 @@ exports.checkAJAX = function(req, res, next){
 }
 
 exports.lastHandler = function(req, res, next){
-    if(res.locals.authenticated == 1){
-        res.status(200).send({success: true, accID: req.session.accID});
-    }else{
-        if(res.headersSent){}else{
-            res.status(200).send({success: false});
+    if(req.xhr == true){
+        if(res.locals.authenticated == 1){
+            res.status(200).send({success: true, accID: req.session.accID});
+        }else{
+            if(!res.headersSent){
+                res.status(200).send({success: false});
+            }
         }
+    }else{
+        next();
     }
 }

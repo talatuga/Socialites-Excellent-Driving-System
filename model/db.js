@@ -14,19 +14,17 @@ var dbstate = {
   mode: null,
 }
 
-var production_db = "sed", test_db = "sed_test";
-
 exports.MODE_PRODUCTION = 'mode_production';
 exports.MODE_TEST = 'mode_test';
 
 exports.connect = function (mode,done){
   dbstate.pool = mysql.createPool({
-    connection: 20,
-    host: '127.0.0.1',
-    user: 'root',
-    password: '',
+    connection: (process.env.DB_POOL_SIZE || 20),
+    host: (process.env.DB_HOST || "127.0.0.1"),
+    user: (process.env.DB_USER || "root"),
+    password: (process.env.DB_PASS || ""),
     insecureAuth: true,
-    database: mode === exports.MODE_PRODUCTION ? production_db : test_db
+    database: mode === exports.MODE_PRODUCTION ? (process.env.DB_PROD || "sed") : (process.env.DB_TEST || "sed_test")
   });
 
   dbstate.mode = mode;

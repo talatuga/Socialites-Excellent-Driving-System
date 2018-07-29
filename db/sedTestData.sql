@@ -7,7 +7,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 
 INSERT INTO `accounttype` (`id`, `title`, `permission`) VALUES
@@ -33,11 +33,14 @@ INSERT INTO `branch` (`id`, `address`, `telno`, `name`, `purgeFlag`) VALUES
 (5, 'Pasig City', '750-5239', 'SEDPC', 1),
 (6, 'asvasdmk_vasvasd_vasdv_2345_c', '203980923/827364975', 'vd', 0);
 
-INSERT INTO `course` (`id`, `carType`, `amount`, `days`, `status`) VALUES
-(1, 'a', 1500, 5, 1),
-(2, 'm', 1000, 5, 1),
-(3, 'm', 1, 20, 0),
-(4, 'a', 12312312, 1, 0);
+INSERT INTO `codingscheme` (`id`, `city`, `scheme`, `status`) VALUES
+(1, 'quezon city', '1', 0);
+
+INSERT INTO `course` (`id`, `description`, `carType`, `amount`, `days`, `status`) VALUES
+(1, '', 'a', 1500, 5, 1),
+(2, '', 'm', 1000, 5, 1),
+(3, '', 'm', 1, 20, 0),
+(4, '', 'a', 12312312, 1, 0);
 
 INSERT INTO `defect` (`id`, `vehicle`, `part`, `description`, `importance`, `repaired`) VALUES
 (1, 123, 'Gas', 'Gas is half empty', 1, 1),
@@ -74,16 +77,16 @@ INSERT INTO `instructor` (`id`, `userInfo`, `license`, `licenseExp`, `educAttain
 ('INST-014008', 8, 'A1212111223', '2018-06-14', 5, 'Monday', '2018-05-20 17:05:05', NULL, 1),
 ('INST-016010', 10, 'P8437724876', '2023-06-22', 3, '', '2018-06-22 10:41:53', NULL, 1);
 
-INSERT INTO `lesson` (`id`, `title`, `prerequisite`, `description`, `purgeFlag`) VALUES
-(1, 'start and stop', NULL, '', 1),
-(2, 'Backing and tur', 1, '', 1),
-(3, 'Road crossing ', 2, '', 1),
-(4, 'Manuevering', 1, '', 1),
-(5, 'Hanging', 3, '', 1),
-(6, 'bam!', 3, 'hit all pedestrian and overspeed when tree is on your way', 0),
-(7, '12312', 4, 'vasada', 0),
-(8, 'asdas', 2, 'vasdasd', 0),
-(9, 'sampleLesson', 1, 'This to provide inputted data. \nEdited: added this line to test editing', 0);
+INSERT INTO `lesson` (`id`, `title`, `prerequisite`, `description`, `duration`, `purgeFlag`) VALUES
+(1, 'start and stop', NULL, '', 60, 1),
+(2, 'Backing and tur', 1, '', 60, 1),
+(3, 'Road crossing ', 2, '', 60, 1),
+(4, 'Manuevering', 1, '', 60, 1),
+(5, 'Hanging', 3, '', 60, 1),
+(6, 'bam!', 3, 'hit all pedestrian and overspeed when tree is on your way', 60, 0),
+(7, '12312', 4, 'vasada', 60, 0),
+(8, 'asdas', 2, 'vasdasd', 60, 0),
+(9, 'sampleLesson', 1, 'This to provide inputted data. \nEdited: added this line to test editing', 60, 0);
 
 INSERT INTO `requirement` (`id`, `title`, `description`, `importance`) VALUES
 (1, 'license', 'To apply drivers permit at LTO', 1);
@@ -121,15 +124,15 @@ INSERT INTO `userinfo` (`id`, `userAcc`, `fullname`, `address`, `telno`, `birthd
 (10, 16, 'Edgar_Pugon_Tupas', '#18 guyabano st. brgy. capri novaliches  quezon city', '09238628347', '1966-05-26', 'n/a', 'M', 'n/a', 'edgartupas@gmail.com', 2),
 (13, 23, 'Christian Paul_Rojero_Tupas', '#18 guyabano st. amparo capri novaliches ', '09094527651', '1998-12-08', 'Quezon City', 'Mal', 'Single', 'christianpaultupas@gmail.com', 3);
 
-INSERT INTO `vehicle` (`id`, `model`, `brand`, `transmission`, `plate`, `driver`, `offday`, `status`) VALUES
-(123, 'vios', 'toyota', 'A', 'AAP3780', NULL, 5, 1),
-(234, 'wigo', 'toyota', 'M', 'ASD123', '23456', 3, 1),
-(345, 'accent', 'hyundai', 'M', 'TRY345', '34567', 0, 1),
-(456, 'Vios', 'Toyota', 'M', 'VDS634', '45678', 7, 1),
-(567, 'Accent', 'Hyundai', 'M', 'FAS', '56789', 4, 2),
-(568, 'paul', 'wagon', 'M', 'SEX699', NULL, 5, 1),
-(569, 'LX34', 'Ford', 'M', 'LAS295', NULL, 3, 1),
-(570, 'Kali', 'Mitsubishi', 'A', 'LTX-326', NULL, 3, 0);
+INSERT INTO `vehicle` (`id`, `model`, `brand`, `transmission`, `price`, `plate`, `driver`, `garage`, `offday`, `status`) VALUES
+(123, 'vios', 'toyota', 'A', 'default', 'AAP3780', NULL, 1, 5, 1),
+(234, 'wigo', 'toyota', 'M', 'default', 'ASD123', '23456', 1, 3, 1),
+(345, 'accent', 'hyundai', 'M', 'default', 'TRY345', '34567', 1, 0, 1),
+(456, 'Vios', 'Toyota', 'M', 'default', 'VDS634', '45678', 1, 7, 1),
+(567, 'Accent', 'Hyundai', 'M', 'default', 'FAS', '56789', 1, 4, 2),
+(568, 'paul', 'wagon', 'M', 'default', 'SEX699', NULL, 1, 5, 1),
+(569, 'LX34', 'Ford', 'M', 'default', 'LAS295', NULL, 1, 3, 1),
+(570, 'Kali', 'Mitsubishi', 'A', 'default', 'LTX-326', NULL, 1, 3, 0);
 
 INSERT INTO `web_branch` (`id`, `branchID`, `branchName`, `location`, `fulladdress`, `telno`) VALUES
 (1, 3, 'Pasay', 'Pasay', 'Cartimar Shopping Center Rm. 1-A', '833-20-43');

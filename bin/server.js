@@ -29,7 +29,7 @@ exports.start = function(){
             process.exit(2);
         } else {
             //Change yung port pag production na.
-            var server = app.listen(80, function(){
+            var server = app.listen((process.env.SERVER_PORT || 80), function(){
                 console.log('[SERVER] Listening in port: ' + server.address().port);
             }).on('error',function(err){
                 console.error('[SERVER] Network related error. Port must be in use. ' + err);

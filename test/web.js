@@ -1,4 +1,4 @@
-var expect = require('chai').expect;
+/* var expect = require('chai').expect;
 
 describe('Model test', function(){
     var WebModel = require('../model/webModel');
@@ -31,4 +31,4 @@ describe("Test getStudentID()", function(){
         });
 
     })
-});
+}); */

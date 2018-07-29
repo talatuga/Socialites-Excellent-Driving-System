@@ -12,6 +12,7 @@ var promise = require('express-promise');
 
 //Configurations.
 require('datejs');
+require('dotenv').config();
 app.set('view engine', 'ejs'); //this change the view engine to ejs, (mahirap kasi yung default)
 app.use(parser.json());
 app.use(parser.urlencoded({ extended: false }));
@@ -28,7 +29,7 @@ db.connect(db.MODE_PRODUCTION, function (err) {
         process.exit(1);
     } else {
         //Change yung port pag production na.
-        var server = app.listen(80, function(){
+        var server = app.listen((process.env.SERVER_PORT || 80), function(){
             console.log('[SERVER] Listening in port: ' + server.address().port);
         }).on('error',function(err){
             console.error('[SERVER] Network related error. Port must be in use. ' + err);

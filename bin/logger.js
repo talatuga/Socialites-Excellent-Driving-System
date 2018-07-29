@@ -36,6 +36,16 @@ exports.errLogger = function(err){
     });
 }
 
+exports.logger = function(message){
+    var data = "["+ today.toString('MM-dd-yyyy HH:mm') +"] " + message;
+    fs.appendFile('./log/' + today.toString('MM-dd-yyyy') + '.log', data, function(err){
+        if(err){
+            throw err;
+            console.log('[SERVER] Logging ' + err.stack);
+        }
+    });
+}
+
 checkLogFolder('log', function(err){
     if(err){
         console.log(err.stack);
