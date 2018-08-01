@@ -1,4 +1,7 @@
 $(function() {    
+    $('.navAdmin').show();
+    $('.navStudent').hide();
+    
     var x = $(window).height();
     $(".page-wrapper").height(x);
 
