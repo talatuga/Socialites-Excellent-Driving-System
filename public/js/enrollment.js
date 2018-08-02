@@ -1,9 +1,11 @@
 var preRegLoaded = 0;
 var loadPreReg = function(){
-    if(branchLoaded == 0){
-        loadBranch();
-        loadCourse();
-        loadPreReg();
+    if(branchLoaded == 0 || courseLoaded == 0){
+        loadBranch(function(){
+            loadCourse(function(){
+                loadPreReg();
+            });
+        });
     }else{
         if(preRegLoaded == 0){
             $(".preloader").fadeIn();              
@@ -175,6 +177,8 @@ function openPayment(){
                 html += "</tr>";
                 $('.paymentModal').append(html);
             }
+            payments.amount = total;
+            payments.transactionID = profile.data.transactionID;
             $('.totAssess').html(total.formatMoney(2));
         });
         $('#paymentEnroll').val("")
@@ -189,44 +193,52 @@ function appRegForm(){ //Approve Registration
         swal("Oops!", "Please enter amount of payment.", "error");
     }
     else{
-        swal({
-            title: "Warning!",
-            text: "Are you sure you want to approve this enrolment form?",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes",
-            cancelButtonText: "Cancel",
-            closeOnConfirm: false,
-            closeOnCancel: true
-        },
-        function(isConfirm){
-            if (isConfirm) {
-                var data = {
-                    info: preRegAssess.selected,
-                    license: "",
-                };
-                preRegAssess.approve(data, function(err){
-                    if(err){
-                        swal("Failed!", err.message, "error");
-                    }else{
-                        swal("Enrolment form is approved!", "Student account is created! Remaining balance: " + bal + "" ,"success");
-                        $('#viewRegFormModal').modal('hide');
-                        $('#addPaymentModal').modal('hide');
+        payments.submit(x, function(err,detail){
+            if(err){
+                swal('Failed!', detail, 'error');
+                console.error(err);
+                return;
+            }else{
+                swal({
+                    title: "Warning!",
+                    text: "Are you sure you want to approve this enrolment form?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes",
+                    cancelButtonText: "Cancel",
+                    closeOnConfirm: false,
+                    closeOnCancel: true
+                },
+                function(isConfirm){
+                    if (isConfirm) {
+                        var data = {
+                            info: preRegAssess.selected,
+                            license: "",
+                        };
+                        preRegAssess.approve(data, function(err){
+                            if(err){
+                                swal("Failed!", err.message, "error");
+                            }else{
+                                swal("Enrolment form is approved!", "Student account is created! Remaining balance: " + bal + "" ,"success");
+                                $('#viewRegFormModal').modal('hide');
+                                $('#addPaymentModal').modal('hide');
+                            }
+                        });
+                        /* preRegAssess.delete(function(err){
+                            if(err){
+                                swal("Failed!", err.message, "error");
+                            }else{
+                                swal("Enrolment form is approved!", "Student account is created! Remaining balance: " + bal + "" ,"success");
+                                $('#viewRegFormModal').modal('hide');
+                                $('#addPaymentModal').modal('hide');
+                            }
+                        }); */
+                    }
+                    else{
+                        $('#addPaymentModal').modal('show');  
                     }
                 });
-                /* preRegAssess.delete(function(err){
-                    if(err){
-                        swal("Failed!", err.message, "error");
-                    }else{
-                        swal("Enrolment form is approved!", "Student account is created! Remaining balance: " + bal + "" ,"success");
-                        $('#viewRegFormModal').modal('hide');
-                        $('#addPaymentModal').modal('hide');
-                    }
-                }); */
-            }
-            else{
-                $('#addPaymentModal').modal('show');  
             }
         });
     }

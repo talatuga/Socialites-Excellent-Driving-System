@@ -31,7 +31,6 @@ UserAccount.register = function(data, cb){
     var sql = "SELECT addUserAcc(?,?,?) as id";
     this.db.get().query(sql, data, function(err, result){
         if(err) return cb(err);
-        console.log(JSON.stringify(result));
         cb(null, result[0].id);
     });
 }

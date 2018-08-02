@@ -45,6 +45,8 @@ exports.enrollWeb = function(req, res, next){
             });
         });
     }else{
+        var billing = require('../../model/accountModel'); 
+        billing.addBill();
         student.preRegStud([null,req.body.data,null,1],function(err){
             if(err) return next(err);
             res.status(200).send({success: true});

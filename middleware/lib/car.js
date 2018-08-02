@@ -6,7 +6,7 @@ exports.create = function(req, res, next){
     if(res.locals.authenticated == 0) return next();
     //VALIDATIONS
     var dataInput = JSON.parse(req.body.data);
-    var data = [null];
+    var data = [""];
     offdayViaPlate(dataInput.plate, dataInput.branch, function(err, offday){
         if(err) return next(err);
         data.push(dataInput.model);
@@ -14,7 +14,7 @@ exports.create = function(req, res, next){
         data.push(dataInput.transType);
         data.push(dataInput.price);
         data.push(dataInput.plate);
-        data.push(null);
+        data.push(0);
         data.push(dataInput.branch == undefined ? 1 : dataInput.branch);
         data.push(offday);
         data.push(1);

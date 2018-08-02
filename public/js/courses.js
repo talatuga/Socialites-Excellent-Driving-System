@@ -18,10 +18,11 @@ $(function () {
     $('#searchCourses').on('keyup', function(e){
         search.keypress($('#searchCourses').val());
     });
+    loadCourse();
 });
 
 var courseLoaded = 0;
-var loadCourse = function(){
+var loadCourse = function(cb){
     if(courseLoaded == 0){
         $(".preloader").fadeIn();          
         courseModule.getList(()=>{
@@ -38,7 +39,10 @@ var loadCourse = function(){
             courseModule.pages[courseModule.currPage].forEach(x=>{
                 $('.enrCourse').append("<option value='"+ x.id +"'>"+ x.days +" Days</option>");
             });
-            courseLoaded = 1;              
+            courseLoaded = 1; 
+            if(cb != undefined){
+                cb();
+            }             
         });
     }
 }

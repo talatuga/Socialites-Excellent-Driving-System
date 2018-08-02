@@ -26,14 +26,14 @@ exports.create = function(req, res, next){
     info.push(dataIn.info.email);
     info.push(2);
  
-    var inst = [null];
-    inst.push(null);
+    var inst = [''];
+    inst.push('');
     inst.push(dataIn.license);
     inst.push(dataIn.licenseExp == undefined ? Date.parse("next 5 years").toString("yyyy-MM-dd") : dataIn.licenseExp);
     inst.push(dataIn.info.education);
     inst.push("");
-    inst.push(null);
-    inst.push(null);
+    inst.push('');
+    inst.push('');
     inst.push(1);
 
     data.credential = credential;

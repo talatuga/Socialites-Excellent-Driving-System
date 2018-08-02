@@ -41,7 +41,22 @@ var Validation = function(){
     this.checkUndef = function(arrData,cb){
         var error = 0;
         arrData.forEach((elem,index)=>{
-            if(elem == undefined && elem != null){
+            if(elem == undefined){
+                error++;
+            }
+            if(index == arrData.length-1){
+                if(error > 0){
+                    cb(false);
+                }else{
+                    cb(true);
+                }
+            }
+        });
+    };
+    this.checkNull = function(arrData, cb){
+        var error = 0;
+        arrData.forEach((elem,index)=>{
+            if(elem == null){
                 error++;
             }
             if(index == arrData.length-1){

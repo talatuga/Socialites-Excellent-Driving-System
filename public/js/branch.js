@@ -12,21 +12,23 @@ $(function () {
 });
 
 var branchLoaded = 0;
-var loadBranch = function(){
+var loadBranch = function(cb){
+    var callback = cb;
+    console.log(cb==undefined);
     if(branchLoaded == 0){
-        branchLoaded = 1;
         $(".preloader").fadeIn();  
         office.getList(function(err, data){
             if(err){
                 swal("Failed!",err.message,"error");
             }else{
+                branchLoaded = 1;
                 renderBranchTable(office.pages[office.currPage]);
                 $('.tblBranches tbody tr:first').addClass("highlightTr");
                 $('.tblBranches tbody tr').click(function () {
                     var selected = $(this).hasClass("highlightTr");
                     $('.tblBranches tbody tr').removeClass("highlightTr");
                     if (!selected)
-                        $(this).addClass("highlightTr");
+                    $(this).addClass("highlightTr");
                 });
                 viewBranchProfile(office.pages[office.currPage][0].id);
                 $(".preloader").fadeOut();                  
@@ -34,6 +36,11 @@ var loadBranch = function(){
                 office.pages[office.currPage].forEach(x=>{
                     $('.enrBranch').append("<option value='"+ x.id +"'>"+ x.name +"</option>");
                 });
+                console.log(callback);
+                if(callback){
+                    console.log("wtf?")
+                    callback();
+                };
             }
         });        
     }

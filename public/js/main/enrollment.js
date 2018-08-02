@@ -9,6 +9,9 @@ var preRegData = {
     course: 0,
     branch: 0,
     license: 0,
+    trans: {},
+    sched: [],
+    vehicle: "",
 };
 
 $(function(){
@@ -641,6 +644,8 @@ function regNextAdd(){
     if (isCheck3New==0){
         swal("Oops!", "Please fill out all required fields.", "error");
     }else{
+        preRegData.vehicle = $('#manualVehiclesSelect').val();
+        $("input[name=prefDaysCB]").each((a)=>{preRegData.sched.push(a)});
         $('.step4').html("Step 4: Select payment method.");
         $('.pr2A').hide();
         $('.pr1').hide();
@@ -785,7 +790,7 @@ function regDone(){
             course: getSpecialCourseID(),
             location: $('input[name=specialCrs]:checked').length > 0 ? $('#enrPickup').val() : null,
         };
-        enrollment.enroll(preRegData.info,preRegData.course, preRegData.branch, paymentMeth, preRegData.license,preRegData.special).submit(function(err){
+        enrollment.enroll(preRegData.info,preRegData.course, preRegData.branch, paymentMeth, preRegData.license,preRegData.special,preRegData.trans,preRegData.vehicle,preRegData.sched).submit(function(err){
             if(err) return swal("Failed!", err.message, "error");
             if (paymentMeth==1){
                 $('.oneWeekDeadline').html(Date.parse("next week").toString("MMM dd, yyyy"));

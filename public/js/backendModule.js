@@ -46,8 +46,8 @@ var car = {
     addCar: function(_data, cb){
         var req = $.post('api/v1/car', {data: JSON.stringify(_data)}, function(response){
             if(response.success == false){
-                console.log("Error: On adding new vehicle.");
-                cb(new Error("Error: On adding new vehicle."));
+                console.log(response.detail);
+                cb(new Error(response.detail));
             }else{
                 cb(null);
             }
@@ -1084,5 +1084,31 @@ var preRegAssess = {
         this.getList(()=>{
             renderCourseTable(this.pages[this.currPage]);
         });
+    }
+}
+
+var payments = {
+    url: "api/v1/payment",
+    amount: -1,
+    transactionID: "",
+    submit: function(price, cb){
+        if(this.transactionID != ""){
+            var data = {
+                transactionID: this.transactionID,
+                amount: this.amount,
+                payment: price
+            };
+            $.post(this.url, data, function(res){
+                if(res.success){
+                    cb(null, res.detail);
+                }else{
+                    cb(new Error(res.detail));
+                }
+            }).fail(function(xhr){
+                cb(new Error(xhr.statusText));
+            });
+        }else{
+            cb(new Error("Transaction ID should not be empty"));
+        }
     }
 }
