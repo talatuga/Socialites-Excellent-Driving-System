@@ -9,7 +9,10 @@ var preRegData = {
     course: 0,
     branch: 0,
     license: 0,
-    trans: {},
+    trans: {
+        transaction: "",
+        amount: 0,
+    },
     sched: [],
     vehicle: "",
 };
@@ -18,6 +21,7 @@ $(function(){
     uncheckLesSelct();
     resetEnroll1();
     resetEnroll2();
+    hideVehicleOptions();
     $('.paymentOptionBack').hide();
     $('.paymentOptionDiv1').hide();
     $('#paymentOptionDivNoOnline').hide();
@@ -45,7 +49,6 @@ $(function(){
 
     $('#enrBday').change(function() {
         var date = $("enrBday").val();
-        console.log(date, 'change')
     });
 
     Number.prototype.formatMoney = function(c, d, t){
@@ -119,6 +122,14 @@ $(function(){
     });
 });
 
+function hideVehicleOptions(){
+    $('.h5both').hide();
+    $('.h5auto').hide();
+    $('.h5man').hide();
+    $('#trManualVehicle').hide();
+    $('#trAutoVehicle').hide();
+}
+
 function resetEnroll1 (){
     $('#btnCancPreregA').show();
     $('#btnPreregNext2A').show();
@@ -163,8 +174,11 @@ function payMeth1(){
         ids.push(course.generateID(data.courseID, data.transmission));
         total += $('#special'+data.courseID+':checked').length!=0?(data.price*2):data.price;
     });
-    $('.payCourse').html(ids.join());
-    $('.payPrice').html(total.formatMoney(0));
+    preRegData.trans.amount += total;
+    preRegData.trans.transaction = "Enrolment" + preRegData.trans.transaction;
+    $('#payCourse').html(ids.join());
+    $('#payPrice').html(total.formatMoney(0));
+    $('#totalAmount').html(preRegData.trans.amount.formatMoney(0));
 }
 
 function paymentBack(){
@@ -301,7 +315,7 @@ function checkEnr2A (){
 }
 
 function checkEnr3New (){
-    var selected_manual = $('#manualVehiclesSelect').val();
+    var selected_manual = $('#manualVehiclesSelect').val() != 0 ? $('#manualVehiclesSelect').val() : $('#autoVehiclesSelect').val() != 0 ? $('#autoVehiclesSelect').val() : 0;
     checkedDays = $('input[name="prefDaysCB"]:checked').map(function () {
         return this.value;
     }).get();
@@ -329,6 +343,7 @@ function regCanc(){
     },
     function(isConfirm){
         if (isConfirm) {
+            hideVehicleOptions();
             resetEnrollment();
             $('.pr2A').hide();
             $('.pr2').hide();
@@ -395,6 +410,7 @@ function regNext1(){
 }
 
 function regPrev1(){
+    hideVehicleOptions();
     $('.pr2A').hide();
     $('.pr2').hide();
     $('.pr3').hide();
@@ -446,8 +462,11 @@ function regNext2(){
         swal("Oops!", "Please select at least one.", "error");
     }
     else{
-        var c = $('input[name=enrReqP]:checked').val();
-        if (c==2 || c==6 || c==7){
+        var c = $('input[name=enrReqP]:checked').data().id;
+        if (c!=0){
+            preRegData.trans.transaction += ", Apply";
+            preRegData.trans.amount += parseInt($('input[name=enrReqP]:checked').data().price);
+            $('#additionalPayment').html(" Plus additional payment for applying <span class='payCourse'>"+ $('input[name=enrReqP]:checked').data().desc +" license</span> is &#8369;<span class='payPrice'>"+ ($('input[name=enrReqP]:checked').data().price).formatMoney(0) + "</span>. Total of &#8369;<span id='totalAmount' class='payPrice'><span>");
             payHide=2;
             paymentBack();
         }
@@ -455,7 +474,8 @@ function regNext2(){
             payHide=1;
             paymentBack();
         }
-        // preRegData.branch = branch;
+        //preRegData.branch = branch;
+
         $('.pr2A').hide();
         $('.pr1').hide();
         $('.pr2').hide();
@@ -477,7 +497,25 @@ function regNext2(){
         $('#btnPreregPrevAdd').show();
         $('#btnPreregNextAdd').show();
         paymentMeth=0;
-        preRegData.license = c;
+        preRegData.license = c; 
+        var vtype = "";
+        console.log(vtype);
+        cart.container.forEach((e,i)=>{
+            vtype += course.getLocalData(e).transmission;
+            if(i == cart.container.length-1){
+                if(vtype.search('m') != -1 && vtype.search('a') != -1){
+                    $('.h5both').show();
+                    $('#trManualVehicle').show();
+                    $('#trAutoVehicle').show();
+                }else if(vtype.search('m') != -1){
+                    $('.h5man').show();
+                    $('#trManualVehicle').show();
+                }else if(vtype.search('a') != -1){
+                    $('.h5auto').show();
+                    $('#trAutoVehicle').show();
+                }
+            }
+        });
     }
 }
 
@@ -644,8 +682,8 @@ function regNextAdd(){
     if (isCheck3New==0){
         swal("Oops!", "Please fill out all required fields.", "error");
     }else{
-        preRegData.vehicle = $('#manualVehiclesSelect').val();
-        $("input[name=prefDaysCB]").each((a)=>{preRegData.sched.push(a)});
+        preRegData.vehicle = $('#manualVehiclesSelect').val() != 0 ? $('#manualVehiclesSelect').val() : $('#autoVehiclesSelect').val() == 0 ? "" : $('#autoVehiclesSelect').val();
+        $("input[name=prefDaysCB]:checked").each((a)=>{preRegData.sched.push(a)});
         $('.step4').html("Step 4: Select payment method.");
         $('.pr2A').hide();
         $('.pr1').hide();
@@ -794,7 +832,7 @@ function regDone(){
             if(err) return swal("Failed!", err.message, "error");
             if (paymentMeth==1){
                 $('.oneWeekDeadline').html(Date.parse("next week").toString("MMM dd, yyyy"));
-                // preRegData.license = $('input[name="enrReqP"]:checked').val();
+                preRegData.license = $('input[name="enrReqP"]:checked').val();
                 $('#successEnrollModal1').modal('show');
             }
             else if (paymentMeth==2){

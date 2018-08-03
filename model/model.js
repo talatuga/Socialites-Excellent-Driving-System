@@ -42,11 +42,21 @@ var Model = {
         });
     },
     getList: function(offset, limit, cb){
-        var sql = "SELECT * FROM "+ this.table +" WHERE id > ? ORDER BY id ASC LIMIT ?";
-        this.db.get().query(sql, [offset, limit], function(err, result){
-            if(err) return cb(err);
-            cb(null, result);
-        });
+        var sql = "";
+        if(typeof offset == 'function'){
+            cb = offset;
+            sql = "SELECT * FROM " + this.table;
+            this.db.get().query(sql, function(err, result){
+                if(err) return cb(err);
+                cb(null, result);
+            });
+        }else{
+            sql = "SELECT * FROM "+ this.table +" WHERE id > ? ORDER BY id ASC LIMIT ?";
+            this.db.get().query(sql, [offset, limit], function(err, result){
+                if(err) return cb(err);
+                cb(null, result);
+            });
+        }
     },
     update: function (id, _data, field, cb) {
         if (typeof field == "function") {

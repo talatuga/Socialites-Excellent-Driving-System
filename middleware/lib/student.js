@@ -202,6 +202,12 @@ exports.preRegEdit = function(req, res, next){
     })
 }
 
+/**
+ * This adds course on existing student.
+ * @param {Request} req 
+ * @param {Response} res 
+ * @param {Function} next 
+ */
 exports.enroll = function(req, res, next){
     var dataIn = JSON.parse(req.body.data);
     var data = [null];

@@ -130,20 +130,15 @@
                     </div>
                     <div class="col-md-7 col-sm-7 col-lg-7 col-xs-12">
                         <form class="reqForm">
-                            <input type="radio" class="enrReqPerm" id="enrReqP1" name="enrReqP" value="1">
+                            <input type="radio" class="enrReqPerm" id="enrReqP1" data-id='0' name="enrReqP" value="1">
                                 <label class="enrReqLbl" for="enrReqP1">To apply student driver's permit at LTO</label><br>
-                            <input type="radio" class="enrReqPerm" id="enrReqP2" name="enrReqP" value="2">
-                                <label class="enrReqLbl" for="enrReqP2">To apply student driver's permit thru S-Excellent</label><br>
-                            <input type="radio" class="enrReqPerm" id="enrReqP3" name="enrReqP" value="3">
+                            <input type="radio" class="enrReqPerm" id="enrReqP2" data-id='0' name="enrReqP" value="2">
                                 <label class="enrReqLbl" for="enrReqP3">With student driver's permit</label><br>
-                            <input type="radio" class="enrReqPerm" id="enrReqP4" name="enrReqP" value="4">
+                            <input type="radio" class="enrReqPerm" id="enrReqP3" data-id='0' name="enrReqP" value="3">
                                 <label class="enrReqLbl" for="enrReqP4">With non-professional license</label><br>
-                            <input type="radio" class="enrReqPerm" id="enrReqP5" name="enrReqP" value="5">
+                            <input type="radio" class="enrReqPerm" id="enrReqP4" data-id='0' name="enrReqP" value="4">
                                 <label class="enrReqLbl" for="enrReqP5">With professional license</label><br>
-                            <input type="radio" class="enrReqPerm" id="enrReqP6" name="enrReqP" value="6">
-                                <label class="enrReqLbl" for="enrReqP6">To apply non-professional license thru S-Excellent</label><br>
-                            <input type="radio" class="enrReqPerm" id="enrReqP7" name="enrReqP" value="7">
-                                <label class="enrReqLbl" for="enrReqP7">To apply professional license thru S-Excellent</label><br>
+                            <% license.forEach((e,i)=>{ %><input type='radio' class='enrReqPerm' id='enrReqP<%=(5 + i)%>' data-id='<%=e.id%>' data-price='<%=e.price%>' data-desc='<%=e.desc%>' name='enrReqP' value='<%=(5 + i)%>'><label class="enrReqLbl" for="enrReqP<%=(5 + i)%>">To apply <%=e.desc%> license thru S-Excellent</label><br><% }); %>
                         </form>
                     </div>
                 </div>
@@ -285,7 +280,7 @@
                     <br><br><h3>PAYMENT METHOD: <span class="payMethH3">PAY ON BRANCH</span></h3><hr>
                     <ul>
                         <li>You have chosen the Pay on Branch method.</li>
-                        <li>The total amount of your enrolled course/s [<span class="payCourse">CRS-M001</span>] is &#8369;<span class="payPrice">2,500</span>.</li>
+                        <li>The total amount of your enrolled course/s [<span id="payCourse" class="payCourse">CRS-M001</span>] is &#8369;<span id="payPrice" class="payPrice">2,500</span>.<span id="additionalPayment"></span></li>
                         <li><b>Please confirm by clicking "I confirm my enrolled course"...</b></li>
                     </ul><br>
                     <input type="checkbox" name="confirmCourse"> I confirm my enrolled course
@@ -302,33 +297,29 @@
             <form class="prefDaysVehiForm">
                 <div>
                     <h3 class="prefH3">Preferred Vehicle</h3><br>
-                    <!-- <h5 class="h5man" style="color: black;">*Since you enrolled for a manual course, choose only one manual transmission vehicle below.</h5></td>
-                            <h5 class="h5auto" style="color: black;">*Since you enrolled for an automatic course, choose only one automatic transmission vehicle below.</h5></td>
-                            <h5 class="h5both" style="color: black;">*Since you enrolled for both manual and automatic courses, choose only one manual and one automatic transmission vehicles below.</h5> -->
+                    <h5 class="h5man" style="color: black;">*Since you enrolled for a manual course, choose only one manual transmission vehicle below.</h5>
+                    <h5 class="h5auto" style="color: black;">*Since you enrolled for an automatic course, choose only one automatic transmission vehicle below.</h5>
+                    <h5 class="h5both" style="color: black;">*Since you enrolled for both manual and automatic courses, choose only one manual and one automatic transmission vehicles below.</h5>
                     <h5 style="color: black;">*Choose only one vehicle you prefer for lessons. You may still change this upon choosing of schedule.</h5>
                     <table>
                         <tr id="trManualVehicle">
                             <td><label style="color: black;">Manual Transmission Vehicles:</label></td>
                             <td>
-                                <select id="manualVehiclesSelect">
+                                <select name="vehicleOption" id="manualVehiclesSelect">
                                     <option value="0">---</option>
-                                    <option value="1">Toyota Atlis</option>
-                                    <option value="2">Toyota Vios</option>
-                                    <option value="3">Toyota Innova</option>
+                                    <% car.forEach((e,i)=>{ if(e.transmission == "M"){ %> <option value="<%=e.id%>"><%=e.model + " " + e.brand%></option> <% }}); %>
                                 </select>
                             </td>
                         </tr>
-                        <!-- <tr id="trAutoVehicle">
+                        <tr id="trAutoVehicle">
                             <td><label style="color: black;">Automatic Transmission Vehicles:</label></td>
                             <td>
-                                <select id="autoVehiclesSelect">
-                                <option id="0">---</option>
-                                <option id="1">Hyundai</option>
-                                <option id="2">Hyundai II</option>
-                                <option id="3">Hyundai III</option>
-                            </select>
+                                <select name="vehicleOption" id="autoVehiclesSelect">
+                                    <option value="0">---</option>
+                                    <% car.forEach((e,i)=>{ if(e.transmission == "A"){ %> <option value="<%=e.id%>"><%=e.model + " " + e.brand%></option> <% }}); %>
+                                </select>
                             </td>
-                        </tr> -->
+                        </tr>
                     </table>
                 </div>
 

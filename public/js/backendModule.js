@@ -1110,5 +1110,16 @@ var payments = {
         }else{
             cb(new Error("Transaction ID should not be empty"));
         }
-    }
+    },
+    pay: function(price, cb){
+        return $.post(this.url+"/"+this.transactionID, {amount: price}, function(res){
+            if(res.success){
+                cb(null, res.payload);
+            }else{
+                cb(new Error(res.detail));
+            }
+        }).fail(xhr=>{
+            cb(new Error(xhr.status + ": " + xhr.statusText));
+        });
+    },
 }
