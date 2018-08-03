@@ -5,6 +5,7 @@ $(function() {
     $(".liSide").removeClass("active");
     $('.viewDiv').hide();
     $("#liStud1").addClass("active");
+    $('.view-studSchedule').show();
 
     $( document ).ajaxComplete(function(e, xhr, settings) {
         ajaxHandler.complete(xhr, settings);
@@ -38,26 +39,41 @@ function viewActiveStud (a){
 }
 
 var studSchedule = function (){
+    $('.viewDiv').hide();
     $(".view-studSchedule").show();
 }
 var studCourseLessons = function (){
+    $('.viewDiv').hide();
     $(".view-studCourseLessons").show();
 }
 var studInstructors = function (){
+    $('.viewDiv').hide();
     $(".view-studInstructors").show();
 }
 var studPayment = function (){
+    $('.viewDiv').hide();
     $(".view-studPayment").show();
 }
 var studAccount = function (){
+    $('.viewDiv').hide();
     $(".view-studAccount").show();
 }
 var studLicAssist = function (){
+    $('.viewDiv').hide();
     $(".view-studLicAssist").show();
 }
 var studTransBranch = function (){
+    $('.viewDiv').hide();
     $(".view-studTransBranch").show();
 }
 var studCertificate = function (){
+    $('.viewDiv').hide();
     $(".view-studCertificate").show();
+}
+
+// MINOR
+
+var studSelectSchedule = function (){
+    $('.viewDiv').hide();
+    $(".view-studSelectSchedule").show();
 }

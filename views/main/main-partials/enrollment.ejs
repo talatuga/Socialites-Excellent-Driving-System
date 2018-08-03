@@ -318,7 +318,7 @@
                                 </select>
                             </td>
                         </tr>
-                        <!-- <tr id="trAutoVehicle">
+                        <tr id="trAutoVehicle">
                             <td><label style="color: black;">Automatic Transmission Vehicles:</label></td>
                             <td>
                                 <select id="autoVehiclesSelect">
@@ -328,7 +328,7 @@
                                 <option id="3">Hyundai III</option>
                             </select>
                             </td>
-                        </tr> -->
+                        </tr>
                     </table>
                 </div>
 
@@ -336,36 +336,28 @@
                     <br><br><br>
                     <h3 class="prefH3">Preferred Schedule</h3><br>
                     <h5 style="color: black">*Select all your available or preferred days for lessons/appointments. You may still change this upon choosing of schedule.</h5>
-                       <table class="tblDays">
-                            <tr>
-                                <td><input type="checkbox" name="prefDaysCB"></td>
-                                <td>Sunday</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" name="prefDaysCB"></td>
-                                <td>Monday</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" name="prefDaysCB"></td>
-                                <td>Tuesday</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" name="prefDaysCB"></td>
-                                <td>Wednesday</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" name="prefDaysCB"></td>
-                                <td>Thursday</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" name="prefDaysCB"></td>
-                                <td>Friday</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" name="prefDaysCB"></td>
-                                <td>Saturday</td>
-                            </tr>
-                        </table>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input type="checkbox" name="prefDaysCB">
+                            <label>Monday</label><br>
+                            <input type="checkbox" name="prefDaysCB">
+                            <label>Thursday</label><br>
+                            <input type="checkbox" name="prefDaysCB">
+                            <label>Sunday</label><br>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="checkbox" name="prefDaysCB">
+                            <label>Tuesday</label><br>
+                            <input type="checkbox" name="prefDaysCB">
+                            <label>Friday</label><br>
+                        </div>
+                            <div class="col-md-4">
+                            <input type="checkbox" name="prefDaysCB">
+                            <label>Wednesday</label><br>
+                            <input type="checkbox" name="prefDaysCB">
+                            <label>Saturday</label><br>
+                        </div>
+                    </div><br>
                 </div>
             </form>
         </div>

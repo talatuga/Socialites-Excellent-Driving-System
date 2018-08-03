@@ -127,7 +127,7 @@ exports.register = function(req, res, next){
                             subject: "Welcome to Socialites Driving Excellent!",
                             body: "\tTo login to your own personal Dashboard, use your email as Username.\n This is your password: " + password + "\n\t\t-Welcome from SED family",
                         };
-                        accountMail.send(dataIn.info.email,mailBody,function(err, response){
+                        accountMail.send(data.info.email,mailBody,function(err, response){
                             if(err) return next(err);
                             require('../../bin/logger').logger("E-Mail Send to " + dataIn.info.email);
                         });

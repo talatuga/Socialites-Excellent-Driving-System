@@ -22,13 +22,22 @@
         <div id="wrapper">
             <% include ../admin/partials/header %> <!-- HEADER CODES -->
             <% include ../admin/partials/sidebar %> <!-- SIDEBAR CODES -->
+            <% include ./modals %> 
 
             <!-- MAIN -->
             <div class="page-wrapper">
-                
+                <% include ./main-partials/studSchedule %>
+                <% include ./main-partials/studCourseLessons %>
+                <% include ./main-partials/studInstructors %>
+                <% include ./main-partials/studPayment %>
+                <% include ./main-partials/studAccount %>
+                <% include ./main-partials/studLicAssist %>
+                <% include ./main-partials/studTransBranch %>
+                <% include ./main-partials/studCertificate %>
+
+                <% include ./minor-partials/studSelectSchedule %>
             </div>
             <!-- END MAIN -->
-
             <% include ../admin/partials/footer %> 
             <!-- FOOTER CODES -->
 
