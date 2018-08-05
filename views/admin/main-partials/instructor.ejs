@@ -116,12 +116,12 @@
               <h2>ADD INSTRUCTOR ACCOUNT</h2>
               <h6>Fill out all required (<span class="asterisk">*</span>) fields.</h6><br>
           <div class="row">
-            <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6 defMod1Inst activeDefModInst">
+            <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12 defMod1Inst activeDefModInst">
                 <h4 class="defModTxt">Personal Information</h4>
             </div>
-            <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6 defMod2Inst">
+            <!-- <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6 defMod2Inst">
                 <h4 class="defModTxt">Account Login Details</h4>
-            </div>
+            </div> -->
           </div><br>
         </center>
         <div class="divMod1Inst">
@@ -160,9 +160,9 @@
                     <h5 class="h5Enr">Driver's License Details<span class="asterisk">*</span></h5>
                     <input type="text" class="txtEnr" required id="newInstLicense" placeholder="ex: A01-10-123456"><br>
                     <small style="padding-left: 10px;">License Number</small>
-                    <input type="text" class="txtEnr" required id="newInstLicenseDI" placeholder="ex: dd/mm/yyyy"><br>
+                    <input type="date" required class="txtEnr pull-left" id="newInstLicenseDI" placeholder="dd/mm/yyyy"><br><br><br>
                     <small style="padding-left: 10px;">Date of Issuance</small>
-                    <input type="text" class="txtEnr" required id="newInstLicenseDE" placeholder="ex: dd/mm/yyyy"><br>
+                    <input type="date" required class="txtEnr pull-left" id="newInstLicenseDE" placeholder="dd/mm/yyyy"><br><br><br>
                     <small style="padding-left: 10px;">Date of Expiry</small>
                 </div><hr>
                 <div>
@@ -181,7 +181,7 @@
             </form>
         </div>
 
-        <div class="divMod2Inst">
+        <!-- <div class="divMod2Inst">
             <center><h5>Details can be changed anytime later on using the instructor's account.</h5><hr width="20%"></center><br>
             <form class="formInstAccount">
                 <div class="table-responsive">
@@ -204,14 +204,14 @@
                 </table>
                 </div>
             </form>
-        </div>
+        </div> -->
       </div>
       <div class="modal-footer">
         <button type="button" id="btnCancAddInst" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-        <button type="button" id="btnNextAddInst" onclick="nextInst()" class="btn btn-primary">Next</button>
+        <!-- <button type="button" id="btnNextAddInst" onclick="nextInst()" class="btn btn-primary">Next</button>
 
-        <button type="button" id="btnPrevAddInst" onclick="prevInst()" class="btn btn-light">Previous</button>
-        <button type="button" id="btnDoneAddInst" onclick="doneInst()" class="btn btn-primary">Done</button>
+        <button type="button" id="btnPrevAddInst" onclick="prevInst()" class="btn btn-light">Previous</button> -->
+        <button type="button" id="btnDoneAddInst" onclick="nextInst()" class="btn btn-primary">Done</button>
       </div>
     </div>
   </div>

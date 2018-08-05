@@ -1,6 +1,5 @@
 $(function() {
   $('#external-events .fc-event').each(function() {
-
     // store data so the calendar knows to render an event upon drop
     $(this).data('event', {
       title: $.trim($(this).text()), // use the element's text as the event title
@@ -13,9 +12,7 @@ $(function() {
       revert: true,      // will cause the event to go back to its
       revertDuration: 0  //  original position after the drag
     });
-
   });
-
 
   /* initialize the calendar
   -----------------------------------------------------------------*/
@@ -57,7 +54,7 @@ $(function() {
 
 function changePref(){
   //DB: Load preferred vehicle and sched here.
-  $('#changePrefModal').modal('show');
+  $("#changePrefModal").modal("show");
 }
 
 function doneChangePref(){

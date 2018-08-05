@@ -73,20 +73,14 @@ function resetNewInstr() //resets fields on add instructor modal
     $('select[name="newInstEduc"]').val(0);
     document.getElementById("g1NI").checked = true;
     document.getElementById("g2NI").checked = false;
-
-    $(".defMod2Inst").removeClass("activeDefModInst");
-    $(".defMod1Inst").addClass("activeDefModInst");
-
-    $("#btnPrevAddInst").hide();
-    $("#btnDoneAddInst").hide();
-    $("#btnNextAddInst").show();
-
-    $(".divMod2Inst").hide();
-    $(".divMod1Inst").show();
+    $("#btnDoneAddInst").show();
 }
 
-function nextInst ()
+var nextInst = function ()
 {
+    var un = 'gtatel0517@gmail.com'; //temp
+    var pw = 'ella123'; //temp
+
     var fn = $("#newInstFirstname").val();
     var mn = $("#newInstMidname").val();
     var sn = $("#newInstSurname").val();
@@ -109,12 +103,7 @@ function nextInst ()
         || phone=="" || email=="" || bday=="") {
             swal("Oops!", "Please fill out all required fields.", "error");
         }
-        else {
-            var email = $("#newInstEmail").val();
-            $("#newInstUsername").val(email);
-            $("#newInstPassword").val("");
-            $("#newInstConfPassword").val("");
-        
+        else {    
             //SD: need more validation here please.
             fn = $("#newInstFirstname").val();
             mn = $("#newInstMidname").val();
@@ -137,29 +126,6 @@ function nextInst ()
             };
             inst.registrationDetail["license"] = license;
 
-            $(".defMod1Inst").removeClass("activeDefModInst");
-            $(".defMod2Inst").addClass("activeDefModInst");
-
-            $("#btnNextAddInst").hide();
-            $("#btnPrevAddInst").show();
-            $("#btnDoneAddInst").show();
-
-            $(".divMod1Inst").hide();
-            $(".divMod2Inst").show();
-        }
-}
-
-function doneInst() {
-    var un = $("#newInstUsername").val();
-    var pw = $("#newInstPassword").val();
-    var cpw = $("#newInstConfPassword").val();
-    if (un == "" || un.length == 0 || un == null
-        || pw == "" || pw.length == 0 || pw == null
-        || cpw == "" || cpw.length == 0 || cpw == null) {
-        swal("Oops!", "Please fill out all required fields.", "error");
-    }
-    else {
-        if (pw == cpw) {
             swal({
                 title: "Warning!",
                 text: "Are you sure you want to create this instructor account?",
@@ -184,33 +150,68 @@ function doneInst() {
                                 swal("Failed!", err.message, "error");                                
                                 return 
                             }
-                            swal("Success!", "Instructor account has been created!", "success");
+                            swal("Success!", "Instructor account created! Instructor credentials has been sent via email!", "success");
                             $("#newInstructorModal").modal('hide');
                         });
-                        //DB: Adding of new instructor here
                     }
                     else {
                         swal("Cancelled", "", "error");
                     }
                 });
         }
-        else {
-            swal("Oops!", "Passwords do not match.", "error");
-        }
-    }
 }
 
-function prevInst() {
-    $(".defMod2Inst").removeClass("activeDefModInst");
-    $(".defMod1Inst").addClass("activeDefModInst");
-
-    $("#btnPrevAddInst").hide();
-    $("#btnDoneAddInst").hide();
-    $("#btnNextAddInst").show();
-
-    $(".divMod2Inst").hide();
-    $(".divMod1Inst").show();
-}
+// function doneInst() {
+//     var un = $("#newInstUsername").val();
+//     var pw = $("#newInstPassword").val();
+//     var cpw = $("#newInstConfPassword").val();
+//     if (un == "" || un.length == 0 || un == null
+//         || pw == "" || pw.length == 0 || pw == null
+//         || cpw == "" || cpw.length == 0 || cpw == null) {
+//         swal("Oops!", "Please fill out all required fields.", "error");
+//     }
+//     else {
+//         nextInst();
+//         if (pw == cpw) {
+//             swal({
+//                 title: "Warning!",
+//                 text: "Are you sure you want to create this instructor account?",
+//                 type: "warning",
+//                 showCancelButton: true,
+//                 confirmButtonColor: "#DD6B55",
+//                 confirmButtonText: "Yes",
+//                 cancelButtonText: "Cancel",
+//                 closeOnConfirm: false,
+//                 closeOnCancel: false
+//             },
+//                 function (isConfirm) {
+//                     if (isConfirm) {
+//                         inst.registrationDetail["credential"] = {
+//                             username: un,
+//                             password: pw,
+//                             usertype: 2,
+//                         },
+//                         inst.register(function(err, done){
+//                             if(err){
+//                                 console.error(err);
+//                                 swal("Failed!", err.message, "error");                                
+//                                 return 
+//                             }
+//                             swal("Success!", "Instructor account has been created!", "success");
+//                             $("#newInstructorModal").modal('hide');
+//                         });
+//                         //DB: Adding of new instructor here
+//                     }
+//                     else {
+//                         swal("Cancelled", "", "error");
+//                     }
+//                 });
+//         }
+//         else {
+//             swal("Oops!", "Passwords do not match.", "error");
+//         }
+//     }
+// }
 
 function resetSettingsInst (){
     $("#editInstAccFN").prop("disabled", true);
