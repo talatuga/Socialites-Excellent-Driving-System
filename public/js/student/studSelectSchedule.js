@@ -1,4 +1,4 @@
-$(function() {
+$(function() { 
   $('#external-events .fc-event').each(function() {
     // store data so the calendar knows to render an event upon drop
     $(this).data('event', {
@@ -16,7 +16,6 @@ $(function() {
 
   /* initialize the calendar
   -----------------------------------------------------------------*/
-
   $('#calendarSelectSched').fullCalendar({
     header: {
       left: 'prev,next today',
@@ -54,7 +53,7 @@ $(function() {
 
 function changePref(){
   //DB: Load preferred vehicle and sched here.
-  $("#changePrefModal").modal("show");
+  $('#changePrefModal').modal("show");
 }
 
 function doneChangePref(){
