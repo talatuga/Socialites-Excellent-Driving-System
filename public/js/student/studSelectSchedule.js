@@ -1,4 +1,4 @@
-$(function() {  
+$(function() { 
   $('#external-events .fc-event').each(function() {
     // store data so the calendar knows to render an event upon drop
     $(this).data('event', {
