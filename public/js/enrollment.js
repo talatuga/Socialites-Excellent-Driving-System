@@ -318,7 +318,7 @@ var renderEnrollTbl = function(data){
             var html = "";
             html += "<tr onclick='viewPendingStudent("+ temp.id +")'>";
             html += "<td>"+ Date.parse(temp.dateSubmit).toString("MMM dd, yyyy") +"</td>";
-            html += "<td>"+ temp.data.info.fullname.replace(/_/g,' ') +"</td>";
+            html += "<td>"+ (temp.data.info.fullname).replace(/_/g,' ') +"</td>";
             html += "<td>"+ getReq(temp.data.applyLicense) +"</td>";
             html += "</tr>";
             $('#preRegTbl').append(html); 

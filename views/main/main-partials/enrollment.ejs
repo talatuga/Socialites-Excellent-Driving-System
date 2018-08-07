@@ -130,14 +130,14 @@
                     </div>
                     <div class="col-md-7 col-sm-7 col-lg-7 col-xs-12">
                         <form class="reqForm">
-                            <input type="radio" class="enrReqPerm" id="enrReqP1" data-id='0' name="enrReqP" value="1">
-                                <label class="enrReqLbl" for="enrReqP1">To apply student driver's permit at LTO</label><br>
                             <input type="radio" class="enrReqPerm" id="enrReqP2" data-id='0' name="enrReqP" value="2">
                                 <label class="enrReqLbl" for="enrReqP3">With student driver's permit</label><br>
                             <input type="radio" class="enrReqPerm" id="enrReqP3" data-id='0' name="enrReqP" value="3">
                                 <label class="enrReqLbl" for="enrReqP4">With non-professional license</label><br>
                             <input type="radio" class="enrReqPerm" id="enrReqP4" data-id='0' name="enrReqP" value="4">
                                 <label class="enrReqLbl" for="enrReqP5">With professional license</label><br>
+                            <input type="radio" class="enrReqPerm" id="enrReqP1" data-id='0' name="enrReqP" value="1">
+                                <label class="enrReqLbl" for="enrReqP1">To apply Student Driver's Permit at LTO</label><br>
                             <% license.forEach((e,i)=>{ %><input type='radio' class='enrReqPerm' id='enrReqP<%=(5 + i)%>' data-id='<%=e.id%>' data-price='<%=e.price%>' data-desc='<%=e.desc%>' name='enrReqP' value='<%=(5 + i)%>'><label class="enrReqLbl" for="enrReqP<%=(5 + i)%>">To apply <%=e.desc%> license thru S-Excellent</label><br><% }); %>
                         </form>
                     </div>
@@ -286,9 +286,9 @@
                     <a href="#paymentOptionDiv" onclick="paymentBack()" class="paymentBack"><i class="icon icon-chevron-left"></i> Change payment method</a>
                 </div><br>
 
-                <div class="paymentOptionDiv1">
+                <div class="paymentOptionDiv1" style="color: black;">
                     <a href="#paymentOptionDiv" onclick="paymentBack()" class="paymentBack"><i class="icon icon-chevron-left"></i> Change payment method</a>
-                    <br><br><h3>PAYMENT METHOD: <span class="payMethH3">PAY ON BRANCH</span></h3><hr>
+                    <br><br><h3 style="color: black;">PAYMENT METHOD: <span class="payMethH3" style="color: black;">PAY ON BRANCH</span></h3><hr>
                     <ul>
                         <li>You have chosen the Pay on Branch method.</li>
                         <li>The total amount of your enrolled course/s [<span id="payCourse" class="payCourse">CRS-M001</span>] is &#8369;<span id="payPrice" class="payPrice">2,500</span>.<span id="additionalPayment"></span></li>
@@ -338,7 +338,7 @@
                     <br><br><br>
                     <h3 class="prefH3">Preferred Schedule</h3><br>
                     <h5 style="color: black">*Select all your available or preferred days for lessons/appointments. You may still change this upon choosing of schedule.</h5>
-                    <div class="row">
+                    <div class="row" style="color: black;">
                         <div class="col-md-4">
                             <input type="checkbox" name="prefDaysCB">
                             <label>Monday</label><br>

@@ -466,7 +466,7 @@ function regNext2(){
         if (c!=0){
             preRegData.trans.transaction += ", Apply";
             preRegData.trans.amount += parseInt($('input[name=enrReqP]:checked').data().price);
-            $('#additionalPayment').html(" Plus additional payment for applying <span class='payCourse'>"+ $('input[name=enrReqP]:checked').data().desc +" license</span> is &#8369;<span class='payPrice'>"+ ($('input[name=enrReqP]:checked').data().price).formatMoney(0) + "</span>. Total of &#8369;<span id='totalAmount' class='payPrice'><span>");
+            $('#additionalPayment').html(" <br>Plus additional payment for applying for licensing assistance is <span class='payCourse'>"+ $('input[name=enrReqP]:checked').data().desc +" license</span> is &#8369;<span class='payPrice'>"+ ($('input[name=enrReqP]:checked').data().price).formatMoney(0) + "</span>.<br>Overall total of &#8369;<span id='totalAmount' class='payPrice'><span>.");
             payHide=2;
             paymentBack();
         }
