@@ -1,4 +1,6 @@
 var lesson = require('../../../model/lessonModel');
+var validation = require('../../../bin/util/validation');
+var valid = new validation();
 
 exports.create = function(req, res, next){
     if(res.locals.authenticated == 0) return next();
@@ -11,9 +13,16 @@ exports.create = function(req, res, next){
     data.push(dataIn.description);
     data.push(dataIn.duration);
     data.push(1);
-    lesson.create(data, function(err, result){
-        if(err) return next(err);
-        res.status(200).send({success: true, detail: "Successfully Created!"});
+
+    valid.checkUndef(data, function(passed){
+        if(passed){
+            lesson.create(data, function(err, result){
+                if(err) return next(err);
+                res.status(200).send({success: true, detail: "Successfully Created!"});
+            });
+        }else{
+            res.status(200).send({success: false, detail: "Invalid Data!"});
+        }
     });
 }
 
@@ -56,19 +65,27 @@ exports.update = function(req, res, next){
     if(res.locals.authenticated == 0) return next();    
     //VALIDATIONS
     var id = parseInt(req.params.id);
-    var field = req.params.field == undefined ? null : req.params.field.replace(';','');
+    var field = req.params.field == undefined ? null : req.params.field.replace(/;/g,'');
     var dataIn = JSON.parse(req.body.data);
     
     var data = [];
     data.push(dataIn.title);
     data.push(dataIn.prerequisite);
     data.push(dataIn.description);
+    data.push(dataIn.duration);
     data.push(1);
 
-    lesson.update(id, data, field, function(err, result){
-        if(err) return next(err);
-        res.status(200).send({success: true, detail: "Successfully Modify!"});
-    });
+    valid.checkUndef(data,function(passed){
+        if(passed){
+            lesson.update(id, data, field, function(err, result){
+                if(err) return next(err);
+                res.status(200).send({success: true, detail: "Successfully Modify!"});
+            });
+        }else{
+            res.status(200).send({success: false, detail: "Invalid Data!"});
+        }
+    })
+
 }
 
 exports.delete = function(req, res, next){
@@ -91,10 +108,17 @@ exports.addCourse = function(req, res, next){
     data.push(dataIn.days);
     data.push(1);
 
-    lesson.addCourse(data, function(err){
-        if(err) return next(err);
-        res.status(200).send({success:true, detail: "Successfully Added!"});
+    valid.checkUndef(data,function(passed){
+        if(passed){
+            lesson.addCourse(data, function(err){
+                if(err) return next(err);
+                res.status(200).send({success:true, detail: "Successfully Added!"});
+            });
+        }else{
+            res.status(200).send({success: false, detail: "Invalid Data!"});
+        }
     });
+
 }
 
 exports.editCourse = function(req, res, next){
@@ -103,15 +127,23 @@ exports.editCourse = function(req, res, next){
     var dataIn = JSON.parse(req.body.data);
     
     var data = [];
+    data.push(dataIn.desc);
     data.push(dataIn.carType);
     data.push(dataIn.price);
     data.push(dataIn.days);
     data.push(1);
 
-    lesson.editCourse(id, data, function(err){
-        if(err) return next(err);
-        res.status(200).send();
+    valid.checkUndef(data,function(passed){
+        if(passed){
+            lesson.editCourse(id, data, function(err){
+                if(err) return next(err);
+                res.status(200).send();
+            });
+        }else{
+            res.status(200).send({success: false, detail: "Invalid Data!"});
+        }
     });
+
 }
 
 exports.delCourse = function(req, res, next){

@@ -68,5 +68,12 @@ Car.getScheme = function(id, cb){
         cb(null, result.length == 1 ? result[0]:result);
     })
 };
+Car.getSchemeByLoc = function(location,cb){
+    var sql = "SELECT * FROM " + schemeTbl + " WHERE city = ?";
+    db.get().query(sql, [location], function(err,result){
+        if(err) return cb(err);
+        cb(null, result[0]);
+    });
+};
 
 module.exports = Car;

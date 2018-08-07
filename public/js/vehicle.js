@@ -91,6 +91,7 @@ function addVehi() {
     var _model = $(".addVehiModel").val();
     var _plate = $(".addVehiPlate").val();
     var _coding = $('select[name="addVehiCoding"]').val();
+    var price = $(".addVehiPrice").val();
 
     if (_brand == "" || _brand == null
         || _model == "" || _model == null
@@ -105,10 +106,12 @@ function addVehi() {
             brand: _brand,
             transType: _type,
             plate: _plate,
-            offday: _coding
+            offday: _coding,
+            price: price
         }
         car.addCar(_data, function(err){
             if(err){
+                swal("Failed!", err.message, "error");
                 console.log(err);
             }else{
                 swal("Success!", "New vehicle has been added!", "success");

@@ -1,4 +1,6 @@
 var db = require('../../../model/userAccModel');
+var Validation = require('../../../bin/util/validation');
+var valid = new Validation();
 
 exports.create = function(req, res, next){
     if(res.locals.authenticated == 0) return next();
@@ -7,10 +9,18 @@ exports.create = function(req, res, next){
     data.push(dataIn.username);    
     data.push(dataIn.password);    
     data.push(dataIn.acctype);
-    db.register(data, function(err){
-        if(err) return next(err);
-        res.status(200).send({success: true, detail: "Successfully Registered"});
-    });    
+
+    valid.checkUndef(data,function(passed){
+        if(passed){
+            db.register(data, function(err){
+                if(err) return next(err);
+                res.status(200).send({success: true, detail: "Successfully Registered"});
+            });
+        }else{
+            res.status(200).send({success: false, detail: "Invalid Data"});
+        }
+    })
+
 }
 
 exports.get = function(req, res, next){

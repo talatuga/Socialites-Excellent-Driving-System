@@ -23,14 +23,29 @@ function addPaymentBal(){
         },
         function(isConfirm){
             if (isConfirm) {
-                preRegAssess.delete(function(err){
+                payments.amount = bal;
+                payments.pay(bal, function(err, response){
+                    if(err){
+                        console.log(err);
+                        swal('Failed!', err.message, 'error');
+                    }else{
+                        if(response.status == 1){
+                            swal('Done!', "Balance fully paid", "success");
+                        }else if(response.status == 2){
+                            swal('Done!', "Balance Left: " + response.balance, "warning");
+                        }else if(response.status == 0){
+                            swal('Fail!', response.detail, "error");
+                        }
+                    }
+                });
+                /* preRegAssess.delete(function(err){
                     if(err){
                         swal("Failed!", err.message, "error");
                     }else{
                         swal("Payment record is saved!", "" ,"success");
                         $('#addPaymentModal1').modal('hide');
                     }
-                });
+                }); */
             }
             else{
                 $('#addPaymentModal1').modal('show');  

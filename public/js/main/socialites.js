@@ -265,13 +265,15 @@ var lesson = {
 
 var enrollment = {
     data: {},
-    enroll: function(info, course, branch, payment, apply, special){
+    enroll: function(info, course, branch, payment, apply, special,transaction,_vehicle,_schedule){
         this.data.info = info;
         this.data.course = course;
         this.data.branch = branch;
         this.data.payment = payment;
         this.data.applyLicense = apply;
         this.data.special = special;
+        this.data.transaction = transaction;
+        this.data.preference = {vehicle: _vehicle, schedule: _schedule};
         return this;
     },
     enrollWithAcc:function(accID, course, lesson, branch, payment, special){

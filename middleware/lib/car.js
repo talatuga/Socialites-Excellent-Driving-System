@@ -1,23 +1,34 @@
 var car = require('../../model/vehicleModel'); 
+var Validation = require('../../bin/util/validation');
+var valid = new Validation();
 
 exports.create = function(req, res, next){
     if(res.locals.authenticated == 0) return next();
     //VALIDATIONS
     var dataInput = JSON.parse(req.body.data);
-    var data = [null];
-    data.push(dataInput.model);
-    data.push(dataInput.brand);
-    data.push(dataInput.transType);
-    data.push(dataInput.price);
-    data.push(dataInput.plate);
-    data.push(null);
-    data.push(1);
-    data.push(offdayViaPlate(dataInput.plate));
-    data.push(1);
-
-    car.create(data, function(err, result){
+    var data = [""];
+    offdayViaPlate(dataInput.plate, dataInput.branch, function(err, offday){
         if(err) return next(err);
-        res.status(200).send({success: true, detail: "Successfully Created!"});
+        data.push(dataInput.model);
+        data.push(dataInput.brand);
+        data.push(dataInput.transType);
+        data.push(dataInput.price);
+        data.push(dataInput.plate);
+        data.push(0);
+        data.push(dataInput.branch == undefined ? 1 : dataInput.branch);
+        data.push(offday);
+        data.push(1);
+
+        valid.checkUndef(data, function(passed){
+            if(passed){
+                car.create(data, function(err, result){
+                    if(err) return next(err);
+                    res.status(200).send({success: true, detail: "Successfully Created!"});
+                });
+            }else{
+                res.status(200).send({success: false, detail: "Invalid Data"});
+            }
+        });
     });
 }
 
@@ -50,21 +61,37 @@ exports.update = function(req, res, next){
     var field = req.params.field == undefined ? null : req.params.field.replace(/;/g,'');
     var dataInput = JSON.parse(req.body.data);
     var data = dataInput;
-    if(field == null){
-        data = [];
-        data.push(dataInput.model);
-        data.push(dataInput.brand);
-        data.push(dataInput.transType);
-        data.push(dataInput.plate);
-        data.push(null);
-        data.push(offdayViaPlate(dataInput.plate));
-        data.push(1);
-    }
+    var query = function(){
+        car.update(id, data, field, function(err, result){
+            if(err) return next(err);
+            res.status(200).send({success: true, detail: "Successfully Modify!"});
+        });
+    };
 
-    car.update(id, data, field, function(err, result){
-        if(err) return next(err);
-        res.status(200).send({success: true, detail: "Successfully Modify!"});
-    });
+    if(field == null){
+        offdayViaPlate(dataInput.plate, dataInput.branch, function(err,offday){
+            if(err) return next(err);
+            data = [];
+            data.push(dataInput.model);
+            data.push(dataInput.brand);
+            data.push(dataInput.transType);
+            data.push(dataInput.plate);
+            data.push(null);
+            data.push(dataInput.branch == undefined ? 1 : dataInput.branch);
+            data.push(offday);
+            data.push(1);
+
+            valid.checkUndef(data, function(passed){
+                if(passed){
+                    query();
+                }else{
+                    res.status(200).send({success: false, detail: "Invalid Data."});
+                }
+            })
+        });
+    }else{
+        query();
+    }
 }
 
 exports.delete = function(req, res, next){
@@ -95,10 +122,17 @@ exports.addDefect = function(req, res, next){
     data.push(dataInput.defect);
     data.push(dataInput.importance);
     data.push(1); 
-    car.addDefect(data, function(err, result){
-        if(err) return next(err);
-        res.status(200).send({success: true, detail:"Successfully Added!"});
-    });
+
+    valid.checkUndef(data, function(passed){
+        if(passed){
+            car.addDefect(data, function(err, result){
+                if(err) return next(err);
+                res.status(200).send({success: true, detail:"Successfully Added!"});
+            });
+        }else{
+            res.status(200).send({success: false, detail:"Invalid Data."});
+        }
+    })
 }
 
 exports.delDefect = function(req, res, next){
@@ -115,10 +149,14 @@ exports.addCodingScheme = function(req, res, next){
     var location = data.location;
     var scheme = data.pattern;
 
-    car.addScheme(location,scheme, function(err, id){
-        if(err) return next(err);
-        res.status(200).send({success: true, detail: "Coding Scheme Successfully Added", data:{id:id}});
-    });
+    if(location && scheme){
+        car.addScheme(location,scheme, function(err, id){
+            if(err) return next(err);
+            res.status(200).send({success: true, detail: "Coding Scheme Successfully Added", data:{id:id}});
+        });
+    }else{
+        res.status(200).send({success: false, detail:"Invalid Data"});
+    }
 }
 
 exports.editCodingScheme = function(req, res, next){
@@ -177,11 +215,30 @@ exports.getCodingScheme = function(req, res, next){
     }
 };
 
-var offdayViaPlate = function(plate){
+/**
+ * Get Offday of given plate on specific area(branch).
+ * @param {String} plate plate number
+ * @param {Number} branch branch id
+ * @param {Function} cb (err: Error, offday: Number) 
+ */
+var offdayViaPlate = function(plate,branch,cb){
     var lastDigit = plate[plate.length-1];
-    return (lastDigit == 1 || lastDigit == 2) ? 1 :
-            (lastDigit == 3 || lastDigit == 4) ? 2 : 
-            (lastDigit == 5 || lastDigit == 6) ? 3 :
-            (lastDigit == 7 || lastDigit == 8) ? 4 :
-            (lastDigit == 9 || lastDigit == 0) ? 5 : 0;
-}
+    var scheme = [[1,2],[3,4],[5,6],[7,8],[9,0]];
+    if(branch){
+        car.getSchemeByLoc(branch, function(err, codingscheme){
+            if(err) return cb(err);
+            scheme = JSON.parse(codingscheme.scheme);
+            scheme.forEach((e,i)=>{
+                if(e[0] == lastDigit || e[1] == lastDigit){
+                    return cb(null, i+1);
+                }
+            });
+        })
+    }else{
+        return cb(null,(lastDigit == 1 || lastDigit == 2) ? 1 :
+                (lastDigit == 3 || lastDigit == 4) ? 2 : 
+                (lastDigit == 5 || lastDigit == 6) ? 3 :
+                (lastDigit == 7 || lastDigit == 8) ? 4 :
+                (lastDigit == 9 || lastDigit == 0) ? 5 : 0);
+    }
+};

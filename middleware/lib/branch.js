@@ -1,5 +1,7 @@
 var branch = require('../../model/branchModel');
 var admin = require('../../model/adminModel');
+var Validation = require('../../bin/util/validation');
+var valid = new Validation();
 
 var generateID = function(id){
     var pad = "000";
@@ -20,13 +22,19 @@ exports.create = function(req, res, next){
     data.push(dataIn.name);
     data.push(1);
 
-    branch.create(data, function(err, done){
-        if(err) return next(err);
-        var address = dataIn.address.split("_");
-        branch.createWebBranch([null,done.insertId,dataIn.name,address[2],address.join(" "),dataIn.telno], function(er, result){
-            if(er) return next(er);
-            res.status(200).send({success: true, detail: "Successfully Added!"});
-        });
+    valid.checkUndef(data,function(passed){
+        if(passed){
+            branch.create(data, function(err, done){
+                if(err) return next(err);
+                var address = dataIn.address.split("_");
+                branch.createWebBranch([null,done.insertId,dataIn.name,address[2],address.join(" "),dataIn.telno], function(er, result){
+                    if(er) return next(er);
+                    res.status(200).send({success: true, detail: "Successfully Added!"});
+                });
+            });
+        }else{
+            res.status(200).send({success: false, detail: "Invalid Data"});
+        }
     });
 }
 
@@ -80,10 +88,17 @@ exports.update = function(req, res, next){
     data.push(dataIn.name);
     data.push(1);
 
-    branch.update(id, data, null, function(err, done){
-        if(err) return next(err);
-        res.status(200).send({success: true, detail: "Successfully Modified!"});
-    });
+    valid.checkUndef(data, function(passed){
+        if(passed){
+            branch.update(id, data, null, function(err, done){
+                if(err) return next(err);
+                res.status(200).send({success: true, detail: "Successfully Modified!"});
+            });
+        }else{
+            res.status(200).send({success: false, detail: "Invalid Data"});
+        }
+    })
+
 }
 
 exports.delete = function(req, res, next){
