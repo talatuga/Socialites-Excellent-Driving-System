@@ -1,0 +1,66 @@
+<div class="view-dtpMaintenance viewDiv">
+    <!-- Bread crumb -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <span class="fa fa-chevron-left float-left backLic back"></span>
+            <h3 class="text-primary">Driver's Training Program</h3> 
+        </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a onclick="dashboard()">Home</a></li>
+                <li class="breadcrumb-item"><a onclick="dtp()">Driver's Training Program</a></li>
+                <li class="breadcrumb-item active"><a>Maintenance</a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- End Bread crumb -->
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="pull-right">
+                    <button type="button" style="width: 250px" onclick="dtpAddProgram()" class="btn btn-success m-b-10 m-l-5">Add New Program</button>
+                </div>
+            </div>
+        </div>
+        <!-- Start of Card  -->
+        <div class="card studentCard">
+            <table class="table tblLicMaintenance tblCustom">
+                <thead>
+                    <tr>
+                        <th>Program</th>
+                        <th>Price per Head</th>
+                        <th>Program Duration (Hours)</th>
+                        <th>Description</th>
+                        <th width="20%">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Program 1</td>
+                        <td>1,000.00</td>
+                        <td>4</td>
+                        <td>Defensive Driving<br>Traffic Rules &amp; and Regulations<br>
+                            Preventive Maintenance<br>Handling Emergencies</td>
+                        <td>
+                            <button type="button" class="btn btn-success btnLicense" onclick="editDtpMain()">Edit</button>
+                            <button type="button" class="btn btn-danger btnLicense" onclick="delDtpMain()">Delete</button>
+                    </tr>
+                    <tr>
+                        <td>Program 2</td>
+                        <td>1,500.00</td>
+                        <td>4</td>
+                        <td>Defensive Driving<br>Traffic Rules &amp; and Regulations<br>
+                            Preventive Maintenance<br>Handling Emergencies<br>with actual driving</td>
+                        <td>
+                            <button type="button" class="btn btn-success btnLicense" onclick="editDtpMain()">Edit</button>
+                            <button type="button" class="btn btn-danger btnLicense" onclick="delDtpMain()">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div><!-- End of Card  -->
+    </div>
+</div>

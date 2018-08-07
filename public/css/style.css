@@ -7110,7 +7110,7 @@ tbody tr td:last-child {
   color: black;
   text-align: right;
 }
-.backInst, .backStud
+.backInst, .backStud, .back
 {
   padding-top: 8px; 
   padding-right: 10px;
@@ -7121,7 +7121,7 @@ tbody tr td:last-child {
   cursor: pointer;
   color: #5D0000;
 }
-.studPic
+.studPic, .profPic1
 {
   height: 200px;
   width: 200px;
@@ -8029,6 +8029,13 @@ tiCustom
   -moz-appearance:textfield;
 }
 
+.spinnerTxt::-webkit-inner-spin-button{
+  -webkit-appearance: none;
+}
+.spinnerTxt{
+  -moz-appearance:textfield;
+}
+
 .h6Enr{padding-left: 10px;}
 
 .tblBranches td > div{
@@ -8345,6 +8352,9 @@ tiCustom
 .btn100{
   width: 100px;
 }
+.btn100px{
+  width: 100px;
+}
 .btn-cstm{
   background-color: #888282;
   color:black;
@@ -8394,4 +8404,9 @@ tiCustom
 
 .fc-title{
   color: white;
+}
+
+.profPic1:hover{
+  opacity:0.7;
+  cursor: pointer;
 }

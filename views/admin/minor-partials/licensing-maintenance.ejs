@@ -1,0 +1,58 @@
+<div class="view-licMaintenance viewDiv">
+    <!-- Bread crumb -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <span class="fa fa-chevron-left float-left backLic back"></span>
+            <h3 class="text-primary">Licensing Assistance Maintenance</h3> 
+        </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a onclick="dashboard()">Home</a></li>
+                <li class="breadcrumb-item"><a onclick="license()">Licensing Assistance</a></li>
+                <li class="breadcrumb-item active"><a>Maintenance</a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- End Bread crumb -->
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="pull-right">
+                    <button type="button" style="width: 250px" onclick="licAddLic()" class="btn btn-success m-b-10 m-l-5">Add New License/Permit</button>
+                </div>
+            </div>
+        </div>
+        <!-- Start of Card  -->
+        <div class="card studentCard">
+            <table class="table tblLicMaintenance tblCustom">
+                <thead>
+                    <tr>
+                        <th width="50%">License/Permit</th>
+                        <th width="25%">Price</th>
+                        <th width="25%">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Student Driver's Permit</td>
+                        <td>500.00</td>
+                        <td>
+                            <button type="button" class="btn btn-success btnLicense" onclick="editLicMain()">Edit</button>
+                            <button type="button" class="btn btn-danger btnLicense" onclick="delLicMain()">Delete</button>
+                    </tr>
+                    <tr>
+                        <td>Professional License</td>
+                        <td>2,500.00</td>
+                        <td>
+                            <button type="button" class="btn btn-success btnLicense" onclick="editLicMain()">Edit</button>
+                            <button type="button" class="btn btn-danger btnLicense" onclick="delLicMain()">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div><!-- End of Card  -->
+    </div>
+</div>
