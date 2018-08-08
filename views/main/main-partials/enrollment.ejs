@@ -230,7 +230,7 @@
             <form class="enrForm">
                 <div class="paymentOptionDiv" id="paymentOptionDiv">
                     <div class="row" style="color:black;">
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                             <center>
                                 <div class="btn btnPayment btnPayMeth1" onclick="payMeth1()">
                                     <center>
@@ -241,13 +241,24 @@
                                 </div>
                             </center>
                         </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                             <center>
                                 <div class="btn btnPayment btnPayMeth2">
                                     <center>
                                         <h3>Online Payment <br>thru Paypal</h3>
                                         <h5>Pay using credit card.</h5>
                                         <icon class="icon icon-cards3 iconPayment1"></icon>
+                                    </center>
+                                </div>
+                            </center>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <center>
+                                <div class="btn btnPayment btnPayMeth1" onclick="payMeth3()">
+                                    <center>
+                                        <h3>Pay on Bank</h3>
+                                        <h5>Pay on any Landbank branches.</h5><br>
+                                        <icon class="icon icon-money-1 iconPayment"></icon>
                                     </center>
                                 </div>
                             </center>
@@ -275,9 +286,9 @@
                     <a href="#paymentOptionDiv" onclick="paymentBack()" class="paymentBack"><i class="icon icon-chevron-left"></i> Change payment method</a>
                 </div><br>
 
-                <div class="paymentOptionDiv1">
+                <div class="paymentOptionDiv1" style="color: black;">
                     <a href="#paymentOptionDiv" onclick="paymentBack()" class="paymentBack"><i class="icon icon-chevron-left"></i> Change payment method</a>
-                    <br><br><h3>PAYMENT METHOD: <span class="payMethH3">PAY ON BRANCH</span></h3><hr>
+                    <br><br><h3 style="color: black;">PAYMENT METHOD: <span class="payMethH3" style="color: black;">PAY ON BRANCH</span></h3><hr>
                     <ul>
                         <li>You have chosen the Pay on Branch method.</li>
                         <li>The total amount of your enrolled course/s [<span id="payCourse" class="payCourse">CRS-M001</span>] is &#8369;<span id="payPrice" class="payPrice">2,500</span>.<span id="additionalPayment"></span></li>
@@ -327,36 +338,28 @@
                     <br><br><br>
                     <h3 class="prefH3">Preferred Schedule</h3><br>
                     <h5 style="color: black">*Select all your available or preferred days for lessons/appointments. You may still change this upon choosing of schedule.</h5>
-                       <table class="tblDays">
-                            <tr>
-                                <td><input type="checkbox" value="0" name="prefDaysCB"></td>
-                                <td>Sunday</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" value="1" name="prefDaysCB"></td>
-                                <td>Monday</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" value="2" name="prefDaysCB"></td>
-                                <td>Tuesday</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" value="3" name="prefDaysCB"></td>
-                                <td>Wednesday</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" value="4" name="prefDaysCB"></td>
-                                <td>Thursday</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" value="5" name="prefDaysCB"></td>
-                                <td>Friday</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" value="6" name="prefDaysCB"></td>
-                                <td>Saturday</td>
-                            </tr>
-                        </table>
+                    <div class="row" style="color: black;">
+                        <div class="col-md-4">
+                            <input type="checkbox" name="prefDaysCB">
+                            <label>Monday</label><br>
+                            <input type="checkbox" name="prefDaysCB">
+                            <label>Thursday</label><br>
+                            <input type="checkbox" name="prefDaysCB">
+                            <label>Sunday</label><br>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="checkbox" name="prefDaysCB">
+                            <label>Tuesday</label><br>
+                            <input type="checkbox" name="prefDaysCB">
+                            <label>Friday</label><br>
+                        </div>
+                            <div class="col-md-4">
+                            <input type="checkbox" name="prefDaysCB">
+                            <label>Wednesday</label><br>
+                            <input type="checkbox" name="prefDaysCB">
+                            <label>Saturday</label><br>
+                        </div>
+                    </div><br>
                 </div>
             </form>
         </div>

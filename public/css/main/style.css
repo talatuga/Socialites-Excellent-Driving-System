@@ -2690,6 +2690,7 @@ Author URI: http://bootstrapthemes.co
    .payCourse, .payPrice{
        font-weight: bold;
        color: #5D0000;
+       font-size: 18px;
      }
 
 .announceDiv{

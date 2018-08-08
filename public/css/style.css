@@ -1035,10 +1035,19 @@ h6.h1 {
   display: none;
 }
 .header .top-navbar .navbar-header {
+  font-family: 'PT_Sans', sans-serif;
   line-height: 45px;
-  text-align: center;
-  background-image: url("/assets/images/login-bg1.jpg");
+  padding-left: 10px;
+  /* text-align: center; */
+  background-color: rgb(255, 255, 255);
+  /* box-shadow: rgba(0, 0, 0, 0.494) 1px 1px; */
+  /* background-image: url("/assets/images/login-bg1.jpg"); */
   width: 240px;
+}
+.navbarSoci{
+  font-family: 'PT_Sans', sans-serif;
+  color: #5D0000;
+  font-weight: bolder;
 }
 .header .top-navbar .navbar-header .navbar-brand {
   margin-right: 0;
@@ -1498,7 +1507,8 @@ textarea {
   background: #5D0000;
   -webkit-box-shadow: 1px 0 20px rgba(0, 0, 0, 0.08);
   box-shadow: 1px 0 20px rgba(0, 0, 0, 0.08);
-  background-image: url("/assets/images/login-bg1.jpg");
+  /* background-image: url("/assets/images/login-bg1.jpg"); */
+  background-color: #5D0000;
   background-repeat: no-repeat;
   background-size: cover;
   overflow-x: hidden;
@@ -7100,7 +7110,7 @@ tbody tr td:last-child {
   color: black;
   text-align: right;
 }
-.backInst, .backStud
+.backInst, .backStud, .back
 {
   padding-top: 8px; 
   padding-right: 10px;
@@ -7111,7 +7121,7 @@ tbody tr td:last-child {
   cursor: pointer;
   color: #5D0000;
 }
-.studPic
+.studPic, .profPic1
 {
   height: 200px;
   width: 200px;
@@ -8019,6 +8029,13 @@ tiCustom
   -moz-appearance:textfield;
 }
 
+.spinnerTxt::-webkit-inner-spin-button{
+  -webkit-appearance: none;
+}
+.spinnerTxt{
+  -moz-appearance:textfield;
+}
+
 .h6Enr{padding-left: 10px;}
 
 .tblBranches td > div{
@@ -8291,3 +8308,105 @@ tiCustom
        margin:20px 0px;
        background: #f38181;
    }
+
+.divSelSched1{
+  background-color: white;
+  padding: 5px;
+  border-left: black solid 5px;
+}
+.recSchedA:hover{
+  color: rgb(207, 7, 7);
+}
+.prefDays, .prefVehi{
+  color: #5D0000;
+}
+.alRight{
+  text-align: right;
+}
+.space{
+  padding: 5px;
+  text-align: center;
+}
+.enrolledCrsSelSched, .tempEnrCrsHrsSched, .tempEnrCrsHrsTot, .tempEnrCrsHrsRem{
+  color: #5D0000;
+}
+.btnRefresh{
+  width: 150px;
+}
+.red5d000{
+  color: #5D0000;
+}
+.btnCstm{
+  color: white;
+  height: 30px;
+  width: 100px;
+  background: #e74c3c;
+}
+
+.btnCstm:hover{
+  background: #7c1004;
+}
+#prefVehiChange{
+  width: 100%;
+}
+.btn100{
+  width: 100px;
+}
+.btn100px{
+  width: 100px;
+}
+.btn-cstm{
+  background-color: #888282;
+  color:black;
+  height: 50px;
+}
+.iconServices{
+  color: rgb(110, 3, 3);
+  font-size: 14px;
+  padding-top: 6px;
+  font-weight: bold;
+}
+.card200{
+  height: 250px;
+  background-color: rgba(197, 184, 184, 0.507)
+}
+
+#external-events {
+  float: left;
+  padding: 0 10px;
+  border: 1px solid #ccc;
+  text-align: left;
+  height: 300px;
+  overflow-y: visible;
+}
+
+#external-events h4 {
+  font-size: 16px;
+  margin-top: 0;
+  padding-top: 1em;
+}
+
+#external-events .fc-event {
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+#external-events p {
+  margin: 1.5em 0;
+  font-size: 11px;
+  color: #666;
+}
+
+#external-events p input {
+  margin: 0;
+  vertical-align: middle;
+}
+
+.fc-title{
+  color: white;
+}
+
+.profPic1:hover{
+  opacity:0.7;
+  cursor: pointer;
+}

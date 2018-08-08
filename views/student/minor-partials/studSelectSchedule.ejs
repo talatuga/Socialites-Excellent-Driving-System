@@ -1,0 +1,128 @@
+<div class="view-studSelectSchedule viewDiv">
+    <!-- Bread crumb -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h3 class="text-primary">Select Schedule</h3> 
+        </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a onclick="studSchedule()">Schedule</a></li>
+                <li class="breadcrumb-item active"><a onclick="studSelectSchedule()">Select Schedule</a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- End Bread crumb -->
+    <!-- Container fluid  -->
+    <div class="container-fluid">
+        <!-- Start of Card  -->
+        <div class="studentCard">
+            <div class="card"><h4>Choose your schedule manually or 
+                <span><a class="recSchedA" style="color: #5D0000; font-weight: bolder">See recommended schedule</a></span></h4></div>
+            <div class="row">
+                <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div id='external-events'>
+                            <h4>Hours Available:<br> <small>Drag and drop the items below to the calendar.</small></h4><hr>
+                            <div class='fc-event'>Schedule1</div>
+                            <div class='fc-event'>Schedule2</div>
+                            <div class='fc-event'>Schedule3</div>
+                            <div class='fc-event'>Schedule4</div>
+                            <div class='fc-event'>Schedule5</div>
+                            <p style="display: none">
+                                <input type='checkbox' id='drop-remove' checked/>
+                                <label for='drop-remove'>remove after drop</label>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9 col-lg-9 col-sm-12 col-xs-12">
+                    <div class="card">                    
+                        <div id='calendarSelectSched'></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
+                    <div class="card card200">
+                        <center><h5 style="letter-spacing: 5px;"><b>PREFERENCES:</b></h5><hr></center>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <center>
+                                    <h5><b>Days:</b></h5>
+                                    <h4><b><span class="prefDays">M, W, F</span></b></h4>
+                                </center>
+                            </div>
+                            <div class="col-md-6">
+                                <center>
+                                    <h5><b>Vehicle</b>:</h5>
+                                    <h4><b><span class="prefVehi">Toyota Vios</span></b></h4>
+                                </center>
+                            </div>
+                        </div><br><br><br>
+                        <button type="button" onclick="changePref()" class="btn btn-cstm m-b-10 m-l-5">Change Preferences</button>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
+                    <div class="card card200">
+                        <center><h5 style="letter-spacing: 5px;"><b>HOURS:</b></h5><hr></center>
+                        <center>
+                            <table style="width: 100%">
+                                <tr>
+                                    <td class="space"><h5>Enrolled Course: 
+                                        <br><b><span class="enrolledCrsSelSched"> CRS-M001</span></b>
+                                    </h5></td>
+                                    <td style="text-align: center"><h5>Hours Scheduled: 
+                                        <br><b><span class="tempEnrCrsHrsSched"> 0</span></b>
+                                    </h5></td>
+                                </tr>
+                                <tr>
+                                    <td class="space"><h5>Total Hours: 
+                                        <br><b><span class="tempEnrCrsHrsTot"> 5</span></b>
+                                    </h5></td>
+                                    <td  style="text-align: center"><h5>Hours Remaining: 
+                                        <br><b><span class="tempEnrCrsHrsRem"> 5</span></b>
+                                    </h5></td>
+                                </tr>
+                            </table>
+                        </center>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
+                    <div class="card card200">
+                        <center>
+                            <h5 style="letter-spacing: 5px;"><b>ADDITIONAL CHARGES:</b></h5><hr>
+                        </center>
+                        <center>
+                            <table style="width: 100%">
+                                <tr>
+                                    <td class="space"><h5>Straight Fee: 
+                                        <br><b>&#8369; <span class="tempSF"> 0.00</span></b>
+                                    </h5>
+                                    <small style="color: black">For schedules exceeding 1hr/day</small></td>
+                                    <td style="text-align: center"><h5>Overtime Fee: 
+                                        <br><b>&#8369;<span class="tempOTF"> 0.00</span></b>
+                                    </h5>
+                                    <small style="color: black">For schedules beyond office hours</small></td>
+                                </tr>
+                            </table>
+                        </center>
+                    </div>
+                </div> 
+            </div>
+            <div class="card">
+                <div class="row">
+                    <div class="col-md-4">
+                        <button type="button" onclick="studSelectSchedule()" style="width: 100%" class="btn btn-danger m-b-10 m-l-5">Cancel</button>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="button" onclick="studSelectSchedule()" style="width: 100%" class="btn btn-warning m-b-10 m-l-5">Reset</button>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="button" onclick="studSelectSchedule()" style="width: 100%" class="btn btn-success m-b-10 m-l-5">Done</button>
+                    </div>
+                </div>
+            </div>
+        </div><!-- End of Card  -->
+    </div>
+    <!-- End Container fluid  -->
+</div>

@@ -1,0 +1,51 @@
+<!-- Change Preference Modal -->
+<div class="modal fade" id="changePrefModal" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="changePrefModal">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <center>
+            <h2>CHANGE PREFERENCES</h2>
+            <h6>You can change your initial preference on schedule and vehicle here.</h6>
+        </center>
+        <hr class="hrCustom">
+        <div class="stot">
+          <form>
+              <h4 class="red5d000"><b>Preferred Days:</b></h4>
+              <div class="row">
+                <div class="col-md-4">
+                    <input type="checkbox" name="prefDaysCBChange">
+                    <label>Monday</label><br>
+                    <input type="checkbox" name="prefDaysCBChange">
+                    <label>Thursday</label><br>
+                    <input type="checkbox" name="prefDaysCBChange">
+                    <label>Sunday</label><br>
+                </div>
+                <div class="col-md-4">
+                    <input type="checkbox" name="prefDaysCBChange">
+                    <label>Tuesday</label><br>
+                    <input type="checkbox" name="prefDaysCBChange">
+                    <label>Friday</label><br>
+                </div>
+                  <div class="col-md-4">
+                    <input type="checkbox" name="prefDaysCBChange">
+                    <label>Wednesday</label><br>
+                    <input type="checkbox" name="prefDaysCBChange">
+                    <label>Saturday</label><br>
+                  </div>
+              </div><br>
+              <h4 class="red5d000"><b>Preferred Vehicle:</b></h4>
+              <select id="prefVehiChange">
+                  <option>---</option>
+                  <option>Toyota Atlis</option>
+                  <option>Toyota Vios</option>
+              </select>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn100 btn-danger" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn100 btn-success" data-dismiss="modal" onclick="doneChangePref()">Done</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -224,3 +224,147 @@
     </div>
   </div>
 </div>
+
+<!-- Add License Modal -->
+<div class="modal fade" id="addLicenseModal" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="addLicenseModal">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <center>
+            <h6>Socialites Excellent Driving</h6>
+            <h2>ADD LICENSE/PERMIT</h2>
+        </center>
+        <hr class="hrCustom">
+        <div class="stot">
+            <form class="formAddPay">
+                <label><span class="asterisk">*</span>License/Permit:</label><br>
+                <input type="text" id="newLic" class="txtEnr"><br><br>
+                <label><span class="asterisk">*</span>Price:</label><br>
+                <input type="number" id="newLicPrice" class="txtEnr spinnerTxt"><br>
+            </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light btnLicense" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-success btnLicense" onclick="addNewLic()">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit License Modal -->
+<div class="modal fade" id="editLicenseModal" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="editLicenseModal">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <center>
+            <h6>Socialites Excellent Driving</h6>
+            <h2>EDIT LICENSE/PERMIT</h2>
+        </center>
+        <hr class="hrCustom">
+        <div class="stot">
+            <form class="formAddPay">
+                <label><span class="asterisk">*</span>License/Permit:</label><br>
+                <input type="text" id="editLic" class="txtEnr"><br><br>
+                <label><span class="asterisk">*</span>Price:</label><br>
+                <input type="number" id="editLicPrice" class="txtEnr spinnerTxt"><br>
+            </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light btnLicense" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-success btnLicense" onclick="saveEditLic()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add DTP Modal -->
+<div class="modal fade" id="addDTPmodal" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="addDTPmodal">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <center>
+            <h6>Socialites Excellent Driving</h6>
+            <h2>ADD NEW PROGRAM</h2>
+        </center>
+        <hr class="hrCustom">
+        <div class="stot">
+            <form class="formAddPay">
+                <h3>Program #<span id="newProgNum">3</span></h3>
+                <label><span class="asterisk">*</span>Price per Head:</label><br>
+                <input type="number" id="newDtpPrice" class="txtEnr spinnerTxt"><br><br>
+                <label><span class="asterisk">*</span>Program Duration (Hours):</label><br>
+                <input type="number" id="newDtpDur" class="txtEnr spinnerTxt"><br><br>
+                <label><span class="asterisk">*</span>Description:</label><br>
+                <textarea rows="3" id="newDtpDesc" class="enrTxtArea"></textarea><br>
+                <small>*Input here all lessons and other inclusions, separated by a semicolon (;)<br>
+                 (ex: Defensive Driving; Traffic Rules &amp; Regulations)</small>
+            </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light btnLicense" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-success btnLicense" onclick="addNewProgram()">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit DTP Modal -->
+<div class="modal fade" id="editDTPmodal" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="editDTPmodal">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <center>
+            <h6>Socialites Excellent Driving</h6>
+            <h2>EDIT PROGRAM</h2>
+        </center>
+        <hr class="hrCustom">
+        <div class="stot">
+            <form class="formAddPay">
+                <h3>Program #<span id="newProgNum">3</span></h3>
+                <label><span class="asterisk">*</span>Price per Head:</label><br>
+                <input type="number" id="newDtpPrice" class="txtEnr spinnerTxt"><br><br>
+                <label><span class="asterisk">*</span>Program Duration (Hours):</label><br>
+                <input type="number" id="newDtpDur" class="txtEnr spinnerTxt"><br><br>
+                <label><span class="asterisk">*</span>Description:</label><br>
+                <textarea rows="3" id="newDtpDesc" class="enrTxtArea"></textarea><br>
+                <small>*Input here all lessons and other inclusions, separated by a semicolon (;)<br>
+                 (ex: Defensive Driving; Traffic Rules &amp; Regulations)</small>
+            </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light btnLicense" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-success btnLicense" onclick="editProgram()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Upload Profile Picture Modal -->
+<div class="modal fade" id="uploadProfileModal" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="uploadProfileModal">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <center>
+            <h6>Socialites Excellent Driving</h6>
+            <h2>UPDATE PROFILE PICTURE</h2>
+        </center>
+        <hr class="hrCustom">
+        <div class="stot">
+            <form action="/file-upload" class="dropzone" id="profileDrop">
+                <div class="fallback">
+                    <input type="file" name="profileImg">
+                </div>
+            </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light btnLicense" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-success btnLicense" onclick="editProgram()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

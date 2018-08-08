@@ -143,7 +143,7 @@ exports.register = function(req, res, next){
                                 var accountMail = new Email();
                                 var mailBody = {
                                     subject: "Welcome to Socialites Driving Excellent!",
-                                    body: "\tTo login to your own personal Dashboard, use your email as Username.\n This is your password: " + password + "\n\t\t-Welcome from SED family",
+                                    body: "Good day, " + (infoData.data.info.fullname).replace(/_/g,' ') + "!\n\nWe, at Socialites Excellent Driving, are very pleased to inform you that you are now successfully enrolled to your selected course! With this, you are only a few steps closer now to becoming a prospective driver! Yey! \n\nYour password is: " + password + "\n(You can still change your password later on)\n\nSo, what are you waiting for? Login to your student account and schedule now so you can get started!\nHoping to see you soon, student. :)\n\nSincerely yours,\nSocialites Excellent Driving",
                                 };
                                 accountMail.send(dataIn.info.email,mailBody,function(err, response){
                                     if(err) return next(err);

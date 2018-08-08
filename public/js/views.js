@@ -1,4 +1,7 @@
 $(function() {    
+    $('.navAdmin').show();
+    $('.navStudent').hide();
+    
     var x = $(window).height();
     $(".page-wrapper").height(x);
 
@@ -110,12 +113,14 @@ function viewActiveSched(a){
 }
 
 var dashboard = function (){
+    $('.viewDiv').hide();
     $(".view-dashboard").show();
     $(".search-box").hide();
 }
 
 var instLoaded = 0;
 var instructor = function (){
+    $('.viewDiv').hide();
     if(instLoaded == 0){
         loadInst();  
         instLoaded = 1;
@@ -126,6 +131,7 @@ var instructor = function (){
 
 var vehiLoaded = 0;
 var vehicle = function (){
+    $('.viewDiv').hide();
     if(vehiLoaded == 0){
         vehiLoaded = 1;
         loadVehi();
@@ -135,6 +141,7 @@ var vehicle = function (){
 }
 
 var branches = function (){
+    $('.viewDiv').hide();
     loadBranch();
     $(".view-branches").show();
     $(".search-box").hide();
@@ -142,6 +149,7 @@ var branches = function (){
 
 var accLoad = 0
 var account = function (){
+    $('.viewDiv').hide();
     if(accLoad == 0){
         loadAccount();
         accLoad =1 ;
@@ -151,6 +159,7 @@ var account = function (){
 }
 
 var enroll = function (){
+    $('.viewDiv').hide();
     loadPreReg();
     $(".view-enrollment").show();
     $(".search-box").hide();
@@ -158,79 +167,100 @@ var enroll = function (){
 }
 
 var reports = function (){
+    $('.viewDiv').hide();
     $(".view-reports").show();
     $(".search-box").hide();
 }
 
 var cert = function (){
+    $('.viewDiv').hide();
     $(".view-cert").show();
     $(".search-box").hide();
 }
 
 var announce = function (){
+    $('.viewDiv').hide();
     $(".view-announce").show();
     $(".search-box").hide();
 }
 
 var tlect = function (){
+    $('.viewDiv').hide();
     $(".view-tlect").show();
     $(".search-box").hide();
 }
 
 var student = function(){
+    $('.viewDiv').hide();
     loadStud();
     $(".view-student").show();
     $(".search-box").hide();
 }
 
 var attendance = function(){
+    $('.viewDiv').hide();
     $(".view-attendance").show();
     $(".search-box").hide();
 }
 
 var payment = function(){
+    $('.viewDiv').hide();
     $(".view-payment").show();
     $(".search-box").hide();
 }
 
 var gradesEval = function(){
+    $('.viewDiv').hide();
     $(".view-gradesEval").show();
     $(".search-box").hide();
 }
 
 var dtp = function(){
+    $('.viewDiv').hide();
     $(".view-dtp").show();
     $(".search-box").hide();
 }
 
 var license = function(){
+    $('.viewDiv').hide();
     $(".view-license").show();
     $(".search-box").hide();
 }
 
 var courses = function(){
+    $('.viewDiv').hide();
     loadCourse();
     $(".view-courses").show();
     $(".search-box").hide();
 }
 
 var lessons = function(){
+    $('.viewDiv').hide();
     loadLesson();
     $(".view-lessons").show();
     $(".search-box").hide();
 }
 
 var schedule = function (){
+    $('.viewDiv').hide();
     $(".view-schedule").show();
     $(".search-box").hide();
 }
 
 var schedRequest = function (){
+    $('.viewDiv').hide();
     $(".view-reqSched").show();
     $(".search-box").hide();
 }
 
 var schedCanceled = function (){
+    $('.viewDiv').hide();
     $(".view-cancSched").show();
     $(".search-box").hide();
+}
+
+var profile = function (){
+    resetSettingsAdmin();
+    $('.viewDiv').hide();
+    $(".view-profile").show();
 }

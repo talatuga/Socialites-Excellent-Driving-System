@@ -40,7 +40,7 @@ var course = {
             html += "<td>"+ elem.days +"</td>";
             html += "<td>"+ self.generateHour(elem.hour) +"/day</td>";
             html += "<td>₱"+ parseFloat(elem.price).formatMoney(0) +"</td>";
-            html += "<td><a href='#' onclick='cart.addToCart("+ elem.courseID +")' class='btn btn-lg btnCstm addToCart cart_"+ elem.courseID +"'>ADD TO CART</a></td>";
+            html += "<td><a href='#' onclick='cart.addToCart("+ elem.courseID +")' class='btn btn-lg btnCstm addToCart cart_"+ elem.courseID +"'>ENROLL</a></td>";
             html += "</tr>";
             $('#course_' + table).append(html);
         });
