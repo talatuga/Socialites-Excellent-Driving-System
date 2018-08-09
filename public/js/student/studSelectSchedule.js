@@ -50,6 +50,7 @@ $(function() {
     eventLimit: true, // allow "more" link when too many events
   });
 
+
   $('#calendarRecSched').fullCalendar({
     header: {
       left: 'prev,next today',
