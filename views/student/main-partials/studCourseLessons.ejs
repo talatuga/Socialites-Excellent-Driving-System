@@ -1,0 +1,112 @@
+<div class="view-studCourseLessons viewDiv">
+    <!-- Bread crumb -->
+    <div class="row page-titles">
+        <div class="col-md-6 align-self-center">
+            <h3 class="text-primary">Courses and Lessons</h3> 
+        </div>
+        <div class="col-md-6 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a>Courses and Lessons</a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- End Bread crumb -->
+
+    <div class="container-fluid">
+        <!-- Start of Card  -->
+        <div class="instructorCard">
+            <div class="card">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs profile-tab" role="tablist">
+                    <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#courseTab" onclick="resetStudent1P" role="tab">Courses</a> </li>
+                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#lessonTab" onclick="resetStudent1P" role="tab">Lessons</a> </li>
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <!--first tab-->
+                    <div class="tab-pane active" id="courseTab" role="tabpanel">
+                        <div class="card-body">
+                            <div class="studTab">
+                               <table class="table tblCustom">
+                                   <thead>
+                                       <tr>
+                                            <th>Course Code</th>
+                                            <th>Hours</th>
+                                            <th>Special</th>
+                                            <th>Date Started</th>
+                                            <th>Date Ended</th>
+                                       </tr>
+                                   </thead>
+                                   <tbody>
+                                       <tr>
+                                           <td>CRS-M0001</td>
+                                           <td>5</td>
+                                           <td>No</td>
+                                           <td>Aug. 9, 2018</td>
+                                           <td>---</td>
+                                       </tr>
+                                       <tr>
+                                           <td>CRS-M0002</td>
+                                           <td>15</td>
+                                           <td>No</td>
+                                           <td>---</td>
+                                           <td>---</td>
+                                       </tr>
+                                   </tbody>
+                               </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="lessonTab" role="tabpanel">
+                        <div class="card-body">
+                            <div class="studTab">
+                                <h4><b>[<span class="h4selCrsforLes">CRS-M0001</span>]</b></h4>
+                                <table class="table tblCustom">
+                                   <thead>
+                                       <tr>
+                                            <th>#</th>
+                                            <th>Lesson</th>
+                                            <th>Date</th>
+                                            <th>Time</th>
+                                            <th>Instructor</th>
+                                            <th>Vehicle</th>
+                                            <th>Grade</th>
+                                            <th>Comment</th>
+                                       </tr>
+                                   </thead>
+                                   <tbody>
+                                       <tr>
+                                           <td>1</td>
+                                           <td>Start &amp; Stop</td>
+                                           <td>---</td>
+                                           <td>---</td>
+                                           <td>---</td>
+                                           <td>---</td>
+                                           <td>---</td>
+                                           <td>---</td>
+                                       </tr>
+                                       <tr>
+                                           <td>2</td>
+                                           <td>Start &amp; Stop</td>
+                                           <td>---</td>
+                                           <td>---</td>
+                                           <td>---</td>
+                                           <td>---</td>
+                                           <td>---</td>
+                                           <td>---</td>
+                                       </tr>
+                                   </tbody>
+                               </table><br>
+                               <div class="pull-right">
+                                    <button type="button" onclick="viewEvaluationStud()" class="pull-right btn100px btn btn-success m-b-10 m-l-5">View</button>
+                                    <h6 class="alignR">You can only view the evaluation from your instructor at the end of the course.</h6>
+                               </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- End of Card  -->
+    </div>
+</div>

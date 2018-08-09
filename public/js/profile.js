@@ -109,8 +109,6 @@ function saveUpdAdmin1(){
     c = bplace.replace(/\s+/g, '');
     d = add.replace(/\s+/g, '');
     e = cont.replace(/\s+/g, '');
-    f = guard.replace(/\s+/g, '');
-    g = guardCont.replace(/\s+/g, '');
     h = un.replace(/\s+/g, '');
     i = pw.replace(/\s+/g, '');
 
@@ -158,7 +156,7 @@ function deactAdmin(){
                 if(err){
                     swal("Failed!", err.message, "error");
                 }else{
-                    swal("Success!", "Adminent account is now deativated.", "success");
+                    swal("Success!", "Admin account is now deativated.", "success");
                     resetSettingsAdmin();
                     //DB: Deactivate/delete Admin account function
                 }
