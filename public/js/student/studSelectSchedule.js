@@ -99,6 +99,21 @@ $(function() {
     },
     editable: false,
   });
+
+  var isEventOverDiv = function (x, y) {
+
+    var external_events = $('#external-events');
+    var offset = external_events.offset();
+    offset.right = external_events.width() + offset.left;
+    offset.bottom = external_events.height() + offset.top;
+
+    // Compare
+    if (x >= offset.left
+        && y >= offset.top
+        && x <= offset.right
+        && y <= offset.bottom) { return true; }
+    return false;
+  }
 });
 
 function changePref(){

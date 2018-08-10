@@ -7,12 +7,48 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 
-DROP TABLE IF EXISTS `account`;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getInst`(IN `_id` VARCHAR(15))
+    READS SQL DATA
+SELECT i.id as instID, i.vacant, u.* FROM instructor i, userinfo u WHERE i.id = _id AND i.userInfo = u.id$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getInstList`(IN `_offset` INT(7), IN `_limit` INT(5))
+    READS SQL DATA
+SELECT i.id as instID, i.license, i.dateRegistered, i.dateRetired, i.educAttain,i.vacant,i.status, a.username, u.*  FROM instructor i, userinfo u, useraccount a WHERE u.id = i.userInfo AND u.userAcc = a.id AND i.status > 0 ORDER BY i.id ASC limit _offset, _limit$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getPastStud`(IN `_offset` INT(5), IN `_limit` INT(2))
+    READS SQL DATA
+SELECT s.id as studID, i.* FROM student s, userinfo i WHERE s.id > _offset AND i.id = s.userInfo AND s.status = 0 ORDER BY s.id ASC limit _limit$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getStud`(IN `_id` VARCHAR(15))
+    READS SQL DATA
+SELECT s.id as studID, s.dateRegistered, u.* FROM student s, userinfo u WHERE s.id = _id AND s.userInfo = u.id$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getStudList`(IN `_offset` INT(7), IN `_limit` INT(5))
+    NO SQL
+SELECT s.id as studID, i.* FROM student s, userinfo i WHERE s.id > _offset AND i.id = s.userInfo AND s.status > 0 ORDER BY s.id ASC limit _limit$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `addUserAcc`(`un` VARCHAR(30), `pw` VARCHAR(40), `atype` INT(2)) RETURNS int(10) unsigned
+    MODIFIES SQL DATA
+BEGIN
+INSERT useraccount(username, password, accType) VALUES (un,SHA1(pw),atype);
+RETURN LAST_INSERT_ID();
+END$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `addUserInfo`(`ua` INT(10), `name` VARCHAR(50), `address` VARCHAR(100), `phone` VARCHAR(12), `bdate` DATE, `bplace` VARCHAR(50), `gender` VARCHAR(3), `civil` VARCHAR(10), `mail` VARCHAR(30), `utype` INT(1)) RETURNS int(10) unsigned
+    MODIFIES SQL DATA
+BEGIN
+INSERT INTO `userinfo` (`userAcc`, `fullname`, `address`, `telno`, `birthdate`, `birthplace`, `sex`, `civilStatus`, `email`, `userType`) VALUES (ua, name, address, phone, bdate, bplace, gender, civil, mail, utype);
+return LAST_INSERT_ID();
+END$$
+
+DELIMITER ;
+
 CREATE TABLE `account` (
-  `id` int(15) NOT NULL,
+`id` int(15) NOT NULL,
   `ORno` varchar(15) NOT NULL,
   `transaction` varchar(20) NOT NULL,
   `feeType` int(1) NOT NULL,
@@ -21,16 +57,14 @@ CREATE TABLE `account` (
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `accounttype`;
 CREATE TABLE `accounttype` (
-  `id` int(5) NOT NULL,
+`id` int(5) NOT NULL,
   `title` varchar(15) NOT NULL,
   `permission` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `activity`;
 CREATE TABLE `activity` (
-  `id` int(15) NOT NULL,
+`id` int(15) NOT NULL,
   `data` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `startTime` time NOT NULL,
   `duration` int(3) NOT NULL,
@@ -40,33 +74,29 @@ CREATE TABLE `activity` (
   `lessonID` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `admin`;
 CREATE TABLE `admin` (
-  `id` int(7) NOT NULL,
+`id` int(7) NOT NULL,
   `userInfo` int(7) NOT NULL,
   `branchID` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `branch`;
 CREATE TABLE `branch` (
-  `id` int(3) NOT NULL,
+`id` int(3) NOT NULL,
   `address` varchar(150) NOT NULL,
   `telno` varchar(24) NOT NULL,
   `name` varchar(15) NOT NULL,
   `purgeFlag` int(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `codingscheme`;
 CREATE TABLE `codingscheme` (
-  `id` int(3) NOT NULL,
+`id` int(3) NOT NULL,
   `branch` int(3) NOT NULL,
   `scheme` varchar(50) NOT NULL,
   `status` int(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `course`;
 CREATE TABLE `course` (
-  `id` int(3) NOT NULL,
+`id` int(3) NOT NULL,
   `description` varchar(300) NOT NULL,
   `carType` varchar(10) NOT NULL,
   `amount` int(5) NOT NULL,
@@ -74,22 +104,21 @@ CREATE TABLE `course` (
   `status` int(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `course_enrolled`;
 CREATE TABLE `course_enrolled` (
-  `id` int(9) NOT NULL,
+`id` int(9) NOT NULL,
   `enrollmentID` int(5) NOT NULL,
   `studID` varchar(15) NOT NULL,
   `courseID` int(3) NOT NULL,
   `branch` int(3) NOT NULL,
   `selectedLesson` varchar(30) NOT NULL,
+  `special` int(1) NOT NULL DEFAULT '0',
   `dateEnrolled` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `paid` int(1) NOT NULL DEFAULT '0',
   `status` int(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `defect`;
 CREATE TABLE `defect` (
-  `id` int(7) NOT NULL,
+`id` int(7) NOT NULL,
   `vehicle` int(3) NOT NULL,
   `part` varchar(15) NOT NULL,
   `description` varchar(150) NOT NULL,
@@ -97,9 +126,8 @@ CREATE TABLE `defect` (
   `repaired` int(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `evaluation`;
 CREATE TABLE `evaluation` (
-  `id` int(5) NOT NULL,
+`id` int(5) NOT NULL,
   `studID` varchar(15) NOT NULL,
   `instID` varchar(15) NOT NULL,
   `evaluation` varchar(10) NOT NULL,
@@ -108,16 +136,14 @@ CREATE TABLE `evaluation` (
   `target` varchar(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `guardian`;
 CREATE TABLE `guardian` (
-  `id` int(4) NOT NULL,
+`id` int(4) NOT NULL,
   `fullname` varchar(50) NOT NULL,
   `telno` varchar(12) NOT NULL,
   `refAcc` int(7) NOT NULL,
   `purgeFlag` int(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `instructor`;
 CREATE TABLE `instructor` (
   `id` varchar(15) NOT NULL,
   `userInfo` int(7) NOT NULL,
@@ -130,9 +156,8 @@ CREATE TABLE `instructor` (
   `status` int(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `lesson`;
 CREATE TABLE `lesson` (
-  `id` int(3) NOT NULL,
+`id` int(3) NOT NULL,
   `title` varchar(50) NOT NULL,
   `prerequisite` int(3) DEFAULT NULL,
   `description` varchar(150) NOT NULL,
@@ -140,40 +165,35 @@ CREATE TABLE `lesson` (
   `purgeFlag` int(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `lesson_courses`;
 CREATE TABLE `lesson_courses` (
-  `id` int(3) NOT NULL,
+`id` int(3) NOT NULL,
   `lessonID` int(3) NOT NULL,
   `courseID` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `license_apply_price`;
 CREATE TABLE `license_apply_price` (
-  `id` int(2) NOT NULL,
+`id` int(2) NOT NULL,
   `type` varchar(15) NOT NULL,
   `desc` varchar(100) NOT NULL,
   `price` int(7) NOT NULL,
   `status` int(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `newsletter`;
 CREATE TABLE `newsletter` (
-  `id` int(4) NOT NULL,
+`id` int(4) NOT NULL,
   `email` varchar(100) NOT NULL,
   `token` varchar(20) NOT NULL,
   `status` int(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `passedrequirement`;
 CREATE TABLE `passedrequirement` (
   `id` int(10) NOT NULL,
   `studID` varchar(15) NOT NULL,
   `requirementID` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `payment`;
 CREATE TABLE `payment` (
-  `id` int(7) NOT NULL,
+`id` int(7) NOT NULL,
   `transactionID` varchar(15) NOT NULL,
   `bill` int(10) NOT NULL,
   `pay` int(10) NOT NULL,
@@ -181,25 +201,23 @@ CREATE TABLE `payment` (
   `datePay` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `preregstudent`;
 CREATE TABLE `preregstudent` (
-  `id` int(10) NOT NULL,
+`id` int(10) NOT NULL,
   `data` varchar(1000) NOT NULL,
   `dateSubmit` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` int(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `requirement`;
 CREATE TABLE `requirement` (
-  `id` int(3) NOT NULL,
+`id` int(3) NOT NULL,
   `title` varchar(15) NOT NULL,
   `description` varchar(100) NOT NULL,
   `importance` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `schedule`;
 CREATE TABLE `schedule` (
   `id` int(15) NOT NULL,
+  `title` varchar(30) NOT NULL,
   `date` date NOT NULL,
   `time` time NOT NULL,
   `hour` int(3) NOT NULL,
@@ -209,7 +227,6 @@ CREATE TABLE `schedule` (
   `status` int(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `student`;
 CREATE TABLE `student` (
   `id` varchar(15) NOT NULL,
   `userInfo` int(7) NOT NULL,
@@ -220,18 +237,16 @@ CREATE TABLE `student` (
   `status` int(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `useraccount`;
 CREATE TABLE `useraccount` (
-  `id` int(10) NOT NULL,
+`id` int(10) NOT NULL,
   `username` varchar(30) NOT NULL,
   `password` varchar(40) NOT NULL,
   `accType` int(2) NOT NULL,
   `status` int(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `userinfo`;
 CREATE TABLE `userinfo` (
-  `id` int(7) NOT NULL,
+`id` int(7) NOT NULL,
   `userAcc` int(10) NOT NULL,
   `fullname` varchar(50) NOT NULL,
   `address` varchar(100) NOT NULL,
@@ -244,9 +259,8 @@ CREATE TABLE `userinfo` (
   `userType` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `vehicle`;
 CREATE TABLE `vehicle` (
-  `id` int(3) NOT NULL,
+`id` int(3) NOT NULL,
   `model` varchar(15) NOT NULL,
   `brand` varchar(15) NOT NULL,
   `transmission` varchar(1) NOT NULL,
@@ -258,9 +272,8 @@ CREATE TABLE `vehicle` (
   `status` int(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `web_branch`;
 CREATE TABLE `web_branch` (
-  `id` int(3) NOT NULL,
+`id` int(3) NOT NULL,
   `branchID` int(3) NOT NULL,
   `branchName` varchar(10) NOT NULL,
   `location` varchar(30) NOT NULL,
@@ -268,9 +281,8 @@ CREATE TABLE `web_branch` (
   `telno` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `web_course`;
 CREATE TABLE `web_course` (
-  `id` int(3) NOT NULL,
+`id` int(3) NOT NULL,
   `courseID` int(3) NOT NULL,
   `transmission` varchar(1) NOT NULL,
   `days` int(2) NOT NULL,
@@ -374,8 +386,7 @@ ALTER TABLE `student`
   ADD KEY `userInfo` (`userInfo`);
 
 ALTER TABLE `useraccount`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `accType` (`accType`);
+ ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `username` (`username`), ADD KEY `accType` (`accType`);
 
 ALTER TABLE `userinfo`
   ADD PRIMARY KEY (`id`),
