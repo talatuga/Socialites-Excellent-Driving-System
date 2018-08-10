@@ -16,7 +16,7 @@ Mailer.prototype.send = function(recipient, content, cb){
         from: this.email,
         to: recipient,
         subject: content.subject,
-        text: content.body,
+        html: content.body,
     };
     this.transporter.sendMail(mail,function(err,info){
         if(err) return cb(err);

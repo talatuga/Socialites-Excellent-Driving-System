@@ -16,9 +16,58 @@
         <!-- Start of Card  -->
         <div class="studentCard">
             <center>
-                <br><br><br><br><br><br>
-                <h1>Oops! It seems like you haven't chosen any schedule yet.</h1>
-                <button type="button" onclick="studSelectSchedule()" class="btn btn-success m-b-10 m-l-5">Choose Schedule Now</button>
+                <!-- <div class="divNoSched">
+                    <br><br><br><br><br><br>
+                    <h1>Oops! It seems like you haven't chosen any schedule yet.</h1>
+                    <button type="button" onclick="studSelectSchedule()" class="btn btn-success m-b-10 m-l-5">Choose Schedule Now</button>
+                </div> -->
+                <div class="hasSched">
+                    <div class="card" style="background-color: mediumseagreen">
+                        <!-- <div class="divh5NoSched">
+                            <h5 class="h5NoSched">You have no schedule for today.</h5>
+                            <span class="spanHasBal pull-left"><small>Please settle your balance before your first schedule or your will be cancelled.</small></span>
+                        </div> -->
+                        <div class="divh5HasSched">
+                            <div class="pull-left">
+                                <h5 class="h5-2">You have a <span class="spanHrs">1</span>-hour lesson today at <span class="spanTime">9:30 A.M.</span></h5>
+                                <span class="spanHasBal"><small>Please settle your balance before your first schedule or your schedule will be cancelled.</small></span>
+                            </div>
+                            <div class="pull-right">
+                                <button type="button" style="vertical-align: sub" class="btn btn-inverse btnLicense" onclick="viewSchedToday()">View</button><br>
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                            <div class="card">
+                                <div id='calendarMainStudSched'></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                            <div class="card">
+                                <h5>Enrolled Course:<br> <span class="enrolledCrs">CRS-M001</span></h5>
+                                <center><div class="separator3"></div></center>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6>Hours Used:<br> <span class="crsHrsUsed">0</span></h6>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6>Hours Remaining:<br> <span class="crsHrsRem">5</span></h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <h4 style="text-align: center; letter-spacing: 3px; color: #5D0000; font-weight: bolder">REMINDER:</h4>
+                                <h6 class="alignL">1. Every Monday, 12 A.M., our system locks the schedule for the whole week. Which means, the system will not be capable for accepting any additional schedule for that week.</h6>
+                                <h6 class="alignL">2. However, you are still allowed to move any of your schedule for this week to another week.</h6>
+                                <h6 class="alignL">3. You can only cancel or reschedule your appointment ONE DAY BEFORE OR MORE YOUR SCHEDULE.</h6>          
+                                <h6 class="alignL">4. If you did not come on the day &amp; time of your appointment, that particular appointment will be forfeited and cannot be rescheduled.</h6>          
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </center>
         </div><!-- End of Card  -->
     </div>

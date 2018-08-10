@@ -2942,12 +2942,7 @@ table.dataTable thead .sorting::after {
   -o-transition: 0.2s ease-in;
   transition: 0.2s ease-in;
 }
-.btn-success.disabled:hover {
-  background: #26dad2;
-  -webkit-box-shadow: 0 14px 26px -12px rgba(40, 190, 189, 0.42), 0 4px 23px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(40, 190, 189, 0.2);
-  box-shadow: 0 14px 26px -12px rgba(40, 190, 189, 0.42), 0 4px 23px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(40, 190, 189, 0.2);
-  border: 1px solid #26dad2;
-}
+
 .btn-success.disabled:active {
   background: #1eacbe;
   -webkit-box-shadow: 0 14px 26px -12px rgba(40, 190, 189, 0.42), 0 4px 23px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(40, 190, 189, 0.2);
@@ -7121,7 +7116,7 @@ tbody tr td:last-child {
   cursor: pointer;
   color: #5D0000;
 }
-.studPic, .profPic1
+.studPic, .profPic1, .profPicStud, .profPicInst, .profPicInstView
 {
   height: 200px;
   width: 200px;
@@ -7264,7 +7259,7 @@ tbody tr td:last-child {
     transition: 0.2s ease-in;
   cursor: pointer;
 }
-#adminName
+#adminName, #studentName, #instructorName
 {
   color: white;
   text-transform: uppercase;
@@ -8409,4 +8404,68 @@ tiCustom
 .profPic1:hover{
   opacity:0.7;
   cursor: pointer;
+}
+.tblRecSched td{
+  color: black;
+  font-size: 14px;
+}
+.tblRecSched thead{
+  text-transform: uppercase;
+  background-color: #5D0000;
+  font-size: 14px;
+}
+
+.tblRecSched th{
+  color: white;
+}
+
+#calendarRecSched{
+  width: 80%;
+}
+.h5NoSched, .spanHasBal, .h5-2{
+  text-align: left;
+  color: white;
+}
+.alignR{
+  text-align: right;
+}
+.alignL{
+  text-align: left;
+}
+.crsHrsUsed, .crsHrsRem{
+  color: #5d0000;
+  font-weight: bolder;
+}
+
+.btnPayMeth1{
+  padding: 20px;
+  background-color: #C6C6C6;
+  width: 70%;
+  height: 130px;
+  border-style: none;
+  color: black;
+}
+.btnPayMeth2{
+  padding: 20px;
+  background-color: #C6C6C6;
+  width: 70%;
+  height: 130px;
+  border-style: none;
+  color: black;
+  margin: 20px;
+}
+
+.btnPayMeth1:hover{
+  background-color: rgba(229, 147, 147, 0.493);
+}
+.btnPayMeth2:hover{
+  background-color: rgba(229, 147, 147, 0.493);
+}
+.iconPayment1{
+  color: #481B1A;
+  font-size: 50px;
+}
+.iconPayment{
+  color: #481B1A;
+  font-size: 60px;
 }

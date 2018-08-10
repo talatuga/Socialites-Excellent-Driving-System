@@ -1,0 +1,88 @@
+<div class="view-studInstructors viewDiv">
+    <!-- Bread crumb -->
+    <div class="row page-titles">
+        <div class="col-md-6 align-self-center">
+            <h3 class="text-primary">Instructors</h3> 
+        </div>
+        <div class="col-md-6 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a>Instructors</a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- End Bread crumb -->
+
+    <div class="container-fluid">
+        <!-- Start of Card  -->
+        <div class="instructorCard">
+            <div class="row instructorCard">
+                <!-- Start of col-lg-3 -->
+                <div class="col-lg-3">
+                    <div class="card">
+                        <center>
+                            <span><img src="assets/images/user-medium.png" alt="Student Picture" class="profPicInstView" onclick="openDropzoneStud()"/></span><br><br>
+                            <h4 class="instNameView">Graciella Custodio Tatel</h4>
+                            <h6 class="instNameBranchView">SED-Quezon City (Main)</h6>
+                            <h6>Instructor</h6><hr width="30%">
+                        </center>
+                            <span><span class="fa fa-map-marker fa-red"></span> <span class="profileAddressInstView">Sapang Palay, CSJDM, Bulacan</span></span>
+                            <span><span class="fa fa-phone fa-red"></span> <span class="profilePhoneInstView">0956 586 7353</span></span>
+                            <span><span class="fa fa-envelope fa-red"></span> <span class="profileEmailInstView">gtatel0517@gmail.com</span></span>
+                    </div>
+                </div>
+                <!-- End of col-lg-3 -->
+
+                <!-- Start of col-lg-9 -->
+                <div class="col-lg-9">
+                    <div class="card">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs profile-tab" role="tablist">
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#profile1" role="tab">Assigned Instructors</a> </li>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <!--first tab-->
+                            <div class="tab-pane active" id="profile1" role="tabpanel">
+                                <div class="card-body">
+                                    <form class="studTab">
+                                        <table class="table tblCustom tblRecSched">
+                                            <thead>
+                                                <tr>
+                                                    <th>Course</th>
+                                                    <th>Instructor Name</th>
+                                                    <th>Vehicle</th>
+                                                    <th>Branch</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>CRS-M0001</td>
+                                                    <td>Harry James Potter</td>
+                                                    <td>Toyota Vios</td>
+                                                    <td>SED-Quezon City (Main)</td>
+                                                    <td>                                    
+                                                        <button type="button" onclick="evaluateInst()" class="btn100px btn btn-inverse m-b-10 m-l-5">Evaluate</button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>CRS-M0001</td>
+                                                    <td>Harry James Potter</td>
+                                                    <td>Toyota Vios</td>
+                                                    <td>SED-Quezon City (Main)</td>
+                                                    <td>                                    
+                                                        <button type="button" onclick="evaluateInst()" class="btn100px btn btn-inverse m-b-10 m-l-5">Evaluate</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- End of col-lg-9 -->
+            </div> <!-- End of row -->
+        </div><!-- End of Card  -->
+    </div>
+</div>
