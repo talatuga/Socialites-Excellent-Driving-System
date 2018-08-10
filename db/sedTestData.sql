@@ -80,15 +80,16 @@ INSERT INTO `instructor` (`id`, `userInfo`, `license`, `licenseExp`, `educAttain
 ('INST-025015', 15, 'asd-14-3434', '2023-07-29', 1, '', '0000-00-00 00:00:00', '0000-00-00', 1);
 
 INSERT INTO `lesson` (`id`, `title`, `prerequisite`, `description`, `duration`, `purgeFlag`) VALUES
-(1, 'start and stop', NULL, '', 60, 1),
-(2, 'Backing and tur', 1, '', 60, 1),
-(3, 'Road crossing ', 2, '', 60, 1),
-(4, 'Manuevering', 1, '', 60, 1),
-(5, 'Hanging', 3, '', 60, 1),
-(6, 'bam!', 3, 'hit all pedestrian and overspeed when tree is on your way', 60, 0),
-(7, '12312', 4, 'vasada', 60, 0),
-(8, 'asdas', 2, 'vasdasd', 60, 0),
-(9, 'sampleLesson', 1, 'This to provide inputted data. \nEdited: added this line to test editing', 60, 0);
+(1, 'Start and Stop', NULL, 'Master the starting and stopping of your car’s engine before you hit the road.', 60, 1),
+(2, 'Backing and Turning, Light Traffic', 1, 'Driving a vehicle in reverse direction in order to maneuver.', 60, 1),
+(3, 'Road Crossing ', 2, ' Giving way to pedestrians on crossing with and without lights, crossing at intersection.', 60, 1),
+(4, 'Manuevering', 1, 'A controlled change in movement or direction of a moving vehicle', 60, 1),
+(5, 'Hanging', 3, 'you’ll be able to prevent your car from rolling while you’re on a hill or any elevated surface.', 60, 1),
+(6, 'Garage Driving', 3, 'things you can do to avoid getting in an accident in a parking garage or busy parking lot.', 60, 0),
+(7, 'Parking', 4, 'the act of stopping and disengaging a vehicle and leaving it unoccupied', 60, 0),
+(8, 'Highway Driving', 2, 'Driving on a busy road with many lanes', 60, 0),
+(9, 'Heavy Traffic', 1, 'feel safe when driving on a traffic jam, and this might mean you need to drive a little slower than the flow of traffic.', 60, 0),
+(10, 'Review', 9, 'Reviewing all the lessons tackled', 60, 0);
 
 INSERT INTO `license_apply_price` (`id`, `type`, `desc`, `price`, `status`) VALUES
 (1, 'NonPro', 'Non-Professional', 2500, 1),
@@ -96,25 +97,25 @@ INSERT INTO `license_apply_price` (`id`, `type`, `desc`, `price`, `status`) VALU
 (3, 'Inter', 'International License', 5000, 1);
 
 INSERT INTO `preregstudent` (`id`, `data`, `dateSubmit`, `status`) VALUES
-(4, '{"info":{"fullname":"andy_galang_bagadiong","birthdate":"1998-12-31","birthplace":"bagong silang","address":"asdasdasdasd","telno":"12312312313","occupation":"student","email":"christianpaultupas@gmail.com","civilStatus":"Divorced","sex":"Male","guardian":{"name":"christian paul tupas","telno":"09185671538"}},"course":[2],"branch":"3","payment":1,"applyLicense":1,"special":{"course":[],"location":null},"transaction":{"transaction":"Enrolment, Apply-5","amount":5000,"ORnum":"18080560efee2b4","dataID":3},"preference":{"vehicle":"234","schedule":[0,1,2]}}', '2018-08-05 03:08:33', 1);
+(4, '{\"info\":{\"fullname\":\"andy_galang_bagadiong\",\"birthdate\":\"1998-12-31\",\"birthplace\":\"bagong silang\",\"address\":\"asdasdasdasd\",\"telno\":\"12312312313\",\"occupation\":\"student\",\"email\":\"christianpaultupas@gmail.com\",\"civilStatus\":\"Divorced\",\"sex\":\"Male\",\"guardian\":{\"name\":\"christian paul tupas\",\"telno\":\"09185671538\"}},\"course\":[2],\"branch\":\"3\",\"payment\":1,\"applyLicense\":1,\"special\":{\"course\":[],\"location\":null},\"transaction\":{\"transaction\":\"Enrolment, Apply-5\",\"amount\":5000,\"ORnum\":\"18080560efee2b4\",\"dataID\":3},\"preference\":{\"vehicle\":\"234\",\"schedule\":[0,1,2]}}', '2018-08-05 03:08:33', 1);
 
 INSERT INTO `requirement` (`id`, `title`, `description`, `importance`) VALUES
 (1, 'license', 'To apply drivers permit at LTO', 1);
 
-INSERT INTO `schedule` (`id`, `date`, `time`, `hour`, `studID`, `instID`, `branch`, `status`) VALUES
-(1, '2018-05-19', '10:30:00', 1, '04220', '12345', 4, 1),
-(2, '2018-05-19', '15:00:00', 1, '04325', '23456', 1, 0),
-(3, '2018-05-31', '12:00:00', 1, '06597', '34567', 5, 1),
-(4, '2018-05-29', '14:30:00', 1, '34591', '56789', 2, 0),
-(5, '2018-05-30', '16:00:00', 1, '89432', '45678', 5, 0);
+INSERT INTO `schedule` (`id`, `title`, `date`, `time`, `hour`, `studID`, `instID`, `branch`, `status`) VALUES
+(1, '', '2018-05-19', '10:30:00', 1, '04220', '12345', 4, 1),
+(2, 'session#2', '2018-08-02', '15:00:00', 1, '06597', 'INST-014008', 1, 4),
+(3, 'session#1', '2018-05-31', '12:00:00', 1, '06597', 'INST-014008', 5, 1),
+(4, '', '2018-05-29', '14:30:00', 1, '34591', '56789', 2, 0),
+(5, '', '2018-05-30', '16:00:00', 1, '89432', '45678', 5, 0);
 
-INSERT INTO `student` (`id`, `userInfo`, `license`, `dateRegistered`, `status`) VALUES
-('023013', 13, '', '2018-06-22 12:51:53', 1),
-('04220', 1, '', '2017-05-16 16:00:00', 1),
-('04325', 3, '', '2017-12-03 16:00:00', 1),
-('06597', 4, '', '2018-02-17 16:00:00', 1),
-('34591', 2, '', '2018-01-29 16:00:00', 1),
-('89432', 5, '', '2017-08-21 16:00:00', 1);
+INSERT INTO `student` (`id`, `userInfo`, `license`, `prefDays`, `prefCar`, `dateRegistered`, `status`) VALUES
+('023013', 13, '', '', '', '2018-06-22 12:51:53', 1),
+('04220', 1, '', '', '', '2017-05-16 16:00:00', 1),
+('04325', 3, '', '', '', '2017-12-03 16:00:00', 1),
+('06597', 4, '', '', '', '2018-02-17 16:00:00', 1),
+('34591', 2, '', '', '', '2018-01-29 16:00:00', 1),
+('89432', 5, '', '', '', '2017-08-21 16:00:00', 1);
 
 INSERT INTO `useraccount` (`id`, `username`, `password`, `accType`, `status`) VALUES
 (1, 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 1, 1),
@@ -122,7 +123,6 @@ INSERT INTO `useraccount` (`id`, `username`, `password`, `accType`, `status`) VA
 (15, 'blurspace@gmail.com', 'fea0579a46987b5f7899ac149af49adb8cd25fcd', 2, 1),
 (16, 'edgartupas@gmail.com', '6420ed4d831b436d1e92d25605d18297296374e3', 2, 1),
 (23, 'christianpaultupas@gmail.com', '6999a53119e9083d5db115c31b8586f08eda8701', 3, 1),
-(24, 'christianpaultupas@gmail.com', '482ef093817ef4bc6aa18b85a25bb5e7b8702188', 2, 1),
 (25, 'sdasdad@fasd.com', 'cbd94f5179e34673f52da338ff0bfe20a3c893cc', 2, 1);
 
 INSERT INTO `userinfo` (`id`, `userAcc`, `fullname`, `address`, `telno`, `birthdate`, `birthplace`, `sex`, `civilStatus`, `email`, `userType`) VALUES

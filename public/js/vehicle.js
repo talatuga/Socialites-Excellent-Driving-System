@@ -16,7 +16,7 @@ var loadVehi = function(){
     $(".preloader").fadeIn(); 
     // $('#carTableA tr:first').addClass("highlightTr");
     car.getATableData(function(){
-        $('.carTbl').click(function () {
+        $('#carTblA').click(function () {
             var selected = $(this).hasClass("highlightTr");
             $('.tblVehicle tr').removeClass("highlightTr");
             if (!selected)
