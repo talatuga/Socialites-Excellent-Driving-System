@@ -56,6 +56,7 @@ var studPayment = function (){
 }
 var studAccount = function (){
     $('.viewDiv').hide();
+    resetSettingsStudent();
     $(".view-studAccount").show();
 }
 var studLicAssist = function (){

@@ -1,6 +1,8 @@
 $(function() {    
     $('.navAdmin').show();
     $('.navStudent').hide();
+    $('.headerAdmin').show();
+    $('.headerStudent').hide();
     
     var x = $(window).height();
     $(".page-wrapper").height(x);
@@ -240,7 +242,6 @@ var lessons = function(){
     $(".view-lessons").show();
     $(".search-box").hide();
 }
-
 var schedule = function (){
     $('.viewDiv').hide();
     $(".view-schedule").show();

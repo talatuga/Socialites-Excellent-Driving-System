@@ -111,6 +111,7 @@ CREATE TABLE `course_enrolled` (
   `courseID` int(3) NOT NULL,
   `branch` int(3) NOT NULL,
   `selectedLesson` varchar(30) NOT NULL,
+  `special` int(1) NOT NULL DEFAULT '0',
   `dateEnrolled` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `paid` int(1) NOT NULL DEFAULT '0',
   `status` int(1) NOT NULL DEFAULT '1'
@@ -291,204 +292,237 @@ CREATE TABLE `web_course` (
 
 
 ALTER TABLE `account`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `ORno` (`ORno`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `ORno` (`ORno`);
 
 ALTER TABLE `accounttype`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 ALTER TABLE `activity`
- ADD PRIMARY KEY (`id`), ADD KEY `studID` (`studID`), ADD KEY `instID` (`instID`), ADD KEY `vehicleID` (`vehicleID`), ADD KEY `lessonID` (`lessonID`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `studID` (`studID`),
+  ADD KEY `instID` (`instID`),
+  ADD KEY `vehicleID` (`vehicleID`),
+  ADD KEY `lessonID` (`lessonID`);
 
 ALTER TABLE `admin`
- ADD PRIMARY KEY (`id`), ADD KEY `userInfo` (`userInfo`), ADD KEY `branchID` (`branchID`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `userInfo` (`userInfo`),
+  ADD KEY `branchID` (`branchID`);
 
 ALTER TABLE `branch`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 ALTER TABLE `codingscheme`
- ADD PRIMARY KEY (`id`), ADD KEY `branch` (`branch`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `branch` (`branch`);
 
 ALTER TABLE `course`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 ALTER TABLE `course_enrolled`
- ADD PRIMARY KEY (`id`), ADD KEY `studID` (`studID`), ADD KEY `courseID` (`courseID`), ADD KEY `branch` (`branch`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `studID` (`studID`),
+  ADD KEY `courseID` (`courseID`),
+  ADD KEY `branch` (`branch`);
 
 ALTER TABLE `defect`
- ADD PRIMARY KEY (`id`), ADD KEY `vehicle` (`vehicle`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `vehicle` (`vehicle`);
 
 ALTER TABLE `evaluation`
- ADD PRIMARY KEY (`id`), ADD KEY `studID` (`studID`), ADD KEY `instID` (`instID`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `studID` (`studID`),
+  ADD KEY `instID` (`instID`);
 
 ALTER TABLE `guardian`
- ADD PRIMARY KEY (`id`), ADD KEY `refAcc` (`refAcc`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `refAcc` (`refAcc`);
 
 ALTER TABLE `instructor`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `license` (`license`), ADD KEY `userInfo` (`userInfo`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `license` (`license`),
+  ADD KEY `userInfo` (`userInfo`);
 
 ALTER TABLE `lesson`
- ADD PRIMARY KEY (`id`), ADD KEY `prerequisite` (`prerequisite`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `prerequisite` (`prerequisite`);
 
 ALTER TABLE `lesson_courses`
- ADD PRIMARY KEY (`id`), ADD KEY `courseID` (`courseID`), ADD KEY `lessonID` (`lessonID`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `courseID` (`courseID`),
+  ADD KEY `lessonID` (`lessonID`);
 
 ALTER TABLE `license_apply_price`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 ALTER TABLE `newsletter`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `email` (`email`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
 
 ALTER TABLE `passedrequirement`
- ADD PRIMARY KEY (`id`), ADD KEY `requirementID` (`requirementID`), ADD KEY `studID` (`studID`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `requirementID` (`requirementID`),
+  ADD KEY `studID` (`studID`);
 
 ALTER TABLE `payment`
- ADD PRIMARY KEY (`id`), ADD KEY `transactionID` (`transactionID`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `transactionID` (`transactionID`);
 
 ALTER TABLE `preregstudent`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 ALTER TABLE `requirement`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 ALTER TABLE `schedule`
- ADD PRIMARY KEY (`id`), ADD KEY `studID` (`studID`), ADD KEY `instID` (`instID`), ADD KEY `branch` (`branch`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `studID` (`studID`),
+  ADD KEY `instID` (`instID`),
+  ADD KEY `branch` (`branch`);
 
 ALTER TABLE `student`
- ADD PRIMARY KEY (`id`), ADD KEY `userInfo` (`userInfo`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `userInfo` (`userInfo`);
 
 ALTER TABLE `useraccount`
  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `username` (`username`), ADD KEY `accType` (`accType`);
 
 ALTER TABLE `userinfo`
- ADD PRIMARY KEY (`id`), ADD KEY `userAcc` (`userAcc`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `userAcc` (`userAcc`);
 
 ALTER TABLE `vehicle`
- ADD PRIMARY KEY (`id`), ADD KEY `driver` (`driver`), ADD KEY `garage` (`garage`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `driver` (`driver`),
+  ADD KEY `garage` (`garage`);
 
 ALTER TABLE `web_branch`
- ADD PRIMARY KEY (`id`), ADD KEY `branchID` (`branchID`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `branchID` (`branchID`);
 
 ALTER TABLE `web_course`
- ADD PRIMARY KEY (`id`), ADD KEY `courseID` (`courseID`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `courseID` (`courseID`);
 
 
 ALTER TABLE `account`
-MODIFY `id` int(15) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `accounttype`
-MODIFY `id` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `activity`
-MODIFY `id` int(15) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `admin`
-MODIFY `id` int(7) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(7) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `branch`
-MODIFY `id` int(3) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `codingscheme`
-MODIFY `id` int(3) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `course`
-MODIFY `id` int(3) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `course_enrolled`
-MODIFY `id` int(9) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `defect`
-MODIFY `id` int(7) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(7) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `evaluation`
-MODIFY `id` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `guardian`
-MODIFY `id` int(4) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `lesson`
-MODIFY `id` int(3) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `lesson_courses`
-MODIFY `id` int(3) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `license_apply_price`
-MODIFY `id` int(2) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `newsletter`
-MODIFY `id` int(4) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `payment`
-MODIFY `id` int(7) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(7) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `preregstudent`
-MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `requirement`
-MODIFY `id` int(3) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `schedule`
-MODIFY `id` int(15) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `useraccount`
-MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `userinfo`
-MODIFY `id` int(7) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(7) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `vehicle`
-MODIFY `id` int(3) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `web_branch`
-MODIFY `id` int(3) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `web_course`
-MODIFY `id` int(3) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `activity`
-ADD CONSTRAINT `activity_ibfk_1` FOREIGN KEY (`studID`) REFERENCES `student` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-ADD CONSTRAINT `activity_ibfk_2` FOREIGN KEY (`instID`) REFERENCES `instructor` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-ADD CONSTRAINT `activity_ibfk_3` FOREIGN KEY (`vehicleID`) REFERENCES `vehicle` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-ADD CONSTRAINT `activity_ibfk_4` FOREIGN KEY (`lessonID`) REFERENCES `lesson` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `activity_ibfk_1` FOREIGN KEY (`studID`) REFERENCES `student` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `activity_ibfk_2` FOREIGN KEY (`instID`) REFERENCES `instructor` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `activity_ibfk_3` FOREIGN KEY (`vehicleID`) REFERENCES `vehicle` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `activity_ibfk_4` FOREIGN KEY (`lessonID`) REFERENCES `lesson` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 ALTER TABLE `admin`
-ADD CONSTRAINT `admin_ibfk_1` FOREIGN KEY (`userInfo`) REFERENCES `userinfo` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-ADD CONSTRAINT `admin_ibfk_2` FOREIGN KEY (`branchID`) REFERENCES `branch` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `admin_ibfk_1` FOREIGN KEY (`userInfo`) REFERENCES `userinfo` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `admin_ibfk_2` FOREIGN KEY (`branchID`) REFERENCES `branch` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 ALTER TABLE `codingscheme`
-ADD CONSTRAINT `scheme_fk1` FOREIGN KEY (`branch`) REFERENCES `branch` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `scheme_fk1` FOREIGN KEY (`branch`) REFERENCES `branch` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 ALTER TABLE `course_enrolled`
-ADD CONSTRAINT `course_enrolled_ibfk_1` FOREIGN KEY (`studID`) REFERENCES `student` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-ADD CONSTRAINT `course_enrolled_ibfk_2` FOREIGN KEY (`courseID`) REFERENCES `course` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-ADD CONSTRAINT `course_enrolled_ibfk_3` FOREIGN KEY (`branch`) REFERENCES `branch` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `course_enrolled_ibfk_1` FOREIGN KEY (`studID`) REFERENCES `student` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `course_enrolled_ibfk_2` FOREIGN KEY (`courseID`) REFERENCES `course` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `course_enrolled_ibfk_3` FOREIGN KEY (`branch`) REFERENCES `branch` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 ALTER TABLE `defect`
-ADD CONSTRAINT `defect_ibfk_1` FOREIGN KEY (`vehicle`) REFERENCES `vehicle` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `defect_ibfk_1` FOREIGN KEY (`vehicle`) REFERENCES `vehicle` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 ALTER TABLE `evaluation`
-ADD CONSTRAINT `evaluation_ibfk_1` FOREIGN KEY (`studID`) REFERENCES `student` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-ADD CONSTRAINT `evaluation_ibfk_2` FOREIGN KEY (`instID`) REFERENCES `instructor` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `evaluation_ibfk_1` FOREIGN KEY (`studID`) REFERENCES `student` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `evaluation_ibfk_2` FOREIGN KEY (`instID`) REFERENCES `instructor` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 ALTER TABLE `guardian`
-ADD CONSTRAINT `guardian_ibfk_1` FOREIGN KEY (`refAcc`) REFERENCES `userinfo` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `guardian_ibfk_1` FOREIGN KEY (`refAcc`) REFERENCES `userinfo` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 ALTER TABLE `instructor`
-ADD CONSTRAINT `instructor_ibfk_1` FOREIGN KEY (`userInfo`) REFERENCES `userinfo` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `instructor_ibfk_1` FOREIGN KEY (`userInfo`) REFERENCES `userinfo` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 ALTER TABLE `lesson`
-ADD CONSTRAINT `lesson_ibfk_1` FOREIGN KEY (`prerequisite`) REFERENCES `lesson` (`id`);
+  ADD CONSTRAINT `lesson_ibfk_1` FOREIGN KEY (`prerequisite`) REFERENCES `lesson` (`id`);
 
 ALTER TABLE `lesson_courses`
-ADD CONSTRAINT `lesson_courses_ibfk_1` FOREIGN KEY (`courseID`) REFERENCES `course` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-ADD CONSTRAINT `lesson_courses_ibfk_2` FOREIGN KEY (`lessonID`) REFERENCES `lesson` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `lesson_courses_ibfk_1` FOREIGN KEY (`courseID`) REFERENCES `course` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `lesson_courses_ibfk_2` FOREIGN KEY (`lessonID`) REFERENCES `lesson` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 ALTER TABLE `passedrequirement`
-ADD CONSTRAINT `passedRequirement_ibfk_1` FOREIGN KEY (`requirementID`) REFERENCES `requirement` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-ADD CONSTRAINT `passedRequirement_ibfk_2` FOREIGN KEY (`studID`) REFERENCES `student` (`id`);
+  ADD CONSTRAINT `passedRequirement_ibfk_1` FOREIGN KEY (`requirementID`) REFERENCES `requirement` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `passedRequirement_ibfk_2` FOREIGN KEY (`studID`) REFERENCES `student` (`id`);
 
 ALTER TABLE `payment`
-ADD CONSTRAINT `payment_ibfk_1` FOREIGN KEY (`transactionID`) REFERENCES `account` (`ORno`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `payment_ibfk_1` FOREIGN KEY (`transactionID`) REFERENCES `account` (`ORno`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 ALTER TABLE `schedule`
-ADD CONSTRAINT `schedule_ibfk_1` FOREIGN KEY (`studID`) REFERENCES `student` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-ADD CONSTRAINT `schedule_ibfk_2` FOREIGN KEY (`instID`) REFERENCES `instructor` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-ADD CONSTRAINT `schedule_ibfk_3` FOREIGN KEY (`branch`) REFERENCES `branch` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `schedule_ibfk_1` FOREIGN KEY (`studID`) REFERENCES `student` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `schedule_ibfk_2` FOREIGN KEY (`instID`) REFERENCES `instructor` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `schedule_ibfk_3` FOREIGN KEY (`branch`) REFERENCES `branch` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 ALTER TABLE `student`
-ADD CONSTRAINT `student_ibfk_1` FOREIGN KEY (`userInfo`) REFERENCES `userinfo` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `student_ibfk_1` FOREIGN KEY (`userInfo`) REFERENCES `userinfo` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 ALTER TABLE `useraccount`
-ADD CONSTRAINT `useraccount_ibfk_1` FOREIGN KEY (`accType`) REFERENCES `accounttype` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `useraccount_ibfk_1` FOREIGN KEY (`accType`) REFERENCES `accounttype` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 ALTER TABLE `userinfo`
-ADD CONSTRAINT `userinfo_ibfk_1` FOREIGN KEY (`userAcc`) REFERENCES `useraccount` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `userinfo_ibfk_1` FOREIGN KEY (`userAcc`) REFERENCES `useraccount` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 ALTER TABLE `vehicle`
-ADD CONSTRAINT `vehicle_ibfk_1` FOREIGN KEY (`driver`) REFERENCES `instructor` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-ADD CONSTRAINT `vehicle_ibfk_2` FOREIGN KEY (`garage`) REFERENCES `branch` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `vehicle_ibfk_1` FOREIGN KEY (`driver`) REFERENCES `instructor` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `vehicle_ibfk_2` FOREIGN KEY (`garage`) REFERENCES `branch` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 ALTER TABLE `web_branch`
-ADD CONSTRAINT `web_branch_ibfk_1` FOREIGN KEY (`branchID`) REFERENCES `branch` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `web_branch_ibfk_1` FOREIGN KEY (`branchID`) REFERENCES `branch` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 ALTER TABLE `web_course`
-ADD CONSTRAINT `web_course_ibfk_1` FOREIGN KEY (`courseID`) REFERENCES `course` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `web_course_ibfk_1` FOREIGN KEY (`courseID`) REFERENCES `course` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 

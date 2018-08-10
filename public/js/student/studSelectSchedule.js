@@ -89,6 +89,31 @@ $(function() {
         && y <= offset.bottom) { return true; }
     return false;
   }
+
+
+  $('#calendarRecSched').fullCalendar({
+    header: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'month,agendaWeek,agendaDay'
+    },
+    editable: false,
+  });
+
+  var isEventOverDiv = function (x, y) {
+
+    var external_events = $('#external-events');
+    var offset = external_events.offset();
+    offset.right = external_events.width() + offset.left;
+    offset.bottom = external_events.height() + offset.top;
+
+    // Compare
+    if (x >= offset.left
+        && y >= offset.top
+        && x <= offset.right
+        && y <= offset.bottom) { return true; }
+    return false;
+  }
 });
 
 function changePref(){
@@ -98,4 +123,23 @@ function changePref(){
 
 function doneChangePref(){
   //DB: Update db with new preferred vehicle and sched.
+}
+
+function seeRecSched(){
+  $('.viewDiv').hide();
+  $('.view-recSched').show();
+}
+
+$('.backSched1').on("click", function(){
+  $('.viewDiv').hide();
+  $('.view-studSchedule').show();
+});
+
+$('.backSched2').on("click", function(){
+  $('.viewDiv').hide();
+  $('.view-studSelectSchedule').show();
+});
+
+function editRecSched(){
+  $('#editPrefDateModal').modal("show");
 }

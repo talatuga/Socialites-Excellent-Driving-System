@@ -1,0 +1,104 @@
+<div class="view-recSched viewDiv">
+    <!-- Bread crumb -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <span class="fa fa-chevron-left float-left back backSched2"></span>
+            <h3 class="text-primary">Recommended Schedule</h3> 
+        </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a onclick="studSchedule()">Schedule</a></li>
+                <li class="breadcrumb-item"><a onclick="studSelectSchedule()">Select Schedule</a></li>
+                <li class="breadcrumb-item active"><a>Select Schedule</a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- End Bread crumb -->
+    <!-- Container fluid  -->
+    <div class="container-fluid">
+        <!-- Start of Card  -->
+        <div class="studentCard">
+            <div class="card"><h5>Schedules below are based on your enrolled course and preferred days and vehicle (which you may still edit <a style="color: #5d0000;" onclick="changePref()"><b>here.</b></a>)</h5></div>
+            <div class="card">
+                <table class="table tblRecSched">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Instructor</th>
+                            <th width="20%">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>08/09/2018</td>
+                            <td>9:30 A.M. - 10:30 A.M.</td>
+                            <td>Harry James Potter</td>
+                            <td>
+                                <button type="button" class="btn btn-success btnLicense" onclick="editRecSched()">Edit</button>
+                                <button type="button" class="btn btn-danger btnLicense" onclick="delRecSched()">Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>08/10/2018</td>
+                            <td>9:30 A.M. - 10:30 A.M.</td>
+                            <td>Harry James Potter</td>
+                            <td>
+                                <button type="button" class="btn btn-success btnLicense" onclick="editRecSched()">Edit</button>
+                                <button type="button" class="btn btn-danger btnLicense" onclick="delRecSched()">Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>08/11/2018</td>
+                            <td>9:30 A.M. - 10:30 A.M.</td>
+                            <td>Harry James Potter</td>
+                            <td>
+                                <button type="button" class="btn btn-success btnLicense" onclick="editRecSched()">Edit</button>
+                                <button type="button" class="btn btn-danger btnLicense" onclick="delRecSched()">Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>08/12/2018</td>
+                            <td>9:30 A.M. - 10:30 A.M.</td>
+                            <td>Harry James Potter</td>
+                            <td>
+                                <button type="button" class="btn btn-success btnLicense" onclick="editRecSched()">Edit</button>
+                                <button type="button" class="btn btn-danger btnLicense" onclick="delRecSched()">Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>08/13/2018</td>
+                            <td>9:30 A.M. - 10:30 A.M.</td>
+                            <td>Harry James Potter</td>
+                            <td>
+                                <button type="button" class="btn btn-success btnLicense" onclick="editRecSched()">Edit</button>
+                                <button type="button" class="btn btn-danger btnLicense" onclick="delRecSched()">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <div class="card">                    
+                   <center><div id='calendarRecSched'></div></center> 
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="row">
+                    <div class="col-md-4">
+                        <button type="button" onclick="studSelectSchedule()" style="width: 100%" class="btn btn-danger m-b-10 m-l-5">Cancel</button>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="button" onclick="studSelectSchedule()" style="width: 100%" class="btn btn-warning m-b-10 m-l-5">Reset</button>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="button" onclick="studSelectSchedule()" style="width: 100%" class="btn btn-success m-b-10 m-l-5">Done</button>
+                    </div>
+                </div>
+            </div>
+        </div><!-- End of Card  -->
+    </div>
+    <!-- End Container fluid  -->
+</div>
