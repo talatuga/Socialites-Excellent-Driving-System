@@ -34,7 +34,11 @@ exports.user = function(req, res, next){
 }
 
 exports.student = function(req, res, next){
-    res.render('student/index',{title: 'Socialites Excellent Driving'});
+    var schedule = require('../model/scheduleModel');
+    schedule.getAvailable("06597", function(err, sched){ //change id later when login implemented.
+        if(err) return next(err);
+        res.render('student/index',{title: 'Socialites Excellent Driving', schedule: sched});
+    });
 }
 
 var getUserInfo = function(data, cb){ //REPAIR THIS WHOLE UNIT!!!! 

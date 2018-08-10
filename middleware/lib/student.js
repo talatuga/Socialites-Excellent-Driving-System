@@ -135,7 +135,7 @@ exports.register = function(req, res, next){
                     infoModel.register(info, function(errr, infoID){
                         if(errr) return next(errr);
                         var id = generateID(accID,infoID);
-                        student.create([id,infoID,data.license,null,1],function(errrr, result){
+                        student.create([id,infoID,data.license, JSON.stringify(infoData.data.preference.schedule), infoData.data.preference.vehicle,null,1],function(errrr, result){
                             if(errrr) return next(errrr);
                             student.preRegDel(data.info,function(e){
                                 if(e) return next(e);

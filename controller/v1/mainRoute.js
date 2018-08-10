@@ -27,6 +27,9 @@ router.use('/web', web);
 var payment = require('./payments');
 router.use('/payment', payment);
 
+var schedule = require('./schedule');
+router.use('/sched', schedule);
+
 // All routes below are secured with authentication.
 router.use(auth.auth, err.error401);
 

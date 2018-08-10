@@ -7,11 +7,17 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 
 INSERT INTO `account` (`id`, `ORno`, `transaction`, `feeType`, `price`, `balance`, `date`) VALUES
-(3, '18080560efee2b4', 'Enrolment, Apply-5', 1, 5000, 5000, '0000-00-00 00:00:00');
+(3, '18080560efee2b4', 'Enrolment, Apply-5', 1, 5000, 5000, '0000-00-00 00:00:00'),
+(4, '180807bf524ab8b', 'Enrolment', 1, 2500, 2500, '0000-00-00 00:00:00'),
+(5, '1808078edb1b1b3', 'EnrolmentEnrolmentEn', 1, 10000, 10000, '0000-00-00 00:00:00'),
+(6, '1808072b3ef217d', 'EnrolmentEnrolmentEn', 1, 12500, 12500, '0000-00-00 00:00:00'),
+(7, '18080763592d38f', 'Enrolment', 1, 2500, 2500, '0000-00-00 00:00:00'),
+(8, '180807288a48364', 'EnrolmentEnrolment', 1, 5000, 5000, '0000-00-00 00:00:00'),
+(9, '1808093ef129acb', 'Enrolment, Apply, Ap', 1, 7500, 7500, '0000-00-00 00:00:00');
 
 INSERT INTO `accounttype` (`id`, `title`, `permission`) VALUES
 (1, 'admin', 'r,w-a'),
@@ -76,8 +82,7 @@ INSERT INTO `guardian` (`id`, `fullname`, `telno`, `refAcc`, `purgeFlag`) VALUES
 INSERT INTO `instructor` (`id`, `userInfo`, `license`, `licenseExp`, `educAttain`, `vacant`, `dateRegistered`, `dateRetired`, `status`) VALUES
 ('0', 0, 'sample1', '2018-07-30', 1, NULL, '2018-07-29 08:05:39', '2018-07-01', 1),
 ('INST-014008', 8, 'A1212111223', '2018-06-14', 5, 'Monday', '2018-05-20 17:05:05', NULL, 1),
-('INST-016010', 10, 'P8437724876', '2023-06-22', 3, '', '2018-06-22 10:41:53', NULL, 1),
-('INST-025015', 15, 'asd-14-3434', '2023-07-29', 1, '', '0000-00-00 00:00:00', '0000-00-00', 1);
+('INST-016010', 10, 'P8437724876', '2023-06-22', 3, '', '2018-06-22 10:41:53', NULL, 1);
 
 INSERT INTO `lesson` (`id`, `title`, `prerequisite`, `description`, `duration`, `purgeFlag`) VALUES
 (1, 'Start and Stop', NULL, 'Master the starting and stopping of your car’s engine before you hit the road.', 60, 1),
@@ -135,8 +140,7 @@ INSERT INTO `userinfo` (`id`, `userAcc`, `fullname`, `address`, `telno`, `birthd
 (9, 15, 'Jean Hale_Bautista_Cruz', '#18 rambutan st. brgy. capri quezon city', '09185671538', '1998-11-22', 'n/a', 'M', 'n/a', 'blurspace@gmail.com', 2),
 (10, 16, 'Edgar_Pugon_Tupas', '#18 guyabano st. brgy. capri novaliches  quezon city', '09238628347', '1966-05-26', 'n/a', 'M', 'n/a', 'edgartupas@gmail.com', 2),
 (13, 23, 'Christian Paul_Rojero_Tupas', '#18 guyabano st. amparo capri novaliches ', '09094527651', '1998-12-08', 'Quezon City', 'Mal', 'Single', 'christianpaultupas@gmail.com', 3),
-(14, 24, 'asd_dsa_daa', 'asdasdasdasdasda', '1239239283', '2018-06-18', 'n/a', 'M', 'n/a', 'christianpaultupas@gmail.com', 2),
-(15, 25, 'dsa_asdd_dsaa', 'dasdasdadadasd', '134234344', '2018-07-27', 'n/a', 'F', 'n/a', 'sdasdad@fasd.com', 2);
+(14, 24, 'asd_dsa_daa', 'asdasdasdasdasda', '1239239283', '2018-06-18', 'n/a', 'M', 'n/a', 'christianpaultupas@gmail.com', 2);
 
 INSERT INTO `vehicle` (`id`, `model`, `brand`, `transmission`, `price`, `plate`, `driver`, `garage`, `offday`, `status`) VALUES
 (123, 'vios', 'toyota', 'A', 'default', 'AAP3780', NULL, 1, 5, 1),

@@ -174,11 +174,10 @@ function payMeth1(){
         ids.push(course.generateID(data.courseID, data.transmission));
         total += $('#special'+data.courseID+':checked').length!=0?(data.price*2):data.price;
     });
-    preRegData.trans.amount += total;
     preRegData.trans.transaction = "Enrolment" + preRegData.trans.transaction;
     $('#payCourse').html(ids.join());
     $('#payPrice').html(total.formatMoney(0));
-    $('#totalAmount').html(preRegData.trans.amount.formatMoney(0));
+    $('#totalAmount').html((preRegData.trans.amount + total).formatMoney(0));
 }
 
 function paymentBack(){

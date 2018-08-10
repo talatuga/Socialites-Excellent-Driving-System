@@ -1,4 +1,5 @@
 var db = require('./db');
+var table = "schedule";
 
 var Model = {}
 
@@ -68,5 +69,37 @@ Model.update = function (id, param, field, cb) {
 Model.delete = function (id, cb) {
     //Still ondev
 }
+
+Model.getAvailable = function(id, cb){
+    var sql = "SELECT * FROM "+ table +" WHERE studID = ? AND status = 1";
+    db.get().query(sql, [id], function(err, result){
+        if(err) return cb(err);
+        cb(null, result);
+    });
+};
+
+Model.getAssigned = function(id, cb){
+    var sql = "SELECT * FROM "+ table +" WHERE studID = ? AND status > 1";
+    db.get().query(sql, [id], function(err, result){
+        if(err) return cb(err);
+        cb(null, result);
+    });
+};
+
+Model.removeSched = function(id, cb){
+    var sql = "UPDATE " + table + " SET status = 1 WHERE id = ?";
+    db.get().query(sql, [id], function(err){
+        if(err) return cb(err);
+        cb(null);
+    });
+};
+
+Model.assignSched = function(id, cb){
+    var sql = "UPDATE " + table + " SET status = 2 WHERE id = ?";
+    db.get().query(sql, [id], function(err){
+        if(err) return cb(err);
+        cb(null);
+    });
+};
 
 module.exports = Model;

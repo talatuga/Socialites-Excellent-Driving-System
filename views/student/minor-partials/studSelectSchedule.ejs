@@ -24,11 +24,20 @@
                     <div class="card">
                         <div id='external-events'>
                             <h4>Hours Available:<br> <small>Drag and drop the items below to the calendar.</small></h4><hr>
-                            <div class='fc-event'>Schedule1</div>
-                            <div class='fc-event'>Schedule2</div>
+                            <div id="availEvents">
+                            <% 
+                                var html = "";
+                                schedule.forEach((e,i)=>{
+                                    html += "<div id='sched_"+ e.id +"' data-schedid="+ e.id +" class='fc-event'>"+ e.title +"</div>";
+                                }); 
+                            %>
+                            <%-html %>
+                            </div>
+                            <%# <div data-schedID="123" class='fc-event'>Schedule1</div>
+                            <div data-schedID="456" class='fc-event'>Schedule2</div>
                             <div class='fc-event'>Schedule3</div>
                             <div class='fc-event'>Schedule4</div>
-                            <div class='fc-event'>Schedule5</div>
+                            <div class='fc-event'>Schedule5</div> %>
                             <p style="display: none">
                                 <input type='checkbox' id='drop-remove' checked/>
                                 <label for='drop-remove'>remove after drop</label>
