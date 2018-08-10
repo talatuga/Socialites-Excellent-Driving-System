@@ -9,6 +9,6 @@ router.route('/login')
     .get(auth.auth, auth.lastHandler, renderer.admin)
     .post(auth.login, auth.lastHandler);
 
-router.get('/student', renderer.student);
+router.get('/student'/* , auth.studentAuth */, renderer.student);
 
 module.exports = router;

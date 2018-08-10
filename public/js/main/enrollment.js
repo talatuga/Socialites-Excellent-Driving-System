@@ -174,11 +174,10 @@ function payMeth1(){
         ids.push(course.generateID(data.courseID, data.transmission));
         total += $('#special'+data.courseID+':checked').length!=0?(data.price*2):data.price;
     });
-    preRegData.trans.amount += total;
     preRegData.trans.transaction = "Enrolment" + preRegData.trans.transaction;
     $('#payCourse').html(ids.join());
     $('#payPrice').html(total.formatMoney(0));
-    $('#totalAmount').html(preRegData.trans.amount.formatMoney(0));
+    $('#totalAmount').html((preRegData.trans.amount + total).formatMoney(0));
 }
 
 function paymentBack(){
@@ -464,9 +463,9 @@ function regNext2(){
     else{
         var c = $('input[name=enrReqP]:checked').data().id;
         if (c!=0){
-            preRegData.trans.transaction += ", Apply";
-            preRegData.trans.amount += parseInt($('input[name=enrReqP]:checked').data().price);
-            $('#additionalPayment').html(" <br>Plus additional payment for applying for licensing assistance is <span class='payCourse'>"+ $('input[name=enrReqP]:checked').data().desc +" license</span> is &#8369;<span class='payPrice'>"+ ($('input[name=enrReqP]:checked').data().price).formatMoney(0) + "</span>.<br>Overall total of &#8369;<span id='totalAmount' class='payPrice'><span>.");
+            preRegData.trans.transaction += ", Apply-" + $('input[name=enrReqP]:checked').val();
+            //preRegData.trans.amount += parseInt($('input[name=enrReqP]:checked').data().price);
+            $('#additionalPayment').html(" Plus additional payment for applying <span class='payCourse'>"+ $('input[name=enrReqP]:checked').data().desc +" license</span> is &#8369;<span class='payPrice'>"+ ($('input[name=enrReqP]:checked').data().price).formatMoney(0) + "</span>. Total of &#8369;<span id='totalAmount' class='payPrice'><span>");
             payHide=2;
             paymentBack();
         }

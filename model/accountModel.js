@@ -11,12 +11,12 @@ Account = Object.create(ModelModule);
 Account.table = table;
 Account.db = db;
 
-var getBalance = function(ORno){
+Account.getBalance = function(ORno){
     return new Promise(function(resolve, reject){
-        var sql = "SELECT balance FROM account WHERE ORno = ?";
+        var sql = "SELECT balance, transaction FROM account WHERE ORno = ?";
         db.get().query(sql, [ORno], function(err, result){
             if(err) return reject(err);
-            resolve(result);
+            resolve(result[0]);
         });
     });
 };
@@ -46,22 +46,22 @@ Account.addBill = function(transaction, feeType, bill, cb){
 };
 
 Account.addPayment = function(ORnum, amount, cb){
-    getBalance(ORnum).then(function(balance){
-        var data = balance[0];
-        if(parseFloat(data.balance) > 0){
-            var balance = parseFloat(data.balance) - parseFloat(amount);
+    this.getBalance(ORnum).catch(cb).then(function(transaction){
+        if(parseFloat(transaction.balance) > 0){
+            var balance = parseFloat(transaction.balance) - parseFloat(amount);
+            var excess = 0;
             if(balance < 0){
-                var excess = (balance) * -1;
+                excess = (balance) * -1;
                 balance = 0;
             }
-            var data = [ORnum, data.balance, amount, balance];
+            var data = [ORnum, transaction.balance, amount, balance];
             var sql = "INSERT INTO " + paymentTable + "(transactionID,bill,pay,balance) VALUES(?,?,?,?)";
             db.get().query(sql, data, function(err, result){
                 if(err) return cb(err);
                 if(balance != 0){
                     cb(null, {status: 2, detail:"Balance Left", balance: balance});
                 }else{
-                    cb(null, {status: 1, detail:"Paid", transactionID: result.insertId});
+                    cb(null, {status: 1, detail:"Paid", transactionID: result.insertId, excess: excess});
                 }
                 sql = "UPDATE " + table + " SET balance = ? WHERE ORno = ?";
                 db.get().query(sql,[balance, ORnum], function(err){
@@ -71,7 +71,7 @@ Account.addPayment = function(ORnum, amount, cb){
         }else{
             cb(null, {status: 0, detail: "No balance Left"});
         }
-    }).catch(cb);
+    });
 };
 
 module.exports = Account;

@@ -1111,8 +1111,8 @@ var payments = {
             cb(new Error("Transaction ID should not be empty"));
         }
     },
-    pay: function(price, cb){
-        return $.post(this.url+"/"+this.transactionID, {amount: price}, function(res){
+    pay: function(price, feeType, cb){
+        return $.post(this.url+"/"+this.transactionID, {amount: price, feeType: feeType}, function(res){
             if(res.success){
                 cb(null, res.payload);
             }else{
@@ -1121,5 +1121,20 @@ var payments = {
         }).fail(xhr=>{
             cb(new Error(xhr.status + ": " + xhr.statusText));
         });
+    },
+    getBill: function(ORno, cb){
+        $.get(this.url+"/"+ORno, function(res){
+            if(!res.success){
+                cb(new Error(res.detail));
+            }else{
+                cb(null, res.data);
+            }
+        })
+    },
+}
+
+var license = {
+    get: function(){
+        $.get("");
     },
 }

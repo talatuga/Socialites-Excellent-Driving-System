@@ -7,11 +7,17 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 
 INSERT INTO `account` (`id`, `ORno`, `transaction`, `feeType`, `price`, `balance`, `date`) VALUES
-(3, '18080560efee2b4', 'Enrolment, Apply-5', 1, 5000, 5000, '0000-00-00 00:00:00');
+(3, '18080560efee2b4', 'Enrolment, Apply-5', 1, 5000, 5000, '0000-00-00 00:00:00'),
+(4, '180807bf524ab8b', 'Enrolment', 1, 2500, 2500, '0000-00-00 00:00:00'),
+(5, '1808078edb1b1b3', 'EnrolmentEnrolmentEn', 1, 10000, 10000, '0000-00-00 00:00:00'),
+(6, '1808072b3ef217d', 'EnrolmentEnrolmentEn', 1, 12500, 12500, '0000-00-00 00:00:00'),
+(7, '18080763592d38f', 'Enrolment', 1, 2500, 2500, '0000-00-00 00:00:00'),
+(8, '180807288a48364', 'EnrolmentEnrolment', 1, 5000, 5000, '0000-00-00 00:00:00'),
+(9, '1808093ef129acb', 'Enrolment, Apply, Ap', 1, 7500, 7500, '0000-00-00 00:00:00');
 
 INSERT INTO `accounttype` (`id`, `title`, `permission`) VALUES
 (1, 'admin', 'r,w-a'),
@@ -76,19 +82,19 @@ INSERT INTO `guardian` (`id`, `fullname`, `telno`, `refAcc`, `purgeFlag`) VALUES
 INSERT INTO `instructor` (`id`, `userInfo`, `license`, `licenseExp`, `educAttain`, `vacant`, `dateRegistered`, `dateRetired`, `status`) VALUES
 ('0', 0, 'sample1', '2018-07-30', 1, NULL, '2018-07-29 08:05:39', '2018-07-01', 1),
 ('INST-014008', 8, 'A1212111223', '2018-06-14', 5, 'Monday', '2018-05-20 17:05:05', NULL, 1),
-('INST-016010', 10, 'P8437724876', '2023-06-22', 3, '', '2018-06-22 10:41:53', NULL, 1),
-('INST-025015', 15, 'asd-14-3434', '2023-07-29', 1, '', '0000-00-00 00:00:00', '0000-00-00', 1);
+('INST-016010', 10, 'P8437724876', '2023-06-22', 3, '', '2018-06-22 10:41:53', NULL, 1);
 
 INSERT INTO `lesson` (`id`, `title`, `prerequisite`, `description`, `duration`, `purgeFlag`) VALUES
-(1, 'start and stop', NULL, '', 60, 1),
-(2, 'Backing and tur', 1, '', 60, 1),
-(3, 'Road crossing ', 2, '', 60, 1),
+(1, 'Start and Stop', NULL, '', 60, 1),
+(2, 'Backing and Turning, Light Traffic', 1, '', 60, 1),
+(3, 'Road Crossing ', 2, '', 60, 1),
 (4, 'Manuevering', 1, '', 60, 1),
 (5, 'Hanging', 3, '', 60, 1),
-(6, 'bam!', 3, 'hit all pedestrian and overspeed when tree is on your way', 60, 0),
-(7, '12312', 4, 'vasada', 60, 0),
-(8, 'asdas', 2, 'vasdasd', 60, 0),
-(9, 'sampleLesson', 1, 'This to provide inputted data. \nEdited: added this line to test editing', 60, 0);
+(6, 'Garage Driving', 3, 'hit all pedestrian and overspeed when tree is on your way', 60, 0),
+(7, 'Parking', 4, 'vasada', 60, 0),
+(8, 'Highway Driving', 2, 'vasdasd', 60, 0),
+(9, 'Heavy Traffic', 1, 'This to provide inputted data. \nEdited: added this line to test editing', 60, 0),
+(10, 'Review', 9, 'A short recall on the previous nine lessons.', 60, 0);
 
 INSERT INTO `license_apply_price` (`id`, `type`, `desc`, `price`, `status`) VALUES
 (1, 'NonPro', 'Non-Professional', 2500, 1),
@@ -96,7 +102,7 @@ INSERT INTO `license_apply_price` (`id`, `type`, `desc`, `price`, `status`) VALU
 (3, 'Inter', 'International License', 5000, 1);
 
 INSERT INTO `preregstudent` (`id`, `data`, `dateSubmit`, `status`) VALUES
-(4, '{"info":{"fullname":"andy_galang_bagadiong","birthdate":"1998-12-31","birthplace":"bagong silang","address":"asdasdasdasd","telno":"12312312313","occupation":"student","email":"christianpaultupas@gmail.com","civilStatus":"Divorced","sex":"Male","guardian":{"name":"christian paul tupas","telno":"09185671538"}},"course":[2],"branch":"3","payment":1,"applyLicense":1,"special":{"course":[],"location":null},"transaction":{"transaction":"Enrolment, Apply-5","amount":5000,"ORnum":"18080560efee2b4","dataID":3},"preference":{"vehicle":"234","schedule":[0,1,2]}}', '2018-08-05 03:08:33', 1);
+(4, '{\"info\":{\"fullname\":\"andy_galang_bagadiong\",\"birthdate\":\"1998-12-31\",\"birthplace\":\"bagong silang\",\"address\":\"asdasdasdasd\",\"telno\":\"12312312313\",\"occupation\":\"student\",\"email\":\"christianpaultupas@gmail.com\",\"civilStatus\":\"Divorced\",\"sex\":\"Male\",\"guardian\":{\"name\":\"christian paul tupas\",\"telno\":\"09185671538\"}},\"course\":[2],\"branch\":\"3\",\"payment\":1,\"applyLicense\":1,\"special\":{\"course\":[],\"location\":null},\"transaction\":{\"transaction\":\"Enrolment, Apply-5\",\"amount\":5000,\"ORnum\":\"18080560efee2b4\",\"dataID\":3},\"preference\":{\"vehicle\":\"234\",\"schedule\":[0,1,2]}}', '2018-08-05 03:08:33', 1);
 
 INSERT INTO `requirement` (`id`, `title`, `description`, `importance`) VALUES
 (1, 'license', 'To apply drivers permit at LTO', 1);
@@ -122,8 +128,7 @@ INSERT INTO `useraccount` (`id`, `username`, `password`, `accType`, `status`) VA
 (15, 'blurspace@gmail.com', 'fea0579a46987b5f7899ac149af49adb8cd25fcd', 2, 1),
 (16, 'edgartupas@gmail.com', '6420ed4d831b436d1e92d25605d18297296374e3', 2, 1),
 (23, 'christianpaultupas@gmail.com', '6999a53119e9083d5db115c31b8586f08eda8701', 3, 1),
-(24, 'christianpaultupas@gmail.com', '482ef093817ef4bc6aa18b85a25bb5e7b8702188', 2, 1),
-(25, 'sdasdad@fasd.com', 'cbd94f5179e34673f52da338ff0bfe20a3c893cc', 2, 1);
+(24, 'christianpaultupas@gmail.com', '482ef093817ef4bc6aa18b85a25bb5e7b8702188', 2, 1);
 
 INSERT INTO `userinfo` (`id`, `userAcc`, `fullname`, `address`, `telno`, `birthdate`, `birthplace`, `sex`, `civilStatus`, `email`, `userType`) VALUES
 (1, 1, 'Janelle Joy R. Gabat', '31-D G.L. Jaena St. West Rembo, Makati City ', '882-7273', '1998-12-18', 'Makati City', 'F', 'Single', 'janellejoygabat@gmail.com', 1),
@@ -135,8 +140,7 @@ INSERT INTO `userinfo` (`id`, `userAcc`, `fullname`, `address`, `telno`, `birthd
 (9, 15, 'Jean Hale_Bautista_Cruz', '#18 rambutan st. brgy. capri quezon city', '09185671538', '1998-11-22', 'n/a', 'M', 'n/a', 'blurspace@gmail.com', 2),
 (10, 16, 'Edgar_Pugon_Tupas', '#18 guyabano st. brgy. capri novaliches  quezon city', '09238628347', '1966-05-26', 'n/a', 'M', 'n/a', 'edgartupas@gmail.com', 2),
 (13, 23, 'Christian Paul_Rojero_Tupas', '#18 guyabano st. amparo capri novaliches ', '09094527651', '1998-12-08', 'Quezon City', 'Mal', 'Single', 'christianpaultupas@gmail.com', 3),
-(14, 24, 'asd_dsa_daa', 'asdasdasdasdasda', '1239239283', '2018-06-18', 'n/a', 'M', 'n/a', 'christianpaultupas@gmail.com', 2),
-(15, 25, 'dsa_asdd_dsaa', 'dasdasdadadasd', '134234344', '2018-07-27', 'n/a', 'F', 'n/a', 'sdasdad@fasd.com', 2);
+(14, 24, 'asd_dsa_daa', 'asdasdasdasdasda', '1239239283', '2018-06-18', 'n/a', 'M', 'n/a', 'christianpaultupas@gmail.com', 2);
 
 INSERT INTO `vehicle` (`id`, `model`, `brand`, `transmission`, `price`, `plate`, `driver`, `garage`, `offday`, `status`) VALUES
 (123, 'vios', 'toyota', 'A', 'default', 'AAP3780', NULL, 1, 5, 1),

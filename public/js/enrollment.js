@@ -134,10 +134,12 @@ function openPayment(){
         preRegAssess.getLocalData(function(profile){
             $('.addPayName').html(profile.data.info.fullname.replace(/_/g," "));
             $('.addPayDate').html(Date.parse("today").toString("MMM dd, yyyy"));
-            profile.data.course.forEach((e,i)=>{
+            for(var i = 0; i < profile.data.course.length; i++){
+                var e = profile.data.course[i];
                 $('.paymentModal').html("");
                 courseModule.selected = e;
                 courseModule.getLocalData(function(data){
+                    console.log(data);
                     var price = profile.data.special.course.indexOf(data.id) == -1 ? data.amount : (data.amount * 2);
                     total += price;
                     var html = "<tr>";
@@ -147,8 +149,8 @@ function openPayment(){
                     html += "</tr>";
                     $('.paymentModal').append(html);
                 });
-                $('.totAssess').html(total);
-            });
+            }
+            $('.totAssess').html(total);
             if(profile.data.applyLicense == 2){
                 total += 500;
                 $('.totAssess').html(total);
@@ -193,7 +195,7 @@ function appRegForm(){ //Approve Registration
         swal("Oops!", "Please enter amount of payment.", "error");
     }
     else{
-        payments.pay(x, function(err, response){
+        payments.pay(x, "enrolment", function(err, response){
             if(err){
                 console.log(err);
                 swal('Failed!', err.message, 'error');
