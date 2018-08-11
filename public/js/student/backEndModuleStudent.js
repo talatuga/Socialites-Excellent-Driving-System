@@ -9,17 +9,17 @@ var studCrsLes = {
         for(var x=0; x < data.length; x++){
             if(data[x].status != 0){
                 html += "<tr><td>" + data[x].courseID + "</td>";
-                html += "<td>" +data[x].courseID.days + "</td>";
+                html += "<td>" + data[x].days + "</td>";
                 html += "<td>" + (data[x].special == 1 ? "Yes" : "No") + "</td>";
                 html += "<td>" + data[x].dateEnrolled + "</td>";
-                html += "<td>" + data[x].dateEnrolled + "</td></tr>";
+                html += "<td>" + (data[x].status == 2 ? "dontknow pa" : "---") + "</td>";
                 html += "</html>";
             }
         }
         $('#enrolledCrsTbl').html(html);
     },
     getStudEnrCrsTbl: function(cb){
-        $.get('api/v1/course?offset=' + this.offset + '&limit=' + this.limit, function(response){
+        $.get('api/v1/util/lesson/course?offset=' + this.offset + '&limit=' + this.limit, function(response){
             if(response.success){
                 var data = response.data;
                 addPage(data);

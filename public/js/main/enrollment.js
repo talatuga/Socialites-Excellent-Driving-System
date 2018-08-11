@@ -181,15 +181,15 @@ function payMeth1(){
 }
 
 function paymentBack(){
-    if(payHide==1){
+    // if(payHide==1){
         $('.paymentOptionDiv1').hide();
         $('#paymentOptionDivNoOnline').hide();
         $('#paymentOptionDiv').show();
-    }else if (payHide==2){
-        $('.paymentOptionDiv1').hide();
-        $('#paymentOptionDiv').hide();
-        $('#paymentOptionDivNoOnline').show();
-    }
+    // }else if (payHide==2){
+    //     $('.paymentOptionDiv1').hide();
+    //     $('#paymentOptionDiv').hide();
+    //     $('#paymentOptionDivNoOnline').show();
+    // }
 }
 
 function resetEnrollment(){

@@ -5,7 +5,6 @@ $(function() {
 });
 
 $("#btnViewStudent").on("click", function() { //opens view student page upon clicking view details
-    alert ('ella');
     resetSettingsStud();
     $('.viewDiv').hide();
     $('.view-viewStudent').show();

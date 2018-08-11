@@ -5,9 +5,9 @@ function viewEvaluationStud(){
 function loadCourseLessons(){
     $(".preloader").fadeIn(); 
     studCrsLes.getStudEnrCrsTbl(function(){
-        $('#enrolledCrsTbl').click(function () {
+        $('#enrolledCrsTbl tr').click(function () {
             var selected = $(this).hasClass("highlightTr");
-            $('.enrolledCrsTbl1 tr').removeClass("highlightTr");
+            $('#enrolledCrsTbl tr').removeClass("highlightTr");
             if (!selected)
                 $(this).addClass("highlightTr");
         });
