@@ -1,0 +1,235 @@
+<!-- Upload Profile Picture Modal -->
+<div class="modal fade" id="openDropzoneInst" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="openDropzoneInst">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <center>
+            <h6>Socialites Excellent Driving</h6>
+            <h2>UPDATE PROFILE PICTURE</h2>
+        </center>
+        <hr class="hrCustom">
+        <div class="stot">
+            <form action="/file-upload" class="dropzone" id="profileDrop">
+                <div class="fallback">
+                    <input type="file" name="profileImg">
+                </div>
+            </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light btnLicense" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-success btnLicense" onclick="saveProfPicStud()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Grade Modal -->
+<div class="modal fade" id="addGradeModal" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="addGradeModal">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <center>
+            <h6>Socialites Excellent Driving</h6>
+            <h2>ADD LESSON GRADE</h2>
+            <h6>Fill out all required fields.</h6>
+        </center>
+        <hr class="hrCustom">
+        <div class="stot">
+            <form>
+                <h5>Student Name: <span class="studNameAGM">Harry James Potter</span></h5>
+<hr>
+                <h5 style="padding-top: 2px;"><span class="asterisk">*</span>Lesson: </h5>
+                <select name="lessonListForGrade" class="lessonListForGrade enrCivStatus1" style="width: 94%; margin-bottom: 10px;">
+                  <option value="1">Start &amp; Stop</option>
+                </select>
+                <h5 style="padding-top: 2px;"><span class="asterisk">*</span>Date: </h5>
+                <select id="dateLessonList" name="dateLessonList" class="enrCivStatus1" style="width: 94%; margin-bottom: 10px;">
+                  <option value="1">Aug. 18, 2018</option>
+                </select>
+                <h5 style="padding-top: 2px;"><span class="asterisk">*</span>Time: </h5>
+                <input type="text" class="timeLesson txtEnr" style="width:94%; margin-bottom: 10px;" disabled>
+                <h5 style="padding-top: 2px;"><span class="asterisk">*</span>Grade: </h5>
+                <table>
+                  <tr>
+                    <td><input type="radio" class="enrSexRD" id="rbLessonEval1" name="rbLessonEval" value="1">
+                      <label class="enrSexLbl" for="rbLessonEval1" style="color:maroon"><b>1</b></label></td>
+                    <td><input type="radio" class="enrSexRD" id="rbLessonEval2" name="rbLessonEval" value="2">
+                      <label class="enrSexLbl" for="rbLessonEval2" style="color: orangered"><b>2</b></label></td>
+                    <td><input type="radio" class="enrSexRD" id="rbLessonEval3" name="rbLessonEval" value="3">
+                      <label class="enrSexLbl" for="rbLessonEval3" style="color: goldenrod"><b>3</b></label></td>
+                    <td><input type="radio" class="enrSexRD" id="rbLessonEval4" name="rbLessonEval" value="4">
+                      <label class="enrSexLbl" for="rbLessonEval4" style="color: royalblue"><b>4</b></label></td>
+                    <td><input type="radio" class="enrSexRD" id="rbLessonEval5" name="rbLessonEval" value="5">
+                      <label class="enrSexLbl" for="rbLessonEval5" style="color: forestgreen"><b>5</b></label></td>
+                  </tr>
+                </table>
+                <h5 style="padding-top: 2px;">Comment: <small>Maximum of 50 characters</small></h5>
+                <input type="text" id="commentLesson" class="txtEnr" style="width:94%; margin-bottom: 10px;" maxlength="50">
+            </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light btnLicense" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-success btnLicense" onclick="saveLessonGrade()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Grade Modal -->
+<div class="modal fade" id="editGradeModal" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="editGradeModal">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <center>
+            <h6>Socialites Excellent Driving</h6>
+            <h2>EDIT LESSON GRADE</h2>
+            <h6>Fill out all required fields.</h6>
+        </center>
+        <hr class="hrCustom">
+        <div class="stot">
+            <form>
+                <h5>Student Name: <span class="studNameAGM">Harry James Potter</span></h5><hr>
+                <h5 style="padding-top: 2px;"><span class="asterisk">*</span>Lesson: </h5>
+                <select name="lessonListForGrade" class="lessonListForGrade enrCivStatus1" style="width: 94%; margin-bottom: 10px;" disabled>
+                  <option value="1">Start &amp; Stop</option>
+                </select>
+                <h5 style="padding-top: 2px;"><span class="asterisk">*</span>Date: </h5>
+                <select name="dateLessonList" class="dateLessonList enrCivStatus1" style="width: 94%; margin-bottom: 10px;">
+                  <option value="1">Aug. 18, 2018</option>
+                </select>
+                <h5 style="padding-top: 2px;"><span class="asterisk">*</span>Time: </h5>
+                <input type="text" class="txtEnr timeLesson" style="width:94%; margin-bottom: 10px;" disabled>
+                <h5 style="padding-top: 2px;"><span class="asterisk">*</span>Grade: </h5>
+                <table>
+                  <tr>
+                    <td><input type="radio" class="enrSexRD" id="rbLessonEvalEdit1" name="rbLessonEval" value="1">
+                      <label class="enrSexLbl" for="rbLessonEvalEdit1" style="color:maroon"><b>1</b></label></td>
+                    <td><input type="radio" class="enrSexRD" id="rbLessonEvalEdit2" name="rbLessonEval" value="2">
+                      <label class="enrSexLbl" for="rbLessonEvalEdit2" style="color: orangered"><b>2</b></label></td>
+                    <td><input type="radio" class="enrSexRD" id="rbLessonEvalEdit3" name="rbLessonEval" value="3">
+                      <label class="enrSexLbl" for="rbLessonEvalEdit3" style="color: goldenrod"><b>3</b></label></td>
+                    <td><input type="radio" class="enrSexRD" id="rbLessonEvalEdit4" name="rbLessonEval" value="4">
+                      <label class="enrSexLbl" for="rbLessonEvalEdit4" style="color: royalblue"><b>4</b></label></td>
+                    <td><input type="radio" class="enrSexRD" id="rbLessonEvalEdit5" name="rbLessonEval" value="5">
+                      <label class="enrSexLbl" for="rbLessonEvalEdit5" style="color: forestgreen"><b>5</b></label></td>
+                  </tr>
+                </table>
+                <h5 style="padding-top: 2px;">Comment: <small>Maximum of 50 characters</small></h5>
+                <input type="text" id="commentLessonEdit" class="txtEnr" style="width:94%; margin-bottom: 10px;" maxlength="50">
+            </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light btnLicense" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-success btnLicense" onclick="saveEditLessonGrade()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Evaluate Student Modal -->
+<div class="modal fade" id="evalStudModal" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="evalStudModal">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <center>
+            <h2>PERFORMANCE EVALUATION</h2>
+            <h6>Grades for every lesson are tallied and computed to analyze the student's performance for the whole course.</h6>
+        </center>
+        <hr class="hrCustom">
+        <div class="stot">
+          <form>
+            <center>            
+              <h4><b>SUMMARY OF GRADES</b></h4>
+              <div class="separator3"></div>
+              <table class="table tblRecSched" style="width: 70%">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th width="70%">Lesson</th>
+                    <th>Numerical Grade</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>Start &amp; Stop</td>
+                    <td>5</td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>Start &amp; Stop</td>
+                    <td>5</td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>Start &amp; Stop</td>
+                    <td>5</td>
+                  </tr>
+                </tbody>
+              </table><hr>
+            </center>
+            <div class="row">
+              <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                <h6>Course: <b><span class="evalCrs">CRS-M0001</span></b></h6>
+                <h6>Date Started: <b><span class="evalDateStarted">08-09-2018</span></b></h6>
+                <h6>Date Finished: <b><span class="evalDateFinished">08-29-2018</span></b></h6>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <h6><b>Evaluation Basis:</b></h6>
+                <h6><b>35-50</b> - Passed</h6>
+                <h6><b>25-34</b> - Needs Practice</h6>
+                <h6><b>0-24&nbsp;&nbsp; </b> - Needs To Extend</h6>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                  <h6>Overall Grade: <b><span class="overallGrade">50</span>&nbsp;(<span class="overallGrPerc">98%</span>)</b></h6>
+                  <h6>Evaluation: <b><span class="evalGrade">PASSED</span></b></h6>
+                  <h6>Comment <small>Maximum of 100 characters</small>:</h6>
+                  <textarea class="enrTxtArea" id="commentInstEval" maxlength="100" style="font-size: 14px" rows="3"></textarea><br><br>
+                <h6>Evaluated by: <b><span class="instEvaluator">Harry James Potter</span></b></h6>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn100 btn13 btn-inverse" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn100 btn13 btn-success" data-dismiss="modal">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Cancel Schedule Modal -->
+<div class="modal fade" id="cancelSchedModal" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="cancelSchedModal">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <center>
+            <h6>Socialites Excellent Driving</h6>
+            <h2>CANCEL SCHEDULE</h2>
+        </center>
+        <hr class="hrCustom">
+        <div class="stot">
+            <form>
+              <h5>Student Name: <span class="studNameAGM">Harry James Potter</span></h5><hr>
+              <h5 style="padding-top: 2px;">Reason: <br><small>Maximum of 150 characters</small></h5>
+              <textarea class="enrTxtArea" id="reasonCancel" maxlength="150" style="font-size: 14px" rows="3"></textarea><br><br><h5>OR</h5><br>
+              <input type="checkbox" name="absentStudCB" style="float: left;"> <h6 style="color:black; margin-left: 15px"> STUDENT IS ABSENT</h6>
+            </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn100px btn btn-light btnLicense" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn100px btn btn-success btnLicense" onclick="confirmCancel()">Done</button>
+      </div>
+    </div>
+  </div>
+</div>

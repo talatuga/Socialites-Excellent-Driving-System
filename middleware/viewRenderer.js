@@ -41,6 +41,14 @@ exports.student = function(req, res, next){
     });
 }
 
+exports.instructor = function(req, res, next){
+    res.render('instructor/index',{title: 'Socialites Excellent Driving'});
+}
+
+exports.branch = function(req, res, next){
+    res.render('branch/index',{title: 'Socialites Excellent Driving'});
+}
+
 var getUserInfo = function(data, cb){ //REPAIR THIS WHOLE UNIT!!!! 
     var models = ['','adminModel', 'studentModel', 'instructorModel', 'branchModel'];
     var model = require('../model/' + models[data.accType]);

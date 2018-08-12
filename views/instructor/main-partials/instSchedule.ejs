@@ -1,0 +1,64 @@
+<div class="view-instSchedule viewDiv">
+    <!-- Bread crumb -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h3 class="text-primary">Schedule</h3> 
+        </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a>Schedule</a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- End Bread crumb -->
+    <!-- Container fluid  -->
+    <div class="container-fluid">
+        <!-- Start of Card  -->
+        <div class="studentCard">
+            <center>
+                <div class="hasSched">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                            <div class="card">
+                                <div id='calendarMainInstSched'></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                            <div class="card">
+                                <center>
+                                    <div class="separator6"></div>
+                                    <h4>CODING DAY:<br><span class="instCoding">THURSDAY</span></h4>
+                                    <div class="separator6"></div>
+                                </center>
+                            </div>
+                            <div class="card" style="background-color: rgb(179, 60, 60)">
+                                <div>
+                                    <div class="pull-left">
+                                        <h5 class="h5-2">You have <span class="lessonNoSpan">1</span> <span class="appointments">appointment</span> for today, starting at <span class="spanTime">9:30 A.M.</span></h5>
+                                    </div>
+                                    <div class="pull-right">
+                                        <button type="button" style="vertical-align: sub" class="btn btn-inverse btnLicense" onclick="viewSchedTodayInst()">View</button><br>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="card" style="background-color: rgb(187, 110, 110)">
+                                <div>
+                                    <div class="pull-left">
+                                        <h5 class="h5-2">You have <span class="lessonNoSpan">1</span> <span class="appointments">appointment</span> for tomorrow, starting at <span class="spanTime">9:30 A.M.</span>
+                                            <br><small>Note: This may still change.</small></h5>
+                                    </div>
+                                    <div class="pull-right">
+                                        <button type="button" style="vertical-align: sub" class="btn btn-inverse btnLicense" onclick="viewSchedTomInst()">View</button><br>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </center>
+        </div><!-- End of Card  -->
+    </div>
+    <!-- End Container fluid  -->
+</div>

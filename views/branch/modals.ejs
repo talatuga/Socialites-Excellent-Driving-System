@@ -1,0 +1,291 @@
+<!-- Change Preference Modal -->
+<div class="modal fade" id="changePrefModal" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="changePrefModal">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <center>
+            <h2>CHANGE PREFERENCES</h2>
+            <h6>You can change your initial preference on schedule and vehicle here.</h6>
+        </center>
+        <hr class="hrCustom">
+        <div class="stot">
+          <form>
+              <h4 class="red5d000"><b>Preferred Days:</b></h4>
+              <div class="row">
+                <div class="col-md-4">
+                    <input type="checkbox" name="prefDaysCBChange">
+                    <label>Monday</label><br>
+                    <input type="checkbox" name="prefDaysCBChange">
+                    <label>Thursday</label><br>
+                    <input type="checkbox" name="prefDaysCBChange">
+                    <label>Sunday</label><br>
+                </div>
+                <div class="col-md-4">
+                    <input type="checkbox" name="prefDaysCBChange">
+                    <label>Tuesday</label><br>
+                    <input type="checkbox" name="prefDaysCBChange">
+                    <label>Friday</label><br>
+                </div>
+                  <div class="col-md-4">
+                    <input type="checkbox" name="prefDaysCBChange">
+                    <label>Wednesday</label><br>
+                    <input type="checkbox" name="prefDaysCBChange">
+                    <label>Saturday</label><br>
+                  </div>
+              </div><br>
+              <h4 class="red5d000"><b>Preferred Vehicle:</b></h4>
+              <select id="prefVehiChange">
+                  <option>---</option>
+                  <option>Toyota Atlis</option>
+                  <option>Toyota Vios</option>
+              </select>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn100 btn-danger" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn100 btn-success" data-dismiss="modal" onclick="doneChangePref()">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Pref Date Modal -->
+<div class="modal fade" id="editPrefDateModal" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="editPrefDateModal">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <center>
+            <h2>EDIT SCHEDULE</h2>
+            <h6>You can change your schedule and instructor here.</h6>
+        </center>
+        <hr class="hrCustom">
+        <div class="stot">
+          <form>
+            <table>
+              <tr>
+                <td><label>Time:</label></td>
+                <td>
+                  
+                </td>
+              </tr>
+
+              <tr>
+                <td><label>Instructor:</label></td>
+                <td>
+                  <select>
+                    <option value="1">Harry James Potter</option>
+                  </select>
+                </td>
+              </tr>
+
+              <tr>
+                <td><label>Straight Fee:</label></td>
+              <td>
+
+              </td>
+              </tr>
+                
+              <tr>
+                <td><label>Overtime Fee:</label></td>
+                <td>
+
+                </td>
+              </tr>
+            </table>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn100 btn-danger" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn100 btn-success" data-dismiss="modal" onclick="doneChangeSched()">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- View Sched Today Modal -->
+<div class="modal fade" id="viewSchedTodayModal" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="viewSchedTodayModal">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <center>
+            <h2>VIEW TODAY'S SCHEDULE</h2>
+            <h6>Schedules for today cannot be cancelled or rescheduled.</h6>
+        </center>
+        <hr class="hrCustom">
+        <div class="stot">
+          <form>
+            <center><br>
+              <table>
+                <tr>
+                  <td style="text-align: right"><h5>Date:</h5></td>
+                  <td><h5>&nbsp;&nbsp;&nbsp;<span class="dateToday boldface">August 9, 2018</span></h5></td>
+                </tr>
+                <tr>
+                  <td style="text-align: right"><h5>Time: </h5></td>
+                  <td><h5>&nbsp;&nbsp;&nbsp;<span class="timeSchedToday boldface">9: 30 A.M. - 10:30 A.M.</span></h5></td>
+                </tr>
+                <tr>
+                  <td style="text-align: right"><h5>Instructor: </h5></td>
+                  <td><h5>&nbsp;&nbsp;&nbsp;<span class="instSchedToday boldface">Harry James Potter</span></h5></td>
+                </tr>
+                <tr>
+                  <td style="text-align: right"><h5>Branch/Venue: </h5></td>
+                  <td><h5>&nbsp;&nbsp;&nbsp;<span class="venueSchedToday boldface">SED-Quezon City (Main)</span></h5></td>
+                </tr>
+              </table><br>
+            </center>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn100 btn-inverse" data-dismiss="modal">Okay</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Upload Profile Picture Modal -->
+<div class="modal fade" id="uploadProfileStudModal" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="uploadProfileStudModal">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <center>
+            <h6>Socialites Excellent Driving</h6>
+            <h2>UPDATE PROFILE PICTURE</h2>
+        </center>
+        <hr class="hrCustom">
+        <div class="stot">
+            <form action="/file-upload" class="dropzone" id="profileDrop">
+                <div class="fallback">
+                    <input type="file" name="profileImg">
+                </div>
+            </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light btnLicense" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-success btnLicense" onclick="saveProfPicStud()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- View Evaluation Student Modal -->
+<div class="modal fade" id="viewEvalStudModal" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="viewEvalStudModal">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <center>
+            <h2>PERFORMANCE EVALUATION</h2>
+            <h6>Grades for every lesson are tallied and computed to analyze the student's performance for the whole course.</h6>
+        </center>
+        <hr class="hrCustom">
+        <div class="stot">
+          <form>
+            <center>            
+              <h4><b>SUMMARY OF GRADES</b></h4>
+              <div class="separator3"></div>
+              <table class="table tblRecSched" style="width: 70%">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th width="70%">Lesson</th>
+                    <th>Numerical Grade</th>
+                  </tr>
+                </thead>
+                <tr>
+                  <td>1</td>
+                  <td>Start &amp; Stop</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>Start &amp; Stop</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>Start &amp; Stop</td>
+                  <td>5</td>
+                </tr>
+              </table><hr>
+            </center>
+            <div class="row">
+              <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                <h6>Course: <b><span class="evalCrs">CRS-M0001</span></b></h6>
+                <h6>Date Started: <b><span class="evalDateStarted">08-09-2018</span></b></h6>
+                <h6>Date Finished: <b><span class="evalDateFinished">08-29-2018</span></b></h6>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <h6><b>Evaluation Basis:</b></h6>
+                <h6><b>35-50</b> - Passed</h6>
+                <h6><b>25-34</b> - Needs Practice</h6>
+                <h6><b>0-24&nbsp;&nbsp; </b> - Needs To Extend</h6>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                  <h6>Overall Grade: <b><span class="overallGrade">50</span>&nbsp;(<span class="overallGrPerc">98%</span>)</b></h6>
+                  <h6>Evaluation: <b><span class="evalGrade">PASSED</span></b></h6>
+                  <h6>Comment: <b><span class="evalComment">Very good, hija! Keep up the good work!</span></b></h6><br><br>
+                <h6>Evaluated by: <b><span class="instEvaluator">Harry James Potter</span></b></h6>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn100 btn-inverse" data-dismiss="modal">Okay</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Evaluate Instructor Modal -->
+<div class="modal fade" id="evalInstModal" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="evalInstModal">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <center>
+            <h2>EVALUATE INSTRUCTOR</h2>
+            <h6>Let your instructor know what you think about their way of teaching.</h6>
+        </center>
+        <hr class="hrCustom">
+        <div class="stot">
+          <form>
+            <h6>Instructor Name: </h6>
+            <input type="text" class="instNameToEval" style="width: 95%; font-size: 13px; margin-left: 10px;" value="Harry James Potter" readonly><br><br>
+            <h6>Evaluation Grade:</h6>
+            <!-- <center> -->
+              <table>
+                <tr>
+                  <td><input type="radio" class="enrSexRD" id="rbInstEval1" name="rbInstEval" value="1">
+                    <label class="enrSexLbl" for="rbInstEval1" style="color:maroon"><b>1</b></label></td>
+                  <td><input type="radio" class="enrSexRD" id="rbInstEval2" name="rbInstEval" value="2">
+                    <label class="enrSexLbl" for="rbInstEval2" style="color: orangered"><b>2</b></label></td>
+                  <td><input type="radio" class="enrSexRD" id="rbInstEval3" name="rbInstEval" value="3">
+                    <label class="enrSexLbl" for="rbInstEval3" style="color: goldenrod"><b>3</b></label></td>
+                  <td><input type="radio" class="enrSexRD" id="rbInstEval4" name="rbInstEval" value="4">
+                    <label class="enrSexLbl" for="rbInstEval4" style="color: royalblue"><b>4</b></label></td>
+                  <td><input type="radio" class="enrSexRD" id="rbInstEval5" name="rbInstEval" value="5">
+                    <label class="enrSexLbl" for="rbInstEval5" style="color: forestgreen"><b>5</b></label></td>
+                </tr>
+              </table>
+            <!-- </center> -->
+            <h6 style="float: left">Remarks/Suggestions (not required):</h6>
+            <textarea rows="3" class="enrTxtArea1" id="taInstEval" style="width: 95%"></textarea>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn100 btn-inverse" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn100 btn-success" onclick="doneEvalInst()">Done</button>
+      </div>
+    </div>
+  </div>
+</div>

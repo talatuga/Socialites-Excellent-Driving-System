@@ -1,0 +1,175 @@
+<div class="view-instAccount viewDiv">
+    <!-- Bread crumb -->
+    <div class="row page-titles">
+        <div class="col-md-6 align-self-center">
+            <h3 class="text-primary">Account Settings</h3> 
+        </div>
+        <div class="col-md-6 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a>Account Settings</a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- End Bread crumb -->
+
+    <div class="container-fluid">
+        <!-- Start of Card  -->
+        <div class="instructorCard">
+            <div class="row instructorCard">
+                <!-- Start of col-lg-3 -->
+                <div class="col-lg-3">
+                    <div class="card">
+                        <center>
+                            <span><img src="assets/images/user-medium.png" alt="Instructor Picture" class="profPicInstructor" onclick="openDropzoneInst()"/></span><br><br>
+                            <h4 class="profileNameInstructor">Harry James Potter</h4>
+                            <h6 class="profileBranchInstructor">SED-Quezon City (Main)</h6>
+                            <h6 class="instNum">INST-001</h6><hr width="30%">
+                        </center>
+                            <span><span class="fa fa-map-marker fa-red"></span> <span class="profileAddressStud span14">Sapang Palay, CSJDM, Bulacan</span></span>
+                            <span><span class="fa fa-phone fa-red"></span> <span class="profilePhoneStud span14">0956 586 7353</span></span>
+                            <span><span class="fa fa-envelope fa-red"></span> <span class="profileEmailStud span14">gtatel0517@gmail.com</span></span>
+
+                            <br><span><span class="fa fa-car fa-red"></span> <span class="instVehicle span14">Toyota Vios '18</span></span>
+                            <span><span class="fa fa-credit-card fa-red"></span> <span class="instLicense span14">AAA 2323</span></span>
+                            <small>Date Issued: <span class="dateIssuedLic">07-17-2018</span></small>
+                            <small>Expiry Date: <span class="dateExpiryLic">07-17-2028</span></small>
+                    
+                    </div>
+                    <div class="card">
+                        <center>
+                            <span class="ti-calendar tiBig"></span>
+                            <h6>Date Hired:</h6>
+                            <h5 class="instDateHired">May 17, 2018</h5><hr width="30%">
+                            <div class="divResigned">
+                                <h6>Date Resigned:</h6>
+                                <h5 class="instDateResigned">May 19, 2018</h5><hr width="30%">
+                            </div>
+                        </center>
+                    </div>
+                </div>
+                <!-- End of col-lg-3 -->
+
+                <!-- Start of col-lg-9 -->
+                <div class="col-lg-9">
+                    <div class="card">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs profile-tab" role="tablist">
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#profile1" onclick="resetInstructor1P" role="tab">Personal Information</a> </li>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <!--first tab-->
+                            <div class="tab-pane active" id="profile1" role="tabpanel">
+                                <div class="card-body">
+                                    <form class="studTab">
+                                        <div>
+                                            <h5 class="h5Enr">Name<span class="asterisk">*</span></h5>
+                                            <div class="row">
+                                                <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+                                                    <input type="text" class="txtEnr1" required id="editInstructorAccFN"><br>
+                                                    <small class="cstSmall">First Name*</small>
+                                                </div>
+                                                <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+                                                    <input type="text" class="txtEnr1" required id="editInstructorAccMN"><br> 
+                                                    <small class="cstSmall">Middle Name</small> 
+                                                </div>
+                                                <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+                                                    <input type="text" class="txtEnr1" required id="editInstructorAccSN"><br>
+                                                    <small class="cstSmall">Surname*</small>
+                                                </div>
+                                            </div>
+                                        </div><hr>
+                                        <div>
+                                            <h5 class="h5Enr">Birth Date<span class="asterisk">*</span></h5>
+                                            <input type="date" class="txtEnr1" required id="editInstructorAccBday" placeholder="mm/dd/yyyy"><br>
+                                        </div><hr>
+                                        <div>
+                                            <h5 class="h5Enr">Birth Place<span class="asterisk">*</span></h5>
+                                            <input type="text" class="txtEnr1" required id="editInstructorAccBplace"><br>
+                                        </div><hr>
+                                        <div>
+                                            <h5 class="h5Enr">Sex<span class="asterisk">*</span></h5>
+                                            <input type="radio" class="enrSexRD" id="editEnrSex1" name="editInstructorAccSex" value="M">
+                                                <label class="enrSexLbl" for="editEnrSex1">Male</label>
+                                            <input type="radio" class="enrSexRD" id="editEnrSex2" name="editInstructorAccSex" value="F">
+                                                <label class="defRateLbl" for="editEnrSex2">Female</label>
+                                        </div><hr>
+                                        <div>
+                                            <h5 class="h5Enr">Address<span class="asterisk">*</span></h5>
+                                            <textarea rows="3" class="enrTxtArea1" id="editInstructorAccAdd"></textarea>
+                                        </div><hr>
+                                        <div>
+                                            <h5 class="h5Enr">Civil Status<span class="asterisk">*</span></h5>
+                                            <select class="enrCivStatus1" name="editInstructorAccCivStatus" id="editInstructorAccCivStatus">
+                                                <option value="civ0">---</option>
+                                                <option value="Single">Single</option>
+                                                <option value="Married">Married</option>
+                                                <option value="Divorced">Divorced</option>
+                                                <option value="Separated">Separated</option>
+                                                <option value="Widowed">Widowed</option>
+                                            </select>
+                                        </div><hr>
+                                        <div>
+                                            <h5 class="h5Enr">Occupation</h5>
+                                            <input type="text" class="txtEnr1" required id="editInstructorAccOcc"><br>
+                                        </div><hr>
+                                        <div>
+                                            <h5 class="h5Enr">Contact<span class="asterisk">*</span></h5>
+                                            <div class="row">
+                                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                                                    <input type="number" class="txtEnr1" required id="editInstructorAccCont"><br>
+                                                    <small class="cstSmall">Contact Number*</small>
+                                                </div>
+                                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                                                    <input type="email" class="txtEnr1" required id="editInstructorAccEmail"><br>
+                                                    <small class="cstSmall">Email Address</small>
+                                                </div>
+                                            </div>
+                                        </div><hr>
+                                        <div>
+                                        <div>
+                                            <h5 class="h5Enr">Guardian Information<span class="asterisk">*</span></h5>
+                                            <div class="row">
+                                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                                                    <input type="text" class="txtEnr1" required id="editStudAccGuard"><br>
+                                                    <small class="cstSmall">Parent/Guardian Name*</small>
+                                                </div>
+                                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                                                    <input type="number" class="txtEnr1" required id="editStudAccGuardCont"><br>
+                                                    <small class="cstSmall">Contact Number*</small>
+                                                </div>
+                                            </div>
+                                        </div><hr>
+                                            <h5 class="h5Enr">Account<span class="asterisk">*</span></h5>
+                                            <div class="row">
+                                                <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+                                                    <input type="text" class="txtEnr1" required id="editInstructorAccUN"><br>
+                                                    <small class="cstSmall">Username*</small>
+                                                </div>
+                                                <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+                                                    <input type="password" class="txtEnr1" required id="editInstructorAccPW"><br>
+                                                    <small class="cstSmall">Password*</small>
+                                                </div>
+                                            </div>
+                                        </div><hr>
+                                        <hr>
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <button type="button" class="btn btn-danger pull-left btnDeactInstructorAcc" onclick="deactInstructor()">Deactivate Account</button>
+                                                <button type="button" class="btn btn-primary pull-right btnUpdateInstructorAcc1" onclick="updateInstructor1()">Update Account</button>
+
+                                                <button type="button" class="btn btn-primary pull-right btnSaveUpdInstructor1" style="margin-left: 5px; width: 100px" onclick="saveUpdInstructor1()">Save</button>
+                                                <button type="button" class="btn btn-light pull-right btnResetUpdInstructor1" style="margin-left: 5px; width: 100px" onclick="resetUpdInstructor1()">Reset</button>
+                                                <button type="button" class="btn btn-danger pull-right btnCancUpdInstructor1" style="margin-left: 5px; width: 100px" onclick="cancUpdInstructor1()">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- End of col-lg-9 -->
+            </div> <!-- End of row -->
+        </div><!-- End of Card  -->
+    </div>
+</div>

@@ -7116,7 +7116,7 @@ tbody tr td:last-child {
   cursor: pointer;
   color: #5D0000;
 }
-.studPic, .profPic1, .profPicStud, .profPicInst, .profPicInstView
+.studPic, .profPic1, .profPicStud, .profPicInst, .profPicInstView, .profPicInstructor
 {
   height: 200px;
   width: 200px;
@@ -7240,6 +7240,12 @@ tbody tr td:last-child {
   width: 120%;
   padding-bottom: 5px;
 }
+.tiSide1
+{
+  /* align-self: left; */
+  width: 100%;
+  padding-bottom: 5px;
+}
 .profSidebar
 {
   padding-left: 15px;
@@ -7272,6 +7278,11 @@ tbody tr td:last-child {
   color: white;
   overflow-y: auto;
 }
+.tblCustom2{
+  font-size: 14px;
+  color: white;
+  overflow-y: auto;
+}
 .tblVehicle tbody tr:hover, .tblVehicleDef tbody tr:hover, .tblVehicleM tbody tr:hover, .tblStudent tbody tr:hover,
 .tblBranches tbody tr:hover, .tableDash tbody tr:hover, .tblInstructor tbody tr:hover, .tblLessons tbody tr:hover,
 .tblReqClass tbody tr:hover, .tblManualCrs tbody tr:hover, .tblCustom tbody tr:hover
@@ -7289,9 +7300,16 @@ tbody tr td:last-child {
   color: black;
   text-align: left;
 }
+.tblCustom2 td{
+  color: black;
+  text-align: left;
+}
 .tblVehicle td span, .tblVehicleDef td span, .tblVehicleM td span, .tblBranches td span, .tableDash td span, 
 .tblInstructor td span, .tblLessons td span, .tblReqClass td span, .tblReqPerClass td span, tblManualCrs td span, .tblCustom td span
 {
+  font-size: 14px;
+}
+.tblCustom2 td span{
   font-size: 14px;
 }
 .fa-rightB
@@ -7934,6 +7952,7 @@ tiCustom
   border: solid 1px #E2E2E2;
 }
 .enrTxtArea1, .enrCivStatus1{
+  margin-bottom: 20px;
   font-size: 14px;
   margin-left: 10px;
   width: 100%;
@@ -8303,6 +8322,18 @@ tiCustom
        margin:20px 0px;
        background: #f38181;
    }
+   .separator5 {
+    height: 2px;
+    width: 400px;
+    margin: 10px 0px 10px 0px;
+    background: #f38181;
+  }
+  .separator6 {
+    height: 2px;
+    width: 100%;
+    margin: 10px 0px 10px 0px;
+    background: #f38181;
+  }
 
 .divSelSched1{
   background-color: white;
@@ -8468,4 +8499,17 @@ tiCustom
 .iconPayment{
   color: #481B1A;
   font-size: 60px;
+}
+.btn13{
+  font-size: 13px
+}
+.span14{
+  font-size: 14px
+}
+.studNameAGM{
+  font-weight: bolder;
+}
+.instCoding{
+  color: #5d0000;
+  font-weight: bolder;
 }

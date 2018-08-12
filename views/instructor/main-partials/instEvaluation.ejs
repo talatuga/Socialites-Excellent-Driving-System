@@ -1,0 +1,112 @@
+<div class="view-instEvaluation viewDiv">
+    <!-- Bread crumb -->
+    <div class="row page-titles">
+        <div class="col-md-6 align-self-center">
+            <h3 class="text-primary">Evaluation</h3> 
+        </div>
+        <div class="col-md-6 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a>Evaluation</a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- End Bread crumb -->
+
+    <div class="container-fluid">
+        <!-- Start of Card  -->
+            <div class="row">
+                <!-- Start of col-lg-3 -->
+                <div class="col-lg-4 col-md-4 col-xs-6 col-sm-6 pull-left">
+                    <div class="card p-30">
+                        <div class="media">
+                            <div class="media-left meida media-middle">
+                                <span><i class="icon icon-business-24 tiSide f-s-40 color-danger"></i></span>
+                            </div>
+                            <div class="media-body media-text-right">
+                                <h2>0</h2>
+                                <p class="m-b-0" style="color: black">Overall Evaluation Percentage<br><span>(since <span class="startEvalPerc">Jan. 2018</span>)</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="form-group">
+                            <div class="input-group input-group-flat">
+                                <!-- <span class="input-group-btn"><button class="btn btn-custom" type="submit"><i class="ti-search"></i></button></span> -->
+                                <input type="text" class="form-control" placeholder="Search for student name..." style="font-size: 12px;">
+                                <span class="input-group-btn"><button class="btn btn-primary input-group-close-icon" onclick="clrSearchBranch()" type="button"><i class="ti-close"></i></button></span>
+                            </div>
+                        </div><br>
+                        <h5>Show evaluation...</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>From:</h6>
+                                <select class="selectFromEval" style="width: 100%">
+                                    <option>Jan</option>
+                                    <option>Feb</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>To:</h6>
+                                <select class="selectToEval" style="width: 100%">
+                                    <option>Jan</option>
+                                    <option>Feb</option>
+                                </select>
+                            </div>
+                        </div><br>
+                        <button type="button" onclick="goEvalSearch()" style="width: 100%" class="btn13 btn btn-dark m-b-10 m-l-5">Go</button>
+                    </div>
+
+                </div>
+                <!-- End of col-lg-3 -->
+
+                <!-- Start of col-lg-9 -->
+                <div class="col-lg-8 col-md-8 col-xs-6 col-sm-6 pull-right">
+                    <div class="card">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs profile-tab" role="tablist">
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#evaluationInst" role="tab" onclick="loadEval('inst')">Evaluation</a> </li>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <!--first tab-->
+                            <div class="tab-pane active" id="evaluationInst" role="tabpanel">
+                                <div class="card-body">
+                                    <div class="profiletimeline instTab">
+                                        <div class="sl-item">
+                                            <div class="sl-left"> <img src="assets/images/user4.png" alt="Student" id="studEvalPic" class="img-circle" /> </div>
+                                            <div class="sl-right">
+                                                <div><a href="#" class="link" id="studEvalName">Graciella Custodio Tatel</a> <span class="sl-date">May 2, 2018</span>
+                                                    <br><br><p style="color: #455a64;">Evaluation Grade: <span class="studEvalGrade text-success">Satisfied</span></p>
+                                                    <p class="m-t-10 studEvalMsg"> Super lupet mo, sir! Kung may grade lang na SUPER PASSED, yun na po nilagay ko. Grabe hanep! Labyu sir </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="sl-item">
+                                            <div class="sl-left"> <img src="assets/images/user2.png" alt="Student" id="studEvalPic" class="img-circle" /> </div>
+                                            <div class="sl-right">
+                                                <div><a href="#" class="link" id="studEvalName">Zachary David Alexander Efron</a> <span class="sl-date">April 29, 2018</span>
+                                                    <br><br><p style="color: #455a64;">Evaluation Grade: <span class="studEvalGrade text-warning">Somewhat Satisfied</span></p>
+                                                    <p class="m-t-10 studEvalMsg"> Such an amazing instructor but uhh, has a bad smell. </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="sl-item">
+                                            <div class="sl-left"> <img src="assets/images/user3.png" alt="Student" id="studEvalPic" class="img-circle" /> </div>
+                                            <div class="sl-right">
+                                                <div><a href="#" class="link" id="studEvalName">Clarissa Fray</a> <span class="sl-date">April 23, 2018</span>
+                                                    <br><br><p style="color: #455a64;">Evaluation Grade: <span class="studEvalGrade text-danger">Not Satisfied</span></p>
+                                                    <p class="m-t-10 studEvalMsg"> Lagi kang late! Lupet! Never again!! Ekis ka</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- End of col-lg-9 -->
+            </div> <!-- End of row -->
+        <!-- End of Card  -->
+    </div>
+</div>

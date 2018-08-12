@@ -1,8 +1,12 @@
 $(function() {    
     $('.navAdmin').show();
     $('.navStudent').hide();
+    $('.navInstructor').hide();
+    $('.navBranch').hide();
     $('.headerAdmin').show();
     $('.headerStudent').hide();
+    $('.headerInstructor').hide();
+    $('.headerBranch').hide();
     
     var x = $(window).height();
     $(".page-wrapper").height(x);
