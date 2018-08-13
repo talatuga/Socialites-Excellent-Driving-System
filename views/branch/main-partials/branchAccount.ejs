@@ -1,0 +1,179 @@
+<div class="view-branchAccount viewDiv">
+    <!-- Bread crumb -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h3 class="text-primary">Account Settings</h3> 
+        </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a onclick="dashboard()">Home</a></li>
+                <li class="breadcrumb-item active"><a>Account Settings</a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- End Bread crumb -->
+    <!-- Container fluid  -->
+    <div class="container-fluid">
+        <!-- Start of Card  -->
+        <div class="studentCard">
+            <div>
+                <div class="row">
+                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <div class="input-group input-group-flat">
+                                <span class="input-group-btn"><button class="btn btn-custom" type="submit"><i class="ti-search"></i></button></span>
+                                <input type="text" id="searchAccount" class="form-control" placeholder="Search..." style="font-size: 12px;">
+                                <span class="input-group-btn"><button class="btn btn-primary input-group-close-icon" onclick="clrSearchAccount()" type="button"><i class="ti-close"></i></button></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                        <hr class="hrCustom">
+                        <div class="card accountCard">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs profile-tab" role="tablist">
+                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#adminTab" role="tab" onclick="selectInstTbl(0)">Administrator</a> </li>
+                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#studentTab" role="tab" onclick="selectInstTbl(2)">Student</a> </li>
+                            </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+
+                                <!--first tab-->
+                                <div class="tab-pane active" id="adminTab" role="tabpanel">
+                                    <div class="card-body"> 
+                                        <div class="table-responsive">
+                                            <table class="table tblAccountAdmin tblCustom">
+                                                <thead>
+                                                    <tr>
+                                                        <th width="150px">ID</th>
+                                                        <th>Name</th>
+                                                        <th width="100px"></th>
+                                                        <th width="100px"></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="adminAccTbl">
+                                                    <tr>
+                                                        <td>ADMIN-01-01</td>
+                                                        <td>Graciella C. Tatel</td>
+                                                        <td><button type="button" onclick="deactAcc()" class="btnCstom1 btn btn-danger m-b-10 m-l-5">Deactivate</button></td>
+                                                        <td><button type="button" onclick="updateAcc()" class="btnCstom1 btn btn-success m-b-10 m-l-5">Update</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>ADMIN-02-01</td>
+                                                        <td>Christian Paul R. Tupas</td>
+                                                        <td><button type="button" onclick="deactAcc()" class="btnCstom1 btn btn-danger m-b-10 m-l-5">Deactivate</button></td>
+                                                        <td><button type="button" onclick="updateAcc()" class="btnCstom1 btn btn-success m-b-10 m-l-5">Update</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>ADMIN-03-01</td>
+                                                        <td>Perrine Clarisse B. Laganzo</td>
+                                                        <td><button type="button" onclick="deactAcc()" class="btnCstom1 btn btn-danger m-b-10 m-l-5">Deactivate</button></td>
+                                                        <td><button type="button" onclick="updateAcc()" class="btnCstom1 btn btn-success m-b-10 m-l-5">Update</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>ADMIN-04-01</td>
+                                                        <td>Janelle Joy R. Gabat</td>
+                                                        <td><button type="button" onclick="deactAcc()" class="btnCstom1 btn btn-danger m-b-10 m-l-5">Deactivate</button></td>
+                                                        <td><button type="button" onclick="updateAcc()" class="btnCstom1 btn btn-success m-b-10 m-l-5">Update</button></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!--third tab-->
+                                <div class="tab-pane" id="studentTab" role="tabpanel">
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table tblAccountStudent tblCustom table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th width="150px">ID</th>
+                                                        <th>Name</th>
+                                                        <th width="100px"></th>
+                                                        <th width="100px"></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="studAccTbl">
+                                                    <tr>
+                                                        <td>2018-010-01</td>
+                                                        <td>Graciella C. Tatel</td>
+                                                        <td><button type="button" onclick="deactAcc()" class="btnCstom1 btn btn-danger m-b-10 m-l-5">Deactivate</button></td>
+                                                        <td><button type="button" onclick="updateAcc()" class="btnCstom1 btn btn-success m-b-10 m-l-5">Update</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2018-010-01</td>
+                                                        <td>Christian Paul R. Tupas</td>
+                                                        <td><button type="button" onclick="deactAcc()" class="btnCstom1 btn btn-danger m-b-10 m-l-5">Deactivate</button></td>
+                                                        <td><button type="button" onclick="updateAcc()" class="btnCstom1 btn btn-success m-b-10 m-l-5">Update</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2018-010-01</td>
+                                                        <td>Perrine Clarisse B. Laganzo</td>
+                                                        <td><button type="button" onclick="deactAcc()" class="btnCstom1 btn btn-danger m-b-10 m-l-5">Deactivate</button></td>
+                                                        <td><button type="button" onclick="updateAcc()" class="btnCstom1 btn btn-success m-b-10 m-l-5">Update</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2018-010-01</td>
+                                                        <td>Janelle Joy R. Gabat</td>
+                                                        <td><button type="button" onclick="deactAcc()" class="btnCstom1 btn btn-danger m-b-10 m-l-5">Deactivate</button></td>
+                                                        <td><button type="button" onclick="updateAcc()" class="btnCstom1 btn btn-success m-b-10 m-l-5">Update</button></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="hrCustom">
+                    </div>
+                </div>
+            </div>
+        </div><!-- End of Card  -->
+    </div>
+    <!-- End Container fluid  -->
+</div>
+
+<!-- Update Account Modal -->
+<div class="modal fade" id="updateAccModal" tabindex="-1" role="dialog" aria-labelledby="updateAccModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <center>
+            <h2>UPDATE ACCOUNT</h2>
+            <h6>Fill out all required (<span class="asterisk">*</span>) fields.</h6>
+        </center>
+        <hr class="hrCustom"><br>
+        <div>
+            <form>
+                <div>
+                    <h5 class="h5Enr">Username<span class="asterisk">*</span></h5>
+                    <input type="text" class="txtEnr" required name="editUNAcc" id="editUNAcc" placeholder="Username"><br>
+                </div><br>
+                <div>
+                    <h5 class="h5Enr">Password<span class="asterisk">*</span></h5>
+                    <input type="password" class="txtEnr" required name="editPWAcc" id="editPWAcc" placeholder="Password"><br>
+                </div><br>
+                <div>
+                    <h5 class="h5Enr">Confirm Password<span class="asterisk">*</span></h5>
+                    <input type="password" class="txtEnr" required name="editCPWAcc" id="editCPWAcc" placeholder="Confirm Password"><br>
+                </div><br>
+            </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="btnCancAddAccount" data-dismiss="modal" class="btn btn-danger">Cancel</button>
+        <button type="button" id="btnConfAddAccount" onclick="confAddAccount()" class="btn btn-success">Add</button>
+        <button type="button" id="btnConfResetAccount" onclick="confResetAccount()" class="btn btn-light">Reset</button>
+        <button type="button" id="btnConfEditAccount" onclick="confEditAccount()" class="btn btn-success">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -57,6 +57,8 @@ var studPayment = function (){
     $(".view-studPayment").show();
 }
 var studAccount = function (){
+    $(".liSide").removeClass("active");
+    $("#liStud5").addClass("active");
     $('.viewDiv').hide();
     resetSettingsStudent();
     $(".view-studAccount").show();

@@ -1,0 +1,429 @@
+<div class="view-branchVehicle viewDiv" id="vehic">
+    <!-- Bread crumb -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h3 class="text-primary">Vehicles</h3> 
+        </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a onclick="dashboard()">Home</a></li>
+                <li class="breadcrumb-item active"><a>Vehicle</a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- End Bread crumb -->
+    <!-- Container fluid  -->
+    <div class="container-fluid">
+        <!-- Start of Card  -->
+        <div class="studentCard">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <div class="input-group input-group-flat">
+                            <span class="input-group-btn"><button class="btn btn-custom" type="submit"><i class="ti-search"></i></button></span>
+                            <input type="text" id="searchVehiA" class="form-control" placeholder="Search..." style="font-size: 12px;">
+                            <span class="input-group-btn"><button class="btn btn-primary input-group-close-icon" type="button" onclick="clrSearchVehiA()"><i class="ti-close"></i></button></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"></div>
+            </div>
+
+            <div class="row">
+                <!-- Start of col-lg-5 -->
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <hr class="hrCustom">
+                    <div class="card instCard">
+                        <h3>List of Vehicles</h3><br>
+                        <div class="table-responsive">
+                            <table class="table tblVehicle table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Brand</th>
+                                        <th>Model</th>
+                                        <th>Transmission</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="carTableA">
+                                    <tr class="highlightTr">
+                                        <td>1</td>
+                                        <td>Toyota</td>
+                                        <td>Vios (Sedan)</td>
+                                        <td>Automatic</td>
+                                        <td><span class="text-success">Available</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Toyota</td>
+                                        <td>Corolla Atlis (Sedan)</td>
+                                        <td>Manual</td>
+                                        <td><span class="text-success">Available</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- End of col-lg-5 -->
+
+                <!-- Start of col-lg-6 -->
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <hr class="hrCustom">
+                    <div class="card instCard">
+                        <h3>Vehicle Information</h3><hr>
+                        <div style="padding-left: 30px;">
+                            <div class="row">
+                                <div class="col-md-8 col-lg-8 col-sm-7 col-xs-7">
+                                    <h4 id="vehiName">Toyota, Vios (Sedan)</h4>
+                                    <h6>ID: <span id="vehiID">V0001-A</span></h6>
+                                </div>
+                                <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1"></div>
+                                <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1"></div>
+                                <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1">
+                                    <i class="ti-calendar tiV" id="btnSchedVehi" onclick="gotoSched()" data-toggle="tooltip" data-placement="bottom" title="Schedule"></i>
+                                </div>
+                            </div><hr>
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                                    <span class="fa fa-automobile fa-red fa-rightB">&nbsp;&nbsp;</span>
+                                        <span id="vehiPlate"> AAA 1234</span><br>
+                                </div>
+                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                                    <span class="fa fa-user fa-red fa-rightB">&nbsp;&nbsp;</span>
+                                        <span id="vehiInst"> Harry James Potter</span><br>
+                                </div>
+                            </div><br><br><hr>
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                                    <h4 class="card-title">Defect(s):</h4>
+                                </div>
+                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                                    <i class="ti-plus tiV" id="btnAddDefVehi" onclick="addDefVehi('a')" data-toggle="tooltip" data-placement="bottom" title="Add Defect(s)"></i>
+                                </div>
+                            </div>
+                            <div class="table-responsive hideScroll">
+                                <table class="table tblVehicleDef table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Part</th>
+                                            <th>Damage</th>
+                                            <th>Significance</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="carDefect">
+                                        <tr>
+                                            <td>Tires</td>
+                                            <td>Deflated</td>
+                                            <td><span class="text-warning"></span>3</td>
+                                            <td><i class="ti-close tiDef1" id="btnCancDefVehi" onclick="cancDefVehi()" data-toggle="tooltip" data-placement="bottom" title="Cancel/Remove"></i></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Brake</td>
+                                            <td>Broke</td>
+                                            <td><span class="text-danger"></span>5</td>
+                                            <td><i class="ti-close tiDef1" id="btnCancDefVehi" onclick="cancDefVehi()" data-toggle="tooltip" data-placement="bottom" title="Cancel/Remove"></i></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Plate Number</td>
+                                            <td>Missing</td>
+                                            <td><span class="text-danger"></span>5</td>
+                                            <td><i class="ti-close tiDef1" id="btnCancDefVehi" onclick="cancDefVehi()" data-toggle="tooltip" data-placement="bottom" title="Cancel/Remove"></i></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- End of col-lg-6 -->
+            </div> <!-- End of row -->
+        </div><!-- End of Card  -->
+    </div>
+    <!-- End Container fluid  -->
+</div> 
+
+<!-- Add Defect Modal -->
+<div class="modal fade" id="addNewDefectModal" tabindex="-1" role="dialog" aria-labelledby="addNewDefectModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <center>
+              <h2>ADD CAR DEFECT</h2>
+              <h6>Fill out all required (<span class="asterisk">*</span>) fields.</h6><br>
+          <div class="row">
+            <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4 defMod1 activeDefMod">
+                <h4 class="defModTxt">Car Part/s</h4>
+            </div>
+            <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4 defMod2">
+                <h4 class="defModTxt">Defect or Problem</h4>
+            </div>
+            <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4 defMod3">
+                <h4 class="defModTxt">Significance</h4>
+            </div>
+          </div><br>
+        </center>
+        <div class="divMod1">
+            <center><h5>You may select more than one.</h5><hr width="20%"></center>
+            <form>
+                <span class="fa fa-caret-right faDefMod pull-left"></span>
+                <h5 class="defModB">Car Body and Main Part</h5>
+                <div class="row">
+                    <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6 checkbox">
+                        <label class="lblCB">&emsp;&nbsp;Doors<input type="checkbox" class="flat-cb" name="newDefPart" id="p1" value="Doors">
+                            <span class="checkmark"></span></label>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6 checkbox">
+                        <label class="lblCB">&emsp;&nbsp;Windows<input type="checkbox" class="flat-cb" name="newDefPart" id="p2" value="Windows">
+                            <span class="checkmark"></span></label>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-2 col-xs-2">
+                        <label class="lblCB">&emsp;&nbsp;Tires<input type="checkbox" class="flat-cb" name="newDefPart" id="p28" value="Tires"> 
+                            <span class="checkmark"></span></label>
+                    </div>
+                </div><br>
+
+                <span class="fa fa-caret-right faDefMod pull-left"></span>
+                <h5 class="defModB">Electrical and Electronics</h5>
+                <div class="row">
+                    <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                        <label class="lblCB">&emsp;&nbsp;Audio/Video Devices<input type="checkbox" class="flat-cb" name="newDefPart" id="p3" value="Audio/Video Devices">
+                            <span class="checkmark"></span></label><br>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                        <label class="lblCB">&emsp;&nbsp;Ignition Electronic System<input type="checkbox" class="flat-cb" name="newDefPart" id="p7" value="Ignition Electronic System">
+                            <span class="checkmark"></span></label><br>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-2 col-xs-2">
+                        <label class="lblCB">&emsp;&nbsp;Starting System<input type="checkbox" class="flat-cb" name="newDefPart" id="p11" value="Starting System">
+                            <span class="checkmark"></span></label><br>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                        <label class="lblCB">&emsp;&nbsp;Cameras<input type="checkbox" class="flat-cb" name="newDefPart" id="p4" value="Cameras">
+                            <span class="checkmark"></span></label><br>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                        <label class="lblCB">&emsp;&nbsp;Lighting and Signaling System<input type="checkbox" class="flat-cb" name="newDefPart" id="p8" value="Lighting and Signaling System">
+                            <span class="checkmark"></span></label><br>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-2 col-xs-2">
+                        <label class="lblCB">&emsp;&nbsp;Electrical Switches<input type="checkbox" class="flat-cb" name="newDefPart" id="p12" value="Electrical Switches">
+                            <span class="checkmark"></span></label><br>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                        <label class="lblCB">&emsp;&nbsp;Electrical Supply System<input type="checkbox" class="flat-cb" name="newDefPart" id="p5" value="Electrical Supply System">
+                            <span class="checkmark"></span></label><br>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                        <label class="lblCB">&emsp;&nbsp;Sensors<input type="checkbox" class="flat-cb" name="newDefPart" id="p10" value="Sensors">
+                            <span class="checkmark"></span></label><br>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-2 col-xs-2">
+                        <label class="lblCB">&emsp;&nbsp;Wiring Harnesses<input type="checkbox" class="flat-cb" name="newDefPart" id="p13" value="Wiring Harnesses">
+                            <span class="checkmark"></span></label><br>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                        <label class="lblCB">&emsp;&nbsp;Gauges and Meters<input type="checkbox" class="flat-cb" name="newDefPart" id="p6" value="Gauges and Meters">
+                            <span class="checkmark"></span></label><br>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6"></div>
+                    <div class="col-md-4 col-lg-4 col-sm-2 col-xs-2"></div>
+                </div><br>
+                
+                <span class="fa fa-caret-right faDefMod pull-left"></span>
+                <h5 class="defModB">Interior</h5>
+                <div class="row">
+                    <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                        <label class="lblCB">&emsp;&nbsp;Floor Components and Parts<input type="checkbox" class="flat-cb" name="newDefPart" id="p14" value="Floor Components and Parts">
+                            <span class="checkmark"></span></label><br>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                        <label class="lblCB">&emsp;&nbsp;Car Seat<input type="checkbox" class="flat-cb" name="newDefPart" id="p15" value="Car Seat">
+                            <span class="checkmark"></span></label><br>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-2 col-xs-2">
+                    </div>
+                </div><br>
+
+                <span class="fa fa-caret-right faDefMod pull-left"></span>
+                <h5 class="defModB">Power-Train and Chassis</h5>
+                <div class="row">
+                    <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                        <label class="lblCB">&emsp;&nbsp;Braking System<input type="checkbox" class="flat-cb" name="newDefPart" id="p16" value="Braking System">
+                            <span class="checkmark"></span></label><br>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                        <label class="lblCB">&emsp;&nbsp;Engine Oil System<input type="checkbox" class="flat-cb" name="newDefPart" id="p19" value="Engine Oil System">
+                            <span class="checkmark"></span></label><br>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-2 col-xs-2">
+                        <label class="lblCB">&emsp;&nbsp;Suspension and Steering Systems<input type="checkbox" class="flat-cb" name="newDefPart" id="p22" value="Suspension and Steering Systems">
+                            <span class="checkmark"></span></label><br>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                        <label class="lblCB">&emsp;&nbsp;Engine Components and Parts<input type="checkbox" class="flat-cb" name="newDefPart" id="p17" value="Engine Components and Parts">
+                            <span class="checkmark"></span></label><br>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                        <label class="lblCB">&emsp;&nbsp;Exhaust System<input type="checkbox" class="flat-cb" name="newDefPart" id="p20" value="Exhaust System">
+                            <span class="checkmark"></span></label><br>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-2 col-xs-2">
+                        <label class="lblCB">&emsp;&nbsp;Transmission System<input type="checkbox" class="flat-cb" name="newDefPart" id="p23" value="Transmission System">
+                            <span class="checkmark"></span></label><br>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                        <label class="lblCB">&emsp;&nbsp;Engine Cooling System<input type="checkbox" class="flat-cb" name="newDefPart" id="p18" value="Engine Cooling System">
+                            <span class="checkmark"></span></label><br>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                        <label class="lblCB">&emsp;&nbsp;Fuel Supply System<input type="checkbox" class="flat-cb" name="newDefPart" id="p21" value="Fuel Supply System">
+                            <span class="checkmark"></span></label><br>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-2 col-xs-2"></div>
+                </div><br>
+
+                <span class="fa fa-caret-right faDefMod pull-left"></span>
+                <h5 class="defModB">Miscellaneous Auto Parts</h5>
+                <div class="row">
+                    <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                        <label class="lblCB">&emsp;&nbsp;Air Conditioning System (A/C)<input type="checkbox" class="flat-cb" name="newDefPart" id="p24" value="Air Conditioning System (A/C)">
+                            <span class="checkmark"></span></label><br>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                        <label class="lblCB">&emsp;&nbsp;Bearings<input type="checkbox" class="flat-cb" name="newDefPart" id="p25" value="Bearings">
+                            <span class="checkmark"></span></label><br>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-2 col-xs-2">
+                        <label class="lblCB">&emsp;&nbsp;Hose<input type="checkbox" class="flat-cb" name="newDefPart" id="p26" value="Hose">
+                            <span class="checkmark"></span></label><br>
+                    </div>
+                </div><br>
+
+                <span class="fa fa-caret-right faDefMod pull-left"></span>
+                <h5 class="defModB">Others</h5>
+                <div>
+                    <label style="float: left">Please Specify: </label><input type="text" class="customTxtInput4" name="newDefPart" id="p27">
+                </div>
+            </form>
+        </div>
+
+        <div class="divMod2">
+            <center><h5>Briefly explain the defect or problem of the specific car part/s.</h5><hr width="20%"></center><br>
+            <form class="formDefect">
+                <div class="row divDamage">
+                    <div class="col-md-6 col-lg-6 col-xs-4 col-sm-4">
+                        <h5 class="damagedPartTxt"></h5>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xs-8 col-sm-8">
+                        <input type="text" class="flat damageTxtInput">
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="divMod3">
+            <center><h5>Rate the importance of the defect/s to be fixed.</h5>
+                    <h6>(1: Lowest; 5: Highest)</h6><hr width="20%"></center>
+            <form class="formSignif">
+                <div class="damageSignifDiv">
+                    <center><h5 class="damagedPartTxt1">Tires</h5>
+                    <input type="radio" class="defRateRD" id="defRate1" name="defRate" value="1" checked>
+                        <label class="defRateLbl" for="defRate1">1</label>
+                    <input type="radio" class="defRateRD" id="defRate2" name="defRate" value="2">
+                        <label class="defRateLbl" for="defRate2">2</label>
+                    <input type="radio" class="defRateRD" id="defRate3" name="defRate" value="3">
+                        <label class="defRateLbl" for="defRate3">3</label>
+                    <input type="radio" class="defRateRD" id="defRate4" name="defRate" value="4">
+                        <label class="defRateLbl" for="defRate4">4</label>
+                    <input type="radio" class="defRateRD" id="defRate5" name="defRate" value="5">
+                        <label class="defRateLbl" for="defRate5">5</label></center>
+                </div>       
+            </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="btnCancAddDef" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+        <button type="button" id="btnNextAddDef" onclick="nextDef1()" class="btn btn-primary">Next</button>
+
+        <button type="button" id="btnPrevAddDef" onclick="prevDef1()" class="btn btn-light">Previous</button>
+        <button type="button" id="btnNextAddDef2" onclick="nextDef2()" class="btn btn-primary">Next</button>
+
+        <button type="button" id="btnPrevAddDef2" onclick="prevDef2()" class="btn btn-light">Previous</button>
+        <button type="button" id="btnDoneAddDef" onclick="doneDef()" class="btn btn-primary">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add/Edit Vehicle Modal -->
+<div class="modal fade" id="addNewVehicleModal" tabindex="-1" role="dialog" aria-labelledby="addNewVehicleModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <center>
+            <h2 class="modalH2AddVehi"></h2>
+            <h6>Fill out all required (<span class="asterisk">*</span>) fields.</h6>
+        </center>
+        <!-- <center><span class="ti-car tiCustom"></span></center> -->
+        <hr class="hrCustom"><br>
+        <div>
+            <form class="formNewVehi">
+                <div class="row">
+                    <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+                        <h6 class="h6AddVehi">Type: <span class="asterisk">*</span></h6>
+                    </div>
+                    <div class="col-md-8 col-lg-8 col-xs-8 col-sm-8">
+                        <select class="customTxtInput3 input-flat" name="addVehiType">
+                            <option value=0>---</option>
+                            <option value="A">Automatic</option>
+                            <option value="M">Manual</option>
+                        </select>
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+                        <h6 class="h6AddVehi">Brand: <span class="asterisk">*</span></h6>
+                    </div>
+                    <div class="col-md-8 col-lg-8 col-xs-8 col-sm-8">
+                        <input type="text" class="flat newVehiTxtinput addVehiBrand">
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+                        <h6 class="h6AddVehi">Model: <span class="asterisk">*</span></h6>
+                    </div>
+                    <div class="col-md-8 col-lg-8 col-xs-8 col-sm-8">
+                        <input type="text" class="flat newVehiTxtinput addVehiModel">
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+                        <h6 class="h6AddVehi">Plate Number: <span class="asterisk">*</span></h6>
+                    </div>
+                    <div class="col-md-8 col-lg-8 col-xs-8 col-sm-8">
+                        <input type="text" class="flat newVehiTxtinput addVehiPlate">
+                    </div>
+                </div><br>
+            </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="btnCancAddVehi" class="btn btn-light" data-dismiss="modal">Cancel</button>
+        <button type="button" id="btnConfAddVehi" onclick="addVehi()" class="btn btn-primary">Add</button>
+        <button type="button" id="btnConfEditVehi" onclick="editVehi()" class="btn btn-primary">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

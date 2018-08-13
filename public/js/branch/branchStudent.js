@@ -4,15 +4,15 @@ $(function() {
     //getStudent(1, studentTable.offset, studentTable.limit).then(renderStudentTable); // <--- tawagin yung getStudent() then after yung renderStudentTable().    
 });
 
-$("#btnViewStudent").on("click", function() { //opens view student page upon clicking view details
+$("#btnViewStudentBranch").on("click", function() { //opens view student page upon clicking view details
     resetSettingsStud();
     $('.viewDiv').hide();
-    $('.view-viewStudent').show();
+    $('.view-viewStudentBranch').show();
 });
 
 $(".backStud").on("click", function() { //closes view instructor page then goes back to previous page
     $('.viewDiv').hide();
-    $('.view-student').show();
+    $('.view-branchStudent').show();
 });
 
 $('.searchStud').on('click', function(e){
@@ -126,12 +126,11 @@ function cancUpdStud(){
         confirmButtonColor: "#DD6B55",
         confirmButtonText: "Yes",
         cancelButtonText: "No",
-        closeOnConfirm: false,
+        closeOnConfirm: true,
         closeOnCancel: true
     },
     function(isConfirm){
         if (isConfirm) {
-            swal("Cancelled", "", "error");
             resetSettingsStud();
             resetUpdStud();
         }

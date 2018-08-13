@@ -63,6 +63,8 @@ var instEvaluation = function (){
 
 var instAccount = function (){
     resetSettingsInstructor();
+    $(".liSide").removeClass("active");
+    $('#liInst4').addClass("active");
     $('.viewDiv').hide();
     $(".view-instAccount").show();
     $(".search-box").hide();

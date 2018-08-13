@@ -7,7 +7,7 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="icon" type="image/png" sizes="96x96" href="assets/images/icon.png">
         <!-- CSS imports -->
-        <% include ../utils/studentCSS %>
+        <% include ../utils/adminCSS %>
     </head>
 
     <body class="fix-header fix-sidebar">
@@ -26,13 +26,33 @@
 
             <!-- MAIN -->
             <div class="page-wrapper">
+                <!-- MAJOR PARTIALS -->
+                <% include ./main-partials/branchDashboard %>
+                <% include ./main-partials/branchStudent %>
+                <% include ./main-partials/branchInstructor %>
+                <% include ./main-partials/branchVehicle %>
+                <% include ./main-partials/branchPayment %>
+                
+                <% include ./main-partials/branchEnrolment %>
+                <% include ./main-partials/branchLicense %>
+                
+                <% include ./main-partials/branchReports %>
+                <% include ./main-partials/branchAccount %>
+                <% include ./main-partials/branchCertificate %>
+
+                <!-- MINOR PARTIALS -->
+                <% include ./minor-partials/profileBranch %>
+                <% include ./minor-partials/scheduleBranch %>
+                <% include ./minor-partials/schedCanceledBranch %>
+                <% include ./minor-partials/view-studentBranch %>
+                <% include ./minor-partials/view-instructorBranch %>
             </div>
             <!-- END MAIN -->
             <% include ../admin/partials/footer %> 
             <!-- FOOTER CODES -->
 
             <!-- JS imports -->
-            <% include ../utils/studentJS %>
+            <% include ../utils/branchJS %>
         </div>
     </body>
 </html>

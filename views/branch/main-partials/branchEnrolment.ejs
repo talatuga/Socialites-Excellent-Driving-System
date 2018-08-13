@@ -1,0 +1,103 @@
+<div class="view-branchEnrolment viewDiv">
+    <!-- Bread crumb -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h3 class="text-primary">Enrollment</h3> 
+        </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a onclick="dashboard()">Home</a></li>
+                <li class="breadcrumb-item active"><a>Enrollment</a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- End Bread crumb -->
+    <!-- Container fluid  -->
+    <div class="container-fluid">
+        <!-- Start of Card  -->
+        <div class="studentCard">
+            <div>
+                <div class="row">
+                    <div class="col-md-8 col-lg-8 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <div class="input-group input-group-flat">
+                                <span class="input-group-btn"><button class="btn btn-custom" type="submit"><i class="ti-search"></i></button></span>
+                                <input type="text" id="searchEnrollment" class="form-control" placeholder="Search..." style="font-size: 12px;">
+                                <span class="input-group-btn"><button class="btn btn-primary input-group-close-icon" onclick="clrSearchLesson()" type="button"><i class="ti-close"></i></button></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
+                        <div class="pull-right">
+                            <button type="button" href="#" class="btnRefresh btn btn-success m-b-10 m-l-5">Refresh</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 col-lg-8 col-sm-12 col-xs-12">
+                            <hr class="hrCustom">
+                            <div class="card branchCard">
+                                <h3>List of Enrollees</h3>
+                                <div class="table-responsive">
+                                    <table class="table tblReg tblCustom table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th width="100px">Date</th>
+                                                <th width="300px">Name</th>
+                                                <th>Requirement</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="preRegTbl">
+                                            <tr>
+                                                <td>May 24, 2018</td>
+                                                <td>Graciella C. Tatel</td>
+                                                <td>W-SDP</td>
+                                            </tr>
+                                            <tr>
+                                                <td>May 24, 2018</td>
+                                                <td>Kenard Smith B. Bautista</td>
+                                                <td>TA-SDP</td>
+                                            </tr>
+                                            <tr>
+                                                <td>May 24, 2018</td>
+                                                <td>Zac Efron</td>
+                                                <td>TA-NPL</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        <hr class="hrCustom">
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
+                        <hr class="hrCustom">
+                        <div class="card branchCard" style="position: relative">
+                            <h3>Enrolment Details</h3><hr>
+                            <div class="row">
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                    <h5 class="regEnrName"></h5>
+                                    <!-- <h5 class="regEnrBranch">SEDQC</h5> -->
+                                    <span>
+                                        <small style="float: left;">Deadline:
+                                        <span class="regEnrDeadline"></span></small>
+                                    </span><br>
+                                    <span>
+                                        <small style="float: left;">Payment Method:
+                                        <span class="regPaymeth"></span></small>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row divBottom">
+                                <button type="button" onclick="viewRegForm()" class="btnCstom2 btn btn-light m-b-10 m-l-5" style="width: 93%">View</button>
+                                <button type="button" onclick="openPayment()" class="btnCstom2 btn btn-success m-b-10 m-l-5" style="width: 93%" class="a">Approve</button>
+                                <button type="button" onclick="remRegForm()" class="btnCstom2 btn btn-danger m-b-10 m-l-5" style="width: 93%">Remove</button>
+                            </div>
+                        </div>
+                        <hr class="hrCustom">
+                    </div>
+                </div>
+            </div>
+        </div><!-- End of Card  -->
+    </div>
+    <!-- End Container fluid  -->
+</div>

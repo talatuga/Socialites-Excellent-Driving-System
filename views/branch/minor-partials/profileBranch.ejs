@@ -1,0 +1,146 @@
+<div class="view-profileBranch viewDiv">
+    <!-- Bread crumb -->
+    <div class="row page-titles">
+        <div class="col-md-6 align-self-center">
+            <h3 class="text-primary">My Profile</h3> 
+        </div>
+        <div class="col-md-6 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a onclick="dashboard()"> Home</a></li>
+                <li class="breadcrumb-item active"><a>My Profile</a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- End Bread crumb -->
+
+    <div class="container-fluid">
+        <!-- Start of Card  -->
+        <div class="instructorCard">
+            <div class="row instructorCard">
+                <!-- Start of col-lg-3 -->
+                <div class="col-lg-3">
+                    <div class="card">
+                        <center>
+                            <span><img src="assets/images/user-medium.png" alt="Student Picture" class="profPic1" onclick="openDropzone()"/></span><br><br>
+                            <h4 class="profileName">Graciella Custodio Tatel</h4>
+                            <h6 class="profileBranch">SED-Quezon City (Main)</h6>
+                            <h6>Administrator</h6><hr width="30%">
+                        </center>
+                            <span><span class="fa fa-map-marker fa-red"></span> <span class="profileAddress">Sapang Palay, CSJDM, Bulacan</span></span>
+                            <span><span class="fa fa-phone fa-red"></span> <span class="profilePhone">0956 586 7353</span></span>
+                            <span><span class="fa fa-envelope fa-red"></span> <span class="profileEmail">gtatel0517@gmail.com</span></span>
+                    </div>
+                </div>
+                <!-- End of col-lg-3 -->
+
+                <!-- Start of col-lg-9 -->
+                <div class="col-lg-9">
+                    <div class="card">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs profile-tab" role="tablist">
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#profile1" onclick="resetAdmin1P" role="tab">Personal Information</a> </li>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <!--first tab-->
+                            <div class="tab-pane active" id="profile1" role="tabpanel">
+                                <div class="card-body">
+                                    <form class="studTab">
+                                        <div>
+                                            <h5 class="h5Enr">Name<span class="asterisk">*</span></h5>
+                                            <div class="row">
+                                                <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+                                                    <input type="text" class="txtEnr1" required id="editAdminAccFN"><br>
+                                                    <small class="cstSmall">First Name*</small>
+                                                </div>
+                                                <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+                                                    <input type="text" class="txtEnr1" required id="editAdminAccMN"><br> 
+                                                    <small class="cstSmall">Middle Name</small> 
+                                                </div>
+                                                <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+                                                    <input type="text" class="txtEnr1" required id="editAdminAccSN"><br>
+                                                    <small class="cstSmall">Surname*</small>
+                                                </div>
+                                            </div>
+                                        </div><hr>
+                                        <div>
+                                            <h5 class="h5Enr">Birth Date<span class="asterisk">*</span></h5>
+                                            <input type="date" class="txtEnr1" required id="editAdminAccBday" placeholder="mm/dd/yyyy"><br>
+                                        </div><hr>
+                                        <div>
+                                            <h5 class="h5Enr">Birth Place<span class="asterisk">*</span></h5>
+                                            <input type="text" class="txtEnr1" required id="editAdminAccBplace"><br>
+                                        </div><hr>
+                                        <div>
+                                            <h5 class="h5Enr">Sex<span class="asterisk">*</span></h5>
+                                            <input type="radio" class="enrSexRD" id="editEnrSex1" name="editAdminAccSex" value="M">
+                                                <label class="enrSexLbl" for="editEnrSex1">Male</label>
+                                            <input type="radio" class="enrSexRD" id="editEnrSex2" name="editAdminAccSex" value="F">
+                                                <label class="defRateLbl" for="editEnrSex2">Female</label>
+                                        </div><hr>
+                                        <div>
+                                            <h5 class="h5Enr">Address<span class="asterisk">*</span></h5>
+                                            <textarea rows="3" class="enrTxtArea1" id="editAdminAccAdd"></textarea>
+                                        </div><hr>
+                                        <div>
+                                            <h5 class="h5Enr">Civil Status<span class="asterisk">*</span></h5>
+                                            <select class="enrCivStatus1" name="editAdminAccCivStatus" id="editAdminAccCivStatus">
+                                                <option value="civ0">---</option>
+                                                <option value="Single">Single</option>
+                                                <option value="Married">Married</option>
+                                                <option value="Divorced">Divorced</option>
+                                                <option value="Separated">Separated</option>
+                                                <option value="Widowed">Widowed</option>
+                                            </select>
+                                        </div><hr>
+                                        <div>
+                                            <h5 class="h5Enr">Occupation</h5>
+                                            <input type="text" class="txtEnr1" required id="editAdminAccOcc"><br>
+                                        </div><hr>
+                                        <div>
+                                            <h5 class="h5Enr">Contact<span class="asterisk">*</span></h5>
+                                            <div class="row">
+                                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                                                    <input type="number" class="txtEnr1" required id="editAdminAccCont"><br>
+                                                    <small class="cstSmall">Contact Number*</small>
+                                                </div>
+                                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                                                    <input type="email" class="txtEnr1" required id="editAdminAccEmail"><br>
+                                                    <small class="cstSmall">Email Address</small>
+                                                </div>
+                                            </div>
+                                        </div><hr>
+                                        <div>
+                                            <h5 class="h5Enr">Account<span class="asterisk">*</span></h5>
+                                            <div class="row">
+                                                <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+                                                    <input type="text" class="txtEnr1" required id="editAdminAccUN"><br>
+                                                    <small class="cstSmall">Username*</small>
+                                                </div>
+                                                <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+                                                    <input type="password" class="txtEnr1" required id="editAdminAccPW"><br>
+                                                    <small class="cstSmall">Password*</small>
+                                                </div>
+                                            </div>
+                                        </div><hr>
+                                        <hr>
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <button type="button" class="btn btn-danger pull-left btnDeactAdminAcc" onclick="deactAdmin()">Deactivate Account</button>
+                                                <button type="button" class="btn btn-primary pull-right btnUpdateAdminAcc1" onclick="updateAdmin1()">Update Account</button>
+
+                                                <button type="button" class="btn btn-primary pull-right btnSaveUpdAdmin1" style="margin-left: 5px; width: 100px" onclick="saveUpdAdmin1()">Save</button>
+                                                <button type="button" class="btn btn-light pull-right btnResetUpdAdmin1" style="margin-left: 5px; width: 100px" onclick="resetUpdAdmin1()">Reset</button>
+                                                <button type="button" class="btn btn-danger pull-right btnCancUpdAdmin1" style="margin-left: 5px; width: 100px" onclick="cancUpdAdmin1()">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- End of col-lg-9 -->
+            </div> <!-- End of row -->
+        </div><!-- End of Card  -->
+    </div>
+</div>

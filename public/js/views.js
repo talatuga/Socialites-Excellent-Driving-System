@@ -266,6 +266,7 @@ var schedCanceled = function (){
 }
 
 var profile = function (){
+    $(".liSide").removeClass("active");
     resetSettingsAdmin();
     $('.viewDiv').hide();
     $(".view-profile").show();

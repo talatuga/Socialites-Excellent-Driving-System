@@ -1,11 +1,11 @@
 $(function () {
     //DB: Pakilagay naman yung highlightTr
-    // $('.tblInstructor tbody tr:first').addClass("highlightTr");
-    // $('.tblInstructor tbody tr').click(function () {
+    // $('.instructorTable  tr:first').addClass("highlightTr");
+    // $('.instructorTable tr').click(function () {
     //     var selected = $(this).hasClass("highlightTr");
-    //     $('.tblInstructor tbody tr').addClass("highlightTr");
+    //     $('.instructorTable tr').removeClass("highlightTr");
     //     if (!selected)
-    //         $(this).removeClass("highlightTr");
+    //         $(this).addClass("highlightTr");
     // });
 
     $("#btnNewInstructor").on("click", function () { //opens add instructor modal
@@ -13,14 +13,14 @@ $(function () {
         $('#newInstructorModal').modal('show');
     });
     $("#btnViewInstructor").on("click", function () { //opens view instructor page upon clicking view details
-        $('.view-instructor').hide();
-        $('.view-viewInstructor').show();
+        $('.view-branchInstructor').hide();
+        $('.view-viewInstructorBranch').show();
         resetSettingsInst();        
     });
     $(".backInst").on("click", function () { //when back button is clicked (right side of instructor information)
         //SD: Dapat may modal pa dito kung ididiscard ba yung changes
-        $('.view-viewInstructor').hide();
-        $('.view-instructor').show();
+        $('.view-viewInstructorBranch').hide();
+        $('.view-branchInstructor').show();
     });
 
     $(".btnDelInstAcc").on("click", function () { //opens confirmation modal upon clicking delete account. UNDONE.

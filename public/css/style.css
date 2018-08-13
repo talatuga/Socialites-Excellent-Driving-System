@@ -7001,7 +7001,7 @@ tbody tr td:last-child {
   width: 100%;
   font-size: 14px;
 }
-#btnViewInstructor, #btnViewStudent
+#btnViewInstructor, #btnViewStudent, #btnViewStudentBranch
 {
   font-size: 15px;
   width: 95%;
@@ -7150,6 +7150,7 @@ tbody tr td:last-child {
 {
   text-transform: uppercase;
   font-weight: bold;
+  color: #5d0000;
 }
 
 #vehiID, #vehiIDM
@@ -7193,9 +7194,9 @@ tbody tr td:last-child {
 {
   color: #455a64;
 }
-.studEvalGrade, .instEvalGrade
+.studEvalGrade, .instEvalGrade, .crsStudEval
 {
-  color: #455a64;
+  color: #5e0b0b;
   font-weight: bolder;
 }
 #studEvalName, #instEvalName
@@ -7265,7 +7266,7 @@ tbody tr td:last-child {
     transition: 0.2s ease-in;
   cursor: pointer;
 }
-#adminName, #studentName, #instructorName
+#adminName, #studentName, #instructorName, #adminBrName
 {
   color: white;
   text-transform: uppercase;
@@ -8512,4 +8513,7 @@ tiCustom
 .instCoding{
   color: #5d0000;
   font-weight: bolder;
+}
+#numSchedAllBranch tr td{
+  font-size: 14px;
 }
