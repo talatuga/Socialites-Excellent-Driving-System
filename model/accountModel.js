@@ -13,7 +13,7 @@ Account.db = db;
 
 Account.getBalance = function(ORno){
     return new Promise(function(resolve, reject){
-        var sql = "SELECT balance, transaction FROM account WHERE ORno = ?";
+        var sql = "SELECT balance, transaction, data, price FROM "+ table +" WHERE ORno = ?";
         db.get().query(sql, [ORno], function(err, result){
             if(err) return reject(err);
             resolve(result[0]);
@@ -21,20 +21,21 @@ Account.getBalance = function(ORno){
     });
 };
 
-Account.addBill = function(transaction, feeType, bill, cb){
+Account.addBill = function(transaction, transData, feeType, bill, cb){
     var randPost = generator.generateToken(9);
     var datePre = Date.parse("today").toString("yyMMdd");
 
     var data = [""];
     data.push(datePre+randPost);
     data.push(transaction);
+    data.push(JSON.stringify(transData));
     data.push(feeType == "online" ? 2 : 1);
     data.push(bill);
     data.push(bill);
-    data.push("");
 
     valid.checkUndef(data, function(passed){
         if(passed){
+            data.push(null);
             Account.create(data, function(err,result){
                 if(err) return cb(err);
                 cb(null,{id: result.insertId, ORid: datePre+randPost});
@@ -71,6 +72,60 @@ Account.addPayment = function(ORnum, amount, cb){
         }else{
             cb(null, {status: 0, detail: "No balance Left"});
         }
+    });
+};
+
+Account.getEnrollBal = function(ORnum){
+    return new Promise(function(resolve, reject){
+        var sql = "SELECT balance, transaction, data, price FROM "+ table +" WHERE ORno = ?";
+        db.get().query(sql, [ORnum], function(err, transaction){
+            if(err) return reject(err);
+            var course = require('./lessonModel');
+            var transData = JSON.parse(transaction[0].data);
+            var total = 0;
+            var output = {
+                course: [],
+                total: 0,
+                overall: 0,
+            };
+            var query = [];
+            transData.enrolled.forEach((e,i)=>{
+                var callback = new Promise((resolve1, reject1)=>{
+                    course.getCourse(e.course, function(error, courseData){
+                        if(error) return reject1(error);
+                        output.course.push({id: e.course, special: e.special, price: courseData.amount, trans: courseData.carType});
+                        var amount = parseFloat(courseData.amount);
+                        total += e.special ? (amount * 2) : amount;
+                        resolve1();
+                    });
+                });
+                query.push(callback);
+                if(i == transData.enrolled.length-1){
+                    Promise.all(query).catch(reject).then(function(){
+                        output.overall = transaction[0].price;
+                        output.total = total;
+                        resolve(output);
+                    });
+                }
+            });
+        });
+    });
+};
+
+Account.getTransactions = function(ORnum){
+    return new Promise((resolve, reject)=>{
+        var sql = "SELECT * FROM " + paymentTable + " WHERE transactionID = ? ORDER BY datePay DESC";
+        db.get().query(sql, [ORnum], function(err, result){
+            if(err) return reject(err);
+            if(result.length == 0) return resolve(null);
+            var accSummary = {
+                transaction: [],
+                balance: 0,
+            };
+            accSummary.transaction = result;
+            accSummary.balance = result[0].balance;
+            resolve(accSummary);
+        });
     });
 };
 

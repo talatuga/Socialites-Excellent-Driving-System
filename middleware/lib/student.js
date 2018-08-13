@@ -1,5 +1,12 @@
+/**
+ * This is the Student Module, 
+ * Contains the major transactions, and core of the system.
+ * created by: CPTR
+ */
+
 var student = require('../../model/studentModel');
 var Email = require('../../bin/emailer');
+var payments = require('../../model/accountModel');
 var Validation = require('../../bin/util/validation');
 var valid = new Validation();
 
@@ -98,65 +105,159 @@ exports.delAll = function(req, res, next){} //Deprecated. Soon to delete from AP
 
 /**
  * *NOTE: This module needs proper documentation* This enroll a pending student registration.
+ * One of the biggest Method of this Module.
  * @param {Request} req 
  * @param {Response} res 
  * @param {Function} next 
  */
 exports.register = function(req, res, next){
-    var data = JSON.parse(req.body.data);
+    var id = req.body.id;
     var password = require('../../bin/util/tokenGenerator').generateToken(15);
+    var accountModel = require('../../model/userAccModel');
+    
     var generateID = function(accID,infoID){
         accID = accID + "";
         infoID = infoID + "";
         var pad = "000";
         return (pad.substring(0,pad.length-accID.length)+accID) + (pad.substring(0,pad.length-infoID.length)+infoID);
     };
-    var accountModel = require('../../model/userAccModel');
-    student.getPreRegList(data.info-1,1,function(er, result){
-        if(er) return next(er);
-        var infoData = result[0];
-        infoData.data = JSON.parse(infoData.data);
-        accountModel.register([infoData.data.info.email,password,3],function(err, accID){
-            if(err) return next(err);
-            var infoModel = require('../../model/userInfoModel');
-            var info = [accID];
-            info.push(infoData.data.info.fullname);
-            info.push(infoData.data.info.address);
-            info.push(infoData.data.info.telno);
-            info.push(infoData.data.info.birthdate);
-            info.push(infoData.data.info.birthplace);
-            info.push(infoData.data.info.sex[0]);
-            info.push(infoData.data.info.civilStatus);
-            info.push(infoData.data.info.email);
-            info.push(3);
 
-            valid.checkUndef(info, function(passed){
-                if(passed){
-                    infoModel.register(info, function(errr, infoID){
-                        if(errr) return next(errr);
-                        var id = generateID(accID,infoID);
-                        student.create([id,infoID,data.license, JSON.stringify(infoData.data.preference.schedule), infoData.data.preference.vehicle,null,1],function(errrr, result){
-                            if(errrr) return next(errrr);
-                            student.preRegDel(data.info,function(e){
-                                if(e) return next(e);
-                                res.status(200).send({success:result});
-                                var accountMail = new Email();
-                                var mailBody = {
-                                    subject: "Welcome to Socialites Driving Excellent!",
-                                    body: "<center><div style='width: 600px'><h1 style='color: black; font-weight: lighter;'>Good day, " + (infoData.data.info.fullname).replace(/_/g,' ') + "!</h1><hr style='width=400px'><br><h3 style='color:black; font-weight: lighter; text-align: justify;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;We, at Socialites Excellent Driving, are very pleased to inform you that you are now successfully enrolled to your selected course! With this, you are only a few steps closer now to becoming a prospective driver! Yey! <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;So, what are you waiting for? Login to your student account and schedule now so you can get started!</h3><br><br><div style='width: 250px; height: 150px; padding: 10px; border: black solid 1px'><h3 style='color: black; font-weight: lighter;'>Your password is:</h3><input type='text' style='width: 200px; text-align: center' readonly value='" + password + "'><br><small style='color: red;'>(You can still change your password later on)</small><br><br><center><button href='https://www.facebook.com/' type='button' style='width: 150px; background-color: #3075AE; color: white; font-size: 12px; cursor: pointer; border: none; padding: 5px'>Login Now</button></center></div><br><h3 style='color: black; font-weight: lighter; text-align: left;'>Sincerely yours,<br>Socialites Excellent Driving</h3></div></center>",
-                                };
-                                accountMail.send(dataIn.info.email,mailBody,function(err, response){
-                                    if(err) return next(err);
-                                    require('../../bin/logger').logger("E-Mail Send to " + dataIn.info.email);
-                                });
-                            });
+    var getEnrollee = function(enrolleeID){
+        return new Promise((resolve, reject)=>{
+            student.getEnrollee(enrolleeID, function(err, enrollee){
+                if(err) return reject(err);
+                resolve(enrollee);
+            });
+        });
+    };
+
+    var checkBalance = function(enrollee){
+        return new Promise((resolve, reject)=>{
+            var OR = enrollee.data.transaction.ORnum;
+            Promise.all([payments.getEnrollBal(OR),payments.getTransactions(OR)]).catch(reject).then(function(dataArr){
+                dataArr.forEach(function(e){
+                    if(e == undefined){
+                        reject(new Error("Undefined data"));
+                    }
+                });
+                var enrollment = dataArr[0];
+                var accountSum = dataArr[1];
+                var balance = parseFloat(enrollment.overall) - parseFloat(accountSum.transaction[0].balance);
+                if(balance >= (enrollment.total*0.5)){
+                    resolve({passed: true, enrollee: enrollee});
+                }else{
+                    resolve({passed: false, reason: "Tuition not yet fully/half paid."});
+                }
+            });
+        });
+    };
+
+    var enroll = function(enrollee){
+        return new Promise((resolve, reject)=>{
+            /**
+             * Register User Account
+             * @param {String} user username
+             * @param {String} pass password
+             */
+            var registerUserAcc = function(user, pass){
+                return new Promise((resolve0, reject0)=>{
+                    accountModel.register([user, pass, 3], function(err, accID){
+                        if(err) return reject0(err);
+                        resolve0(accID);
+                    });
+                });
+            };
+
+            /**
+             * Register User Info
+             * @param {String} accID user account ID 
+             */
+            var registerInfo = function(accID){
+                return new Promise((resolve0, reject0)=>{
+                    var infoModel = require('../../model/userInfoModel');
+                    var info = [accID];
+                    info.push(enrollee.data.info.fullname);
+                    info.push(enrollee.data.info.address);
+                    info.push(enrollee.data.info.telno);
+                    info.push(enrollee.data.info.birthdate);
+                    info.push(enrollee.data.info.birthplace);
+                    info.push(enrollee.data.info.sex[0]);
+                    info.push(enrollee.data.info.civilStatus);
+                    info.push(enrollee.data.info.email);
+                    info.push(3);
+
+                    valid.checkUndef(info, function(passed){
+                        if(passed){
+                            infoModel.register(info, function(err, infoID){
+                                if(err) return reject0(err);
+                                resolve0([accID,infoID]);
+                            })
+                        }else{
+                            reject0(new Error("Invalid Data"));
+                        }
+                    });
+                });
+            };
+
+            /**
+             * Register Student Data
+             * @param {String} infoID user information ID 
+             */
+            var registerStudent = function(idArr){
+                return new Promise((resolve0, reject0)=>{
+                    var fixedID = generateID(idArr[0],idArr[1]);
+                    student.create([fixedID,idArr[1], "", JSON.stringify(enrollee.data.preference.schedule), enrollee.data.preference.vehicle , null, 1],function(err, result){
+                        if(err) return reject0(err);
+                        student.preRegDel(id, function(e){
+                            if(e) return reject0(e);
+                            resolve0({success:result, detail: "ok", userData: enrollee});
                         });
                     });
-                }else{
-                    res.status(200).send({success: false, detail: "Invalid Data."});
-                }
-            })
+                });
+            };
+
+            // <-------- Execute Synchronously --------> //
+            registerUserAcc(enrollee.data.info.email, password).then(accID=>{
+                return registerInfo(accID);
+            }, (err)=>{reject(err)}).then(infoID=>{
+                return registerStudent(infoID);
+            }).catch(reject).then(function(data){
+                resolve(data);
+            });
         });
+    };
+    
+    var sendEmail = function(dataIn){
+        var accountMail = new Email();
+        var mailBody = {
+            subject: "Welcome to Socialites Driving Excellent!",
+            body: "<center><div style='width: 600px'><h1 style='color: black; font-weight: lighter;'>Good day, " + (dataIn.data.info.fullname).replace(/_/g,' ') + "!</h1><hr style='width=400px'><br><h3 style='color:black; font-weight: lighter; text-align: justify;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;We, at Socialites Excellent Driving, are very pleased to inform you that you are now successfully enrolled to your selected course! With this, you are only a few steps closer now to becoming a prospective driver! Yey! <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;So, what are you waiting for? Login to your student account and schedule now so you can get started!</h3><br><br><div style='width: 250px; height: 150px; padding: 10px; border: black solid 1px'><h3 style='color: black; font-weight: lighter;'>Your password is:</h3><input type='text' style='width: 200px; text-align: center' readonly value='" + password + "'><br><small style='color: red;'>(You can still change your password later on)</small><br><br><center><button href='https://www.facebook.com/' type='button' style='width: 150px; background-color: #3075AE; color: white; font-size: 12px; cursor: pointer; border: none; padding: 5px'>Login Now</button></center></div><br><h3 style='color: black; font-weight: lighter; text-align: left;'>Sincerely yours,<br>Socialites Excellent Driving</h3></div></center>",
+        };
+        accountMail.send(dataIn.data.info.email,mailBody,function(err, response){
+            var logger = require('../../bin/logger');
+            if(err) return logger.errLogger(err);
+            logger.logger("E-Mail Send to " + dataIn.info.email);
+        });
+    };
+
+    var enrollCourse = function(){
+        
+    };
+
+    // <------ Execute Synchronously ------> //
+    getEnrollee(id).catch(next).then(enrollee=>{
+        return checkBalance(enrollee);
+    }).then(result=>{
+        if(result.passed){
+            return enroll(result.enrollee);
+        }else{
+            return res.next(200).send({success: false, detail: result.reason});
+        }
+    }).then(data=>{
+        res.status(200).send({success: data.success, detail: data.detail});
+        if(data.success){
+            sendEmail(data.userData);
+        }
     });
 }
 

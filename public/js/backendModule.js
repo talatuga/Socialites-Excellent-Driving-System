@@ -1031,7 +1031,7 @@ var preRegAssess = {
             onFail("Error: " + xhr.status + "\n" + xhr.statusText);
         });
     },
-    approve: function(data, cb){
+    approve: function(_id, cb){
         var onFail = function(detail){
             var err = new Error(detail);
             cb(err);
@@ -1039,7 +1039,7 @@ var preRegAssess = {
         return $.ajax({
             type: "POST",
             url: "api/v1/stud/register",
-            data: {data:JSON.stringify(data)},
+            data: {id: _id},
             success: function(res){
                 if(res.success){
                     cb(null);
@@ -1134,7 +1134,25 @@ var payments = {
 }
 
 var license = {
-    get: function(){
-        $.get("");
+    data: [],
+    get: function(cb){
+        var self = this;
+        $.get('/api/v1/util/license', function(res){
+            if(res.success){
+                self.data = res.data;
+                cb(null);
+            }else{
+                cb(new Error(res.detail));
+            }
+        }).fail(function(xhr){
+            cb(new Error(xhr.statusText))
+        });
+    },
+    getLocal: function(id, cb){
+        this.data.forEach((e,i)=>{
+            if(e.id == id){
+                return cb(e);
+            }
+        });
     },
 }

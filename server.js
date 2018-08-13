@@ -13,6 +13,7 @@ var promise = require('express-promise');
 //Configurations.
 require('datejs');
 require('dotenv').config();
+require('./bin/logger').config();
 app.set('view engine', 'ejs'); //this change the view engine to ejs, (mahirap kasi yung default)
 app.use(parser.json());
 app.use(parser.urlencoded({ extended: false }));

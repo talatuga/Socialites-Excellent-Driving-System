@@ -7,7 +7,8 @@ Student = Object.create(ModelModule);
 Student.table = table;
 Student.db = db;
 
-var PreRegister = Object.create(ModelModule);
+var PreRegister = {};
+PreRegister = Object.create(ModelModule);
 PreRegister.table = "preRegStudent";
 PreRegister.db = db;
 
@@ -65,6 +66,16 @@ Student.getPreRegList = function(offset, limit, cb){
         cb(null, result);
     });
     //PreRegister.getList(offset, limit, cb);
+}
+
+Student.getEnrollee = function(id, cb){
+    var sql = "SELECT * FROM " + PreRegister.table + " WHERE id = ?";
+    db.get().query(sql, [id], function(err, result){
+        if(err) return cb(err);
+        var output = result[0];
+        output.data = JSON.parse(output.data);
+        cb(null, output);
+    });
 }
 
 var Enroll = {};

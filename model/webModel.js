@@ -35,7 +35,7 @@ WebElement.prototype.unsubscribeNewsletter = function(email, token, cb){
 };
 
 WebElement.prototype.getLicenseApply = function(cb){
-    var sql = "SELECT * FROM license_apply_price";
+    var sql = "SELECT * FROM license_apply_price WHERE status = 1";
     db.get().query(sql, function(err, results){
         if(err) return cb(err);
         cb(null, results);

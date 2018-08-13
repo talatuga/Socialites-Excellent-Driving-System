@@ -2,7 +2,7 @@ var account = require('../../model/accountModel');
 var license = require('../../model/requireModel');
 var Validation = new (require('../../bin/util/validation'));
 
-var addPayment = function(ORno, amount){
+var addPaymentFunc = function(ORno, amount){
     return new Promise((resolve, reject)=>{
         account.addPayment(ORno, amount, function(err, result){
             if(err) return reject(err);
@@ -29,6 +29,7 @@ exports.addBill = function(req, res, next){
  * @param {Function} next 
  */
 exports.addPayment = function(req, res, next){
+    if(res.locals.authenticated == 0) return next(); 
     var ORno = req.params.id;
     var amount = req.body.amount;
     var feeType = req.body.feeType;
@@ -36,23 +37,17 @@ exports.addPayment = function(req, res, next){
     Validation.checkUndef([ORno,amount], function(passed){
         if(passed){
             if(feeType == "enrolment"){
-                account.getBalance(ORno).then(function(transaction){
-                    var addition = transaction.transaction.split("-")[1];
-                    license.getLicenseApply(addition, function(err, licenseData){
-                        if(err) return next(err);
-                        console.log(licenseData);
-                        var origBal = amount - parseFloat(licenseData.price);
-                        if(amount >= (origBal*0.5)){
-                            addPayment(ORno, amount).catch(next).then(function(result){
-                                res.status(200).send({success: true, detail: "Payment Submitted", payload: result});                                
-                            });
-                        }else{
-                            res.status(200).send({success: false, detail: "Must pay 50% of tuition"});
-                        }
-                    });
+                account.getEnrollBal(ORno).catch(next).then(function(totaPayment){
+                    if(amount >= (totaPayment.total*0.5)){
+                        addPaymentFunc(ORno, amount).catch(next).then(function(result){
+                            res.status(200).send({success: true, detail: "Payment Submitted", payload: result});                                
+                        });
+                    }else{
+                        res.status(200).send({success: false, detail: "Must pay 50% of tuition"});
+                    }
                 });
             }else{
-                addPayment(ORno, amount).catch(next).then(function(result){
+                addPaymentFunc(ORno, amount).catch(next).then(function(result){
                     res.status(200).send({success: true, detail: "Payment Submitted", payload: result});
                 });
             }
@@ -69,6 +64,7 @@ exports.addPayment = function(req, res, next){
  * @param {Function} next 
  */
 exports.getPayments = function(req, res, next){
+    if(res.locals.authenticated == 0) return next(); 
     var ornum = req.params.id;
     if(ornum){
 
@@ -84,5 +80,9 @@ exports.getPayments = function(req, res, next){
  * @param {Function} next 
  */
 exports.addOnlinePayment = function(req, res, next){
+
+};
+
+exports.getEnrollmentBal = function(req, res, next){
 
 };

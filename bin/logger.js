@@ -46,6 +46,15 @@ exports.logger = function(message){
     });
 }
 
+exports.config = function(){
+    var log = function(){
+        exports.logger(err);
+    };
+
+    process.on('warning', log);
+    process.on('unhandledRejection', log);
+}
+
 checkLogFolder('log', function(err){
     if(err){
         console.log(err.stack);

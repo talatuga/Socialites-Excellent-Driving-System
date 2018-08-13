@@ -461,10 +461,17 @@ function regNext2(){
         swal("Oops!", "Please select at least one.", "error");
     }
     else{
-        var c = $('input[name=enrReqP]:checked').data().id;
+        var c = $('input[name=enrReqP]:checked').data("id");
         if (c!=0){
             preRegData.trans.transaction += ", Apply";
             preRegData.trans.amount += parseInt($('input[name=enrReqP]:checked').data().price);
+            $('#additionalPayment').html(" <br>Plus additional payment for applying for licensing assistance is <span class='payCourse'>"+ $('input[name=enrReqP]:checked').data().desc +" license</span> is &#8369;<span class='payPrice'>"+ ($('input[name=enrReqP]:checked').data().price).formatMoney(0) + "</span>.<br>Overall total of &#8369;<span id='totalAmount' class='payPrice'><span>.");
+            // preRegData.trans.transaction += ", Apply-" + $('input[name=enrReqP]:checked').data("id");
+            // preRegData.trans.amount += parseInt($('input[name=enrReqP]:checked').data("price"));
+            // $('#additionalPayment').html(" Plus additional payment for applying <span class='payCourse'>"+ $('input[name=enrReqP]:checked').data().desc +" license</span> is &#8369;<span class='payPrice'>"+ ($('input[name=enrReqP]:checked').data().price).formatMoney(0) + "</span>. Total of &#8369;<span id='totalAmount' class='payPrice'><span>");
+            
+            preRegData.trans.transaction += ", Apply-" + $('input[name=enrReqP]:checked').data("id");
+            preRegData.trans.amount += parseInt($('input[name=enrReqP]:checked').data("price"));
             $('#additionalPayment').html(" <br>Plus additional payment for applying for licensing assistance is <span class='payCourse'>"+ $('input[name=enrReqP]:checked').data().desc +" license</span> is &#8369;<span class='payPrice'>"+ ($('input[name=enrReqP]:checked').data().price).formatMoney(0) + "</span>.<br>Overall total of &#8369;<span id='totalAmount' class='payPrice'><span>.");
             payHide=2;
             paymentBack();
@@ -854,7 +861,7 @@ function regDoneA(){
         preRegData.branch = $('#branchID').val();
         preRegData.special = {
             course: getSpecialCourseID(),
-            location: $('input[name=specialCrs]:checked').length > 0 ? $('#enrPickup').val() : null,
+            location: $('input[name=specialCrs]:checked').length > 1 ? $('#enrPickup').val() : null,
         };
         enrollment.enrollWithAcc(1,preRegData.course, preRegData.lesson,preRegData.branch,paymentMeth, preRegData.special).submit(function(err){
             if(err) return swal("Failed!", err.message, "error");

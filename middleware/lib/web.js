@@ -33,29 +33,46 @@ exports.updateCart = function(req, res, next){
 exports.enrollWeb = function(req, res, next){
     var data = JSON.parse(req.body.data);
     var student = require('../../model/studentModel');
-    if(data.account){
-        student.getStudentByID(req.session.accID, function(err, id){
-            if(err) return next(err);
-            if(id == false) return res.status(200).send({success: false});
-            data.course.forEach(element => {
-                student.enrollCourse([null,id,element,data.branch,data.lesson,null,null,1],function(errr,result){
-                    if(errr) return next(errr);
-                    res.status(200).send({success: true});
+    var enroll = [];
+    data.course.forEach((e,i)=>{
+        enroll.push({
+            course: e,
+            special: data.special.course.indexOf(""+e) == -1 ? false : true,
+        });
+        if(i == data.course.length-1){
+            
+            if(data.account){
+                student.getStudentByID(req.session.accID, function(err, id){
+                    if(err) return next(err);
+                    if(id == false) return res.status(200).send({success: false});
+                    data.course.forEach(element => {
+                        student.enrollCourse([null,id,element,data.branch,data.lesson,null,null,1],function(errr,result){
+                            if(errr) return next(errr);
+                            res.status(200).send({success: true});
+                        });
+                    });
                 });
-            });
-        });
-    }else{
-        var billing = require('../../model/accountModel'); 
-        billing.addBill(data.transaction.transaction, data.payment, data.transaction.amount, function(err, result){
-            data.transaction["ORnum"] = result.ORid;
-            data.transaction["dataID"] = result.id;
-            var insert = JSON.stringify(data);
-            student.preRegStud([null,insert,null,1],function(err){
-                if(err) return next(err);
-                res.status(200).send({success: true});
-            });
-        });
-    }
+            }else{
+                var billing = require('../../model/accountModel'); 
+                var course = require('../../model/lessonModel');
+                var lic = require('../../model/requireModel')
+                course.getCoursePrice(enroll).catch(next).then(function(coursePrice){
+                    lic.getLicenseApply(data.applyLicense, function(err, license){
+                        var total = parseFloat(coursePrice.total) + parseFloat(license[0].price);
+                        billing.addBill(data.transaction.transaction, {enrolled: enroll, apply: data.applyLicense}, data.payment, total, function(err, result){
+                            data.transaction["ORnum"] = result.ORid;
+                            data.transaction["dataID"] = result.id;
+                            var insert = JSON.stringify(data);
+                            student.preRegStud([null,insert,null,1],function(err){
+                                if(err) return next(err);
+                                res.status(200).send({success: true});
+                            });
+                        });
+                    });
+                });
+            }
+        }
+    });
 };
 
 exports.subscribe = function(req, res, next){
@@ -86,4 +103,11 @@ exports.unsubscribe = function(req, res, next){
     }).catch(function(e){
         res.status(400).send("<h1>400 Bad Request</h1><b><p>request maybe expired.</p>");
     });
+};
+
+exports.getLicenseList = function(req, res, next){
+    webModel.getLicenseApply(function(err, _data){
+        if(err) return next(err);
+        res.status(200).send({success: true, data: _data});
+    })
 };

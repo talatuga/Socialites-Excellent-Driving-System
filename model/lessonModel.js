@@ -40,6 +40,37 @@ Lesson.getListCourse = function(o, l, cb){
     Course.getList(o, l, cb);
 }
 
+Lesson.getCourse = function(id, cb){
+    Course.get(id, cb);
+}
+
+Lesson.getCoursePrice = function(courseArr){
+    return new Promise((resolve, reject)=>{
+        var query = [];
+        var data = {
+            course: [],
+            total: 0,
+            origTotal: 0,
+        };
+        courseArr.forEach((e,i) => {
+            query.push(new Promise((res, rej)=>{
+                Lesson.getCourse(e.course, function(err, result){
+                    if(err) return rej(err);
+                    data.course.push({id: result.id, trans: result.carType, price: result.amount});
+                    data.total += e.special ? (result.amount * 2) : result.amount;
+                    data.origTotal += result.amount;
+                    res();
+                })
+            }));
+            if(i == courseArr.length-1){
+                Promise.all(query).catch(reject).then(function(){
+                    resolve(data);
+                });
+            }
+        });
+    });
+}
+
 //Business Logic Code:
 
 module.exports = Lesson;

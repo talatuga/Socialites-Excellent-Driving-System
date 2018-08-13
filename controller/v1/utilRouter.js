@@ -59,4 +59,12 @@ lessonRouter.route('/:id/:field')
 
 router.use('/lesson', lessonRouter);
 
+// License
+var webMid = require('../../middleware/lib/web');
+var licenseRouter = require('express').Router();
+
+licenseRouter.get('/', webMid.getLicenseList);
+
+router.use('/license', licenseRouter);
+
 module.exports = router;

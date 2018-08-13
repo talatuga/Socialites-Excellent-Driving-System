@@ -8,12 +8,8 @@ route.route('/')
 
 route.post('/online', middleware.addOnlinePayment);
 
-route.route('/license')
-    .get();
-
 route.route('/:id')
     .get(auth.auth, middleware.getPayments)
     .post(auth.auth, middleware.addPayment);
-
 
 module.exports = route;
