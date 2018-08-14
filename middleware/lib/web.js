@@ -34,7 +34,7 @@ exports.enrollWeb = function(req, res, next){
     var data = JSON.parse(req.body.data);
     var student = require('../../model/studentModel');
     var enroll = [];
-    data.course.forEach((e,i)=>{
+    req.session.cart.forEach((e,i)=>{
         enroll.push({
             course: e,
             special: data.special.course.indexOf(""+e) == -1 ? false : true,
@@ -59,13 +59,16 @@ exports.enrollWeb = function(req, res, next){
                 course.getCoursePrice(enroll).catch(next).then(function(coursePrice){
                     lic.getLicenseApply(data.applyLicense, function(err, license){
                         var total = parseFloat(coursePrice.total) + parseFloat(license[0].price);
+                        data.transaction.transaction = ("Enrollment" + (data.applyLicense==0 ? "" : ", Apply-" + data.applyLicense));
                         billing.addBill(data.transaction.transaction, {enrolled: enroll, apply: data.applyLicense}, data.payment, total, function(err, result){
+                            if(err) return next(err);
                             data.transaction["ORnum"] = result.ORid;
                             data.transaction["dataID"] = result.id;
                             var insert = JSON.stringify(data);
                             student.preRegStud([null,insert,null,1],function(err){
                                 if(err) return next(err);
                                 res.status(200).send({success: true});
+                                req.session.cart = [];
                             });
                         });
                     });

@@ -20,7 +20,7 @@ WebCourse.db = db;
 Lesson.addCourse = function(data, cb){
     Course.create(data, function(err,result){
         if(err) return cb(err);
-        var data2 = [null,result.insertId,data[1],data[3],60,data[2]];
+        var data2 = [null,result.insertId,data[2],data[4],60,data[3]];
         WebCourse.create(data2,function(er){
             if(er) return cb(er);
             cb(null);
@@ -29,7 +29,14 @@ Lesson.addCourse = function(data, cb){
 }
 
 Lesson.editCourse = function(id, data, cb){
-    Course.update(id, data, null, cb);
+    Course.update(id, data, null, function(err, result){
+        if(err) return cb(err);
+        var sql = "UPDATE " + WebCourse.table + " SET transmission = ?, days = ?, price = ? WHERE courseID = ?";
+        db.get().query(sql, [data[1], data[3], data[2], id], function(er, res){
+            if(er) return cb(er);
+            cb(null);
+        });
+    });
 }
 
 Lesson.delCourse = function(id, cb){

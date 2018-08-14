@@ -219,7 +219,7 @@ exports.register = function(req, res, next){
             // <-------- Execute Synchronously --------> //
             registerUserAcc(enrollee.data.info.email, password).then(accID=>{
                 return registerInfo(accID);
-            }, (err)=>{reject(err)}).then(infoID=>{
+            }).then(infoID=>{
                 return registerStudent(infoID);
             }).catch(reject).then(function(data){
                 resolve(data);

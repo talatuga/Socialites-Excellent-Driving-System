@@ -5,7 +5,7 @@ var WebElement = function(){};
 var newsletter = "newsletter";
 
 WebElement.prototype.getCourse = function(offset,limit,type,cb){
-    var sql = "SELECT courseID, transmission, days, hour, price FROM web_course WHERE transmission = ?";
+    var sql = "SELECT w.courseID, w.transmission, w.days, w.hour, w.price FROM web_course w, course c WHERE transmission = ? AND c.status = 1 AND w.courseID = c.id";
     db.get().query(sql, [type], function(err, data){
         if(err) return cb(err);
         cb(null, data);

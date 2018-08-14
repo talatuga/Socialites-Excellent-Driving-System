@@ -101,8 +101,8 @@ exports.addCourse = function(req, res, next){
     if(res.locals.authenticated == 0) return next();        
     var dataIn = JSON.parse(req.body.data);
     
-    var data = [null];
-    data.push(dataIn.desc);
+    var data = [""];
+    data.push(dataIn.desc == undefined ? "" : dataIn.desc);
     data.push(dataIn.carType);
     data.push(dataIn.price);
     data.push(dataIn.days);
@@ -127,7 +127,7 @@ exports.editCourse = function(req, res, next){
     var dataIn = JSON.parse(req.body.data);
     
     var data = [];
-    data.push(dataIn.desc);
+    data.push(dataIn.desc == undefined ? "" : dataIn.desc);
     data.push(dataIn.carType);
     data.push(dataIn.price);
     data.push(dataIn.days);

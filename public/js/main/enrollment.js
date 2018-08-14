@@ -16,7 +16,11 @@ var preRegData = {
     sched: [],
     vehicle: "",
 };
-
+let transactionDisplay = {
+    total: 0,
+    enrollTotal: 0,
+    additionTotal: 0,
+};
 $(function(){
     uncheckLesSelct();
     resetEnroll1();
@@ -178,8 +182,8 @@ function payMeth1(){
     });
     preRegData.trans.transaction = "Enrolment" + preRegData.trans.transaction;
     $('#payCourse').html(ids.join());
-    $('#payPrice').html(total.formatMoney(0));
-    $('#totalAmount').html((preRegData.trans.amount + total).formatMoney(0));
+    $('#payPrice').html(transactionDisplay.enrollTotal.formatMoney(0));
+    $('#totalAmount').html((transactionDisplay.total).formatMoney(0));
 }
 
 function paymentBack(){
@@ -464,6 +468,7 @@ function regNext2(){
     }
     else{
         var c = $('input[name=enrReqP]:checked').data("id");
+        $('#additionalPayment').html("");
         if (c!=0){
             // preRegData.trans.transaction += ", Apply";
             // preRegData.trans.amount += parseInt($('input[name=enrReqP]:checked').data().price);
@@ -713,6 +718,18 @@ function regNextAdd(){
         $('#btnCancPrereg').show();
         $('#btnPreregPrev1').show();
         $('#btnPreregNext3').show();
+
+        transactionDisplay.total = 0;
+        transactionDisplay.additionTotal = 0;
+        transactionDisplay.enrollTotal = 0;
+        cart.container.forEach((e,i)=>{
+            var price = parseFloat(course.getLocalData(e).price);
+            price = ($('#special'+ e +':checked').length==1 ? price*2 : price);
+            transactionDisplay.total += price;
+            transactionDisplay.enrollTotal += price;
+        });
+        transactionDisplay.total += parseFloat($('input[name=enrReqP]:checked').data("id") != 0 ? $('input[name=enrReqP]:checked').data("price") : 0);
+        transactionDisplay.additionTotal = parseFloat($('input[name=enrReqP]:checked').data("id") != 0 ? $('input[name=enrReqP]:checked').data("price") : 0);
     }
 }
 
@@ -880,6 +897,7 @@ function regDoneA(){
 }
 
 $('.btnGotItPay').click(function(){
+    location.reload();
     homeClick();
 });
 
