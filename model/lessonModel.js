@@ -17,6 +17,12 @@ WebCourse = Object.create(ModelModule);
 WebCourse.table = "web_course";
 WebCourse.db = db;
 
+var CourseEnrolled = {};
+CourseEnrolled = Object.create(ModelModule);
+CourseEnrolled.table = "course_enrolled";
+
+//Business Logic Code:
+
 Lesson.addCourse = function(data, cb){
     Course.create(data, function(err,result){
         if(err) return cb(err);
@@ -78,6 +84,43 @@ Lesson.getCoursePrice = function(courseArr){
     });
 }
 
-//Business Logic Code:
+Lesson.enrollCourse = function(enrollmentID, courseData, cb){
+    var sql = "INSERT INTO " + CourseEnrolled.table + " ";
+    var data = [];
+    var insert = function(){
+        db.get().query(sql, data, function(err, result){
+            if(err) return cb(err);
+            cb(null,result);
+        });
+    };
+    if(Array.isArray(courseData)){
+        sql += "VALUES ?";
+        var bulk = [];
+        courseData.forEach((e,i)=>{
+            var entry = [null];
+            entry.push(enrollmentID);
+            entry.push(e.id);
+            entry.push(e.branch);
+            entry.push(JSON.stringify(e.lesson));
+            entry.push(e.special ? 1 : 0);
+            entry.push(null);
+            entry.push(0);
+            entry.push(1);
+            bulk.push(entry);
+            if(i == courseData.length-1){
+                insert();
+            }
+        });
+        data.push(bulk);
+    }else{
+        sql += "VALUES(null,?,?,?,?,?,CURRENT_TIMESTAMP,0,1)";
+        data.push(enrollmentID);
+        data.push(courseData.id);
+        data.push(courseData.branch);
+        data.push(JSON.stringify(courseData.lesson));
+        data.push(courseData.special ? 1 : 0);
+        insert();
+    }
+}
 
 module.exports = Lesson;

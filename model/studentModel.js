@@ -80,10 +80,13 @@ Student.getEnrollee = function(id, cb){
 
 var Enroll = {};
 Enroll = Object.create(ModelModule);
-Enroll.table = "course_enrolled";
+Enroll.table = "enrollment";
 Enroll.db = db;
 
 Student.enrollCourse = function(data, cb){
+    data.unshift(null);
+    data.push(null);
+    data.push(1);
     Enroll.create(data, cb);
 };
 
