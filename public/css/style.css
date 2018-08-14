@@ -8379,6 +8379,9 @@ tiCustom
 .btn100{
   width: 100px;
 }
+.btn100p{
+  width: 100%;
+}
 .btn100px{
   width: 100px;
 }
@@ -8516,4 +8519,11 @@ tiCustom
 }
 #numSchedAllBranch tr td{
   font-size: 14px;
+}
+.ul1{
+  list-style-type: disc;
+}
+
+.ul1r{
+  padding-left: 30px;
 }

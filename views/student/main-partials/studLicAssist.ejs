@@ -1,0 +1,51 @@
+<div class="view-studLicAssist viewDiv">
+    <!-- Bread crumb -->
+    <div class="row page-titles">
+        <div class="col-md-6 align-self-center">
+            <h3 class="text-primary">Licensing Assistance</h3> 
+        </div>
+        <div class="col-md-6 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a>Licensing Assistance</a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- End Bread crumb -->
+
+    <div class="container-fluid">
+        <!-- Start of Card  -->
+        <div class="studentCard">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"></div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="pull-right">
+                        <button type="button" class="btn100px btn btn-success m-b-10 m-l-5" onclick="applyLicense()">Request</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card noRequest" style="background-color: black">
+                <h5 style="color: white">You haven't requested for any license/permit application assistance yet.</h5>
+            </div>
+            <div class="card hasRequested" style="display: none;">
+                <table class="table tblRecSched">
+                    <thead>
+                        <tr>
+                            <th>Date Requested</th>
+                            <th>License/Permit</th>
+                            <th>Price</th>
+                            <th>Status</th> <!-- Statuses: Pending, On Process, Done, Claimed (08-24-2018) -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>08-17-2018</td>
+                            <td>Student Driver's Permit</td>
+                            <td>500.00</td>
+                            <td>On Process</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div><!-- End of Card  -->
+    </div>
+</div>

@@ -1,0 +1,52 @@
+<div class="view-transferReq viewDiv">
+    <!-- Bread crumb -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <span class="fa fa-chevron-left float-left back" onclick="schedule()"></span>
+            <h3 class="text-primary">Transfer Requests</h3> 
+        </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a onclick="schedule()">Schedule</a></li>
+                <li class="breadcrumb-item active"><a>Transfer Requests</a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- End Bread crumb -->
+    <!-- Container fluid  -->
+    <div class="container-fluid">
+        <!-- Start of Card  -->
+        <div class="studentCard">
+            <div class="card">
+                <table class="table tblCustom2">
+                    <thead>
+                    <tr>
+                        <th>Date of Request</th>
+                        <th>Student Number</th>
+                        <th>Student Name</th>
+                        <th>Branch From</th>
+                        <th>Course</th>
+                        <th>Bal. Hours</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>08-15-2018</td>
+                        <td>STUD-QC-1101</td>
+                        <td>Graciella C. Tatel</td>
+                        <td>SED-Pasay City</td>
+                        <td>CRS-M001</td>
+                        <td>4</td>
+                        <td>
+                            <button type="button" style="vertical-align: sub" class="btn btn-success btnLicense" onclick="approveTransfer()">Approve</button><br>
+                            <button type="button" style="vertical-align: sub" class="btn btn-danger btnLicense" onclick="rejectTransfer()">Reject</button><br>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div><!-- End of Card  -->
+    </div>
+    <!-- End Container fluid  -->
+</div>

@@ -3,7 +3,7 @@ function dtpMaint(){ //when maintenance button is clicked
     $('.view-dtpMaintenance').show();
 }
 
-$('.back').on('click', function(){ 
+$('.backDtp').on('click', function(){ 
     $('.viewDiv').hide();
     $('.view-dtp').show();
 });

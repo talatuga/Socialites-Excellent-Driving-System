@@ -28,14 +28,7 @@ function viewActiveBranch (a){
     for (var x=1; x<=12; x++){
         li += a.toString();
         if (x==a){
-            if (a==11){
-                $('.colSide1').addClass("in");
-                viewActiveSchedBranch();
-            }
-            else{
-                $("li").removeClass("active");
-                $('.colSide1').removeClass("in");
-            }
+            $("li").removeClass("active");
         }
         else{
             $(li).addClass("active");
@@ -53,27 +46,28 @@ function viewActiveBranch (a){
     else if (a==8) branchReports();
     else if (a==9) branchAccount();
     else if (a==10) branchCertificate();
+    else if (a==11) scheduleBranch();
 }
 
-function viewActiveSchedBranch(a){
-    var li = "#liSHBranch";
-    $(".liSide").removeClass("active");
-    $("#liBranch11").addClass("active");
-    for (var x=1; x<=3; x++){
-        li += a.toString();
-        if (x==a){
-            $("li").removeClass("active");
-        }
-        else{
-            $(li).addClass("active");
-            $("#liBranch11").addClass("active");
-        }
-        li = "#liSHBranch";
-    }
-    $('.viewDiv').hide();
-    if (a==1) scheduleBranch();
-    else if (a==2) schedCanceledBranch();
-}
+// function viewActiveSchedBranch(a){
+//     var li = "#liSHBranch";
+//     $(".liSide").removeClass("active");
+//     $("#liBranch11").addClass("active");
+//     for (var x=1; x<=3; x++){
+//         li += a.toString();
+//         if (x==a){
+//             $("li").removeClass("active");
+//         }
+//         else{
+//             $(li).addClass("active");
+//             $("#liBranch11").addClass("active");
+//         }
+//         li = "#liSHBranch";
+//     }
+//     $('.viewDiv').hide();
+//     if (a==1) scheduleBranch();
+//     else if (a==2) schedCanceledBranch();
+// }
 
 var branchDashboard = function (){
     $('.viewDiv').hide();

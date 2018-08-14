@@ -1,0 +1,46 @@
+<div class="view-suspendClass viewDiv">
+    <!-- Bread crumb -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <span class="fa fa-chevron-left float-left back" onclick="schedule()"></span>
+            <h3 class="text-primary">Suspend Classes</h3> 
+        </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a onclick="schedule()">Schedule</a></li>
+                <li class="breadcrumb-item active"><a>Suspend Classes</a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- End Bread crumb -->
+    <!-- Container fluid  -->
+    <div class="container-fluid">
+        <!-- Start of Card  -->
+        <div class="studentCard">
+            <div class="card">
+                <h5>You can only suspend classes in this branch and other branches may suspend on their own. Also, upon suspension of classes, all students with schedule on that day will be notified via e-mail.</h5>
+            </div>
+            <div class="card">
+                <form>
+                    <div class="row">
+                        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                            <h5 style="float: left; padding-top: 5px">Date: </h5>
+                            <input type="date" class="txtEnr suspendDate" required> 
+                            <!-- Paki-minimum date yung date today -->
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                            <!-- <h5 style="float: left; padding-top: 5px">Time: </h5> -->
+                        </div>
+                    </div><br>
+                    <h5>Message:</h5>
+                    <textarea class="enrTxtArea1" rows="5" id="suspendMsg" required></textarea><br><br>
+                    <div class="pull-right">
+                        <button type="button" style="vertical-align: sub; margin-left: 10px" class="pull-right btn btn-success btnLicense" onclick="sendEmailSuspend()">Send</button>
+                        <button type="button" style="vertical-align: sub" class="pull-right btn btn-danger btnLicense" onclick="cancelSuspend()">Cancel</button>
+                    </div>
+                </form>
+            </div>        
+        </div><!-- End of Card  -->
+    </div>
+    <!-- End Container fluid  -->
+</div>

@@ -1,0 +1,94 @@
+<div class="view-schedListView viewDiv">
+    <!-- Bread crumb -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <span class="fa fa-chevron-left float-left back" onclick="schedule()"></span>
+            <h3 class="text-primary">Schedule List</h3> 
+        </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a onclick="schedule()">Schedule</a></li>
+                <li class="breadcrumb-item active"><a>Schedule List</a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- End Bread crumb -->
+    <!-- Container fluid  -->
+    <div class="container-fluid">
+        <!-- Start of Card  -->
+        <div class="studentCard">
+            <div class="card">
+                <div class="row">
+                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <h5 style="float: left; padding-top: 5px">Date: </h5>
+                            <input type="date" class="txtEnr searchDateDisplayList" style="width: 80%"> 
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <h5 style="float: left; padding-top: 5px">Branch: </h5>
+                            <select class="enrTxtArea selBranchSchedView" name="selBranchSchedView" style="width: 70%">
+                                <option>All</option>
+                                <option>SED-Quezon City (Main)</option>
+                                <option>SED-Pasay City</option>
+                            </select>
+                            <button type="button" class="btn btn-inverse btnLicense" onclick="searchSchedView()">Search</button><br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card displaySchedDiv">
+                <center>
+                    <h4 style="color: #5d0000; text-transform: uppercase">Schedule on <span class="searchDateDisplayListSpan">August 24, 2018</span> (<span class="searchBranchDisplayListSpan">All Branches</span>)</h4>
+                    <div class="separator2"></div>
+                </center>
+                <table class="table tblCustom2">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Time</th>
+                        <th>Branch</th>
+                        <th>Instructor Name</th>
+                        <th>Student Name</th>
+                        <th>Course</th>
+                        <th>Bal. Hours</th>
+                        <th>Lesson No.</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>9:30 A.M. - 10:30 A.M.</td>
+                        <td>SED-Quezon City (Main)</td>
+                        <td>Harry James Potter</td>
+                        <td>Graciella C. Tatel</td>
+                        <td>CRS-M001</td>
+                        <td>4</td>
+                        <td>1</td>
+                        <td>
+                            <button type="button" style="vertical-align: sub" class="btn btn-danger btnLicense" onclick="cancelSched()">Cancel</button><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>9:30 A.M. - 10:30 A.M.</td>
+                        <td>SED-Quezon City (Main)</td>
+                        <td>Harry James Potter</td>
+                        <td>Graciella C. Tatel</td>
+                        <td>CRS-M001</td>
+                        <td>4</td>
+                        <td>1</td>
+                        <td>
+                            <button type="button" style="vertical-align: sub" class="btn btn-danger btnLicense" onclick="cancelSched()">Cancel</button><br>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div><!-- End of Card  -->
+    </div>
+    <!-- End Container fluid  -->
+</div>

@@ -5,9 +5,7 @@
             <h3 class="text-primary">Schedule</h3> </div>
         <div class="col-md-7 align-self-center">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a onclick="dashboard()">Home</a></li>
-                <li class="breadcrumb-item"><a>Schedule</a></li>
-                <li class="breadcrumb-item active">Overall Schedule</li>
+                <li class="breadcrumb-item active"><a>Schedule</a></li>
             </ol>
         </div>
     </div>
@@ -22,88 +20,53 @@
                         <span class="input-group-btn"><button class="btn btn-primary input-group-close-icon" type="button" onclick="clrSearchStudentC()"><i class="ti-close"></i></button></span>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12"></div>
-        </div>
-        <div class="row">
-            <div class="col-md-8 col-lg-8 col-sm-12 col-xs-12">
                 <div class="card card700">
-                    <div class='calendar'></div>
+                    <div class='calendarBranch'></div>
                 </div>
             </div>
             <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
-                <div class="card cardBT card100">
+                <div class="card" style="background-color: khaki">
                     <center>
-                        <h4 style="font-weight: bold;">TODAY'S SCHEDULE</h4>
-                        <h3 class="schedCount">31</h3>
+                        <h4><b>OPTIONS</b></h4><hr>
                     </center>
-                </div>
-                <div class="card p-30">
-                    <div class="media">
-                        <div class="media-left meida media-middle">
-                            <span><i class="icon icon-business15 tiSide f-s-40 color-danger"></i></span>
-                        </div>
-                        <div class="media-body media-text-right">
-                            <h2>14</h2>
-                            <p class="m-b-0">SED-Main</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card p-30">
-                    <div class="media">
-                        <div class="media-left meida media-middle">
-                            <span><i class="icon icon-business15 tiSide f-s-40 color-warning"></i></span>
-                        </div>
-                        <div class="media-body media-text-right">
-                            <h2>8</h2>
-                            <p class="m-b-0">SED-Fortunata</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card p-30">
-                    <div class="media">
-                        <div class="media-left meida media-middle">
-                            <span><i class="icon icon-business15 tiSide f-s-40 color-success"></i></span>
-                        </div>
-                        <div class="media-body media-text-right">
-                            <h2>9</h2>
-                            <p class="m-b-0">SED-Cartimar</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- <div class="card card501">
-                    <h4 style="font-weight: bold;">Schedule Details</h4><hr>
-                    <form>
-                        <div>
-                            <h5 class="h5Enr">Student Name:</h5>
-                            <input type="text" class="txtEnr" required name="schedStudName" id="schedStudName" value="Graciella C. Tatel"><br>
-                        </div><hr>
-                        <div>
-                            <h5 class="h5Enr">Instructor Name:</h5>
-                            <input type="text" class="txtEnr" required name="schedInstName" id="schedInstName" value="Harry James Potter"><br>
-                        </div><hr>
-                        <div>
-                            <h5 class="h5Enr">Time:</h5>
-                            <input type="text" class="txtEnr" required name="schedTime" id="schedTime" value="9:00"><br>
-                        </div><hr>
-                        <div>
-                            <h5 class="h5Enr">Branch<span class="asterisk">*</span></h5>
-                            <select class="enrCivStatus" name="schedBranch" id="schedBranch">
-                                <option value="SEDQC">SEDQC</option>
-                                <option value="SEDPC">SEDPC</option>
-                                <option value="SEDTC">SEDTC</option>
-                            </select>
-                        </div><hr>
-                    </form>
                     <div class="row">
-                        <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
-                            <button type="button" id="btnCancSched" class="btn btn-danger m-b-10 m-l-5" style="width: 100%">Cancel</button>
+                        <div class="col-md-6">
+                            <button type="button" onclick="todaySched()" class="btn13 btn100p btn btn-inverse m-b-10 m-l-5">Today's Schedule</button>
+                            <button type="button" onclick="suspendClass()" class="btn13 btn100p btn btn-inverse m-b-10 m-l-5">Suspend Classes</button>
                         </div>
-                        <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
-                            <button type="button" id="btnUpdSched" class="btn btn-warning m-b-10 m-l-5" style="width: 100%">Update</button>
+                        <div class="col-md-6">
+                            <button type="button" onclick="schedListView()" class="btn13 btn100p btn btn-inverse m-b-10 m-l-5">Schedule List</button>
+                            <button type="button" onclick="transferReq()" class="btn13 btn100p btn btn-inverse m-b-10 m-l-5">Transfer Requests</button>
                         </div>
                     </div>
-                </div> -->
+                </div>
+                <!-- <div class="card p-30" style="background-color: khaki"> -->
+                    <!-- <center>
+                        <h4><b>SELECT BRANCH TO DISPLAY</b></h4><hr>
+                    </center> -->
+                    <!-- <table class="table tblCustom">
+                        <thead>
+                            <tr>
+                                <th style="font-weight: bolder; color:black"><h6>BRANCH</h6></th>
+                                <th style="font-weight: bolder; color:black" width="30%"><h6>TODAY'S APPOINTMENTS</h6></th>
+                            </tr>
+                        </thead>
+                        <tbody id="numSchedAllBranch">
+                            <tr>
+                                <td>SED-Quezon (Main)</td>
+                                <td>4</td>
+                            </tr>
+                            <tr>
+                                <td>SED-Manila</td>
+                                <td>4</td>
+                            </tr>
+                            <tr>
+                                <td>SED-Pasay</td>
+                                <td>4</td>
+                            </tr>
+                        </tbody>
+                    </table> -->
+                <!-- </div> -->
             </div>
         </div>
     </div>

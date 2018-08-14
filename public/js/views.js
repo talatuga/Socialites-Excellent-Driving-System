@@ -31,7 +31,7 @@ function viewActive (a){
     for (var x=1; x<=17; x++){
         li += a.toString();
         if (x==a){
-            if (a==9 || a==5){
+            if (a==9){
                 $('.colSide').addClass("in");
             }
             else{
@@ -49,6 +49,7 @@ function viewActive (a){
     else if (a==2) student();
     else if (a==3) instructor();
     else if (a==4) vehicle();
+    else if (a==5) schedule();
     else if (a==6) branches();
     else if (a==7) account();
     else if (a==8) reports();
@@ -56,7 +57,7 @@ function viewActive (a){
     else if (a==11) announce();
     else if (a==12) enroll();
     else if (a==13) dtp();
-    else if (a==14) license();
+    else if (a==14) license1();
     else if (a==15) tlect();
     else if (a==16) payment();
 }
@@ -99,25 +100,25 @@ function viewActiveCrs(a){
     else if (a==2) lessons();
 }
 
-function viewActiveSched(a){
-    var li = "#liSH";
-    $(".liSide").removeClass("active");
-    for (var x=1; x<=4; x++){
-        li += a.toString();
-        if (x==a){
-            $("li").removeClass("active");
-        }
-        else{
-            $(li).addClass("active");
-            $("#li5").addClass("active");
-        }
-        li = "#liSH";
-    }
-    $('.viewDiv').hide();
-    if (a==3) schedule();
-    else if (a==2) schedCanceled();
-    else if (a==1) schedRequest();
-}
+// function viewActiveSched(a){
+//     var li = "#liSH";
+//     $(".liSide").removeClass("active");
+//     for (var x=1; x<=4; x++){
+//         li += a.toString();
+//         if (x==a){
+//             $("li").removeClass("active");
+//         }
+//         else{
+//             $(li).addClass("active");
+//             $("#li5").addClass("active");
+//         }
+//         li = "#liSH";
+//     }
+//     $('.viewDiv').hide();
+//     if (a==3) schedule();
+//     else if (a==2) schedCanceled();
+//     else if (a==1) schedRequest();
+// }
 
 var dashboard = function (){
     $('.viewDiv').hide();
@@ -228,7 +229,7 @@ var dtp = function(){
     $(".search-box").hide();
 }
 
-var license = function(){
+var license1 = function(){
     $('.viewDiv').hide();
     $(".view-license").show();
     $(".search-box").hide();
@@ -251,6 +252,7 @@ var schedule = function (){
     $('.viewDiv').hide();
     $(".view-schedule").show();
     $(".search-box").hide();
+    $('.displaySchedDiv').hide();
 }
 
 var schedRequest = function (){
