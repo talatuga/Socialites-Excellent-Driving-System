@@ -179,7 +179,7 @@ exports.register = function(req, res, next){
              * Register User Info
              * @param {String} accID user account ID 
              */
-            var registerInfo = function(accID){
+            var registerInfo = function(accID){v
                 return new Promise((resolve0, reject0)=>{
                     var infoModel = require('../../model/userInfoModel');
                     var info = [accID];
