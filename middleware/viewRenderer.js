@@ -35,11 +35,15 @@ exports.user = function(req, res, next){
 }
 
 exports.student = function(req, res, next){
+    var WebModel = require('../model/webModel');
     var schedule = require('../model/scheduleModel');
     if(req.session.studID != -1){
         schedule.getAvailable(req.session.studID, function(err, sched){ //change id later when login implemented.
             if(err) return next(err);
-            res.render('student/index',{title: 'Socialites Excellent Driving', schedule: sched});
+            new WebModel().getLicenseApply(function(err, data){
+                if(err) return next(err);
+                res.render('student/index',{title: 'Socialites Excellent Driving', license: data, schedule: sched});
+            });
         });
     }else{
         res.locals.login = 'loginStudent';

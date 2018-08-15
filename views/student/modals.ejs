@@ -307,8 +307,7 @@
                         <div class="form-group">
                             <h5 style="float: left; padding-top: 5px">Apply for: </h5>
                             <select class="enrTxtArea selListofLicense" name="selListofLicense" style="width: 70%">
-                                <option>Student Driver's Permit</option>
-                                <option>Professional License</option>
+                                <% license.forEach((e,i)=>{ %><option id='selListofLicense<%=(5 + i)%>' data-id='<%=e.id%>' data-price='<%=e.price%>' data-desc='<%=e.desc%>' value='<%=(5 + i)%>'><%=e.desc%></option><% }); %>
                             </select>
                         </div>
                     </div>
