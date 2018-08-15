@@ -2,6 +2,10 @@ function openPayment1(){
     $('#paymentBalEnroll').val("");
     $('#addPaymentModal1').modal('show');  
 }
+$("#tblStudPayment1 tr").on('click', function() {
+    $('#addPaymentModal1').modal('show');
+    //applicable lang dapat pag may balance pa. pag walang balance, di dapat lalabas to
+});
 
 function addPaymentBal(){
     var x = $('#paymentBalEnroll').val();

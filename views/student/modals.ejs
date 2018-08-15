@@ -289,3 +289,76 @@
     </div>
   </div>
 </div>
+
+<!-- Apply License Modal -->
+<div class="modal fade" id="licenseApplyModal" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="licenseApplyModal">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <center>
+            <h6>Socialites Excellent Driving</h6>
+            <h2>LICENSE APPLICATION ASSISTANCE</h2>
+        </center>
+        <hr class="hrCustom">
+        <div class="stot">
+            <form>
+                <div class="row">
+                    <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                        <div class="form-group">
+                            <h5 style="float: left; padding-top: 5px">Apply for: </h5>
+                            <select class="enrTxtArea selListofLicense" name="selListofLicense" style="width: 70%">
+                                <option>Student Driver's Permit</option>
+                                <option>Professional License</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
+                        <div class="form-group">
+                            <h5 style="float: left; padding-top: 5px">Price: </h5>
+                            <input type="text" id="priceLicToApply" class="txtEnr" style="width: 70%" readonly>
+                        </div>
+                    </div>
+                </div><hr>
+                <h5><b>REQUIREMENTS:</b></h5>
+                <h3>A. Student Driver's Permit / Professional License / Non-Professional License</h3><hr>
+                <div class="req reqA">
+                    <h5 class="h5Enr">For 17-18 yrs. old</h5>
+                    <ol>
+                    <li>Original Birth Certificate (NSO)</li>
+                    <li>Photocopy of Birth Certificate (NSO)</li>
+                    <li>Parental Consent</li>
+                    </ol>
+                </div>
+                <div class="req reqA">
+                    <h5 class="h5Enr">For 19 yrs. old &amp; above</h5>
+                    <ol>
+                        <li>Photocopy of Birth Certificate (NSO)</li>
+                        <li>TIN - Tax Identification Number</li>
+                        <li>Barangay Clearance</li>
+                    </ol>
+                </div>
+                <div class="req reqA">
+                    <h5 class="h5Enr">For Non-Filipino Students/ Tourists</h5>
+                    <ol>
+                        <li>Original Passport</li>
+                        <li>Original ACR - Alien Certificate Registration</li>
+                        <li>Photocopy of ACR - Alien Certificate Registration</li>
+                    </ol>
+                </div><br>
+                <h3>B. International License</h3><hr>
+                <div class="req reqA">
+                    <ol>
+                    <li>Any Philippine License (Professional/Non-Professional License)</li>
+                    <li>2x2 Picture with White Background</li>
+                    </ol>
+                </div>
+            </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn100px btn btn-light btnLicense" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn100px btn btn-success btnLicense" onclick="doneApplyLicense()">Done</button>
+      </div>
+    </div>
+  </div>
+</div>

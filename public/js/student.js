@@ -4,6 +4,18 @@ $(function() {
     //getStudent(1, studentTable.offset, studentTable.limit).then(renderStudentTable); // <--- tawagin yung getStudent() then after yung renderStudentTable().    
 });
 
+$("#studentTblGrade tr").on('click', function() {
+    $('#editGradeModal').modal('show');
+});
+
+function addGrade(){
+    $('#addGradeModal').modal('show');
+}
+
+function evaluateStud(){
+    $('#evalStudModal').modal('show');
+}
+
 $("#btnViewStudent").on("click", function() { //opens view student page upon clicking view details
     resetSettingsStud();
     $('.viewDiv').hide();
@@ -467,6 +479,7 @@ var renderEditInfo = function(){
         $("input[name='AddudAccSex'][value='" + profile.sex + "']").attr('checked', 'checked');
     });
 }
+
 /* 
     SD: 
     I use, Promise to make things done. kasi sa server side na ka old style ako using callback.

@@ -28,11 +28,6 @@ function licMaint(){ //when Maintenance button is clicked
     $('.view-licMaintenance').show();
 }
 
-$('.back').on('click', function(){ 
-    $('.viewDiv').hide();
-    $('.view-license').show();
-});
-
 function licAddLic(){ //when add new license/permit is clicked
     $('#newLic').val("");
     $('#newLicPrice').val("");
@@ -170,6 +165,30 @@ function addPaymentLic(){
         }
         else{
             $('#addPaymentModal2').modal('show');  
+        }
+    });
+}
+
+function licApply(){ //when apply button is clicked
+    $('#priceLicToApply').val("");
+    $('#licenseApplyModal').modal('show');
+}
+
+function doneApplyLicense(){ //done button clicked in apply modal
+    swal({
+        title: "Are you sure?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Yes",
+        cancelButtonText: "Cancel",
+        closeOnConfirm: false,
+        closeOnCancel: true
+    },
+    function(isConfirm){
+        if (isConfirm) {
+            swal("Success!", "This request is now added to list of licenses to be processed!" ,"success");
+            $('#licenseApplyModal').modal('hide');
         }
     });
 }
