@@ -103,4 +103,8 @@ Student.getStudentByID = function(accID, cb){
     });
 };
 
+Student.getEnrollment = function(studentID){
+    
+}
+
 module.exports = Student;

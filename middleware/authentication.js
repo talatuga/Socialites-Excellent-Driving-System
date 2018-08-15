@@ -6,6 +6,15 @@ var errorHandler = require('./errorHandler');
 
 var users = {};
 
+var checkUser = function(id, cb){
+    return cb(users[id] ? users[id] : null);
+    /* if(users[param]){
+        cb(users[param]);
+    }else{
+        cb(null);
+    } */
+}
+
 exports.auth = function(req, res, next){
     var id = req.sessionID;
     checkUser(id, function(user){
@@ -28,7 +37,7 @@ exports.login = function(req, res, next){
                 var user = req.body.user;
                 var pass = req.body.pass;
                 account.login({username: user, password: pass},function(err, result){
-                    if(err) return next(new Error(err));
+                    if(err) return next(err);
                     if(result){
                         users[id] = {accID: result.id, accType: result.accType};
                         req.session.accID = id;
@@ -51,15 +60,6 @@ exports.login = function(req, res, next){
 exports.logout = function(req, res){
     delete users[req.sessionID];
     res.redirect('/admin');
-}
-
-var checkUser = function(param, cb){
-    return cb(users[param] == undefined ? null : users[param]);
-    /* if(users[param]){
-        cb(users[param]);
-    }else{
-        cb(null);
-    } */
 }
 
 exports.getUser = function(id){
@@ -87,4 +87,37 @@ exports.lastHandler = function(req, res, next){
     }else{
         next();
     }
+}
+
+exports.studentAuth = function(req, res, next){
+    var sessionID = req.session.sessionID;
+    checkUser(sessionID, function(user){
+        if(!user){
+            req.session.studID = -1;
+            next();
+        }else{
+            if(user.accType == 3){
+                req.session.studID = user.accID;
+                next();
+            }else{
+                req.session.studID = -1;
+                next();
+            }
+        }
+    });
+}
+
+exports.studentLogin = function(req, res, next){
+    var user = req.body.email;
+    var pass = req.body.pass;
+    account.login({username: user, password: pass}, function(err, user){
+        if(err) return next(err);
+        if(user){
+            req.session.studID = user.id;
+            users[req.sessionID] = {accID: user.id, accType: user.accType};
+            next();
+        }else{
+            next();
+        }
+    });
 }

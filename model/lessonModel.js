@@ -123,4 +123,41 @@ Lesson.enrollCourse = function(enrollmentID, courseData, cb){
     }
 }
 
+Lesson.getCourseEnrolled = function(studID, cb){
+    var sql = "SELECT ce.* FROM course_enrolled ce, enrollment en WHERE en.id = ce.enrollmentID AND en.studID = ?";
+    db.get().query(sql, [studID], function(err, result){
+        if(err) return cb(err);
+        cb(null, result);
+    });
+}
+
+Lesson.getLessonEnrolled = function(studID, cb){
+    var sql = "SELECT ce.selectedLesson FROM course_enrolled ce, enrollment en WHERE en.id = ce.enrollmentID AND en.studID = ? AND ce.status = 1";
+    db.get().query(sql, [studID], function(err, result){
+        if(err) return cb(err);
+        if(result[0].selectedLesson == ""){
+            Lesson.getList(0,50, function(err, result){
+                if(err) return cb(err);
+                cb(result);
+            });
+        }else{
+            var lessonsIDArr = JSON.parse(result[0].selectedLesson);
+            var query = [];
+            lessonsIDArr.forEach((e,i)=>{
+                query.push(new Promise((resolve,reject)=>{
+                    Lesson.get(e, null, function(err, result){
+                        if(err) return reject(err);
+                        resolve(result);
+                    });
+                }));
+                if(i == lessons.length-1){
+                    Promise.all(query).catch(cb).then(function(lessons){
+                        cb(null, lessons);
+                    });
+                }
+            });
+        }
+    });
+}
+
 module.exports = Lesson;

@@ -48,11 +48,11 @@ exports.logger = function(message){
 
 exports.config = function(){
     var log = function(err){
-        exports.logger(err);
+        exports.errLogger(err.stack);
     };
 
-    //process.on('warning', log);
-    //process.on('unhandledRejection', log);
+    process.on('warning', log);
+    process.on('unhandledRejection', log);
 }
 
 checkLogFolder('log', function(err){

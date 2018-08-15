@@ -28,17 +28,23 @@ exports.user = function(req, res, next){
         if(err) return next(err);
         Car.getList(function(errr,vehicle){
             if(errr) return next(errr);
-            res.render('main/index',{title: 'Socialites Excellent Driving', license: data, car: vehicle});
+            var login = res.locals.login ? res.locals.login : '';
+            res.render('main/index',{title: 'Socialites Excellent Driving', login: login, license: data, car: vehicle});
         });
     });
 }
 
 exports.student = function(req, res, next){
     var schedule = require('../model/scheduleModel');
-    schedule.getAvailable("06597", function(err, sched){ //change id later when login implemented.
-        if(err) return next(err);
-        res.render('student/index',{title: 'Socialites Excellent Driving', schedule: sched});
-    });
+    if(req.session.studID != -1){
+        schedule.getAvailable(req.session.studID, function(err, sched){ //change id later when login implemented.
+            if(err) return next(err);
+            res.render('student/index',{title: 'Socialites Excellent Driving', schedule: sched});
+        });
+    }else{
+        res.locals.login = 'loginStudent';
+        exports.user(req,res,next);
+    }
 }
 
 exports.instructor = function(req, res, next){

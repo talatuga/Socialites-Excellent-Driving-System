@@ -179,7 +179,7 @@ exports.register = function(req, res, next){
              * Register User Info
              * @param {String} accID user account ID 
              */
-            var registerInfo = function(accID){v
+            var registerInfo = function(accID){
                 return new Promise((resolve0, reject0)=>{
                     var infoModel = require('../../model/userInfoModel');
                     var info = [accID];
@@ -258,7 +258,7 @@ exports.register = function(req, res, next){
 
     var enrollCourse = function(studID, accID){
         return new Promise((resolve, reject)=>{
-            student.enrollCourse([studID, accID],function(err, insertID){
+            student.enrollCourse([studID, accID],function(err, result1){
                 if(err) return reject(err);
                 var courseData = [];
                 enrolleeData.data.course.forEach((e,i)=>{
@@ -279,7 +279,7 @@ exports.register = function(req, res, next){
                         courseData.push(entry);
                     }
                     if(i == enrolleeData.data.course.length-1){
-                        lesson.enrollCourse(insertID, courseData, function(err, result){
+                        lesson.enrollCourse(result1.insertId, courseData, function(err, result){
                             if(err) return reject(err);
                             resolve(true);
                         });
@@ -301,7 +301,7 @@ exports.register = function(req, res, next){
     }).then(data=>{
         res.status(200).send({success: data.success, detail: data.detail});
         if(data.success){
-            /* var task = [];
+            var task = [];
             task.push(sendEmail(data.userData));
             task.push(enrollCourse(studentID, ORcode, data.userData.data.course));
 
@@ -309,7 +309,7 @@ exports.register = function(req, res, next){
                 if(results.indexOf(false) > -1){
                     next(new Error("One/All of the Executing tasks after enrollment failed"));
                 }
-            }); */
+            });
         }
     });
 }
@@ -376,4 +376,21 @@ exports.enroll = function(req, res, next){
         if(err) return next(err);
         res.status(200).send({success: true});
     });
+}
+
+exports.getCourse = function(req , res, next){
+    var studID = req.session.studID;
+    var offset = req.query.offset ? req.query.offset : 0;
+    var limit = req.query.limit ? req.query.limit : 10;
+
+    if(!studID) return res.status(401).send({detail: "No credential Found"});
+
+    lesson.getCourseEnrolled(studID, function(err, result){
+        if(err) return next(err);
+        res.status(200).send({success: true, data: result});
+    });
+}
+
+exports.getLesson = function(req, res, next){
+    
 }

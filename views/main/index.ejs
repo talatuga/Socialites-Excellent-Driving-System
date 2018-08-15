@@ -10,7 +10,7 @@
         <% include ../utils/mainCSS %>
     </head>
 
-    <body class="fix-header" data-spy="scroll" data-target=".navbar-collapse">
+    <body class="fix-header <%=(login != '' ? login : '')%>" data-spy="scroll" data-target=".navbar-collapse">
         <div class='preloader'><div class='loaded'>&nbsp;</div></div>
         <div class="culmn">
             <% include ./partials/header-web %> <!-- HEADER CODES -->
