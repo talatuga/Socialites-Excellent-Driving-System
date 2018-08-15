@@ -2,6 +2,7 @@
  * Course Module 
  * Create by CPRT  
 */
+var priceSpecial;
 var course = {
     selectedType: 0,
     types: ["m","a","s"],
@@ -173,6 +174,7 @@ var cart = {
         this.container.forEach((x,index)=>{
             // priceData=parseFloat(data.price).formatMoney(0);
             var data = course.getLocalData(x);
+            priceSpecial = data.price;
             var html = "<tr>";
             html += "<td>";
             html += "<span class='cartCrs'>" + course.generateID(data.courseID, data.transmission) + "</span><br>";

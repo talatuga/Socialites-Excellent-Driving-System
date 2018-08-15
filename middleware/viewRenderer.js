@@ -34,10 +34,14 @@ exports.user = function(req, res, next){
 }
 
 exports.student = function(req, res, next){
+    var WebModel = require('../model/webModel');
     var schedule = require('../model/scheduleModel');
     schedule.getAvailable("06597", function(err, sched){ //change id later when login implemented.
         if(err) return next(err);
-        res.render('student/index',{title: 'Socialites Excellent Driving', schedule: sched});
+        new WebModel().getLicenseApply(function(err, data){
+            if(err) return next(err);
+            res.render('student/index',{title: 'Socialites Excellent Driving', license: data, schedule: sched});
+        });
     });
 }
 
