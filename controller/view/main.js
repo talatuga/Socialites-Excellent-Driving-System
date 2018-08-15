@@ -4,12 +4,16 @@ var renderer = require('../../middleware/viewRenderer');
 var auth = require('../../middleware/authentication');
 
 //Routes here.
-router.get('/', renderer.user);
+router.route('/')
+    .get(renderer.user)
+    .post(auth.studentLogin, renderer.student);
 router.route('/login')
     .get(auth.auth, auth.lastHandler, renderer.admin)
     .post(auth.login, auth.lastHandler);
 
-router.get('/student'/* , auth.studentAuth */, renderer.student);
+router.route('/student')
+    .get(auth.studentAuth, renderer.student)
+    .post(auth.studentLogin, renderer.student);
 router.get('/instructor'/* , auth.studentAuth */, renderer.instructor);
 router.get('/branch'/* , auth.studentAuth */, renderer.branch);
 

@@ -47,8 +47,8 @@ exports.logger = function(message){
 }
 
 exports.config = function(){
-    var log = function(){
-        exports.logger(err);
+    var log = function(err){
+        exports.errLogger(err.stack);
     };
 
     process.on('warning', log);

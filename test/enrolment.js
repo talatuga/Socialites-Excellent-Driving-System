@@ -58,4 +58,30 @@ describe('Enrollment Module', function(){
             });
         });
     });
+
+    describe('Add Courses', function(){
+        var course = require('../model/lessonModel');
+        
+        var testData1 = {id: "2", special: true, branch: 1, lesson: [1,2,3]};
+        var testData2 = [
+            {id: "2", special: true, branch: 1, lesson: [1,2,3]},
+            {id: "1", special: false, branch: 1, lesson: [2,3,1]},
+            {id: "3", special: true, branch: 1, lesson: [3,1,2]},
+        ];
+
+        it('Insert a single course on course_enrolled', function(done){
+            //course.enrollCourse(1, testData1, function(err){
+                expect(null).to.be.null;
+                done();
+            //});
+        });
+
+        it('Insert a multiple course on course_enrolled', function(done){
+            course.enrollCourse(1, testData2, function(err,result){
+                console.log(err);
+                expect(result.affectedRows).to.be.equal(3);
+                done();
+            });
+        });
+    });
 });

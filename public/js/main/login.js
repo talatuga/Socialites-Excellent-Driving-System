@@ -1,5 +1,13 @@
 $(function() {    
     gobackLogin();
+    if($('.loginStudent').length){
+        loginClick();
+        logStud();
+    };
+    if($('.loginInst').length){
+        loginClick();
+        logInst();
+    };
 });
 
 var logStud = function() 
