@@ -51,8 +51,8 @@ exports.config = function(){
         exports.errLogger(err.stack);
     };
 
-    //process.on('warning', log);
-    //process.on('unhandledRejection', log);
+    process.on('warning', log);
+    process.on('unhandledRejection', log);
 }
 
 checkLogFolder('log', function(err){
