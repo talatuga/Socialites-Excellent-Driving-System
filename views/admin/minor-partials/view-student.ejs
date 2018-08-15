@@ -95,7 +95,7 @@
                                                     <th>Balance</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody id="tblStudPayment1">
                                                 <tr>
                                                     <td>00-00-0000</td>
                                                     <td>Tuition Fee</td>
@@ -157,53 +157,53 @@
                                             <table class="table tblStudGrades1 table-hover">
                                                 <thead>
                                                     <tr>
-                                                        <th>Date</th>
                                                         <th>#</th>
                                                         <th>Lesson</th>
+                                                        <th>Date</th>
                                                         <th>Time</th>
                                                         <th>Instructor</th>
-                                                        <th>Vehicle Used</th>
+                                                        <th>Vehicle</th>
                                                         <th>Grade</th>
                                                         <th>Comment</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody id="studentTable">
+                                                <tbody id="studentTblGrade">
                                                     <tr>
+                                                        <td>1</td>
+                                                        <td>Start &amp; Stop sadasdas</td>
                                                         <td>05/11/18</td>
+                                                        <td>9:00 A.M. - 10:30 A.M</td>
+                                                        <td>Harry James Potter</td>
+                                                        <td>Toyota, Vios</td>
+                                                        <td>5</td>
+                                                        <td>Active listener</td>
+                                                    </tr>
+                                                    <tr>
                                                         <td>1</td>
                                                         <td>Start &amp; Stop</td>
-                                                        <td>9:00 A.M.</td>
+                                                        <td>05/11/18</td>
+                                                        <td>9:00 A.M. - 10:30 A.M</td>
                                                         <td>Harry James Potter</td>
                                                         <td>Toyota, Vios</td>
-                                                        <td>90</td>
-                                                        <td>---</td>
+                                                        <td>4</td>
+                                                        <td>Nice try</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>05/12/18</td>
-                                                        <td>2</td>
-                                                        <td>Backing &amp; Turning</td>
-                                                        <td>9:00 A.M.</td>
+                                                        <td>1</td>
+                                                        <td>Start &amp; Stop</td>
+                                                        <td>05/11/18</td>
+                                                        <td>9:00 A.M. - 10:30 A.M</td>
                                                         <td>Harry James Potter</td>
                                                         <td>Toyota, Vios</td>
-                                                        <td>92</td>
-                                                        <td>Hanep!</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>05/12/18</td>
-                                                        <td>3</td>
-                                                        <td>Road Crossing &amp; Light Traffic</td>
-                                                        <td>9:00 A.M.</td>
-                                                        <td>Harry James Potter</td>
-                                                        <td>Toyota, Vios</td>
-                                                        <td>95</td>
-                                                        <td>Active listener</td>
+                                                        <td>5</td>
+                                                        <td>Impressive</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
                                         </div><br><br>
                                         <div class="pull-right">
-                                            <button type="button" id="btnAddPayment" class="btn btn-warning m-b-10 m-l-5">Add Grade</button>
-                                            <button type="button" id="btnEditPayment" class="btn btn-light m-b-10 m-l-5">Edit Grade</button>
+                                            <button type="button" class="btn btn-warning m-b-10 m-l-5" onclick="addGrade()">Add Grade</button>
+                                            <button type="button" class="btn btn-light m-b-10 m-l-5" onclick="evaluateStud()">Evaluate</button>
                                         </div>
                                     </div>
                                 </div>
@@ -214,13 +214,19 @@
                                 <div class="card-body">
                                     <div class="profiletimeline studTab">
                                         <div class="sl-item">
-                                            <div class="sl-left"> <img src="assets/images/user4.png" alt="Student" id="studEvalPic" class="img-circle" /> </div>
-                                            <div class="sl-right">
-                                                <div><a href="#" class="link" id="instEvalName">Harry James Potter</a> <span class="sl-date">May 2, 2018</span>
-                                                    <br><br><p style="color: #455a64;">Evaluation Grade: <span class="instEvalGrade text-success">Passed</span></p>
-                                                    <p class="m-t-10 instEvalMsg"> You did great! :> </p>
+                                            <div class="sl-item">
+                                                <div class="sl-left"> <img src="assets/images/user4.png" alt="Student" id="instEvalPic" class="img-circle" /> </div>
+                                                <div class="sl-right">
+                                                    <div><a href="#" class="link" id="instEvalName">Harry James Potter</a> <span class="sl-date">May 2, 2018</span>
+                                                        <br><small class="crsEval">CRS-M0001</small><br>
+                                                        <small><span class="evalDateStarted">August 5, 2018</span> - <span class="evalDateEnded">August 15, 2018</span></small><div class="separator2"></div>
+                                                        <p style="color: #455a64;">Overall Grade: <span class="instOverallGrade">50 (100%)</span>
+                                                        <br>Evaluation: <span class="instEval text-success">Passed</span>
+                                                        <br>Comment/Remarks: <span class="instEvalMsg">Very good, hija! Keep up the good work!</span></p>
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <hr>
                                         </div>
                                     </div>
                                 </div>

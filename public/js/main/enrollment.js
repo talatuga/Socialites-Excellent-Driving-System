@@ -591,8 +591,26 @@ function regNext2A(){
                     lesson.push(check[x].value);
                 }
                 preRegData.lesson = lesson;
-            } 
+            }
         }
+        var vtype = "";
+        console.log(vtype);
+        cart.container.forEach((e,i)=>{
+            vtype += course.getLocalData(e).transmission;
+            if(i == cart.container.length-1){
+                if(vtype.search('m') != -1 && vtype.search('a') != -1){
+                    $('.h5both').show();
+                    $('#trManualVehicle').show();
+                    $('#trAutoVehicle').show();
+                }else if(vtype.search('m') != -1){
+                    $('.h5man').show();
+                    $('#trManualVehicle').show();
+                }else if(vtype.search('a') != -1){
+                    $('.h5auto').show();
+                    $('#trAutoVehicle').show();
+                }
+            }
+        });
     }
 }
 

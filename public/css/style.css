@@ -7194,7 +7194,7 @@ tbody tr td:last-child {
 {
   color: #455a64;
 }
-.studEvalGrade, .instEvalGrade, .crsStudEval
+.studEvalGrade, .instEvalGrade, .crsStudEval, .instOverallGrade, .crsEval, .instEval
 {
   color: #5e0b0b;
   font-weight: bolder;
@@ -7202,6 +7202,9 @@ tbody tr td:last-child {
 #studEvalName, #instEvalName
 {
   color: #5D0000;
+}
+.instEvalMsg{
+  font-weight: bolder
 }
 #studEvalName:hover, #instEvalName:hover
 {
@@ -8526,4 +8529,7 @@ tiCustom
 
 .ul1r{
   padding-left: 30px;
+}
+#studentTblGrade{
+  font-size: 13px
 }
