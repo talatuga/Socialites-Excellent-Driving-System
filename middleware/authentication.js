@@ -114,8 +114,10 @@ exports.studentLogin = function(req, res, next){
         if(err) return next(err);
         if(user){
             if(user.accType == 3){
-                req.session.studID = user.id;
-                users[req.sessionID] = {accID: user.id, accType: user.accType};
+                (require('../model/studentModel')).getStudentInfo(user.id, function(err, info){
+                    req.session.studID = info.studid;
+                    users[req.sessionID] = {accID: user.id, studID: info.studid, accType: user.accType};
+                });
             }else{
                 req.session.studID = -1;
             }

@@ -107,4 +107,12 @@ Student.getEnrollment = function(studentID){
     
 }
 
+Student.getStudentInfo = function(accID, cb){
+    var sql = "SELECT s.id as 'studid', i.* FROM student s, userinfo i, useraccount a WHERE a.id = i.userAcc AND s.userInfo = i.id AND a.id = ?";
+    db.get().query(sql, [accID], function(err, result){
+        if(err) return cb(err);
+        cb(null, result[0]);
+    });
+}
+
 module.exports = Student;
