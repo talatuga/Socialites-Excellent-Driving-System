@@ -267,14 +267,14 @@ exports.register = function(req, res, next){
                             id: e,
                             special: enrolleeData.data.special.course.indexOf(e) == -1 ? false : true,
                             branch: enrolleeData.data.branch,
-                            lessons: enrolleeData.data.lesson ? enrolleeData.data.lesson : "default",
+                            lesson: enrolleeData.data.lesson ? enrolleeData.data.lesson : [],
                         };
                     }else{
                         var entry = {
                             id: e,
                             special: enrolleeData.data.special.course.indexOf(e) == -1 ? false : true,
                             branch: enrolleeData.data.branch,
-                            lessons: enrolleeData.data.lesson ? enrolleeData.data.lesson : "default",
+                            lesson: enrolleeData.data.lesson ? enrolleeData.data.lesson : [],
                         };
                         courseData.push(entry);
                     }
@@ -283,11 +283,12 @@ exports.register = function(req, res, next){
                             if(err) return reject(err);
                             resolve(true);
                         });
-                    }      
+                    }   
                 });
             });  
         });
     };
+
 
     // <------ Execute Synchronously ------> //
     getEnrollee(id).catch(next).then(enrollee=>{
@@ -305,10 +306,13 @@ exports.register = function(req, res, next){
             task.push(sendEmail(data.userData));
             task.push(enrollCourse(studentID, ORcode, data.userData.data.course));
 
-            Promise.all(task).catch(next).then(function(results){
-                if(results.indexOf(false) > -1){
+            Promise.all(task).then(function(results){
+                if(results.indexOf(false) != -1){
                     next(new Error("One/All of the Executing tasks after enrollment failed"));
                 }
+            }).catch(function(reason){
+                throw reason;
+                next(reason);
             });
         }
     });

@@ -14,6 +14,7 @@ router.route('/login')
 router.route('/student')
     .get(auth.studentAuth, renderer.student)
     .post(auth.studentLogin, renderer.student);
+    
 router.get('/instructor'/* , auth.studentAuth */, renderer.instructor);
 router.get('/branch'/* , auth.studentAuth */, renderer.branch);
 

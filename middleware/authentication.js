@@ -113,8 +113,12 @@ exports.studentLogin = function(req, res, next){
     account.login({username: user, password: pass}, function(err, user){
         if(err) return next(err);
         if(user){
-            req.session.studID = user.id;
-            users[req.sessionID] = {accID: user.id, accType: user.accType};
+            if(user.accType == 3){
+                req.session.studID = user.id;
+                users[req.sessionID] = {accID: user.id, accType: user.accType};
+            }else{
+                req.session.studID = -1;
+            }
             next();
         }else{
             next();

@@ -67,8 +67,8 @@ exports.enrollWeb = function(req, res, next){
                             var insert = JSON.stringify(data);
                             student.preRegStud([null,insert,null,1],function(err){
                                 if(err) return next(err);
-                                res.status(200).send({success: true});
                                 req.session.cart = [];
+                                res.status(200).send({success: true});
                             });
                         });
                     });
