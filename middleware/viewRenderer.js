@@ -63,10 +63,16 @@ exports.student = function(req, res, next){
                 resolve(crs);
             });
         });
+<<<<<<< HEAD
         Promise.all([getSched, getLicense, getCourse, getLessons]).then((results)=>{
             res.render('student/index',{title: 'Socialites Excellent Driving', schedule: results[0], license: results[1], courses: results[2], lessons: results[3]});
         }).catch(function(reason){
             next(reason);
+=======
+        Promise.all([getSched, getLicense, getCourse, getLessons]).catch(next).then((results)=>{
+            console.log(results);
+            res.render('student/index',{title: 'Socialites Excellent Driving', schedule: results[0], license: results[1], courses: results[2], lessons: results[3]});
+>>>>>>> commit ko raw
         });
     }else{
         res.locals.login = 'loginStudent';
