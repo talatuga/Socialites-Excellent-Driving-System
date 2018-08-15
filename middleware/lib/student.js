@@ -179,7 +179,7 @@ exports.register = function(req, res, next){
              * Register User Info
              * @param {String} accID user account ID 
              */
-            var registerInfo = function(accID){v
+            var registerInfo = function(accID){
                 return new Promise((resolve0, reject0)=>{
                     var infoModel = require('../../model/userInfoModel');
                     var info = [accID];
@@ -311,7 +311,6 @@ exports.register = function(req, res, next){
                     next(new Error("One/All of the Executing tasks after enrollment failed"));
                 }
             }).catch(function(reason){
-                throw reason;
                 next(reason);
             });
         }
