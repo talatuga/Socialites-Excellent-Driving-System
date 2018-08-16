@@ -334,13 +334,13 @@ function addPaymentModal(){
 
 var studentTable = { // <--- set nang property nung table, para alam natin yung current page, offset, limit and storage narin ng loaded pages.
     offset: 0,
-    limit: 10,
+    limit: 15,
     currentPage: 0,
     pages:{}
 } // <--- pero dahil wala pang pagination nevermind muna tong part na to.
 
 //SD: OKAY ella! this is my sample get method to server. line by line ko i eexplain for you! ^_^
-var getStudent = function(_type, offset, limit){ // <--- Nag declase ako ng variable na may lamang function. with parameters, _type = number, offset = number(starting id), and limit = number(number of result) 
+var getStudent = function(_type, offset, limit){ // <--- Nag declare ako ng variable na may lamang function. with parameters, _type = number, offset = number(starting id), and limit = number(number of result) 
     type = ["all","current","past"]; //<--- nag declare ako ng local variable na laman is array ng type of student we need.
     return new Promise(function(grant, reject){ // <--- nag declare ako ng promise. ibig sabihin itong buong getStudent() is a Promise Object.
         $.get('api/v1/stud?filter='+ type[_type] +'&limit=' + limit + '&offset=' + offset, function(response){ // <--- Eto yung GET Ajax, and structure nya is $.get(apiAddress, callback);

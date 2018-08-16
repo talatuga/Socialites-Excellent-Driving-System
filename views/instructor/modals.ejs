@@ -39,12 +39,20 @@
             <form>
                 <h5>Student Name: <span class="studNameAGM">Harry James Potter</span></h5><hr>
                 <h5 style="padding-top: 2px;"><span class="asterisk">*</span>Lesson: </h5>
-                <select name="lessonListForGrade" class="lessonListForGrade enrCivStatus1" style="width: 94%; margin-bottom: 10px;">
-                  <option value="1">Start &amp; Stop</option>
+                <select name="lessonListForGrade" class="lessonListForGrade enrCivStatus1" onchange="getval1(this)" style="width: 94%; margin-bottom: 10px;">
+                <% 
+                  lessons.forEach((e,i)=>{ %>
+                      <option id='lesson<%=(i)%>' value='<%=e.title%>'><%=e.title%></option><% 
+                    }); 
+                %>
                 </select>
                 <h5 style="padding-top: 2px;"><span class="asterisk">*</span>Date: </h5>
-                <select id="dateLessonList" name="dateLessonList" class="enrCivStatus1" style="width: 94%; margin-bottom: 10px;">
-                  <option value="1">Aug. 18, 2018</option>
+                <select id="dateLessonList" name="dateLessonList" class="enrCivStatus1" onchange="getval(this)" style="width: 94%; margin-bottom: 10px;">
+                  <% 
+                    grade.forEach((e,i)=>{ %>
+                      <option id='sched<%=(i)%>' value='<%=(Date.parse(e.time).toString("HH:MM"))%>'><%=(Date.parse(e.date).toString("MMM dd, yyyy"))%></option><% 
+                    });
+                  %>
                 </select>
                 <h5 style="padding-top: 2px;"><span class="asterisk">*</span>Time: </h5>
                 <input type="text" class="timeLesson txtEnr" style="width:94%; margin-bottom: 10px;" disabled>

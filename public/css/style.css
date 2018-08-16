@@ -8533,3 +8533,6 @@ tiCustom
 #studentTblGrade{
   font-size: 13px
 }
+.studNameSTC, .studCrsSTC, .studNumSTC{
+  font-weight: bolder;
+}

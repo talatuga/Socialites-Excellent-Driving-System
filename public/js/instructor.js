@@ -51,12 +51,12 @@ $(function () {
 });
 
 var loadInst = function(){
-    $(".preloader").fadeIn();  
+    // $(".preloader").fadeIn();  
     inst.getInstList(function (err, done) {
         if (err) return console.log(err);
         renderInstTablePage(inst.pages[inst.currPage]);
         viewInstProfile(inst.pages[inst.currPage][0].instID);
-        $(".preloader").fadeOut();          
+        // $(".preloader").fadeOut();          
     });    
 }
 

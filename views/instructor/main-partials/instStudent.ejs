@@ -56,7 +56,7 @@
                             <div class="tab-pane active" id="profile1" role="tabpanel">
                                 <div class="card-body">
                                     <form class="studTab">
-                                        <table class="table tblRecSched tblCustom">
+                                        <table class="table tblRecSched tblCustom tblHandledStud">
                                             <thead>
                                                 <tr>
                                                     <th>Student Number</th>
@@ -68,26 +68,23 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>STUD-1101</td>
-                                                    <td>Harry James Potter</td>
-                                                    <td>CRS-M0001</td>
-                                                    <td>No</td>
-                                                    <td>SED-Quezon City (Main)</td>
-                                                    <td>                                    
-                                                        <button type="button" onclick="viewGradesInst()" class="btn100px btn13 btn btn-success m-b-10 m-l-5">View Grades</button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>STUD-1102</td>
-                                                    <td>Ella Tatel</td>
-                                                    <td>CRS-M0001</td>
-                                                    <td>Yes</td>
-                                                    <td>SED-Quezon City (Main)</td>
-                                                    <td>                                    
-                                                        <button type="button" onclick="viewGradesInst()" class="btn100px btn13 btn btn-success m-b-10 m-l-5">View Grades</button>
-                                                    </td>
-                                                </tr>
+                                            <% 
+                                                var html = "";
+                                                var pad = "000";
+                                                // var x;
+                                                students.forEach((e,i)=>{
+                                                    html += "<tr id='a"+ e.studID +"' data-info='"+ JSON.stringify(e) +"'>";
+                                                    html += "<td>" + e.studID + "</td>";
+                                                    html += "<td>" + e.fullname.replace(/_/g, ' ') + "</td>";
+                                                    html += "<td> CRS-" + e.carType.toUpperCase() + (pad.substring(0, pad.length-(e.courseID+"").length) + e.courseID) + "</td>";
+                                                    html += "<td>" + (e.special ? "Yes" : "No") + "</td>";
+                                                    html += "<td>" + e.address + "</td>";
+                                                    html += "<td><button type='button' onclick='viewGradesInst(\""+ e.studID +"\")' class='btn100px btn13 btn btn-success m-b-10 m-l-5'>View Grades</button></td>";
+                                                    html += "</tr>"; 
+                                                    // x++;
+                                                }); 
+                                            %>
+                                            <%-html%>
                                             </tbody>
                                         </table>
                                     </form>

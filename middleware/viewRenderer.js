@@ -13,7 +13,7 @@ exports.admin = function (req, res, next){
             if(req.xhr == true){
                 res.status(200).send({sucess: true, detail: "Successfully Logged In!"});
             }else{
-                res.render('admin/index', data);
+                res.render('admin/index', {info:data[0]});
             }
         });
     }else {
@@ -39,34 +39,39 @@ exports.student = function(req, res, next){
     var courses = require ('../model/lessonModel');
     var schedule = require('../model/scheduleModel');
     if(req.session.studID != -1){
+        res.locals.title = 'Socialites Excellent Driving';
         var getSched = new Promise((resolve, reject)=>{
             schedule.getAvailable(req.session.studID, function(err, sched){
                 if(err) return reject(err);
+                res.locals.schedule = sched;
                 resolve(sched);
             });
         });
         var getLicense = new Promise((resolve, reject)=>{
             new WebModel().getLicenseApply(function(err, data){
                 if(err) return reject(err);
+                res.locals.license = data;
                 resolve(data);
             });
         });
         var getCourse = new Promise((resolve, reject)=>{
             courses.getCourseEnrolled(req.session.studID, function(err, crs){
                 if(err) return reject(err);
+                res.locals.courses = crs;
                 resolve(crs);
             });
         });
         var getLessons = new Promise((resolve, reject)=>{
             courses.getLessonEnrolled(req.session.studID, function(err, crs){
                 if(err) return reject(err);
+                res.locals.lessons = crs;
                 resolve(crs);
             });
         });
-        Promise.all([getSched, getLicense, getCourse, getLessons]).catch(next).then((results)=>{
+        Promise.all([getSched, getLicense, getCourse, getLessons]).then((results)=>{
             console.log(results);
-            res.render('student/index',{title: 'Socialites Excellent Driving', schedule: results[0], license: results[1], courses: results[2], lessons: results[3]});
-        });
+            res.render('student/index', res.locals);
+        }).catch(next);
     }else{
         res.locals.login = 'loginStudent';
         exports.user(req,res,next);
@@ -74,8 +79,42 @@ exports.student = function(req, res, next){
 }
 
 exports.instructor = function(req, res, next){
+    var students = require ('../model/lessonModel');
+    var schedule = require ('../model/scheduleModel');
     if(req.session.instID != -1){
-        res.render('instructor/index',{title: 'Socialites Excellent Driving'});
+        res.locals.title = 'Socialites Excellent Driving';
+        // var getSched = new Promise((resolve, reject)=>{
+        //     schedule.getAvailable(req.session.instID, function(err, sched){
+        //         if(err) return reject(err);
+        //         res.locals.schedule = sched;
+        //         resolve(sched);
+        //     });
+        // });
+        var getLessons = new Promise((resolve, reject)=>{
+            students.getLessons('048025', function(err, crs){
+                if(err) return reject(err);
+                res.locals.lessons = crs;
+                resolve(crs);
+            });
+        });
+        var addGrade = new Promise((resolve, reject)=>{
+            students.addGrade(req.session.instID, function(err, grade){
+                if(err) return reject(err);
+                res.locals.grade = grade;
+                resolve(grade);
+            });
+        });
+        var getStudents = new Promise((resolve, reject)=>{
+            students.getHandledStudents(req.session.instID, function(err, stud){
+                if(err) return reject(err);
+                res.locals.students = stud;
+                resolve(stud);
+            });
+        });
+        Promise.all([getLessons, addGrade, getStudents]).then((results)=>{
+            console.log(results);
+            res.render('instructor/index', res.locals);
+        }).catch(next);
     }else{
         res.locals.login = 'loginInst';
         exports.user(req,res,next);

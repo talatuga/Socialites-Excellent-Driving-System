@@ -18,8 +18,8 @@
             <div class="card">
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs profile-tab" role="tablist">
-                    <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#courseTab" onclick="resetStudent1P" role="tab">Courses</a> </li>
-                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#lessonTab" onclick="resetStudent1P" role="tab">Lessons</a> </li>
+                    <li class="nav-item nav1"> <a class="nav-link active" id="nav11" data-toggle="tab" href="#courseTab" role="tab">Courses</a> </li>
+                    <li class="nav-item nav1"> <a class="nav-link" id="nav12" data-toggle="tab" href="#lessonTab" role="tab">Lessons</a> </li>
                 </ul>
                 <!-- Tab panes -->
                 <div class="tab-content">
@@ -38,7 +38,20 @@
                                        </tr>
                                    </thead>
                                    <tbody id="enrolledCrsTbl">
-                                        <% courses.forEach((e,i)=>{ %><tr><td><%=e.id%></td></tr><% }); %>
+                                        <% 
+                                            var html = "";
+                                            var pad = "000";
+                                            courses.forEach((e,i)=>{
+                                                html += "<tr>";
+                                                html += "<td> CRS-" + e.carType.toUpperCase() + (pad.substring(0, pad.length-(e.courseID+"").length) + e.courseID) + "</td>";
+                                                html += "<td>" + e.days + "</td>";
+                                                html += "<td>" + (e.special ? "Yes" : "No") + "</td>";
+                                                html += "<td>" + (e.status == 1 ? (Date.parse(e.dateEnrolled).toString("MMM dd, yyyy")) : (e.status == 2 ? "---" : "date")) + "</td>";
+                                                html += "<td>" + (e.status == 1 ? "---" : (e.status == 2 ? "---" : "date")) + "</td>";
+                                                html += "</tr>"; 
+                                            }); 
+                                        %>
+                                        <%-html%>
                                    </tbody>
                                </table>
                             </div>
@@ -48,7 +61,7 @@
                     <div class="tab-pane" id="lessonTab" role="tabpanel">
                         <div class="card-body">
                             <div class="studTab">
-                                <h4><b>[<span class="h4selCrsforLes">CRS-M0001</span>]</b></h4>
+                                <h4><b>[<span class="h4selCrsforLes">CRS-M0001</span> ]</b></h4>
                                 <table class="table tblCustom">
                                    <thead>
                                        <tr>
@@ -57,32 +70,30 @@
                                             <th>Date</th>
                                             <th>Time</th>
                                             <th>Instructor</th>
-                                            <th>Vehicle</th>
+                                            
                                             <th>Grade</th>
                                             <th>Comment</th>
                                        </tr>
                                    </thead>
                                    <tbody>
-                                       <tr>
-                                           <td>1</td>
-                                           <td>Start &amp; Stop</td>
-                                           <td>---</td>
-                                           <td>---</td>
-                                           <td>---</td>
-                                           <td>---</td>
-                                           <td>---</td>
-                                           <td>---</td>
-                                       </tr>
-                                       <tr>
-                                           <td>2</td>
-                                           <td>Start &amp; Stop</td>
-                                           <td>---</td>
-                                           <td>---</td>
-                                           <td>---</td>
-                                           <td>---</td>
-                                           <td>---</td>
-                                           <td>---</td>
-                                       </tr>
+                                       <% 
+                                            var html = "";
+                                            var x = 1;
+                                            lessons.forEach((e,i)=>{
+                                                html += "<tr>";
+                                                html += "<td>" + x + "</td>";
+                                                html += "<td>" + e.title + "</td>";
+                                                html += "<td>" + "---" + "</td>";
+                                                html += "<td>" + "---" + "</td>";
+                                                html += "<td>" + e.fullname.replace(/_/g, ' ') + "</td>";
+                                                
+                                                html += "<td>" + e.grade + "</td>";
+                                                html += "<td>" + e.comment + "</td>";
+                                                html += "</tr>"; 
+                                                x++;
+                                            }); 
+                                        %>
+                                        <%-html%>
                                    </tbody>
                                </table><br>
                                <div class="pull-right">
