@@ -77,7 +77,7 @@ Account.addPayment = function(ORnum, amount, cb){
 
 Account.getEnrollBal = function(ORnum){
     return new Promise(function(resolve, reject){
-        var sql = "SELECT balance, transaction, data, price, days FROM "+ table +" WHERE ORno = ?";
+        var sql = "SELECT balance, transaction, data, price FROM "+ table +" WHERE ORno = ?";
         db.get().query(sql, [ORnum], function(err, transaction){
             if(err) return reject(err);
             var course = require('./lessonModel');
