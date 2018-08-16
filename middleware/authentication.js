@@ -168,3 +168,42 @@ exports.instLogin = function(req, res, next){
         }
     });
 }
+
+exports.instAuth = function(req, res, next){
+    var sessionID = req.session.sessionID;
+    checkUser(sessionID, function(user){
+        if(!user){
+            req.session.instID = -1;
+            next();
+        }else{
+            if(user.accType == 3){
+                req.session.instID = user.instID;
+                next();
+            }else{
+                req.session.instID = -1;
+                next();
+            }
+        }
+    });
+}
+
+exports.instLogin = function(req, res, next){
+    var user = req.body.email;
+    var pass = req.body.pass;
+    account.login({username: user, password: pass}, function(err, user){
+        if(err) return next(err);
+        if(user){
+            if(user.accType == 3){
+                (require('../model/instructorModel')).getInstInfo(user.id, function(err, info){
+                    req.session.instID = info.instid;
+                    users[req.sessionID] = {accID: user.id, instID: info.instid, accType: user.accType};
+                });
+            }else{
+                req.session.instID = -1;
+            }
+            next();
+        }else{
+            next();
+        }
+    });
+}
