@@ -248,9 +248,10 @@ exports.register = function(req, res, next){
             accountMail.send(dataIn.data.info.email,mailBody,function(err, response){
                 var logger = require('../../bin/logger');
                 if(err){
-                    return reject(err);
+                    logger.errLogger(new Error("Failed to send email to " + dataIn.data.info.email));
+                    return resolve(false);
                 }else{
-                    logger.logger("E-Mail Send to " + dataIn.info.email);
+                    logger.logger("Email sent to " + dataIn.data.info.email);
                     resolve(true);               
                 }
             });

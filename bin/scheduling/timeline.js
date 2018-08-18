@@ -20,6 +20,7 @@ var Timeline = function(options){
         return ((pad.substring(0, pad.length-(""+hour).length) + hour)+ ":" + (pad.substring(0, pad.length-(""+minutes).length) + minutes));
     };
 
+    if(!options) options = {};
     var currentTime = '00:00';
     var totalMinute = 1440;
     var occupyTime = 0;
@@ -79,12 +80,12 @@ var Timeline = function(options){
                     streak++;
                 }else{
                     streak = 0;
-                    _start = currentTimeMin;
+                    _start = currentTimeMin+1;
                 }
                 if(streak == duration){
-                    available.push({start: minuteToTime(_start+1)});
+                    available.push({start: minuteToTime(_start)});
                     streak = 0;
-                    _start = currentTimeMin;
+                    _start = currentTimeMin+1;
                 }
                 currentTimeMin++;
             }
