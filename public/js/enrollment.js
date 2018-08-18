@@ -1,5 +1,11 @@
 var preRegLoaded = 0;
-var loadPreReg = function(){
+var loadPreReg = function(refresh){
+    if(refresh == undefined){
+        refresh = false
+    }else{
+        preRegLoaded = 0;
+        preRegAssess.offset = 0;
+    };
     if(branchLoaded == 0 || courseLoaded == 0){
         loadBranch(function(){
             loadCourse(function(){
@@ -200,14 +206,18 @@ function appRegForm(){ //Approve Registration
                     });
                 };
                 if(response.status == 1){
-                    swal('Done!', "Balance fully paid", "success");
-                    reg(()=>{});
+                    swal('Done!', "Balance fully paid", "success").then(()=>{
+                        reg(()=>{});
+                    });
                 }else if(response.status == 2){
-                    swal('Done!', "Balance Left: " + response.balance, "warning");
-                    reg(()=>{});
+                    swal('Done!', "Balance Left: " + response.balance, "warning").then((ok)=>{
+                        reg(()=>{});
+                    });
                 }else if(response.status == 0){
                     $('.preloader').fadeOut();
-                    swal('Fail!', response.detail, "error");
+                    swal('Notice!', response.detail, "warning").then(()=>{
+                        reg(()=>{});
+                    });
                 }
                 $('#addPaymentModal').modal('hide');
             }

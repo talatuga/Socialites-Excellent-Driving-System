@@ -56,6 +56,54 @@ $(function() {
     eventDrop: function(event, delta, revertFunc, jsEvent, ui, view){
       console.log(event._id);
     },
+    businessHours:[
+      {
+        dow: [ 1, 2, 3, 4, 5, 6, 7 ], // Monday, Tuesday, Wednesday
+        start: '09:00', // 8am
+        end: '17:30' // 6pm
+      },
+    ],
+  });
+
+  $('#calendarMainStudSched').fullCalendar({
+    header: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'month,agendaWeek,agendaDay'
+    },
+    editable: true,
+    droppable: true, // this allows things to be dropped onto the calendar
+    dragRevertDuration: 0,
+    drop: function(date, jsEvent, ui, resourceId) {
+      // is the "remove after drop" checkbox checked?
+      if ($('#drop-remove').is(':checked')) {
+        // if so, remove the element from the "Draggable Events" list
+        $(this).remove();
+      }
+    },
+    selectable: true,
+    selectHelper: true,
+    editable: true,
+    eventLimit: true, // allow "more" link when too many events
+    eventDragStop: function (event, jsEvent, ui, view) {
+      if (isEventOverDiv(jsEvent.clientX, jsEvent.clientY)) {
+        studentSchedule.removeSched(event._id, function(err){
+          if(err == null){
+            $('#calendarSelectSched').fullCalendar('removeEvents', event._id);
+            var el = $("<div data-schedid="+ event._id +" class='fc-event'>").appendTo('#availEvents').text(event.title);
+            el.draggable({
+              zIndex: 999,
+              revert: true,
+              revertDuration: 0
+            });
+            el.data('event', { title: event.title, _id: event._id, stick: true });
+          }
+        });
+      }
+    },
+    eventDrop: function(event, delta, revertFunc, jsEvent, ui, view){
+      console.log(event._id);
+    },
     eventSources:[
       {
         url: "/api/v1/sched/calendar",

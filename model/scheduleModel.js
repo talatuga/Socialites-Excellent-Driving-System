@@ -109,6 +109,11 @@ Model.assignSched = function(id, cb){
     });
 };
 
+/**
+ * Automatically assign a student to a schedule, using its preferred information.
+ * @param {String} studID ID of the student to auto-assign
+ * @returns A promise the returns true when done and no error happen.
+ */
 Model.autoAssignSched = function(studID){
     return new Promise((resolve, reject)=>{
         var studentModel = require('./studentModel');
@@ -131,8 +136,13 @@ Model.autoAssignSched = function(studID){
                     if(prefdays[pos] <= 0){ //for security reason, preventing invalid data from crashing the system
                         prefdays[pos] = 1;
                     }
-                    promises.push(Model.getAvailableSchedOnDay(1, days[prefdays[pos]])); //Include branch filter someday, after pre-final
-                    pos = pos == (prefdays.length-1) ? 0 : pos+1;
+                    var nextDay = Date.parse('next ' + x+1 + ' ' + days[prefdays[pos]]);
+                    promises.push(Model.getAvailableSchedOnDay(1, nextDay)); //Include branch filter someday, after pre-final
+                    if(pos == (prefdays.length-1)){
+                        pos = 0;
+                    }else{
+                        pos++;
+                    }
                     if(x == hours-1){
                         Promise.all(promises).catch(not).then(function(dates){
                             ok(dates);     
@@ -176,6 +186,12 @@ Model.autoAssignSched = function(studID){
     });
 };
 
+/**
+ * Get the schedules on the specific branch and day.
+ * @param {number} branch unique ID of specific branch to search for schedule.
+ * @param {Date} day date where to look for schedule.
+ * @returns A promise the returns Array of schedules for the specific parameters provided.
+ */
 Model.getSchedOnDay = function(branch, day){
     return new Promise((resolve, reject)=>{
         var sql = "SELECT id, date, time FROM " + table + " WHERE branch = ? AND status = 2 AND date = ? ORDER BY time ASC";
@@ -186,10 +202,15 @@ Model.getSchedOnDay = function(branch, day){
     });
 };
 
-Model.getAvailableSchedOnDay = function(branch, weekday, ){
+/**
+ * 
+ * @param {number} branch unique ID of specific branch to search for available schedule.
+ * @param {Date} weekday  specific day to look for available schedule.
+ */
+Model.getAvailableSchedOnDay = function(branch, weekday){
     return new Promise((resolve, reject)=>{
         var nextWeek = Date.parse('next sunday');
-        var nextDay = Date.parse('next ' + weekday);
+        var nextDay = weekday;
         var dateTimeSched = {};
         if(Date.compare(nextDay, nextWeek) == -1){
             nextDay.addWeeks(1);
@@ -234,7 +255,6 @@ Model.getAvailableSchedOnDay = function(branch, weekday, ){
             if(flag){
                 return true;
             }else{
-                nextDay.addWeeks(1);
                 return false;
             }
         };
