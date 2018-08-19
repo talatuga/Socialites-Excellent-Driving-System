@@ -196,7 +196,7 @@ function appRegForm(){ //Approve Registration
                 var reg = function(cb){
                     preRegAssess.approve(preRegAssess.selected, function(err){
                         $('.preloader').fadeOut();
-                        if(err){
+                        if(!err){
                             swal('Done', "Student Successfully Enrolled!",'success');
                             cb(null);
                         }else{
@@ -206,16 +206,28 @@ function appRegForm(){ //Approve Registration
                     });
                 };
                 if(response.status == 1){
-                    swal('Done!', "Balance fully paid", "success").then(()=>{
+                    swal({
+                        title: 'Done!',
+                        text: "Balance fully paid",
+                        type: "success"
+                    },()=>{
                         reg(()=>{});
                     });
                 }else if(response.status == 2){
-                    swal('Done!', "Balance Left: " + response.balance, "warning").then((ok)=>{
+                    swal({
+                        title: 'Done!',
+                        text: "Balance Left: " + response.balance,
+                        type: "warning"
+                    },()=>{
                         reg(()=>{});
                     });
                 }else if(response.status == 0){
                     $('.preloader').fadeOut();
-                    swal('Notice!', response.detail, "warning").then(()=>{
+                    swal({
+                        title: 'Notice!',
+                        text: response.detail,
+                        type: "warning"
+                    },()=>{
                         reg(()=>{});
                     });
                 }

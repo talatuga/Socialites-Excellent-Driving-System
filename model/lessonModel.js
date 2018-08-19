@@ -134,12 +134,10 @@ Lesson.getCourseEnrolled = function(studID, cb){
 Lesson.getLessonEnrolled = function(studID, cb){
     var sql = "SELECT ce.selectedLesson, g.*, ui.fullname, l.title FROM course_enrolled ce, enrollment en, grades g, instructor i, userinfo ui, lesson l WHERE en.id = ce.enrollmentID AND en.studID = ? AND g.studID = en.studID AND ce.status = 1 AND g.instID = i.id AND i.userinfo = ui.id AND g.lessonID = l.id";
     db.get().query(sql, [studID], function(err, result){
-        console.log(studID);
         if(err) return cb(err);
         if(result.length == 0) return cb(null, []);
         if(result[0].selectedLesson == "[]"){
             // Lesson.getList(0,50, function(err, result){
-            //     console.log(result);
             //     if(err) return cb(err);
             //     cb(null, result);
             // });
@@ -167,12 +165,10 @@ Lesson.getLessonEnrolled = function(studID, cb){
 Lesson.getLessons = function(studID, cb){
     var sql = "SELECT ce.selectedLesson FROM course_enrolled ce, enrollment en WHERE en.id = ce.enrollmentID AND en.studID = ?";
     db.get().query(sql, [studID], function(err, result){
-        console.log(studID);
         if(err) return cb(err);
         if(result.length == 0) return cb(null, []);
         if(result[0].selectedLesson == "[]"){
             Lesson.getList(0,50, function(err, result){
-                console.log(result);
                 if(err) return cb(err);
                 cb(null,result);
             });
@@ -199,10 +195,8 @@ Lesson.getLessons = function(studID, cb){
 Lesson.getHandledStudents = function(instID, cb){
     var sql = " SELECT s.studID, s.instID, ui.fullname, ce.courseID, ce.special, b.address, c.carType FROM course c, schedule s, student st, userinfo ui, course_enrolled ce, branch b, enrollment e WHERE s.instID = ? AND st.userInfo = ui.id AND st.id = s.studID AND s.branch = b.id AND e.studID = st.id  AND ce.enrollmentID = e.id AND c.id = ce.courseID";
     db.get().query(sql, [instID], function(err, result){
-        console.log(instID);
         if(err) return cb(err);
         if(result.length == 0) return cb(null, []);
-        console.log(result);
         if(err) return cb(err);
         cb(null, result);
     });
