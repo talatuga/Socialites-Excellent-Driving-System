@@ -30,6 +30,9 @@ router.use('/payment', payment);
 var schedule = require('./schedule');
 router.use('/sched', schedule);
 
+var grades = require('./gradesRoute');
+router.use('/grades', grades);
+
 // All routes below are secured with authentication.
 router.use(auth.auth, err.error401);
 

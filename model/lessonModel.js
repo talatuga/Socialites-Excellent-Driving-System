@@ -21,10 +21,6 @@ var CourseEnrolled = {};
 CourseEnrolled = Object.create(ModelModule);
 CourseEnrolled.table = "course_enrolled";
 
-var Grade = {};
-Grade = Object.create(ModelModule);
-Grade.table = "grades";
-
 //Business Logic Code:
 
 Lesson.addCourse = function(data, cb){
@@ -212,22 +208,4 @@ Lesson.getHandledStudents = function(instID, cb){
     });
 }
 
-Lesson.addGrade = function(instID, cb){
-    var sql = "SELECT i.id, ui.fullname, st.id, s.date, s.time FROM userinfo ui, schedule s, instructor i, student st WHERE st.id = s.studID  AND s.instID = ? AND i.id = s.instID AND i.userinfo = ui.id";
-    db.get().query(sql, [instID], function(err, result){
-        console.log(instID);
-        if(err) return cb(err);
-        if(result.length == 0) return cb(null, []);
-        console.log(result);
-        if(err) return cb(err);
-        cb(null, result);
-    });
-}
 module.exports = Lesson;
-
-Grade.saveAddGrade = function(data, cb){
-    Grade.create(data, function(err,result){
-        if(err) return cb(err);
-        var data2 = [null,result.insertId,data[2],data[4],60,data[3]];
-    });
-}

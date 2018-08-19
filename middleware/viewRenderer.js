@@ -38,6 +38,7 @@ exports.student = function(req, res, next){
     var WebModel = require('../model/webModel');
     var courses = require ('../model/lessonModel');
     var schedule = require('../model/scheduleModel');
+    var grades = require ('../model/evaluationModel');
     if(req.session.studID != -1){
         res.locals.title = 'Socialites Excellent Driving';
         var getSched = new Promise((resolve, reject)=>{
@@ -68,7 +69,14 @@ exports.student = function(req, res, next){
                 resolve(crs);
             });
         });
-        Promise.all([getSched, getLicense, getCourse, getLessons]).then((results)=>{
+        var getInstructors = new Promise((resolve, reject)=>{
+            grades.getAssignedInst(req.session.studID, function(err, inst){
+                if(err) return reject(err);
+                res.locals.instructors = inst;
+                resolve(inst);
+            });
+        });
+        Promise.all([getSched, getLicense, getCourse, getLessons, getInstructors]).then((results)=>{
             res.render('student/index', res.locals);
         }).catch(next);
     }else{
@@ -80,6 +88,7 @@ exports.student = function(req, res, next){
 exports.instructor = function(req, res, next){
     var students = require ('../model/lessonModel');
     var schedule = require ('../model/scheduleModel');
+    var grades = require ('../model/evaluationModel');
     if(req.session.instID != -1){
         res.locals.title = 'Socialites Excellent Driving';
         // var getSched = new Promise((resolve, reject)=>{
@@ -96,8 +105,8 @@ exports.instructor = function(req, res, next){
                 resolve(crs);
             });
         });
-        var addGrade = new Promise((resolve, reject)=>{
-            students.addGrade(req.session.instID, function(err, grade){
+        var addGradeModal = new Promise((resolve, reject)=>{
+            grades.addGrade(req.session.instID, function(err, grade){
                 if(err) return reject(err);
                 res.locals.grade = grade;
                 resolve(grade);

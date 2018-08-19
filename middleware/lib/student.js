@@ -8,6 +8,7 @@ var student = require('../../model/studentModel');
 var Email = require('../../bin/emailer');
 var payments = require('../../model/accountModel');
 var lesson = require('../../model/lessonModel');
+var grade = require('../../model/evaluationModel');
 var Validation = require('../../bin/util/validation');
 var valid = new Validation();
 
