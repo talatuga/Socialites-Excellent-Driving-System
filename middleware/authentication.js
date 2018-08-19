@@ -136,7 +136,7 @@ exports.instAuth = function(req, res, next){
             req.session.instID = -1;
             next();
         }else{
-            if(user.accType == 3){
+            if(user.accType == 2){
                 req.session.instID = user.instID;
                 next();
             }else{
@@ -161,7 +161,6 @@ exports.instLogin = function(req, res, next){
             }else{
                 req.session.instID = -1;
             }
-            next();
         }else{
             next();
         }
