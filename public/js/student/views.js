@@ -81,4 +81,5 @@ var studCertificate = function (){
 var studSelectSchedule = function (){
     $('.viewDiv').hide();
     $(".view-studSelectSchedule").show();
+    editRecSched();
 }

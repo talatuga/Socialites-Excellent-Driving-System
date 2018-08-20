@@ -13,7 +13,7 @@ exports.calendar = function(req, res, next){
             var eColor = "#3A87AD";
             var startDate = date.toString("yyyy-MM-dd") + " " + e.time;
             var endDate = new Date(startDate);
-            endDate.addHours(e.hour);
+            endDate.addHours(parseInt(e.hour));
             
             if(date.between(minDate, maxDate)){
                 _editable = false;
@@ -66,7 +66,7 @@ exports.changePref = function(req, res, next){
     var days = req.body.days;
     var car = req.body.car;
     
-    student.update(id, JSON.stringify(days), 'prefDays', function(err){
+    student.update(id, days, 'prefDays', function(err){
         if(err) return next(err);
         student.update(id, car, 'prefCar', function(er){
             if(er) return next(er);
@@ -91,6 +91,12 @@ exports.getPreference = function(req, res, next){
     });
 };
 
-var checkConflict = function(date, cb){
-    
+exports.schedAvailability = function(req, res, next){
+    if(req.session.authenticated==0) return next();
+    var branchID = req.query.branch;
+    var date = new Date(req.query.date);
+    var time = req.query.time;
+    schedule.checkSched(branchID, date, time).catch(next).then((available)=>{
+        res.status(200).send({success: true, status: available});
+    });
 };

@@ -13,31 +13,44 @@
               <h4 class="red5d000"><b>Preferred Days:</b></h4>
               <div class="row">
                 <div class="col-md-4">
-                    <input type="checkbox" name="prefDaysCBChange">
+                    <input type="checkbox" name="prefDaysCBChange" value="1">
                     <label>Monday</label><br>
-                    <input type="checkbox" name="prefDaysCBChange">
+                    <input type="checkbox" name="prefDaysCBChange" value="4"> 
                     <label>Thursday</label><br>
-                    <input type="checkbox" name="prefDaysCBChange">
+                    <input type="checkbox" name="prefDaysCBChange" value="7">
                     <label>Sunday</label><br>
                 </div>
                 <div class="col-md-4">
-                    <input type="checkbox" name="prefDaysCBChange">
+                    <input type="checkbox" name="prefDaysCBChange" value="2">
                     <label>Tuesday</label><br>
-                    <input type="checkbox" name="prefDaysCBChange">
+                    <input type="checkbox" name="prefDaysCBChange" value="5">
                     <label>Friday</label><br>
                 </div>
                   <div class="col-md-4">
-                    <input type="checkbox" name="prefDaysCBChange">
+                    <input type="checkbox" name="prefDaysCBChange" value="3">
                     <label>Wednesday</label><br>
-                    <input type="checkbox" name="prefDaysCBChange">
+                    <input type="checkbox" name="prefDaysCBChange" value="6">
                     <label>Saturday</label><br>
                   </div>
               </div><br>
               <h4 class="red5d000"><b>Preferred Vehicle:</b></h4>
               <select id="prefVehiChange">
                   <option>---</option>
-                  <option>Toyota Atlis</option>
-                  <option>Toyota Vios</option>
+                  <%
+                    var selectVehi = "";
+                      if(asd.carType == "a"){
+                        selectVehiA.forEach((e,i)=>{
+                          selectVehi += "<option value='"+ e.id +"'>" + e.model + " " + e.brand + "</option>";
+                        });
+                      }else{
+                        selectVehiB.forEach((e,i)=>{
+                          selectVehi += "<option value='"+ e.id +"'>" + e.model + " " + e.brand + "</option>";
+                        });
+                      }
+                  %>
+                  <%-selectVehi%>
+                  <%# <option>Toyota Atlis</option>
+                  <option>Toyota Vios</option> %>
               </select>
           </form>
         </div>
@@ -120,7 +133,7 @@
               <table>
                 <tr>
                   <td style="text-align: right"><h5>Date:</h5></td>
-                  <td><h5>&nbsp;&nbsp;&nbsp;<span class="dateToday boldface">August 9, 2018</span></h5></td>
+                  <td><h5>&nbsp;&nbsp;&nbsp;<span class="dateToday boldface"><%=(Date.parse('today').toString('MMM d, yyyy'))%></span></h5></td>
                 </tr>
                 <tr>
                   <td style="text-align: right"><h5>Time: </h5></td>
@@ -132,7 +145,7 @@
                 </tr>
                 <tr>
                   <td style="text-align: right"><h5>Branch/Venue: </h5></td>
-                  <td><h5>&nbsp;&nbsp;&nbsp;<span class="venueSchedToday boldface">SED-Quezon City (Main)</span></h5></td>
+                  <td><h5>&nbsp;&nbsp;&nbsp;<span class="venueSchedToday boldface" data-id="<%=currBranch.id%>"><%=currBranch.address%></span></h5></td>
                 </tr>
               </table><br>
             </center>

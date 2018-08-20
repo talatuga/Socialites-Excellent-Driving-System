@@ -26,7 +26,7 @@ exports.user = function(req, res, next){
     var Car = require('../model/vehicleModel');
     new WebModel().getLicenseApply(function(err, data){
         if(err) return next(err);
-        Car.getList(function(errr,vehicle){
+        Car.getListModel(function(errr,vehicle){
             if(errr) return next(errr);
             var login = res.locals.login ? res.locals.login : '';
             res.render('main/index',{title: 'Socialites Excellent Driving', login: login, license: data, car: vehicle});
@@ -35,50 +35,9 @@ exports.user = function(req, res, next){
 }
 
 exports.student = function(req, res, next){
-    var WebModel = require('../model/webModel');
-    var courses = require ('../model/lessonModel');
-    var schedule = require('../model/scheduleModel');
-    var grades = require ('../model/evaluationModel');
     if(req.session.studID != -1){
         res.locals.title = 'Socialites Excellent Driving';
-        var getSched = new Promise((resolve, reject)=>{
-            schedule.getAvailable(req.session.studID, function(err, sched){
-                if(err) return reject(err);
-                res.locals.schedule = sched;
-                resolve(sched);
-            });
-        });
-        var getLicense = new Promise((resolve, reject)=>{
-            new WebModel().getLicenseApply(function(err, data){
-                if(err) return reject(err);
-                res.locals.license = data;
-                resolve(data);
-            });
-        });
-        var getCourse = new Promise((resolve, reject)=>{
-            courses.getCourseEnrolled(req.session.studID, function(err, crs){
-                if(err) return reject(err);
-                res.locals.courses = crs;
-                resolve(crs);
-            });
-        });
-        var getLessons = new Promise((resolve, reject)=>{
-            courses.getLessonEnrolled(req.session.studID, function(err, crs){
-                if(err) return reject(err);
-                res.locals.lessons = crs;
-                resolve(crs);
-            });
-        });
-        var getInstructors = new Promise((resolve, reject)=>{
-            grades.getAssignedInst(req.session.studID, function(err, inst){
-                if(err) return reject(err);
-                res.locals.instructors = inst;
-                resolve(inst);
-            });
-        });
-        Promise.all([getSched, getLicense, getCourse, getLessons, getInstructors]).then((results)=>{
-            res.render('student/index', res.locals);
-        }).catch(next);
+        res.render('student/index', res.locals);
     }else{
         res.locals.login = 'loginStudent';
         exports.user(req,res,next);

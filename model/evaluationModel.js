@@ -5,10 +5,12 @@ var table = "grades";
 var Grade = {};
 Grade = Object.create(ModelModule);
 Grade.table = "grades";
+Grade.db = db;
 
 var Evaluation = {};
 Evaluation = Object.create(ModelModule);
 Evaluation.table = "evaluation";
+Evaluation.db = db;
 
 //Business Logic Below:
 
@@ -45,13 +47,14 @@ Grade.saveAddGrade = function(data, cb){
 Grade.getAssignedInst = function(studID, cb){
     var sql = "SELECT c.carType, ce.courseID, i.id, ui.fullname, b.address FROM instructor i, userinfo ui, course_enrolled ce, student st, vehicle v, branch b, schedule s, course c, enrollment e WHERE st.id = ? AND i.userInfo = ui.id AND i.id = s.instID AND s.branch = b.id AND e.studID = st.id AND ce.enrollmentID = e.id AND c.id = ce.courseID GROUP BY ui.fullname";
     db.get().query(sql, [studID], function(err, result){
-        console.log(studID);
         if(err) return cb(err);
         if(result.length == 0) return cb(null, []);
-        console.log(result);
-        if(err) return cb(err);
         cb(null, result);
     });
+}
+
+Grade.addGrade = function(data, cb){
+    Evaluation.create(data, cb);
 }
 
 module.exports = Grade;

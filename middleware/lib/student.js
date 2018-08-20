@@ -218,7 +218,8 @@ exports.register = function(req, res, next){
                 return new Promise((resolve0, reject0)=>{
                     var fixedID = generateID(idArr[0],idArr[1]);
                     studentID = fixedID;
-                    student.create([fixedID,idArr[1], "", 0, JSON.stringify(enrollee.data.preference.schedule), enrollee.data.preference.vehicle , null, 1],function(err, result){
+                    var studData = [fixedID,idArr[1], "", 0, JSON.stringify(enrollee.data.preference.schedule), enrollee.data.preference.vehicle, enrollee.data.branch, null, 1];
+                    student.create(studData,function(err, result){
                         if(err) return reject0(err);
                         student.preRegDel(id, function(e){
                             if(e) return reject0(e);
@@ -460,3 +461,81 @@ exports.getStudPayments = function(req, res, next){
         res.status(200).send({success: true, data: result});
     });
 }
+
+exports.prepareViewData = function(req, res, next){
+    var WebModel = require('../../model/webModel');
+    var courses = require ('../../model/lessonModel');
+    var schedule = require('../../model/scheduleModel');
+    var grades = require('../../model/evaluationModel');
+    var branch = require('../../model/branchModel');
+    var car = require('../../model/vehicleModel');
+    if(req.session.studID != -1){
+        var getSched = new Promise((resolve, reject)=>{
+            schedule.getAvailable(req.session.studID, function(err, sched){
+                if(err) return reject(err);
+                res.locals.schedule = sched;
+                resolve(sched);
+            });
+        });
+        var getLicense = new Promise((resolve, reject)=>{
+            new WebModel().getLicenseApply(function(err, data){
+                if(err) return reject(err);
+                res.locals.license = data;
+                resolve(data);
+            });
+        });
+        var getCourse = new Promise((resolve, reject)=>{
+            courses.getCourseEnrolled(req.session.studID, function(err, crs){
+                if(err) return reject(err);
+                res.locals.courses = crs;
+                resolve(crs);
+            });
+        });
+        var getLessons = new Promise((resolve, reject)=>{
+            courses.getLessonEnrolled(req.session.studID, function(err, crs){
+                if(err) return reject(err);
+                res.locals.lessons = crs;
+                resolve(crs);
+            });
+        });
+        var getInstructors = new Promise((resolve, reject)=>{
+            grades.getAssignedInst(req.session.studID, function(err, inst){
+                if(err) return reject(err);
+                res.locals.instructors = inst;
+                resolve(inst);
+            });
+        });
+        var getBranch = new Promise((resolve,reject)=>{
+            branch.getList(0,20, function(err, result){
+                if(err) return reject(err);
+                res.locals.branch = result;
+                resolve(result);
+            });
+        });
+        var getStudentInfo = new Promise((resolve, reject)=>{
+            student.getData(req.session.studID, function(err,data){
+                if(err) return reject(err);
+                student.getStudentInfo(req.session.accID, function(er, data2){
+                    res.locals.student = {
+                        personalInfo: data2,
+                        studentInfo: data
+                    };
+                    resolve(true);
+                });
+            });
+        });
+        var getVehi = new Promise((resolve, reject)=>{
+            car.getListModel(function(er, data){
+                if(er) return reject(er);
+                res.locals.car = data;
+                resolve(true);
+            });
+        });
+        var query = [getSched, getLicense, getCourse, getLessons, getInstructors, getBranch, getStudentInfo, getVehi];
+        Promise.all(query).then((results)=>{
+            next();
+        }).catch(next);
+    }else{
+        next();
+    }
+}// THERE IS WEIRD ABOUT THIS! ALL PROMISES RUNS EVEN NOT ADDED ON QUERY. IDK WHY.

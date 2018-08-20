@@ -132,14 +132,16 @@ Model.autoAssignSched = function(studID){
                 var prefdays = JSON.parse(student.prefDays);
                 var pos = 0;
                 var promises = [];
+                var weekCount = 1;
                 for(var x=0; x<hours; x++){
                     if(prefdays[pos] <= 0){ //for security reason, preventing invalid data from crashing the system
                         prefdays[pos] = 1;
                     }
-                    var nextDay = Date.parse('next ' + x+1 + ' ' + days[prefdays[pos]]);
-                    promises.push(Model.getAvailableSchedOnDay(1, nextDay)); //Include branch filter someday, after pre-final
+                    var nextDay = Date.parse('next ' + weekCount + ' ' + days[prefdays[pos]]);
+                    promises.push(Model.getAvailableSchedOnDay(student.branch, nextDay)); //Include branch filter someday, after pre-final
                     if(pos == (prefdays.length-1)){
                         pos = 0;
+                        weekCount++;
                     }else{
                         pos++;
                     }
@@ -152,7 +154,9 @@ Model.autoAssignSched = function(studID){
             });
         } 
 
+        var student;
         getStudent.then(function(stud){
+            student = stud;
             if(stud) return assignNextWeek(stud);
         }).then(function(dates){
             var promises = [];
@@ -165,8 +169,8 @@ Model.autoAssignSched = function(studID){
                         1,
                         studID,
                         null, //    <------- this is suppose to be instructor update value 
-                        1,
-                        2       //  <------- changes this, by default it's 1 for main,
+                        student.branch,      //  <------- changes this, by default it's 1 for main,
+                        2       
                     ];
                     Model.create(data, function(err,result){
                         if(err) return not(err);
@@ -260,6 +264,39 @@ Model.getAvailableSchedOnDay = function(branch, weekday){
         };
         
         getFreeOnDay(lookForSched, checker);
+    });
+};
+
+/**
+ * 
+ * @param {Number} branch 
+ * @param {Date} date 
+ * @param {String} time 
+ * @returns Promise that returns either 0 - unavailable, 1 - available, 2 - overtime
+ */
+Model.checkSched = function(branch, date, time){
+    return new Promise((resolve, reject)=>{
+        if(Date.compare(Date.parse('next sunday'),date) > 0){
+            return resolve(0);
+        }
+        this.getSchedOnDay(branch, date).catch(reject).then((schedules)=>{
+            var timeline = new Timeline(timelineOptions);
+            var getSched = function(){
+                timeline.isTimeFree(time, 60, function(availability){
+                    resolve(availability);
+                });
+            }
+            if(schedules.length == 0){
+                getSched();
+            }else{
+                schedules.forEach((e,i)=>{
+                    timeline.reserveTime(e.time, 60);
+                    if(i == schedules.length-1){
+                        getSched();
+                    };
+                });
+            }
+        });
     });
 };
 

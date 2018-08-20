@@ -79,7 +79,7 @@
                             <table style="width: 100%">
                                 <tr>
                                     <td class="space"><h5>Enrolled Course: 
-                                        <br><b><span class="enrolledCrsSelSched"> CRS-M001</span></b>
+                                        <br><b><span class="enrolledCrsSelSched">CRS-<%=(asd.carType.toUpperCase() + (pad.substring(0, pad.length-(asd.courseID+"").length) + asd.courseID))%></span></b>
                                     </h5></td>
                                     <td style="text-align: center"><h5>Hours Scheduled: 
                                         <br><b><span class="tempEnrCrsHrsSched"> 0</span></b>
@@ -122,13 +122,13 @@
             <div class="card">
                 <div class="row">
                     <div class="col-md-4">
-                        <button type="button" onclick="studSelectSchedule()" style="width: 100%" class="btn btn-danger m-b-10 m-l-5">Cancel</button>
+                        <button type="button" onclick="viewActiveStud(1)" style="width: 100%" class="btn btn-danger m-b-10 m-l-5">Cancel</button>
                     </div>
                     <div class="col-md-4">
                         <button type="button" onclick="studSelectSchedule()" style="width: 100%" class="btn btn-warning m-b-10 m-l-5">Reset</button>
                     </div>
                     <div class="col-md-4">
-                        <button type="button" onclick="studSelectSchedule()" style="width: 100%" class="btn btn-success m-b-10 m-l-5">Done</button>
+                        <button type="button" onclick="updateSchedule()" style="width: 100%" class="btn btn-success m-b-10 m-l-5">Done</button>
                     </div>
                 </div>
             </div>
