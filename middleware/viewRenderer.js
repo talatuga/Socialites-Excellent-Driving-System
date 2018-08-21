@@ -65,7 +65,7 @@ exports.instructor = function(req, res, next){
             });
         });
         var addGradeModal = new Promise((resolve, reject)=>{
-            grades.addGrade(req.session.instID, function(err, grade){
+            grades.addGradeModal(req.session.instID, function(err, grade){
                 if(err) return reject(err);
                 res.locals.grade = grade;
                 resolve(grade);
@@ -78,7 +78,21 @@ exports.instructor = function(req, res, next){
                 resolve(stud);
             });
         });
-        Promise.all([getLessons, addGrade, getStudents]).then((results)=>{
+        var getEvalInst = new Promise((resolve, reject)=>{
+            grades.getEvalInst(req.session.instID, function(err, evalI){
+                if(err) return reject(err);
+                res.locals.evaluationI = evalI;
+                resolve(evalI);
+            });
+        });
+        var getEvalInstNumber = new Promise((resolve, reject)=>{
+            grades.getEvalInstNumber(req.session.instID, function(err, evalI){
+                if(err) return reject(err);
+                res.locals.evaluationINum = evalI;
+                resolve(evalI);
+            });
+        });
+        Promise.all([getLessons, addGradeModal, getStudents, getEvalInst, getEvalInstNumber]).then((results)=>{
             res.render('instructor/index', res.locals);
         }).catch(next);
     }else{

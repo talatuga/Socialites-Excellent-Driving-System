@@ -50,7 +50,7 @@
                                                         html += "<tr id='a"+ e.id +"' data-info='"+ JSON.stringify(e) +"'>";
                                                         html += "<td> CRS-" + e.carType.toUpperCase() + (pad.substring(0, pad.length-(e.courseID+"").length) + e.courseID) + "</td>";
                                                         html += "<td>" + e.fullname.replace(/_/g, ' ') + "</td>";
-                                                        html += "<td><button type='button' onclick='evaluateInst(\""+ e.studID +"\")' class='btn100px btn13 btn btn-inverse m-b-10 m-l-5'>Evaluate</button></td>";
+                                                        html += "<td><button type='button' onclick='evaluateInst(\""+ e.id + "\")' class='btn100px btn13 btn btn-inverse m-b-10 m-l-5'>Evaluate</button></td>";
                                                         html += "</tr>"; 
                                                         // x++;
                                                     }); 

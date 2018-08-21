@@ -1,39 +1,38 @@
-var studCrsLes = {
-    selected: 0,
+var evaluation = {
+    selected: -1,
     offset: 0,
     limit: 20,
     currPage: 0,
     pages: [],
-    renderStudEnrCrsTbl: function(data){
-        var html = "";
-        for(var x=0; x < data.length; x++){
-            if(data[x].status != 0){
-                html += "<tr><td>" + data[x].courseID + "</td>";
-                html += "<td>" + data[x].days + "</td>";
-                html += "<td>" + (data[x].special == 1 ? "Yes" : "No") + "</td>";
-                html += "<td>" + data[x].dateEnrolled + "</td>";
-                html += "<td>" + (data[x].status == 2 ? "dontknow pa" : "---") + "</td>";
-                html += "</html>";
-            }
-        }
-        $('#enrolledCrsTbl').html(html);
-    },
-    getStudEnrCrsTbl: function(cb){
-        $.get('api/v1/util/lesson/course?offset=' + this.offset + '&limit=' + this.limit, function(response){
-            if(response.success){
-                var data = response.data;
-                addPage(data);
+    addEval: function(_data, cb){
+        var req = $.post('api/v1/grade', {data: JSON.stringify(_data)}, function(response){
+            if(response.success == false){
+                console.log(response.detail);
+                cb(new Error(response.detail));
             }else{
-                console.log("Error: getting data from server.");
+                cb(null);
             }
-        }).fail(request=>{
+        }).fail(function(request){
             console.log(request.status + ": " + request.statusText);
+            cb(new Error("Error: On submitting evaluation details"));
         });
-        var addPage = (page)=>{
-            this.pages[this.currPage] = page;
-            this.renderStudEnrCrsTbl(page);
-            this.offset = page[page.length-1].id;
-            cb();
-        }
+    },
+    delete: function(id, cb){
+        var onSuccess = function(response){
+            if(response.success){
+                cb(null, true);
+            }else{
+                onFail(response.detail);
+            }
+        };
+        var onFail = function(err){
+            cb(new Error('Error: performing action.'));
+        };
+        $.ajax({
+            type: "DELETE",
+            url: 'api/v1/grade/' + id,
+            success: onSuccess,
+            error: onFail
+        });
     },
 }
