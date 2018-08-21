@@ -3,7 +3,7 @@ var middleware = require('../../middleware/lib/grades');
 var auth = require('../../middleware/authentication');
 
 router.route('/')
-    .post(middleware.create)
+    .post(auth.auth, middleware.create)
     .get(middleware.get);
 router.route('/:id')
     .put(middleware.update)

@@ -5561,13 +5561,20 @@ tbody tr td:last-child {
   margin-top: 8px;
 }
 .profiletimeline .sl-date {
-  color: #99abb4;
+  color: #262b2e;
   font-size: 12px;
 }
 .profiletimeline .time-item {
   border-color: rgba(120, 130, 140, 0.13);
   padding-bottom: 1px;
   position: relative;
+}
+.monthEval{
+  color: #5d0000;
+  font-weight: bolder;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  padding-left: 10px
 }
 .profiletimeline .time-item::before {
   content: " ";

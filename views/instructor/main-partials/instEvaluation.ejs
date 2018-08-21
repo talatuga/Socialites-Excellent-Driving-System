@@ -23,33 +23,41 @@
                                 <span><i class="icon icon-business-24 tiSide f-s-40 color-danger"></i></span>
                             </div>
                             <div class="media-body media-text-right">
-                                <h2>0</h2>
-                                <p class="m-b-0" style="color: black">Overall Evaluation Percentage<br><span>(since <span class="startEvalPerc">Jan. 2018</span>)</span></p>
+                                <% 
+                                    evaluationINum.forEach((e,i)=>{
+                                        html += "<h2 class='startEvalPerc'>" + (e.counter) + "</h2>";
+                                    }); 
+                                %>
+                                <%-html%>
+                                <p class="m-b-0" style="color: black">Overall Evaluation Percentage<br><span>(since Jan. <span class="yearEval"></span>)</span></p>
                             </div>
                         </div>
                     </div>
                     <div class="card">
+                    <h5>Search evaluation:</h5>
                         <div class="form-group">
                             <div class="input-group input-group-flat">
                                 <!-- <span class="input-group-btn"><button class="btn btn-custom" type="submit"><i class="ti-search"></i></button></span> -->
                                 <input type="text" class="form-control" placeholder="Search for student name..." style="font-size: 12px;">
                                 <span class="input-group-btn"><button class="btn btn-primary input-group-close-icon" onclick="clrSearchBranch()" type="button"><i class="ti-close"></i></button></span>
                             </div>
-                        </div><br>
-                        <h5>Show evaluation...</h5>
+                        </div>
                         <div class="row">
-                            <div class="col-md-6">
-                                <h6>From:</h6>
+                            <div class="col-md-12">
+                                <h6>Month:</h6>
                                 <select class="selectFromEval" style="width: 100%">
-                                    <option>Jan</option>
-                                    <option>Feb</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <h6>To:</h6>
-                                <select class="selectToEval" style="width: 100%">
-                                    <option>Jan</option>
-                                    <option>Feb</option>
+                                    <option value="1">January</option>
+                                    <option value="2">February</option>
+                                    <option value="3">March</option>
+                                    <option value="4">April</option>
+                                    <option value="5">May</option>
+                                    <option value="6">June</option>
+                                    <option value="7">July</option>
+                                    <option value="8">August</option>
+                                    <option value="9">September</option>
+                                    <option value="10">October</option>
+                                    <option value="11">November</option>
+                                    <option value="12">December</option>
                                 </select>
                             </div>
                         </div><br>
@@ -64,7 +72,7 @@
                     <div class="card">
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs profile-tab" role="tablist">
-                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#evaluationInst" role="tab" onclick="loadEval('inst')">Evaluation</a> </li>
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#evaluationInst" role="tab" onclick="loadEval('inst')">Evaluation <span class="monthEval"></span></a> </li>
                         </ul>
                         <!-- Tab panes -->
                         <div class="tab-content">
@@ -72,39 +80,21 @@
                             <div class="tab-pane active" id="evaluationInst" role="tabpanel">
                                 <div class="card-body">
                                     <div class="profiletimeline instTab">
-                                        <div class="sl-item">
-                                            <div class="sl-left"> <img src="assets/images/user4.png" alt="Student" id="studEvalPic" class="img-circle" /> </div>
-                                            <div class="sl-right">
-                                                <div><a href="#" class="link" id="studEvalName">Graciella Custodio Tatel</a> <span class="sl-date">May 2, 2018</span>
-                                                    <br><small class="crsStudEval">CRS-M0001</small><div class="separator2"></div>
-                                                    <p style="color: #455a64;">Evaluation Grade: <span class="studEvalGrade">5 (100%)</span></p>
-                                                    <p class="m-t-10 studEvalMsg"> Super lupet mo, sir! Kung may grade lang na SUPER PASSED, yun na po nilagay ko. Grabe hanep! Labyu sir </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <div class="sl-item">
-                                            <div class="sl-left"> <img src="assets/images/user4.png" alt="Student" id="studEvalPic" class="img-circle" /> </div>
-                                            <div class="sl-right">
-                                                <div><a href="#" class="link" id="studEvalName">Graciella Custodio Tatel</a> <span class="sl-date">May 2, 2018</span>
-                                                    <br><small class="crsStudEval">CRS-M0001</small><div class="separator2"></div>
-                                                    <p style="color: #455a64;">Evaluation Grade: <span class="studEvalGrade">5 (100%)</span></p>
-                                                    <p class="m-t-10 studEvalMsg"> Super lupet mo, sir! Kung may grade lang na SUPER PASSED, yun na po nilagay ko. Grabe hanep! Labyu sir </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <div class="sl-item">
-                                            <div class="sl-left"> <img src="assets/images/user4.png" alt="Student" id="studEvalPic" class="img-circle" /> </div>
-                                            <div class="sl-right">
-                                                <div><a href="#" class="link" id="studEvalName">Graciella Custodio Tatel</a> <span class="sl-date">May 2, 2018</span>
-                                                    <br><small class="crsStudEval">CRS-M0001</small><div class="separator2"></div>
-                                                    <p style="color: #455a64;">Evaluation Grade: <span class="studEvalGrade">5 (100%)</span></p>
-                                                    <p class="m-t-10 studEvalMsg"> Super lupet mo, sir! Kung may grade lang na SUPER PASSED, yun na po nilagay ko. Grabe hanep! Labyu sir </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <hr>
+                                        <% 
+                                            var html = "";
+                                            var pad = "000";
+                                            var x = 1;
+                                            evaluationI.forEach((e,i)=>{
+                                                html += "<div class='sl-item' id='1'> <div class='sl-left'> <img src='assets/images/user4.png' alt='Student' id='studEvalPic' class='img-circle' /> </div> <div class='sl-right'>";
+                                                html += "<div><a href='#' class='link' id='studEvalName'>" + e.fullname.replace(/_/g, ' ') + "</a> <span class='sl-date'>" + (Date.parse(e.dateEvaluated ).toString("MMM dd, yyyy")) + "</span>";
+                                                html += "<br><small class='crsStudEval'>CRS-" + e.carType.toUpperCase() + (pad.substring(0, pad.length-(e.courseID+"").length) + e.courseID) + "</small><div class='separator2'></div>";
+                                                html += "<p style='color: #455a64;'>Evaluation Grade: <span class='studEvalGrade'>" + e.grade + " (" + (e.grade == 5 ? '100%' : (e.grade == 4 ? '80%' : (e.grade == 3 ? '60%' : (e.grade == 2 ? '40%' : '20%')))) + ")" + "</span></p>";
+                                                html += "<p class='m-t-10 studEvalMsg'>\"" + e.comment + "\"</p>";
+                                                html += "</div></div></div><hr>";
+                                                x++;
+                                            }); 
+                                        %>
+                                        <%-html%>
                                     </div>
                                 </div>
                             </div>

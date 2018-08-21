@@ -1,39 +1,140 @@
-var studCrsLes = {
-    selected: 0,
+var evaluation = {
+    selected: -1,
     offset: 0,
     limit: 20,
     currPage: 0,
     pages: [],
-    renderStudEnrCrsTbl: function(data){
-        var html = "";
-        for(var x=0; x < data.length; x++){
-            if(data[x].status != 0){
-                html += "<tr><td>" + data[x].courseID + "</td>";
-                html += "<td>" + data[x].days + "</td>";
-                html += "<td>" + (data[x].special == 1 ? "Yes" : "No") + "</td>";
-                html += "<td>" + data[x].dateEnrolled + "</td>";
-                html += "<td>" + (data[x].status == 2 ? "dontknow pa" : "---") + "</td>";
-                html += "</html>";
-            }
-        }
-        $('#enrolledCrsTbl').html(html);
-    },
-    getStudEnrCrsTbl: function(cb){
-        $.get('api/v1/util/lesson/course?offset=' + this.offset + '&limit=' + this.limit, function(response){
-            if(response.success){
-                var data = response.data;
-                addPage(data);
+    addEval: function(_data, cb){
+        var req = $.post('api/v1/grade', {data: JSON.stringify(_data)}, function(response){
+            if(response.success == false){
+                console.log(response.detail);
+                cb(new Error(response.detail));
             }else{
-                console.log("Error: getting data from server.");
+                cb(null);
             }
-        }).fail(request=>{
+        }).fail(function(request){
             console.log(request.status + ": " + request.statusText);
+            cb(new Error("Error: On submitting evaluation details"));
         });
-        var addPage = (page)=>{
-            this.pages[this.currPage] = page;
-            this.renderStudEnrCrsTbl(page);
-            this.offset = page[page.length-1].id;
-            cb();
-        }
     },
+    delete: function(id, cb){
+        var onSuccess = function(response){
+            if(response.success){
+                cb(null, true);
+            }else{
+                onFail(response.detail);
+            }
+        };
+        var onFail = function(err){
+            cb(new Error('Error: performing action.'));
+        };
+        $.ajax({
+            type: "DELETE",
+            url: 'api/v1/grade/' + id,
+            success: onSuccess,
+            error: onFail
+        });
+    },
+    // getData: function(id, cb){
+    //     var data = this.pages[this.currPage];
+    //     data.forEach(x=>{
+    //         if(x.id == id){
+    //             var next = function(){
+    //                 if(x.driverName){
+    //                     return cb(null, x);
+    //                 }else{
+    //                     car.getInstName(x.driver, function(err, name){
+    //                         if(err) return cb(err);
+    //                         x.driverName = name;
+    //                         cb(null, x);
+    //                     });
+    //                 }
+    //             }
+    //             if(x.defect){
+    //                 next();
+    //             }else{
+    //                 this.getDefectData(id, function(err, defects){
+    //                     if(err) return cb(err);
+    //                     x.defect = defects;
+    //                     next();
+    //                 });
+    //             } 
+    //         }
+    //     });
+    // },
+    // getDefectData: function(id, cb){
+    //     $.get('api/v1/car/' + id + '/defect', function(response){
+    //         if(response.success){
+    //             cb(null, response.data);
+    //         }else{
+    //             cb(new Error("Error: getting data from server."));
+    //         }
+    //     });
+    // },
+    // getInstName: function(id,cb){
+    //     $.get('api/v1/instructor/'+id+'/fullname', function(response){
+    //         if(response.success){
+    //             cb(null, response.data);
+    //         }else{
+    //             cb(new Error("Error: getting data from server."));
+    //         }
+    //     });
+    // },
+    // update: function(data, cb){
+    //     var id = this.selectedCar;
+    //     var onSuccess = function(res){
+    //         if(res.success){
+    //             cb(null, true);
+    //         }else{
+    //             onFail(res.detail);
+    //         }
+    //     };
+    //     var onFail = function(err){
+    //         cb(new Error("Error: " + err));
+    //     };
+    //     $.ajax({
+    //         type: "PUT",
+    //         url: 'api/v1/car/'+ id,
+    //         data: {data: JSON.stringify(data)},
+    //         success: onSuccess,
+    //         error: onFail
+    //     });
+    // },
+    // addDefect: function(data, cb){
+    //     $.post('api/v1/car/'+car.selectedCar+'/defect', {data: JSON.stringify(data)}, function(response){
+    //         if(response.success){
+    //             cb(null, true);
+    //         }else{
+    //             cb(new Error("Error: can't perform request."));
+    //         }
+    //     }).fail(function(err){
+    //         cb(new Error("Error: can't perform request."));            
+    //     });
+    // },
+    // delDefect: function(id, cb){
+    //     var onSuccess = function(response){
+    //         if(response.success){
+    //             cb(null, true);
+    //         }else{
+    //             onFail(error);
+    //         }
+    //     };
+    //     var onFail = function(error){
+    //         cb(error);
+    //     }
+    //     $.ajax({
+    //         type: "DELETE",
+    //         data: {data: id},
+    //         url: 'api/v1/car/'+ this.selectedCar + '/defect',
+    //         success: onSuccess,
+    //         error: onFail
+    //     });
+    // },
+    // refresh: function(){
+    //     this.offset = 0;
+    //     this.currPage = 0;
+    //     this.getATableData(()=>{
+    //         viewCarProfile(this.selectedCar);
+    //     });
+    // }
 }
