@@ -9,6 +9,9 @@ router.route('/:id')
     .put(middleware.update)
     .get(middleware.get)
     .delete(middleware.delete);
+// router.route('/:id/grade')
+    // .get(middleware.getDefect)
+    // .delete(middleware.delDefect);
 router.route('/:id/:field')
     .get(middleware.get)
     .put(middleware.update);

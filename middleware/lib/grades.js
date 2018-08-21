@@ -3,18 +3,34 @@ var grade = require('../../model/evaluationModel');
 exports.create = function(req, res, next){
     if(res.locals.authenticated == 0) return next();
 
-    var dataInput = JSON.parse(req.body.data);
-    var data = [""];
-    data.push(req.session.studID);
-    data.push(dataInput.instID);
-    data.push(dataInput.comment);
-    data.push(dataInput.target);
-    data.push(dataInput.courseID);
-    data.push(dataInput.grade);
-    data.push(dataInput.dateEvaluated);
+    //tinanggal ko muna yung para sa evaluation para matest kung gumagana yung adding ng grades
+    var dataInput1 = JSON.parse(req.body.data);
+    // var data = [""];
+    // data.push(req.session.studID);
+    // data.push(dataInput.instID);
+    // data.push(dataInput.comment);
+    // data.push(dataInput.target);
+    // data.push(dataInput.courseID);
+    // data.push(dataInput.grade);
+    // data.push(dataInput.dateEvaluated);
+
+    // grade.addEvaluation(data, function(err, result){
+    //     console.log(err);
+    //     if(err) return next(err);
+    //     res.status(200).send({success: true, detail: "Successfully Created!"});
+    // });
+
+    var gradesData = [""];
+    gradesData.push(req.session.instID);
+    gradesData.push(dataInput1.studID);
+    gradesData.push(dataInput1.lessonID);
+    gradesData.push(dataInput1.grade);
+    gradesData.push(dataInput1.comment);
+    gradesData.push(dataInput1.courseID);
+    gradesData.push(dataInput1.schedID);
     
-    console.log(data);
-    grade.addEvaluation(data, function(err, result){
+    console.log(gradesData);
+    grade.addGrade(gradesData, function(err, result){
         console.log(err);
         if(err) return next(err);
         res.status(200).send({success: true, detail: "Successfully Created!"});
@@ -94,3 +110,24 @@ exports.delete = function(req, res, next){
         res.status(200).send({success: true, detail: "Successfully Deleted!"});
     });
 }
+
+// exports.addGrade = function(req, res, next){
+//     if(res.locals.authenticated == 0) return next();
+
+//     var dataInput = JSON.parse(req.body.data1);
+//     var gradesData = [""];
+//     data.push(req.session.instID);
+//     data.push(dataInput.studID);
+//     data.push(dataInput.lessonID);
+//     data.push(dataInput.grade);
+//     data.push(dataInput.comment);
+//     data.push(dataInput.courseID);
+//     data.push(dataInput.schedID);
+    
+//     console.log(gradesData);
+//     grade.create(gradesData, function(err, result){
+//         console.log(err);
+//         if(err) return next(err);
+//         res.status(200).send({success: true, detail: "Successfully Created!"});
+//     });
+// }

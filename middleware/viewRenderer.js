@@ -62,10 +62,10 @@ exports.student = function(req, res, next){
                 resolve(crs);
             });
         });
-        var getLessons = new Promise((resolve, reject)=>{
-            courses.getLessonEnrolled(req.session.studID, function(err, crs){
+        var getGradesStudent = new Promise((resolve, reject)=>{
+            grades.getGradesStudent(req.session.studID, function(err, crs){
                 if(err) return reject(err);
-                res.locals.lessons = crs;
+                res.locals.gradesStud = crs;
                 resolve(crs);
             });
         });
@@ -76,7 +76,7 @@ exports.student = function(req, res, next){
                 resolve(inst);
             });
         });
-        Promise.all([getSched, getLicense, getCourse, getLessons, getInstructors]).then((results)=>{
+        Promise.all([getSched, getLicense, getCourse, getGradesStudent, getInstructors]).then((results)=>{
             res.render('student/index', res.locals);
         }).catch(next);
     }else{
@@ -99,7 +99,7 @@ exports.instructor = function(req, res, next){
         //     });
         // });
         var getLessons = new Promise((resolve, reject)=>{
-            students.getLessons('048025', function(err, crs){
+            students.getLessonEnrolled('048025', function(err, crs){
                 if(err) return reject(err);
                 res.locals.lessons = crs;
                 resolve(crs);
@@ -133,6 +133,13 @@ exports.instructor = function(req, res, next){
                 resolve(evalI);
             });
         });
+        // var getGradesInst = new Promise((resolve, reject)=>{
+        //     grades.getGradesInst(req.session.instID, function(err, crs){
+        //         if(err) return reject(err);
+        //         res.locals.gradesInst = crs;
+        //         resolve(crs);
+        //     });
+        // });
         Promise.all([getLessons, addGradeModal, getStudents, getEvalInst, getEvalInstNumber]).then((results)=>{
             res.render('instructor/index', res.locals);
         }).catch(next);

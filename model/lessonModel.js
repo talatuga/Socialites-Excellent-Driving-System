@@ -132,38 +132,7 @@ Lesson.getCourseEnrolled = function(studID, cb){
 }
 
 Lesson.getLessonEnrolled = function(studID, cb){
-    var sql = "SELECT ce.selectedLesson, g.*, ui.fullname, l.title FROM course_enrolled ce, enrollment en, grades g, instructor i, userinfo ui, lesson l WHERE en.id = ce.enrollmentID AND en.studID = ? AND g.studID = en.studID AND ce.status = 1 AND g.instID = i.id AND i.userinfo = ui.id AND g.lessonID = l.id";
-    db.get().query(sql, [studID], function(err, result){
-        if(err) return cb(err);
-        if(result.length == 0) return cb(null, []);
-        if(result[0].selectedLesson == "[]"){
-            // Lesson.getList(0,50, function(err, result){
-            //     if(err) return cb(err);
-            //     cb(null, result);
-            // });
-            cb(null, result);
-        }else{
-            var lessonsIDArr = JSON.parse(result[0].selectedLesson);
-            var query = [];
-            lessonsIDArr.forEach((e,i)=>{
-                query.push(new Promise((resolve,reject)=>{
-                    Lesson.get(e, null, function(err, result){
-                        if(err) return reject(err);
-                        resolve(result);
-                    });
-                }));
-                if(i == lessonsIDArr.length-1){
-                    Promise.all(query).catch(cb).then(function(lessons){
-                        cb(null, lessons);
-                    });
-                }
-            });
-        }
-    });
-}
-
-Lesson.getLessons = function(studID, cb){
-    var sql = "SELECT ce.selectedLesson FROM course_enrolled ce, enrollment en WHERE en.id = ce.enrollmentID AND en.studID = ?";
+    var sql = "SELECT ce.selectedLesson, l.id, l.title FROM course_enrolled ce, enrollment en, lesson l WHERE en.id = ce.enrollmentID AND en.studID = ?";
     db.get().query(sql, [studID], function(err, result){
         if(err) return cb(err);
         if(result.length == 0) return cb(null, []);
@@ -172,6 +141,7 @@ Lesson.getLessons = function(studID, cb){
                 if(err) return cb(err);
                 cb(null,result);
             });
+            // console.log(result);
         }else{
             var lessonsIDArr = JSON.parse(result[0].selectedLesson);
             var query = [];

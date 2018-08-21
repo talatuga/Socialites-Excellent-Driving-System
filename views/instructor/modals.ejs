@@ -39,18 +39,22 @@
             <form>
                 <h5>Student Name: <span class="studNameAGM">Harry James Potter</span></h5><hr>
                 <h5 style="padding-top: 2px;"><span class="asterisk">*</span>Lesson: </h5>
-                <select name="lessonListForGrade" class="lessonListForGrade enrCivStatus1" onchange="getval1(this)" style="width: 94%; margin-bottom: 10px;">
-                <% 
-                  lessons.forEach((e,i)=>{ %>
-                      <option id='lesson<%=(i)%>' value='<%=e.title%>'><%=e.title%></option><% 
+                <%
+                  var html = "";
+                  var selected;
+                  html += "<select name='lessonListForGrade' class='lessonListForGrade enrCivStatus1' onchange='getLesID(this)' style='width: 94%; margin-bottom: 10px;'>";
+                  lessons.forEach((e,i)=>{
+                      html += "<option id='" + e.id + "' data-info='" + JSON.stringify(e) + "' value='" + e.id + "'>" + e.title + "</option>";
+                      selected = e.id;
                     }); 
+                  html += "</select>";
                 %>
-                </select>
+                <%-html%>
                 <h5 style="padding-top: 2px;"><span class="asterisk">*</span>Date: </h5>
-                <select id="dateLessonList" name="dateLessonList" class="enrCivStatus1" onchange="getval(this)" style="width: 94%; margin-bottom: 10px;">
+                <select id="dateLessonList" name="dateLessonList" class="enrCivStatus1" style="width: 94%; margin-bottom: 10px;">
                   <% 
                     grade.forEach((e,i)=>{ %>
-                      <option id='sched<%=(i)%>' value='<%=(Date.parse(e.time).toString("HH:MM"))%>'><%=(Date.parse(e.date).toString("MMM dd, yyyy"))%></option><% 
+                      <option id='sched<%=(i)%>' value='<%=(Date.parse(e.schedtime).toString("HH:mm"))%>'><%=(Date.parse(e.date).toString("MMM dd, yyyy"))%></option><% 
                     });
                   %>
                 </select>

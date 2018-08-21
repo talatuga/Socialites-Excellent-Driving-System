@@ -4,8 +4,8 @@ function evaluateInst(a){
     var data = $('#a'+a).data('info');
     var name = data.fullname.replace(/_/g, ' ');
     $('.instNameToEval').val(name);
-    $('input[name="rbInstEval"]:checked').attr('checked', false);
-    $('.taInstEval').val("");
+    $('input:radio[name=rbInstEval]').each(function () { $(this).prop('checked', false); });    
+    $('#taInstEval').val("");
     $('#evalInstModal').modal("show");
 }
 
