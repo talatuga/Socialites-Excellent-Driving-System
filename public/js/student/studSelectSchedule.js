@@ -268,15 +268,78 @@ function editRecSched(){
 
 function updateSchedule(){
   var rawEvents = $('#calendarSelectSched').fullCalendar('clientEvents');
+  var mainEvents = $('#calendarMainStudSched').fullCalendar("clientEvents");
+
   var events = [];
-  rawEvents.forEach((element,index) => {
-    events.push({
-      id: element._id,
-      date: moment(element.start).format('YYYY-MM-DD'),
-      time: moment(element.start).format('HH:mm'),
+
+  var submit = ()=>{
+    swal({
+      title: "Edit Schedule?",
+      text: "Are you sure you want to change?",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+      closeOnConfirm: false,
+      closeOnCancel: true
+    },function(conf){
+      if(conf){
+        app.scheduler.updateSchedule(events,function(err, res){
+          if(err){
+            console.error(err);
+            swal("Failed!", err.message, "error");
+          }else{
+            if(res.status == 1){
+              swal("Updated!", "Schedule Successfully Updated", "success");
+            }else if(res.status == 2){
+              swal("Overtime Schedule!", "Schedule submit for review, we will inform you later.", "warning");
+            }else if(res.status == 0){
+              swal("Conflict Found!", res.title + " schedule isn't available", "error");
+            }
+          }
+        });
+      }
     });
-    if(index==rawEvents.length-1){
-      console.log(events);
-    }
+  };
+
+  var validateChange = function(cb){
+    var promises = [];
+    rawEvents.forEach((e,i)=>{
+      promises.push(new Promise((r,x)=>{
+        mainEvents.forEach((el,count)=>{
+          if(e._id == el._id){
+            if(moment(e.start).format('YYYY-MM-DD HH:mm')==moment(el.start).format('YYYY-MM-DD HH:mm')){
+              r(0);
+            }else{
+              r(e);
+            }
+          }
+          if(count==mainEvents.length-1){
+            r(e);
+          }
+        });
+      }));
+      if(i==rawEvents.length-1){
+        Promise.all(promises).then((asd)=>{
+          cb(asd);
+        });
+      }
+    });
+  };
+
+  validateChange((res)=>{
+    res.forEach((element,i)=>{
+      if(element == 0) return;
+      events.push({
+        id: element._id,
+        date: moment(element.start).format('YYYY-MM-DD'),
+        time: moment(element.start).format('HH:mm'),
+        title: element.title,
+      });
+      if(i==res.length-1){
+        submit();
+      }
+    });
   });
 }

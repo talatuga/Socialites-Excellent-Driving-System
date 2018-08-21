@@ -117,5 +117,26 @@ var app = {
                 }
             });
         },
+        updateSchedule: function(schedules, cb){
+            var branchID = $('.venueSchedToday').data('id') || 1;
+            $.ajax({
+                type: "PUT",
+                url: "api/v1/sched",
+                data: {
+                    events: JSON.stringify(schedules),
+                    branch: branchID,
+                },
+                success: function(res){
+                    if(res.success){
+                        cb(null, res.data);
+                    }else{
+                        cb(new Error(res.detail));
+                    }
+                },
+                error: function(xhr){
+                    cb(new Error(xhr.status + ": " + xhr.statusText));
+                }
+            });
+        },
     },
 }

@@ -1,6 +1,25 @@
 var schedule = require('../../model/scheduleModel');
 var student = require('../../model/studentModel');
 
+var checkConflict = function(branchID, schedules){
+    return new Promise((resolve, reject)=>{
+        var promises = [];
+        if(Array.isArray(schedules)){
+            schedules.forEach((e,i)=>{
+                var task = new Promise((resolve, reject)=>{
+                    schedule.checkSched(branchID, Date.parse(e.date), e.time).catch(reject).then(resolve);
+                });
+                promises.push(task);
+                if(i==schedules.length-1){
+                    Promise.all(promises).catch(reject).then(resolve);
+                }
+            });
+        }else{
+            schedule.checkSched(branchID, Date.parse(schedules.date), schedules.time).catch(reject).then(resolve);
+        }
+    });   
+}
+
 exports.calendar = function(req, res, next){
     schedule.getAssigned(req.session.studID, function(err, data){
         if(err) return next(err);
@@ -98,5 +117,50 @@ exports.schedAvailability = function(req, res, next){
     var time = req.query.time;
     schedule.checkSched(branchID, date, time).catch(next).then((available)=>{
         res.status(200).send({success: true, status: available});
+    });
+};
+
+exports.updateSchedule = function(req, res, next){
+    var schedules = JSON.parse(req.body.events) || null;
+    var branchID = req.body.branch || null;
+
+    var output = {
+        status: 0,
+        title: "",
+        events: schedules
+    }
+
+    var checkResult = function(result){
+        result.forEach((e,i)=>{
+            output.status = output.status != 2 ? 1 : 2;
+            if(e==0){
+                output.status = 0;
+                output.title = schedules[i].title;
+                res.status(200).send({success: true, data: output});
+                return;
+            }
+            if(e==2) output.status = 2;
+            if(i==result.length-1){
+                updateSched(schedules);
+            }
+        });
+    };
+
+    var updateSched = function(scheduleList){
+        schedule.updateSchedule(scheduleList, function(err){
+            if(err) return next(err);
+            res.status(200).send({success: true, data: output});
+        });
+    };
+
+    var promises = [];
+    schedules.forEach((e,i)=>{
+        var task = new Promise((resolve, reject)=>{
+            schedule.checkSched(branchID, Date.parse(e.date), e.time).catch(reject).then(resolve);
+        });
+        promises.push(task);
+        if(i==schedules.length-1){
+            Promise.all(promises).catch(next).then(checkResult);
+        }
     });
 };

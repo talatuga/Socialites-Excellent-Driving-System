@@ -300,4 +300,29 @@ Model.checkSched = function(branch, date, time){
     });
 };
 
+Model.updateSchedule = function(schedule, cb){
+    var sql = "UPDATE " + table + " SET date = ?, time = ?, status = 2 WHERE id = ?";
+    if(Array.isArray(schedule)){
+        var promises = [];
+        schedule.forEach((e,i)=>{
+            promises.push(new Promise((res,rej)=>{
+                db.get().query(sql, [e.date, e.time, e.id], function(err, result){
+                    if(err) return rej(err);
+                    res(true);
+                });
+            }));
+            if(i==schedule.length-1){
+                Promise.all(promises).catch(cb).then((ok)=>{
+                    cb(null);
+                });
+            }
+        });
+    }else{
+        db.get().query(sql,[schedule.date, schedule.time, schedule.id], function(err, result){
+            if(err) return cb(err);
+            cb(null);
+        });
+    }
+}
+
 module.exports = Model;

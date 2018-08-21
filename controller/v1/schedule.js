@@ -11,6 +11,9 @@ router.route('/preference')
 router.route('/check')
     .get(auth.auth, scheduler.schedAvailability);
 
+router.route('/')
+    .put(auth.auth, scheduler.updateSchedule);
+
 router.route('/:id')
     .patch(scheduler.removeSchedFromCalendar)
     .put(scheduler.assignSched);

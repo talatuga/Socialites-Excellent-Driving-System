@@ -155,19 +155,34 @@ var Timeline = function(options){
         if(events.length == 0 && breakTime.length == 0){
             lookUp();
         }else{
-            events.forEach((e,i)=>{
-                var a = getTimeInMinute(e.start);
-                var b = getTimeInMinute(e.end)
-                scheduled.fill(1,a,b);
-                if(i==events.length-1){
-                    breakTime.forEach((ee,ind)=>{
-                        var a = getTimeInMinute(ee.start);
-                        var b = getTimeInMinute(ee.end)
-                        scheduled.fill(2,a,b);
-                        if(ind==breakTime.length-1) return lookUp();
-                    }); 
-                }
-            });       
+            var task1 = (cb)=>{
+                if(breakTime.length==0) return cb();
+                breakTime.forEach((ee,ind)=>{
+                    var a = getTimeInMinute(ee.start);
+                    var b = getTimeInMinute(ee.end)
+                    scheduled.fill(2,a,b);
+                    if(ind==breakTime.length-1){
+                        cb();
+                    }
+                }); 
+            };
+            var task2 = (cb)=>{
+                if(events.length==0) return cb();
+                events.forEach((e,i)=>{
+                    var a = getTimeInMinute(e.start);
+                    var b = getTimeInMinute(e.end)
+                    scheduled.fill(1,a,b);
+                    if(i==events.length-1){
+                        cb();
+                    }
+                });       
+            };
+
+            task1(()=>{
+                task2(()=>{
+                    lookUp();
+                });
+            });
         }
     }
 }
