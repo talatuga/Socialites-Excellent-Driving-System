@@ -72,7 +72,7 @@
                                             <th>Instructor</th>
                                             
                                             <th>Grade</th>
-                                            <th>Comment</th>
+                                            <th width="20%">Comment</th>
                                        </tr>
                                    </thead>
                                    <tbody>
@@ -83,8 +83,8 @@
                                                 html += "<tr>";
                                                 html += "<td>" + x + "</td>";
                                                 html += "<td>" + e.title + "</td>";
-                                                html += "<td>" + "---" + "</td>";
-                                                html += "<td>" + "---" + "</td>";
+                                                html += "<td>" + (Date.parse(e.date).toString("MMM dd, yyyy")) + "</td>";
+                                                html += "<td>" + (Date.parse(e.time).toString("HH:mm")) + "</td>";
                                                 html += "<td>" + e.fullname.replace(/_/g, ' ') + "</td>";
                                                 
                                                 html += "<td>" + e.grade + "</td>";

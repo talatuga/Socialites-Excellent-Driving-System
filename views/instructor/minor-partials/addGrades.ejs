@@ -32,7 +32,7 @@
                         <td><h5 class="studNumSTC">STUD-QC-0001</h5></td>
                     </tr>
                 </table><br>
-                <table class="table tblCustom">
+                <table class="table tblCustom" id="lessonForGradeTbl">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -40,17 +40,17 @@
                             <th>Date</th>
                             <th>Time</th>
                             <th>Instructor</th>
-                            
                             <th>Grade</th>
-                            <th>Comment</th>
+                            <th width="20%">Comment</th>
                         </tr>
                     </thead>
-                    <tbody id="lessonForGradeTbl">
-                    
+                    <tbody id="studGradesInst">
+                        <tr></tr>
                     </tbody>
-                </table><br>
+                </table><br><br>
+                <h6 style="text-align: right">You can only evaluate this student upon the completion all ten (10) lessons.</h6>
                 <div class="pull-right">
-                    <button type="button" onclick="evaluateModal()" class="pull-right btn100px btn13 btn btn-success m-b-10 m-l-5">Evaluate</button>
+                    <button type="button" onclick="evaluateModal()" class="btnEvalI pull-right btn100px btn13 btn btn-success m-b-10 m-l-5">Evaluate</button>
                     <button type="button" onclick="addGradeModal()" class="pull-right btn100px btn13 btn btn-success m-b-10 m-l-5">Add Grade</button>
                 </div>
             </div>

@@ -7305,6 +7305,10 @@ tbody tr td:last-child {
   cursor: pointer;
 }
 
+.tblNoHover tbody tr:hover{
+  background-color: #FFFFFF;
+}
+
 .tblVehicle td, .tblVehicleDef td, .tblVehicleM td, .tblStudent td, .tblBranches td, 
 .tableDash td, .tblInstructor td, .tblLessons td, .tblReqClass td, .tblReqPerClass td, .tblManualCrs td, .tblCustom td
 {

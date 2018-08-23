@@ -50,6 +50,7 @@ var instSchedule = function (){
 }
 
 var instStudent = function (){
+    loadStudentI();
     $('.viewDiv').hide();
     $(".view-instStudent").show();
     $(".search-box").hide();

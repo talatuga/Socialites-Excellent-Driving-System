@@ -39,25 +39,9 @@
             <form>
                 <h5>Student Name: <span class="studNameAGM">Harry James Potter</span></h5><hr>
                 <h5 style="padding-top: 2px;"><span class="asterisk">*</span>Lesson: </h5>
-                <%
-                  var html = "";
-                  var selected;
-                  html += "<select name='lessonListForGrade' class='lessonListForGrade enrCivStatus1' onchange='getLesID(this)' style='width: 94%; margin-bottom: 10px;'>";
-                  lessons.forEach((e,i)=>{
-                      html += "<option id='" + e.id + "' data-info='" + JSON.stringify(e) + "' value='" + e.id + "'>" + e.title + "</option>";
-                      selected = e.id;
-                    }); 
-                  html += "</select>";
-                %>
-                <%-html%>
+                <select name='lessonListForGrade' id="lessonListForGrade" class='lessonListForGrade enrCivStatus1' style='width: 94%; margin-bottom: 10px;'></select>
                 <h5 style="padding-top: 2px;"><span class="asterisk">*</span>Date: </h5>
-                <select id="dateLessonList" name="dateLessonList" class="enrCivStatus1" style="width: 94%; margin-bottom: 10px;">
-                  <% 
-                    grade.forEach((e,i)=>{ %>
-                      <option id='sched<%=(i)%>' value='<%=(Date.parse(e.schedtime).toString("HH:mm"))%>'><%=(Date.parse(e.date).toString("MMM dd, yyyy"))%></option><% 
-                    });
-                  %>
-                </select>
+                <select name='dateLessonList' id="dateLessonList" class='dateLessonList enrCivStatus1' style='width: 94%; margin-bottom: 10px;'></select>
                 <h5 style="padding-top: 2px;"><span class="asterisk">*</span>Time: </h5>
                 <input type="text" class="timeLesson txtEnr" style="width:94%; margin-bottom: 10px;" disabled>
                 <h5 style="padding-top: 2px;"><span class="asterisk">*</span>Grade: </h5>
@@ -103,27 +87,23 @@
             <form>
                 <h5>Student Name: <span class="studNameAGM">Harry James Potter</span></h5><hr>
                 <h5 style="padding-top: 2px;"><span class="asterisk">*</span>Lesson: </h5>
-                <select name="lessonListForGrade" class="lessonListForGrade enrCivStatus1" style="width: 94%; margin-bottom: 10px;" disabled>
-                  <option value="1">Start &amp; Stop</option>
-                </select>
+                <input type="text" class="txtEnr editLessonListForGrade" style="width:94%; margin-bottom: 10px;" disabled>
                 <h5 style="padding-top: 2px;"><span class="asterisk">*</span>Date: </h5>
-                <select name="dateLessonList" class="dateLessonList enrCivStatus1" style="width: 94%; margin-bottom: 10px;">
-                  <option value="1">Aug. 18, 2018</option>
-                </select>
+                <select name="dateLessonListEdit" id="dateLessonListEdit" class="dateLessonListEdit enrCivStatus1" style="width: 94%; margin-bottom: 10px;"></select>
                 <h5 style="padding-top: 2px;"><span class="asterisk">*</span>Time: </h5>
-                <input type="text" class="txtEnr timeLesson" style="width:94%; margin-bottom: 10px;" disabled>
+                <input type="text" class="txtEnr timeLesson1" style="width:94%; margin-bottom: 10px;" disabled>
                 <h5 style="padding-top: 2px;"><span class="asterisk">*</span>Grade: </h5>
                 <table>
                   <tr>
-                    <td><input type="radio" class="enrSexRD" id="rbLessonEvalEdit1" name="rbLessonEval" value="1">
+                    <td><input type="radio" class="enrSexRD" id="rbLessonEvalEdit1" name="rbLessonEvalEdit" value="1">
                       <label class="enrSexLbl" for="rbLessonEvalEdit1" style="color:maroon"><b>1</b></label></td>
-                    <td><input type="radio" class="enrSexRD" id="rbLessonEvalEdit2" name="rbLessonEval" value="2">
+                    <td><input type="radio" class="enrSexRD" id="rbLessonEvalEdit2" name="rbLessonEvalEdit" value="2">
                       <label class="enrSexLbl" for="rbLessonEvalEdit2" style="color: orangered"><b>2</b></label></td>
-                    <td><input type="radio" class="enrSexRD" id="rbLessonEvalEdit3" name="rbLessonEval" value="3">
+                    <td><input type="radio" class="enrSexRD" id="rbLessonEvalEdit3" name="rbLessonEvalEdit" value="3">
                       <label class="enrSexLbl" for="rbLessonEvalEdit3" style="color: goldenrod"><b>3</b></label></td>
-                    <td><input type="radio" class="enrSexRD" id="rbLessonEvalEdit4" name="rbLessonEval" value="4">
+                    <td><input type="radio" class="enrSexRD" id="rbLessonEvalEdit4" name="rbLessonEvalEdit" value="4">
                       <label class="enrSexLbl" for="rbLessonEvalEdit4" style="color: royalblue"><b>4</b></label></td>
-                    <td><input type="radio" class="enrSexRD" id="rbLessonEvalEdit5" name="rbLessonEval" value="5">
+                    <td><input type="radio" class="enrSexRD" id="rbLessonEvalEdit5" name="rbLessonEvalEdit" value="5">
                       <label class="enrSexLbl" for="rbLessonEvalEdit5" style="color: forestgreen"><b>5</b></label></td>
                   </tr>
                 </table>
@@ -152,36 +132,6 @@
         <hr class="hrCustom">
         <div class="stot">
           <form>
-            <center>            
-              <h4><b>SUMMARY OF GRADES</b></h4>
-              <div class="separator3"></div>
-              <table class="table tblRecSched" style="width: 70%">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th width="70%">Lesson</th>
-                    <th>Numerical Grade</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>Start &amp; Stop</td>
-                    <td>5</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>Start &amp; Stop</td>
-                    <td>5</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>Start &amp; Stop</td>
-                    <td>5</td>
-                  </tr>
-                </tbody>
-              </table><hr>
-            </center>
             <div class="row">
               <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                 <h6>Course: <b><span class="evalCrs">CRS-M0001</span></b></h6>
@@ -212,7 +162,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn100 btn13 btn-inverse" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn100 btn13 btn-success" data-dismiss="modal">Confirm</button>
+        <button type="button" onclick="doneEvalStud()" class="btn btn100 btn13 btn-success" data-dismiss="modal">Confirm</button>
       </div>
     </div>
   </div>

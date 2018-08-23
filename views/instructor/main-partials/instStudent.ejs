@@ -24,7 +24,7 @@
                                 <span><i class="icon icon-profession10 tiSide f-s-40 color-danger"></i></span>
                             </div>
                             <div class="media-body media-text-right">
-                                <h2>0</h2>
+                                <h2 class="allStudInst">0</h2>
                                 <p class="m-b-0" style="color: black">Students Handled<br><span>(since Jan. 2018)</span></p>
                             </div>
                         </div>
@@ -35,7 +35,7 @@
                                 <span><i class="icon icon-woman243 tiSide f-s-40 color-danger"></i></span>
                             </div>
                             <div class="media-body media-text-right">
-                                <h2>0</h2>
+                                <h2 class="curStudInst">0</h2>
                                 <p class="m-b-0" style="color: black">Current Students</p>
                             </div>
                         </div>
@@ -56,7 +56,7 @@
                             <div class="tab-pane active" id="profile1" role="tabpanel">
                                 <div class="card-body">
                                     <form class="studTab">
-                                        <table class="table tblRecSched tblCustom tblHandledStud">
+                                        <table class="table tblRecSched tblHandledStud">
                                             <thead>
                                                 <tr>
                                                     <th>Student Number</th>
@@ -71,7 +71,6 @@
                                             <% 
                                                 var html = "";
                                                 var pad = "000";
-                                                // var x;
                                                 students.forEach((e,i)=>{
                                                     html += "<tr id='a"+ e.studID +"' data-info='"+ JSON.stringify(e) +"'>";
                                                     html += "<td>" + e.studID + "</td>";
@@ -81,7 +80,6 @@
                                                     html += "<td>" + e.address + "</td>";
                                                     html += "<td><button type='button' onclick='viewGradesInst(\""+ e.studID +"\")' class='btn100px btn13 btn btn-success m-b-10 m-l-5'>View Grades</button></td>";
                                                     html += "</tr>"; 
-                                                    // x++;
                                                 }); 
                                             %>
                                             <%-html%>

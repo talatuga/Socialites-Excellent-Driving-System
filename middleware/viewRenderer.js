@@ -105,13 +105,13 @@ exports.instructor = function(req, res, next){
                 resolve(crs);
             });
         });
-        var addGradeModal = new Promise((resolve, reject)=>{
-            grades.addGradeModal(req.session.instID, function(err, grade){
-                if(err) return reject(err);
-                res.locals.grade = grade;
-                resolve(grade);
-            });
-        });
+        // var addGradeModal = new Promise((resolve, reject)=>{
+        //     grades.addGradeModal(req.session.instID, function(err, grade){
+        //         if(err) return reject(err);
+        //         res.locals.grade = grade;
+        //         resolve(grade);
+        //     });
+        // });
         var getStudents = new Promise((resolve, reject)=>{
             students.getHandledStudents(req.session.instID, function(err, stud){
                 if(err) return reject(err);
@@ -133,14 +133,28 @@ exports.instructor = function(req, res, next){
                 resolve(evalI);
             });
         });
-        // var getGradesInst = new Promise((resolve, reject)=>{
-        //     grades.getGradesInst(req.session.instID, function(err, crs){
-        //         if(err) return reject(err);
-        //         res.locals.gradesInst = crs;
-        //         resolve(crs);
-        //     });
-        // });
-        Promise.all([getLessons, addGradeModal, getStudents, getEvalInst, getEvalInstNumber]).then((results)=>{
+        var getGradesInst = new Promise((resolve, reject)=>{
+            grades.getGradesInst(req.session.instID, function(err, crs){
+                if(err) return reject(err);
+                res.locals.gradesInst = crs;
+                resolve(crs);
+            });
+        });
+        var getGradesSum = new Promise((resolve, reject)=>{
+            grades.getGradesSum(req.session.instID, function(err, sum){
+                if(err) return reject(err);
+                res.locals.gradeSum = sum;
+                resolve(sum);
+            });
+        });
+        var getAvailableLessons = new Promise((resolve, reject)=>{
+            students.getAvailableLessons(req.session.instID, function(err, lessonsAv){
+                if(err) return reject(err);
+                res.locals.avLess = lessonsAv;
+                resolve(lessonsAv);
+            });
+        });
+        Promise.all([getLessons, getStudents, getEvalInst, getEvalInstNumber, getGradesInst, getGradesSum, getAvailableLessons]).then((results)=>{
             res.render('instructor/index', res.locals);
         }).catch(next);
     }else{
