@@ -1,6 +1,7 @@
-var studName, instID, studID, courseID, schedID, lessonID, dataID;
-var selectedLesson, selectedGrade, selectedComment, selectedDate, selectedTime, selectedDataID;
+var studName, studID, courseID, schedID, lessonID, dataID;
+var selectedLesson, selectedGrade, selectedComment, selectedDate, selectedTime, selectedDataID, selectedInstID;
 var rowCount, course, sum, percent;
+var instID = $('body').data('instid');
 
 $(function(){  
     loadStudentI();
@@ -8,7 +9,7 @@ $(function(){
 
 function loadStudentI(){
     rowCount = $('.tblHandledStud').length;
-    $('.currStudInst').html(rowCount);
+    // $('.curStudInst').html(rowCount);
     $('.allStudInst').html(rowCount);
 }
 
@@ -33,6 +34,7 @@ function viewGradesInst(id){
         }else{
             $('#studGradesInst').html("");
             var x = 1;
+            var dataLen = data.length;
             data.forEach(e => {
                 dataID = e.id;
                 var html = "<tr id='"+ e.id +"'>";
@@ -40,13 +42,20 @@ function viewGradesInst(id){
                 html += "<td id='"+ e.id +"'>" + e.title + "</td>";
                 html += "<td>" + (Date.parse(e.date).toString("MMM dd, yyyy")) + "</td>";
                 html += "<td>" + (Date.parse(e.time).toString("HH:mm")) + "</td>";
-                html += "<td id='instName"+ x +"' data-name='"+ e.fullname +"' >" + e.fullname.replace(/_/g, ' ') + "</td>";
+                html += "<td id='"+ e.instID +"' data-name='"+ e.fullname +"' >" + e.fullname.replace(/_/g, ' ') + "</td>";
                 html += "<td>" + e.grade + "</td>";
                 html += "<td>" + e.comment + "</td>";
                 html += "</tr>";
                 x++;
                 $('#studGradesInst').append(html);
             });
+            if (dataLen==10){
+                $('.btnAddI').hide();
+                $('.btnEvalI').show();
+            }else{
+                $('.btnAddI').show();
+                $('.btnEvalI').hide();
+            }
             $("#studGradesInst tr").on('click', function() {
                 selectedLesson = $(this).closest('tr').find('td:eq(1)').text();
                 selectedGrade = $(this).closest('tr').find('td:eq(5)').text();
@@ -54,7 +63,9 @@ function viewGradesInst(id){
                 selectedDate = $(this).closest('tr').find('td:eq(2)').text();
                 selectedTime = $(this).closest('tr').find('td:eq(3)').text();
                 selectedDataID = $(this).closest('tr').find('td:eq(1)').attr("id");
-                showEditGradeModal();
+                selectedInstID = $(this).closest('tr').find('td:eq(4)').attr("id");
+                if (selectedInstID==instID) showEditGradeModal();
+                else swal("Oops!", "You cannot update this grade because you are not the assigned instructor.", "error");
             });
         }
     });
@@ -167,12 +178,12 @@ function evaluateModal(){
             percent = (sum*2);
             $('.overallGrade').html(sum + "/50");
             $('.overallGrPerc').html(percent + "%");
+            $('.evalGrade').html(sum <= 24 ? "NEEDS TO EXTEND" : ((sum <= 34 && sum >= 25) ? "NEEDS PRACTICE" : "PASSED"));
         }
     });
     $('.evalCrs').html(course);
-    $('.evalGrade').html(sum <= 24 ? "NEEDS TO EXTEND" : ((sum <= 34 && sum >= 25) ? "NEEDS PRACTICE" : "PASSED"));
     $('#commentInstEval').val("");
-    $('.instEvaluator').html($('#instName10').data('name').replace(/_/g,' '))
+    $('.instEvaluator').html('Austin Butler');
     $('#evalStudModal').modal('show');
 }
 
@@ -202,16 +213,10 @@ function saveLessonGrade(){
             }else{
                 swal ("Success!", "Lesson grade has been added!", "success");
                 $('#addGradeModal').modal('hide');
-                checkBtnEval();
+                viewGradesInst(studID);
             }
         });
     }
-}
-
-function checkBtnEval(){
-    rowCount = $('#lessonForGradeTbl tbody tr').length;
-    if ($(rowCount==10)) $('.btnEval1').prop('disabled', false);
-    else $('.btnEval1').prop('disabled', true);
 }
 
 function saveEditLessonGrade(){
@@ -236,16 +241,51 @@ function saveEditLessonGrade(){
         }else{
             swal ("Success!", "Changes have been saved!", "success");
             $('#editGradeModal').modal('hide');
+            viewGradesInst(studID);
         }
     });
 }
 
 function doneEvalStud(){
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+
+    if(dd<10) {
+        dd = '0'+dd
+    } 
+
+    if(mm<10) {
+        mm = '0'+mm
+    } 
+    
+    today = mm + '/' + dd + '/' + yyyy;
+    var dateEvaluated = (Date.parse(today).toString("yyyy-MM-dd"));
     var commentEval = $('#commentInstEval').val();
-    if (commentEval==null){
+    if ((commentEval.replace(/_/g, ' '))==""){
         swal("Oops!", "Please state your comments or remarks to this student first.", "error");
     }
     else{
+        var _data = {
+            studID: studID,
+            instID: instID,
+            comment: commentEval,
+            target: 1,
+            courseID: courseID,
+            grade: sum,
+            dateEvaluated: dateEvaluated
+        }
+        evaluation.addEval(_data, function(err){
+            if(err){
+                swal("Failed!", err.message, "error");
+                console.log(err);
+            }else{
+                swal ("Success!", "Course is finished! Evaluation details has been submitted.", "success");
+                $('#evalStudModal').modal("hide");
+            }
+        });
         swal("Success!", "Student is successfully evaluated!", "success");
+        $('#evalStudModal').modal('hide');
     }
 }

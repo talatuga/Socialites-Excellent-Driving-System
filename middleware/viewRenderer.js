@@ -39,8 +39,10 @@ exports.student = function(req, res, next){
     var courses = require ('../model/lessonModel');
     var schedule = require('../model/scheduleModel');
     var grades = require ('../model/evaluationModel');
+    var ejs = require ('../bin/ejs')
     if(req.session.studID != -1){
         res.locals.title = 'Socialites Excellent Driving';
+        res.locals.instID = req.session.studID;
         var getSched = new Promise((resolve, reject)=>{
             schedule.getAvailable(req.session.studID, function(err, sched){
                 if(err) return reject(err);
@@ -76,7 +78,14 @@ exports.student = function(req, res, next){
                 resolve(inst);
             });
         });
-        Promise.all([getSched, getLicense, getCourse, getGradesStudent, getInstructors]).then((results)=>{
+        var getEvalStud = new Promise((resolve, reject)=>{
+            grades.getEvalStud(req.session.studID, function(err, eval){
+                if(err) return reject(err);
+                res.locals.evalStud = eval;
+                resolve(eval);
+            });
+        });
+        Promise.all([getSched, getLicense, getCourse, getGradesStudent, getInstructors, getEvalStud]).then((results)=>{
             res.render('student/index', res.locals);
         }).catch(next);
     }else{
@@ -91,27 +100,7 @@ exports.instructor = function(req, res, next){
     var grades = require ('../model/evaluationModel');
     if(req.session.instID != -1){
         res.locals.title = 'Socialites Excellent Driving';
-        // var getSched = new Promise((resolve, reject)=>{
-        //     schedule.getAvailable(req.session.instID, function(err, sched){
-        //         if(err) return reject(err);
-        //         res.locals.schedule = sched;
-        //         resolve(sched);
-        //     });
-        // });
-        var getLessons = new Promise((resolve, reject)=>{
-            students.getLessonEnrolled('048025', function(err, crs){
-                if(err) return reject(err);
-                res.locals.lessons = crs;
-                resolve(crs);
-            });
-        });
-        // var addGradeModal = new Promise((resolve, reject)=>{
-        //     grades.addGradeModal(req.session.instID, function(err, grade){
-        //         if(err) return reject(err);
-        //         res.locals.grade = grade;
-        //         resolve(grade);
-        //     });
-        // });
+        res.locals.instID = req.session.instID;
         var getStudents = new Promise((resolve, reject)=>{
             students.getHandledStudents(req.session.instID, function(err, stud){
                 if(err) return reject(err);
@@ -154,7 +143,7 @@ exports.instructor = function(req, res, next){
                 resolve(lessonsAv);
             });
         });
-        Promise.all([getLessons, getStudents, getEvalInst, getEvalInstNumber, getGradesInst, getGradesSum, getAvailableLessons]).then((results)=>{
+        Promise.all([getStudents, getEvalInst, getEvalInstNumber, getGradesInst, getGradesSum, getAvailableLessons]).then((results)=>{
             res.render('instructor/index', res.locals);
         }).catch(next);
     }else{

@@ -15,5 +15,6 @@ $(function (){
 });
 
 function viewEvaluationStud(){
+    
     $('#viewEvalStudModal').modal("show");
 }

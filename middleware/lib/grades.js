@@ -6,7 +6,7 @@ exports.create = function(req, res, next){
 
     var dataInput = JSON.parse(req.body.data);
     var data = [""];
-    data.push(req.session.studID);
+    data.push(dataInput.studID);
     data.push(dataInput.instID);
     data.push(dataInput.comment);
     data.push(dataInput.target);
@@ -51,10 +51,6 @@ exports.update = function(req, res, next){
     var id = req.params.id;
     var field = req.params.field == undefined ? null : req.params.field.replace(';','');
     var dataIn = JSON.parse(req.body.data);
-    //VALIDATIONS
-    // var breakDownID = id.split("-");
-    // var account = parseInt(breakDownID[1].slice(0,3));
-    // var info = parseInt(breakDownID[1].slice(3,6));
     
     var data = [];
     data.push(dataIn.grade);
@@ -65,7 +61,7 @@ exports.update = function(req, res, next){
         if(err) return next(err);
         grade.update(id, dataIn.comment, "comment", function(er){
             if(er) return next(er);           
-            grade.update(id, dataIn.schedID, "schedID", function(err){
+            grade.update(id, dataIn.schedID, "schedID", function(errr){
                 if(errr) return next(errr);    
                 res.status(200).send({success: true, detail: "Successfully modified!"});            
             });     

@@ -11,6 +11,7 @@ var app = {
                 html += "<td>"+ parseFloat(e.price).formatMoney(2) +"</td>";
                 html += "<td>"+ (parseFloat(e.price) - parseFloat(e.balance)).formatMoney(2) +"</td>";
                 html += "<td>"+ parseFloat(e.balance).formatMoney(2) +"</td>";
+                html += "<td><button type='button' onclick='viewReceipt()' class='btn100px btn13 btn btn-inverse m-b-10 m-l-5'>View Receipt</button></td>";
                 html += "</tr>";
                 $('#accountTable').append(html);
             });

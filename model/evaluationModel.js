@@ -68,6 +68,17 @@ Grade.getEvalInst = function (instID, cb){
     });
 }
 
+Grade.getEvalStud = function (studID, cb){
+    var sql = "SELECT i.id, ui.fullname, e.courseID, c.carType, e.dateEvaluated, e.grade, e.comment FROM instructor i, userinfo ui, course_enrolled ce, evaluation e, course c, student st WHERE st.id = e.studID AND i.userInfo = ui.id AND ce.courseID = e.courseID AND e.studID = ? AND e.target = 1 AND i.id = e.instID GROUP BY ui.fullname";
+    db.get().query(sql, [studID], function(err, result){
+        if(err) return cb(err);
+        if(result.length == 0) return cb(null, []);
+        console.log(result);
+        if(err) return cb(err);
+        cb(null, result);
+    });
+}
+
 Grade.getEvalInstNumber = function (instID, cb){
     var sql = "SELECT COUNT(e.dateEvaluated) AS counter FROM evaluation e WHERE e.instID = ? AND e.target = 0";
     db.get().query(sql, [instID], function(err, result){
@@ -93,9 +104,9 @@ Grade.getGradesStudent = function (studID, cb){
 }
 
 Grade.getGradesInst = function (studID, cb){
-    var sql = "SELECT ce.selectedLesson, g.*, ui.fullname, l.title, s.date, s.time FROM course_enrolled ce, enrollment en, grades g, instructor i, userinfo ui, lesson l, schedule s WHERE en.id = ce.enrollmentID AND en.studID = ? AND g.studID = en.studID AND ce.status = 1 AND g.instID = i.id AND i.userinfo = ui.id AND g.lessonID = l.id AND s.id = g.schedID ORDER BY s.date";
+    var sql = "SELECT ce.selectedLesson, g.*, ui.fullname, i.id AS instID, l.title, s.date, s.time FROM course_enrolled ce, enrollment en, grades g, instructor i, userinfo ui, lesson l, schedule s WHERE en.id = ce.enrollmentID AND en.studID = ? AND g.studID = en.studID AND ce.status = 1 AND g.instID = i.id AND i.userinfo = ui.id AND g.lessonID = l.id AND s.id = g.schedID ORDER BY s.date";
     db.get().query(sql, [studID], function(err, result){
-        // console.log(result);
+        console.log(result);
         if(err) return cb(err);
         if(result.length == 0) return cb(null, []);
         if(err) return cb(err);

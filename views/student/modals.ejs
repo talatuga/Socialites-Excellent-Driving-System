@@ -184,39 +184,20 @@
         <hr class="hrCustom">
         <div class="stot">
           <form>
-            <center>            
-              <h4><b>SUMMARY OF GRADES</b></h4>
-              <div class="separator3"></div>
-              <table class="table tblRecSched" style="width: 70%">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th width="70%">Lesson</th>
-                    <th>Numerical Grade</th>
-                  </tr>
-                </thead>
-                <tr>
-                  <td>1</td>
-                  <td>Start &amp; Stop</td>
-                  <td>5</td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>Start &amp; Stop</td>
-                  <td>5</td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>Start &amp; Stop</td>
-                  <td>5</td>
-                </tr>
-              </table><hr>
-            </center>
             <div class="row">
               <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                <h6>Course: <b><span class="evalCrs">CRS-M0001</span></b></h6>
-                <h6>Date Started: <b><span class="evalDateStarted">08-09-2018</span></b></h6>
-                <h6>Date Finished: <b><span class="evalDateFinished">08-29-2018</span></b></h6>
+                <% 
+                    var pad = "0000";
+                    var eval;
+                    var course = "CRS-"+ (evalStud[0].carType.toUpperCase() + pad.substring(0,pad.length - (evalStud[0].courseID+"").length)) + evalStud[0].courseID;
+                    var html = "<h6>Course: <b><span class='evalCrs'>" + (course) + "</span></b></h6>";
+                    html += "<h6>Overall Grade: <b><span class='overallGrade'>"+ evalStud[0].grade +"</span>&nbsp;(<span class='overallGrPerc'>"+ (evalStud[0].grade)*2 +"%</span>)</b></h6>";
+                    html += "<h6>Evaluation: <b><span class='evalGrade'>"+ (evalStud[0].grade <= 24 ? 'NEEDS TO EXTEND' : ((evalStud[0].grade <= 34 && evalStud[0].grade >= 25) ? 'NEEDS PRACTICE' : 'PASSED')) +"</span></b></h6><br><br>";
+                    html += "<h6>Comment:</h6><textarea class='enrTxtArea' id='commentInstEval' readonly style='font-size: 14px' rows='3'>"+ evalStud[0].comment +"</textarea><br><br>";
+                    html += "<h6>Evaluated by: <b><span class='instEvaluator'>"+ evalStud[0].fullname +"</span></b></h6>";
+                    html += "<h6>Date Evaluated: <b><span class='evalDate'>"+ (Date.parse(evalStud[0].dateEvaluated).toString("MMM dd, yyyy")) +"</span></b></h6>";
+                %>
+                <%-html%>
               </div>
               <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                 <h6><b>Evaluation Basis:</b></h6>
@@ -225,22 +206,11 @@
                 <h6><b>0-24&nbsp;&nbsp; </b> - Needs To Extend</h6>
               </div>
             </div>
-            <div class="row">
-              <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                  <h6>Overall Grade: <b><span class="overallGrade">50</span>&nbsp;(<span class="overallGrPerc">98%</span>)</b></h6>
-                  <h6>Evaluation: <b><span class="evalGrade">PASSED</span></b></h6>
-                  <h6>Comment: <b><span class="evalComment">Very good, hija! Keep up the good work!</span></b></h6><br><br>
-                <h6>Evaluated by: <b><span class="instEvaluator">Harry James Potter</span></b></h6>
-              </div>
-              <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                
-              </div>
-            </div>
           </form>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn100 btn-inverse" data-dismiss="modal">Okay</button>
+        <button type="button" class="btn btn100 btn13 btn-inverse" data-dismiss="modal">Done</button>
       </div>
     </div>
   </div>

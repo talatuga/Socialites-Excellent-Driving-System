@@ -135,8 +135,10 @@
             <div class="row">
               <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                 <h6>Course: <b><span class="evalCrs">CRS-M0001</span></b></h6>
-                <h6>Date Started: <b><span class="evalDateStarted">08-09-2018</span></b></h6>
-                <h6>Date Finished: <b><span class="evalDateFinished">08-29-2018</span></b></h6>
+                <h6>Overall Grade: <b><span class="overallGrade">50</span>&nbsp;(<span class="overallGrPerc">98%</span>)</b></h6>
+                  <h6>Evaluation: <b><span class="evalGrade"></span></b></h6><br><br>
+                  <h6>Comment <small>Maximum of 100 characters</small>:</h6>
+                  <textarea class="enrTxtArea" id="commentInstEval" maxlength="100" style="font-size: 14px" rows="3"></textarea><br><br>
               </div>
               <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                 <h6><b>Evaluation Basis:</b></h6>
@@ -145,24 +147,12 @@
                 <h6><b>0-24&nbsp;&nbsp; </b> - Needs To Extend</h6>
               </div>
             </div>
-            <div class="row">
-              <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                  <h6>Overall Grade: <b><span class="overallGrade">50</span>&nbsp;(<span class="overallGrPerc">98%</span>)</b></h6>
-                  <h6>Evaluation: <b><span class="evalGrade">PASSED</span></b></h6>
-                  <h6>Comment <small>Maximum of 100 characters</small>:</h6>
-                  <textarea class="enrTxtArea" id="commentInstEval" maxlength="100" style="font-size: 14px" rows="3"></textarea><br><br>
-                <h6>Evaluated by: <b><span class="instEvaluator">Harry James Potter</span></b></h6>
-              </div>
-              <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                
-              </div>
-            </div>
           </form>
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn100 btn13 btn-inverse" data-dismiss="modal">Cancel</button>
-        <button type="button" onclick="doneEvalStud()" class="btn btn100 btn13 btn-success" data-dismiss="modal">Confirm</button>
+        <button type="button" onclick="doneEvalStud()" class="btn btn100 btn13 btn-success">Confirm</button>
       </div>
     </div>
   </div>
