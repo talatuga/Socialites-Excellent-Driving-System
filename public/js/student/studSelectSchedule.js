@@ -5,6 +5,7 @@ $(function() {
       title: $.trim($(this).text()), // use the element's text as the event title
       stick: true, // maintain when user navigates (see docs on the renderEvent method)
       _id: $(this).data("schedid"),
+      allDay: false,
     });
     studentSchedule.onremove(this,$(this).data("schedid"), $.trim($(this).text()));
     // make the event draggable using jQuery UI
@@ -14,6 +15,10 @@ $(function() {
       revertDuration: 0  //  original position after the drag
     });
   });
+
+  var updateCalendar = (event)=>{
+    $('#calendarSelectSched').fullCalendar("updateEvent",event);
+  };
 
   /* initialize the calendar
   -----------------------------------------------------------------*/
@@ -26,6 +31,12 @@ $(function() {
     editable: true,
     droppable: true, // this allows things to be dropped onto the calendar
     dragRevertDuration: 0,
+    selectable: true,
+    selectHelper: true,
+    eventLimit: true, // allow "more" link when too many events
+    eventClick: function(event, jsEvent, view){
+      //console.log(event); OPEN A MODAL THAT SHOWS THE INFO ABOUT THIS SCHEDULE <----------------------------------------
+    },
     drop: function(date, jsEvent, ui, resourceId) {
       // is the "remove after drop" checkbox checked?
       if ($('#drop-remove').is(':checked')) {
@@ -33,10 +44,6 @@ $(function() {
         $(this).remove();
       }
     },
-    selectable: true,
-    selectHelper: true,
-    editable: true,
-    eventLimit: true, // allow "more" link when too many events
     eventDragStop: function (event, jsEvent, ui, view) {
       if (isEventOverDiv(jsEvent.clientX, jsEvent.clientY)) {
         studentSchedule.removeSched(event._id, function(err){
@@ -54,7 +61,39 @@ $(function() {
       }
     },
     eventDrop: function(event, delta, revertFunc, jsEvent, ui, view){
-      console.log(event._id);
+      if(!event.allDay){
+        event.color = "#7f7f7f";
+        updateCalendar(event);
+        var date = moment(event.start).format("YYYY-MM-DD");
+        var time = moment(event.start).format("HH:mm:ss");
+        app.scheduler.checkIfAvailable(date, time, function(err, available){
+          if(err){
+            event.color = "#ff1e1e";
+            updateCalendar(event);
+          }else{
+            var color;
+            switch(available){
+              case 0 : {
+                color = "#ff1e1e";
+                break;
+              } 
+              case 1 : {
+                color = "#3A87AD";
+                break;
+              } 
+              case 2 : {
+                color = "#ffbd16";
+                break;
+              } 
+            }
+            event.color = color;
+            updateCalendar(event);
+          }
+        });
+      }else{
+        event.color = "#ff1e1e";
+        updateCalendar(event);
+      }
     },
     businessHours:[
       {
@@ -71,8 +110,9 @@ $(function() {
       center: 'title',
       right: 'month,agendaWeek,agendaDay'
     },
-    editable: true,
-    droppable: true, // this allows things to be dropped onto the calendar
+    disableDragging: true,
+    editable: false,
+    droppable: false, // this allows things to be dropped onto the calendar
     dragRevertDuration: 0,
     drop: function(date, jsEvent, ui, resourceId) {
       // is the "remove after drop" checkbox checked?
@@ -83,7 +123,7 @@ $(function() {
     },
     selectable: true,
     selectHelper: true,
-    editable: true,
+    eventStartEditable: false,
     eventLimit: true, // allow "more" link when too many events
     eventDragStop: function (event, jsEvent, ui, view) {
       if (isEventOverDiv(jsEvent.clientX, jsEvent.clientY)) {
@@ -108,6 +148,11 @@ $(function() {
       {
         url: "/api/v1/sched/calendar",
         type: "GET",
+        success: (res)=>{
+          if(res.length==0){
+            
+          }
+        },
         error: function(res){
           swal("Error getting schedule", res.detail, "error");
           console.log(res.detail);
@@ -172,6 +217,31 @@ function changePref(){
 
 function doneChangePref(){
   //DB: Update db with new preferred vehicle and sched.
+  var days = [];
+  $('input[name=prefDaysCBChange]:checked').each((a,b)=>{days.push(b.value)});
+  var car = $('#prefVehiChange').val();
+  if(!days || car == "---") return swal("All fields are required","","error");
+  swal({
+    title: "Edit Preference?",
+    text: "Are you sure you want to change?",
+    type: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#DD6B55",
+    confirmButtonText: "Yes",
+    cancelButtonText: "No",
+    closeOnConfirm: false,
+    closeOnCancel: true
+  }, function(conf){
+    if(conf){
+      app.preference.updatePreference(days, car, function(err, done){
+        if(err){
+          swal("Failed!",err.message,"error");
+        }else{
+          swal("Preference updated!","","success");
+        }
+      });
+    }
+  });
 }
 
 function seeRecSched(){
@@ -190,5 +260,86 @@ $('.backSched2').on("click", function(){
 });
 
 function editRecSched(){
-  $('#editPrefDateModal').modal("show");
+  //$('#editPrefDateModal').modal("show");
+  var events = $('#calendarMainStudSched').fullCalendar("clientEvents");
+  $('#calendarSelectSched').fullCalendar('removeEventSources');
+  $('#calendarSelectSched').fullCalendar('addEventSource', events);
+}
+
+function updateSchedule(){
+  var rawEvents = $('#calendarSelectSched').fullCalendar('clientEvents');
+  var mainEvents = $('#calendarMainStudSched').fullCalendar("clientEvents");
+
+  var events = [];
+
+  var submit = ()=>{
+    swal({
+      title: "Edit Schedule?",
+      text: "Are you sure you want to change?",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+      closeOnConfirm: false,
+      closeOnCancel: true
+    },function(conf){
+      if(conf){
+        app.scheduler.updateSchedule(events,function(err, res){
+          if(err){
+            console.error(err);
+            swal("Failed!", err.message, "error");
+          }else{
+            if(res.status == 1){
+              swal("Updated!", "Schedule Successfully Updated", "success");
+            }else if(res.status == 2){
+              swal("Overtime Schedule!", "Schedule submit for review, we will inform you later.", "warning");
+            }else if(res.status == 0){
+              swal("Conflict Found!", res.title + " schedule isn't available", "error");
+            }
+          }
+        });
+      }
+    });
+  };
+
+  var validateChange = function(cb){
+    var promises = [];
+    rawEvents.forEach((e,i)=>{
+      promises.push(new Promise((r,x)=>{
+        mainEvents.forEach((el,count)=>{
+          if(e._id == el._id){
+            if(moment(e.start).format('YYYY-MM-DD HH:mm')==moment(el.start).format('YYYY-MM-DD HH:mm')){
+              r(0);
+            }else{
+              r(e);
+            }
+          }
+          if(count==mainEvents.length-1){
+            r(e);
+          }
+        });
+      }));
+      if(i==rawEvents.length-1){
+        Promise.all(promises).then((asd)=>{
+          cb(asd);
+        });
+      }
+    });
+  };
+
+  validateChange((res)=>{
+    res.forEach((element,i)=>{
+      if(element == 0) return;
+      events.push({
+        id: element._id,
+        date: moment(element.start).format('YYYY-MM-DD'),
+        time: moment(element.start).format('HH:mm'),
+        title: element.title,
+      });
+      if(i==res.length-1){
+        submit();
+      }
+    });
+  });
 }

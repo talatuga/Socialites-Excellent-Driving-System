@@ -26,7 +26,7 @@ exports.user = function(req, res, next){
     var Car = require('../model/vehicleModel');
     new WebModel().getLicenseApply(function(err, data){
         if(err) return next(err);
-        Car.getList(function(errr,vehicle){
+        Car.getListModel(function(errr,vehicle){
             if(errr) return next(errr);
             var login = res.locals.login ? res.locals.login : '';
             res.render('main/index',{title: 'Socialites Excellent Driving', login: login, license: data, car: vehicle});

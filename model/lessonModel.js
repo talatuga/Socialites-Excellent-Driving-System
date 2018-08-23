@@ -124,7 +124,7 @@ Lesson.enrollCourse = function(enrollmentID, courseData, cb){
 }
 
 Lesson.getCourseEnrolled = function(studID, cb){
-    var sql = "SELECT ce.*, c.* FROM course_enrolled ce, enrollment en, course c WHERE en.id = ce.enrollmentID AND en.studID = ? AND c.id = ce.courseID";
+    var sql = "SELECT ce.id as 'enrolledID', ce.enrollmentID, ce.courseID, ce.branch, ce.selectedLesson, ce.special, ce.dateEnrolled, ce.paid, ce.status as 'enrollStatus', c.* FROM course_enrolled ce, enrollment en, course c WHERE en.id = ce.enrollmentID AND en.studID = ? AND c.id = ce.courseID";
     db.get().query(sql, [studID], function(err, result){
         if(err) return cb(err);
         cb(null, result);

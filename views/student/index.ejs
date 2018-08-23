@@ -17,7 +17,30 @@
             <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> 
             </svg>
         </div>
-
+        <%
+            var asd;
+            var pad = "000";
+            courses.forEach((ei)=>{
+                if(ei.enrollStatus == 1){
+                    asd = ei;
+                }
+            });
+            var currBranch;
+            branch.forEach((e,i)=>{
+            if(e.id == asd.branch){
+                currBranch = e;
+            }
+            });
+            var selectVehiA = [];
+            var selectVehiB = [];
+            car.forEach((e,i)=>{
+                if(e.transmission == "A"){
+                    selectVehiA.push(e);
+                }else{
+                    selectVehiB.push(e);
+                }
+            });
+        %>
         <!-- WRAPPER -->
         <div id="wrapper">
             <% include ../admin/partials/header %> <!-- HEADER CODES -->

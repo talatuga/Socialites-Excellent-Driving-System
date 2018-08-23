@@ -8,6 +8,12 @@ router.route('/preference')
     .get(auth.studentAuth, scheduler.getPreference)
     .put(auth.studentAuth, scheduler.changePref);
 
+router.route('/check')
+    .get(auth.auth, scheduler.schedAvailability);
+
+router.route('/')
+    .put(auth.auth, scheduler.updateSchedule);
+
 router.route('/:id')
     .patch(scheduler.removeSchedFromCalendar)
     .put(scheduler.assignSched);
