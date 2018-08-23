@@ -15,6 +15,7 @@ var app = {
                 $('#accountTable').append(html);
             });
         });
+        this.scheduler.getHours('null', ()=>{});
     },
     preference: {
         getPreference: function(target,cb){
@@ -138,5 +139,47 @@ var app = {
                 }
             });
         },
+        getHours: function(studID, cb){
+            $.get('api/v1/sched/hours/'+studID,function(res){
+                if(res.success){
+                    $('.crsHrsUsed').html(res.data.used);
+                    $('.crsHrsRem').html(res.data.remaining);
+                    $('.crsHrsTot').html(res.data.total);
+                    cb(null,res.data);
+                }else{
+                    console.log(res.detail);
+                    cb(new Error(res.detail));
+                }
+            });
+        },
+        getFreeInst: function(date, time, cb){
+            var branchID = $('.venueSchedToday').data('id') || 1;
+            $.ajax({
+                type: "GET",
+                url: "api/v1/sched/inst",
+                data: {date: date, branch: branchID, time: time},
+                success: res=>{
+                    if(res.success){
+                        cb(null, res.data);
+                    }else{
+                        cb(new Error(res.detail));
+                    }
+                },
+                error: xhr=>{
+                    cb(new Error(xhr.status + ": " + xhr.statusText));
+                },
+            });
+        },
     },
+    others: {
+        getInstName: function(instid,cb){
+            $.get('api/v1/instructor/'+instid+'/fullname', function(res){
+                if(res.success){
+                    cb(null, res.data);
+                }else{
+                    cb(new Error(res.detail));
+                }
+            });
+        },
+    }
 }

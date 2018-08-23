@@ -91,6 +91,7 @@ function remRegForm(){ //Remove or reject registration form
                 }else{
                     $('#viewRegFormModal').modal('hide');
                     swal("Success!", "Registration form is rejected.", "success");
+                    loadPreReg(1);
                     //DB: Remove registration function here
                 }
             });
@@ -129,6 +130,7 @@ function saveEnrReg(){ //Save changes on View Registration Modal
                     }else{
                         swal("Changes have been saved!", "" ,"success");
                         $('#viewRegFormModal').modal('hide');
+                        loadPreReg(1);
                         //DB: Remove registration function here
                     }
                 });
@@ -161,6 +163,7 @@ function openPayment(){
             }
             $('.totAssess').html(total);
             license.getLocal(profile.data.applyLicense, function(license){
+                if(license.price == 0) return;
                 total += license.price;
                 $('.totAssess').html(total);
                 var html = "<tr>";
@@ -232,6 +235,7 @@ function appRegForm(){ //Approve Registration
                     });
                 }
                 $('#addPaymentModal').modal('hide');
+                loadPreReg(1);
             }
         });
     }
@@ -313,31 +317,6 @@ function checkEnrReg (cb){ //Checker of empty fields
 var renderEnrollTbl = function(data){
     $('#preRegTbl').html("");    
     var task = function(_data, cb){
-        var getReq = function(id){
-            switch(parseInt(id)){
-                case 1:{
-                    return "TA-SDP";
-                }
-                case 2:{
-                    return "TA-SDPS";
-                }
-                case 3:{
-                    return "W-SDP";
-                }
-                case 4:{
-                    return "W-NPL";
-                }
-                case 5:{
-                    return "W-PL";
-                }
-                case 6:{
-                    return "TA-NPL";
-                }
-                case 7:{
-                    return "TA-PL";
-                }
-            }
-        };
         var temp = _data;
         office.selected = temp.data.branch;
         office.getLocalData(function(branch){
@@ -346,9 +325,12 @@ var renderEnrollTbl = function(data){
             html += "<tr onclick='viewPendingStudent("+ temp.id +")'>";
             html += "<td>"+ Date.parse(temp.dateSubmit).toString("MMM dd, yyyy") +"</td>";
             html += "<td>"+ (temp.data.info.fullname).replace(/_/g,' ') +"</td>";
-            html += "<td>"+ getReq(temp.data.applyLicense) +"</td>";
+            html += "<td class='enrollReq"+ temp.id +"'></td>";
             html += "</tr>";
             $('#preRegTbl').append(html); 
+            license.getLocal(temp.data.applyLicense, l=>{
+                $('.enrollReq'+temp.id).html(l.desc);
+            });
             cb(null);      
         });
     }

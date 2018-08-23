@@ -1155,6 +1155,9 @@ var license = {
         });
     },
     getLocal: function(id, cb){
+        if(id==0){
+            cb({desc:"With License",price:0});
+        }
         this.data.forEach((e,i)=>{
             if(e.id == id){
                 return cb(e);

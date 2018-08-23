@@ -1,5 +1,7 @@
 var schedule = require('../../model/scheduleModel');
 var student = require('../../model/studentModel');
+var course = require('../../model/lessonModel');
+var instructor = require('../../model/instructorModel');
 
 var checkConflict = function(branchID, schedules){
     return new Promise((resolve, reject)=>{
@@ -56,7 +58,14 @@ exports.calendar = function(req, res, next){
                 editable: _editable,
                 color: eColor,
                 overlap: false,
+                data: {
+                    instructor:{
+                        instID: e.instID,
+                        name: "",
+                    }
+                }
             });
+
             if(i == data.length-1){
                 res.status(200).send(sched);
             }
@@ -106,6 +115,72 @@ exports.getPreference = function(req, res, next){
                 car: {id:result.prefCar, brand: car.brand + " " + car.model}
             };
             res.status(200).send({success: true, data: output});
+        });
+    });
+};
+
+exports.getStudHour = function(req, res, next){
+    var studID = req.params.studID || req.session.studID;
+
+    var task1 = new Promise((resolve, reject)=>{
+        student.getData(studID, function(err, data){
+            if(err) return reject(err);
+            resolve(data.hours);
+        });
+    });
+
+    var task2 = new Promise((resolve, reject)=>{
+        course.getCourseEnrolled(studID, function(err, data){
+            if(err) return reject(err);
+            data.forEach(e=>{
+                if(e.status==1){
+                    resolve(e.days);
+                }
+            });
+        });
+    });
+
+    Promise.all([task1, task2]).then((results)=>{
+        var courseTime = {
+            remaining: results[0],
+            used: parseInt(results[1]) - parseInt(results[0]),
+            total: results[1],
+        }
+        res.status(200).send({success: true, data: courseTime});
+    }).catch(next);
+};
+
+/** @type {RequestHandler} */
+exports.getFreeInst = function(req, res, next){
+    if(req.session.authenticated==0) return next();
+    var branchID = req.query.branch;
+    var date = new Date(req.query.date);
+    var time = req.query.time;
+
+    if(!branchID || !date || !time) return res.status(200).send({success: false, detail: "Incomplete Query"});
+
+    schedule.getInstAssign(date.toString('yyyy-MM-dd'), time+":00", function(err, inst){
+        if(err) return next(err);
+        instructor.getList(0,999,function(er, result){
+            if(er) return next(er);
+            var query = [];
+            if(inst.length==0) return res.status(200).send({success: true, data: result});
+            inst.forEach((element,index)=>{
+                query.push(new Promise((resolve, reject)=>{
+                    result.forEach((e,i)=>{
+                        if(element.instID == e.instID){
+                            result.splice(i,1);
+                            resolve();
+                        }
+                        if(i==result.length-1) return resolve();
+                    });
+                }));
+                if(index==inst.length-1){
+                    Promise.all(query).catch(next).then(instArr=>{
+                        res.status(200).send({success: true, data: result});
+                    });
+                }
+            });
         });
     });
 };

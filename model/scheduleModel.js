@@ -109,13 +109,21 @@ Model.assignSched = function(id, cb){
     });
 };
 
+Model.getInstAssign = function(date, time, cb){
+    var sql = "SELECT * FROM instructor inst, userinfo info, schedule sched WHERE inst.userInfo = info.id AND sched.instID = inst.id AND sched.date = ? AND sched.time = ? GROUP BY inst.id";
+    db.get().query(sql, [date, time], function(err, data){
+        if(err) return cb(err);
+        cb(null, data);
+    });
+};
+
 /**
  * Automatically assign a student to a schedule, using its preferred information.
  * @param {String} studID ID of the student to auto-assign
  * @returns A promise the returns true when done and no error happen.
  */
 Model.autoAssignSched = function(studID){
-    return new Promise((resolve, reject)=>{
+    return new Promise((r1, x1)=>{
         var studentModel = require('./studentModel');
         var days = ['','monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
 
@@ -178,15 +186,15 @@ Model.autoAssignSched = function(studID){
                     });
                 }));
                 if(i == dates.length-1){
-                    Promise.all(promises).catch(reject).then(function(result){
+                    Promise.all(promises).catch(x1).then(function(result){
                         studentModel.update(studID,0,'hours', function(err){
-                            if(err) return reject(err);
-                            resolve(true);
+                            if(err) return x1(err);
+                            r1(true);
                         });
                     });
                 }
             });
-        }).catch(reject);
+        }).catch(x1);
     });
 };
 
@@ -305,8 +313,13 @@ Model.updateSchedule = function(schedule, cb){
     if(Array.isArray(schedule)){
         var promises = [];
         schedule.forEach((e,i)=>{
+            var data = [e.date, e.time, e.id];
+            if(e.instructor){
+                sql = "UPDATE " + table + " SET date = ?, time = ?, instID = ?, status = 2 WHERE id = ?";
+                data = [e.date, e.time, e.instructor.instID, e.id];
+            }
             promises.push(new Promise((res,rej)=>{
-                db.get().query(sql, [e.date, e.time, e.id], function(err, result){
+                db.get().query(sql, data, function(err, result){
                     if(err) return rej(err);
                     res(true);
                 });

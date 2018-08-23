@@ -2,7 +2,11 @@ var router = require('express').Router();
 var scheduler = require('../../middleware/lib/schedule');
 var auth = require('../../middleware/authentication');
 
-router.get('/calendar', scheduler.calendar);
+router.get('/calendar', auth.auth, scheduler.calendar);
+
+router.get('/inst', auth.auth, scheduler.getFreeInst);
+
+router.get('/hours/:id', auth.studentAuth, scheduler.getStudHour);
 
 router.route('/preference')
     .get(auth.studentAuth, scheduler.getPreference)

@@ -12,6 +12,7 @@ $(function() {
 
 var logStud = function() 
 {
+    $('.socialitesLogin').attr('action','/student');
     clrFields();
     $('.limiter1').hide();
     $('.limiter2').show();
@@ -21,6 +22,7 @@ var logStud = function()
 
 var logInst = function() 
 {
+    $('.socialitesLogin').attr('action','/instructor');
     clrFields();
     $('.limiter1').hide();
     $('.limiter2').show();
