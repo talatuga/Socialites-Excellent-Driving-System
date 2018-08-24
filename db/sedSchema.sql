@@ -25,7 +25,7 @@ SELECT s.id as studID, i.* FROM student s, userinfo i WHERE s.id > _offset AND i
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getStud`(IN `_id` VARCHAR(15))
     READS SQL DATA
-SELECT s.id as studID, s.dateRegistered, u.* FROM student s, userinfo u WHERE s.id = _id AND s.userInfo = u.id$$
+SELECT s.id as studID, s.dateRegistered, s.hours, u.* FROM student s, userinfo u WHERE s.id = _id AND s.userInfo = u.id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getStudList`(IN `_offset` INT(7), IN `_limit` INT(5))
     NO SQL
@@ -115,6 +115,14 @@ CREATE TABLE IF NOT EXISTS `course_enrolled` (
   `dateEnrolled` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `paid` int(1) NOT NULL DEFAULT '0',
   `status` int(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE IF NOT EXISTS `course_schedule` (
+`id` int(10) NOT NULL,
+  `schedID` int(15) NOT NULL,
+  `enroll_courseID` int(9) NOT NULL,
+  `status` int(1) NOT NULL DEFAULT '0' COMMENT '0 - pending; 1 - done; 2 - cancelled',
+  `other` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `defect` (
@@ -344,6 +352,9 @@ ALTER TABLE `course`
 ALTER TABLE `course_enrolled`
  ADD PRIMARY KEY (`id`), ADD KEY `courseID` (`courseID`), ADD KEY `branch` (`branch`), ADD KEY `enrollment` (`enrollmentID`);
 
+ALTER TABLE `course_schedule`
+ ADD PRIMARY KEY (`id`), ADD KEY `schedule` (`schedID`), ADD KEY `course` (`enroll_courseID`);
+
 ALTER TABLE `defect`
  ADD PRIMARY KEY (`id`), ADD KEY `vehicle` (`vehicle`);
 
@@ -427,6 +438,8 @@ ALTER TABLE `course`
 MODIFY `id` int(3) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `course_enrolled`
 MODIFY `id` int(9) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `course_schedule`
+MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `defect`
 MODIFY `id` int(7) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `enrollment`
@@ -483,6 +496,10 @@ ALTER TABLE `course_enrolled`
 ADD CONSTRAINT `course_enrolled_ibfk_2` FOREIGN KEY (`courseID`) REFERENCES `course` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
 ADD CONSTRAINT `course_enrolled_ibfk_3` FOREIGN KEY (`branch`) REFERENCES `branch` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
 ADD CONSTRAINT `course_enrolled_ibfk_4` FOREIGN KEY (`enrollmentID`) REFERENCES `enrollment` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+ALTER TABLE `course_schedule`
+ADD CONSTRAINT `course_schedule_ibfk_1` FOREIGN KEY (`schedID`) REFERENCES `schedule` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+ADD CONSTRAINT `course_schedule_ibfk_2` FOREIGN KEY (`enroll_courseID`) REFERENCES `course_enrolled` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 ALTER TABLE `defect`
 ADD CONSTRAINT `defect_ibfk_1` FOREIGN KEY (`vehicle`) REFERENCES `vehicle` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
