@@ -1165,3 +1165,66 @@ var license = {
         });
     },
 }
+
+/**
+ * Scheduler module comes with all interaction neeed for scheduling
+ */
+var scheduler = {
+    getSchedToday: function(cb){
+        $.ajax({
+            type: "GET",
+            url: "api/v1/sched",
+            data:{day: Date.parse('today').toString('dd')},
+            success: (res)=>{
+                if(res.success){
+                    cb(null, res.data);
+                }else{
+                    cb(new Error(res.detail));
+                }
+            },
+            error: xhr=>cb(new Error(xhr.status+": "+xhr.statusText)),
+        });
+    },
+    getInstName: function(id, cb){
+        $.ajax({
+            type: "GET",
+            url: "api/v1/instructor/" + id + "/fullname",
+            success: (res)=>{
+                if(res.success){
+                    cb(null, res.data);
+                }else{
+                    cb(new Error(res.detail));
+                }
+            },
+            error: xhr=>cb(new Error(xhr.status+": "+xhr.statusText)),
+        });
+    },
+    getStudName: function(id, cb){
+        $.ajax({
+            type: "GET",
+            url: "api/v1/stud/" + id,
+            success: (res)=>{
+                if(res.success){
+                    cb(null, res.data[0]);
+                }else{
+                    cb(new Error(res.detail));
+                }
+            },
+            error: xhr=>cb(new Error(xhr.status+": "+xhr.statusText)),
+        });
+    },
+    getBranchName: function(id, cb){
+        $.ajax({
+            type: "GET",
+            url: "api/v1/branch/" + id + "/address",
+            success: (res)=>{
+                if(res.success){
+                    cb(null, res.data);
+                }else{
+                    cb(new Error(res.detail));
+                }
+            },
+            error: xhr=>cb(new Error(xhr.status+": "+xhr.statusText)),
+        });
+    },
+}

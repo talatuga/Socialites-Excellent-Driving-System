@@ -41,6 +41,7 @@ exports.login = function(req, res, next){
                     if(result){
                         users[id] = {accID: result.id, accType: result.accType};
                         req.session.accID = id;
+                        req.session.adminID = id;
                         res.locals.authenticated = 1;
                         next();
                     }else{
@@ -56,10 +57,11 @@ exports.login = function(req, res, next){
         }
     });
 }
-
+/** @type {RequestHandler} */
 exports.logout = function(req, res){
     delete users[req.sessionID];
-    res.redirect('/admin');
+    req.session.destroy();
+    res.redirect('/');
 }
 
 exports.getUser = function(id){
@@ -131,7 +133,7 @@ exports.studentLogin = function(req, res, next){
 }
 
 exports.instAuth = function(req, res, next){
-    var sessionID = req.session.sessionID;
+    var sessionID = req.sessionID;
     checkUser(sessionID, function(user){
         if(!user){
             req.session.instID = -1;

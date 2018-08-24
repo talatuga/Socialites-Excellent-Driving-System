@@ -22,10 +22,9 @@ exports.midLogger = function(req, res, next){
         if(err){
             next(new Error(err));
             console.log('[SERVER] Logging ' + err.stack);
-        }else{
-            next();
         }
     });
+    next();
 }
 
 exports.errLogger = function(err){

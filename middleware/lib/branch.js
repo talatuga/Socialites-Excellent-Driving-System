@@ -43,20 +43,19 @@ exports.get = function(req, res, next){
     var param = Object.keys(req.params).length ? req.params : null;
     var sendResponse = function(data){
         var out = [];
-        var count = data.length;
-        if(count == undefined){
+        if(Array.isArray(data)){
+            data.forEach((element,index)=> {
+                if(element.purgeFlag > 0){
+                    element["branchID"] = generateID(element.id);
+                    out.push(element);
+                }
+                if(index==data.length-1){
+                    return res.status(200).send({success: true, data: out}); 
+                }
+            });
+        }else{
             return res.status(200).send({success: true, data: data});             
         }
-        data.forEach(element => {
-            if(element.purgeFlag > 0){
-                element["branchID"] = generateID(element.id);
-                out.push(element);
-            }
-            count--;
-            if(count == 0){
-                return res.status(200).send({success: true, data: out}); 
-            }
-        });
     };
     if(param){
         /* if(query){

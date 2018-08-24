@@ -12,6 +12,8 @@ router.route('/login')
     .get(auth.auth, auth.lastHandler, renderer.admin)
     .post(auth.login, auth.lastHandler);
 
+router.get('/logout', auth.logout);
+
 router.route('/student')
     .get(auth.studentAuth, stud.prepareViewData, renderer.student)
     .post(auth.studentLogin, stud.prepareViewData, renderer.student);

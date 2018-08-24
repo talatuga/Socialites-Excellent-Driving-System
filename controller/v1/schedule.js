@@ -15,7 +15,10 @@ router.route('/preference')
 router.route('/check')
     .get(auth.auth, scheduler.schedAvailability);
 
+//router.get('/testAutoSched', scheduler.testAutoSched);
+
 router.route('/')
+    .get(scheduler.getSched)
     .put(auth.auth, scheduler.updateSchedule);
 
 router.route('/:id')

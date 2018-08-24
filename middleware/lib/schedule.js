@@ -23,9 +23,11 @@ var checkConflict = function(branchID, schedules){
 }
 
 exports.calendar = function(req, res, next){
-    schedule.getAssigned(req.session.studID, function(err, data){
-        if(err) return next(err);
-        var sched = [];
+    var type = req.session.studID ? 0 : 1;
+    var id = req.session.instID || req.session.studID;
+
+    var sched = [];
+    var processSched = function(data){
         data.forEach((e,i) => {
             var minDate = Date.parse("last sunday");
             var maxDate = Date.parse("next saturday");
@@ -62,7 +64,11 @@ exports.calendar = function(req, res, next){
                     instructor:{
                         instID: e.instID,
                         name: "",
-                    }
+                    },
+                    student: {
+                        id: e.studID,
+                    },
+                    branch: e.branch,
                 }
             });
 
@@ -70,7 +76,19 @@ exports.calendar = function(req, res, next){
                 res.status(200).send(sched);
             }
         });
-    });
+    }
+
+    if(req.query.priv == "admin"){
+        schedule.getSchedule(req.query, function(err, scheds){
+            if(err) return next(err);
+            processSched(scheds);
+        });
+    }else{
+        schedule.getAssigned(id, type, function(err, data){
+            if(err) return next(err);
+            processSched(data);
+        });
+    }
 };
 
 exports.assignSched = function(req, res, next){
@@ -190,7 +208,8 @@ exports.schedAvailability = function(req, res, next){
     var branchID = req.query.branch;
     var date = new Date(req.query.date);
     var time = req.query.time;
-    schedule.checkSched(branchID, date, time).catch(next).then((available)=>{
+    var id = req.query.id;
+    schedule.checkSched(id, branchID, date, time).catch(next).then((available)=>{
         res.status(200).send({success: true, status: available});
     });
 };
@@ -237,5 +256,28 @@ exports.updateSchedule = function(req, res, next){
         if(i==schedules.length-1){
             Promise.all(promises).catch(next).then(checkResult);
         }
+    });
+};
+
+exports.testAutoSched = function(req, res, next){
+    schedule.autoAssignSched_1(req.query.id).then((scheds)=>{
+        res.status(200).send(scheds)
+    }).catch((reason)=>{
+        next(reason);
+    });
+};
+
+exports.getSched = function(req, res, next){
+    var query = req.query;
+
+    if(query.instid=='self'){
+        query.instid = req.session.instID || null;
+    }else if(query.studid=='self'){
+        query.studid = req.session.studID || null;
+    }
+
+    schedule.getSchedule(query, function(err, sched){
+        if(err) return next(err);
+        res.status(200).send({success: true, data: sched});
     });
 };

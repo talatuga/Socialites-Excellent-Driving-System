@@ -33,18 +33,21 @@
                 <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                     <div class="card">
                         <table style="width:100%">
-                            <tr>
-                                <td style="width: 10%">
-                                    <h5 style="float: left;">Branch: </h5>
-                                </td>
-                                <td>
-                                    <select class="branchSelect enrTxtArea" name="branchSelect">
-                                        <option>All</option>
-                                        <option>SED-Quezon City (Main)</option>
-                                        <option>SED-Pasay City</option>
-                                    </select>
-                                </td>
-                            </tr>
+                            <thead></thead>
+                            <tbody id="">
+                                <tr>
+                                    <td style="width: 10%">
+                                        <h5 style="float: left;">Branch: </h5>
+                                    </td>
+                                    <td>
+                                        <select class="branchSelect enrTxtArea" name="branchSelect">
+                                            <option>All</option>
+                                            <option>SED-Quezon City (Main)</option>
+                                            <option>SED-Pasay City</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </tbody>
                         </table><br>
                     </div>
                 </div>
@@ -59,12 +62,11 @@
                         <th>Instructor Name</th>
                         <th>Student Name</th>
                         <th>Course</th>
-                        <th>Bal. Hours</th>
-                        <th>Lesson No.</th>
+                        <!-- <th>Bal. Hours</th> -->
                         <th>Action</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="todaySched">
                     <tr>
                         <td>1</td>
                         <td>9:30 A.M. - 10:30 A.M.</td>

@@ -100,12 +100,12 @@ var app = {
         },  
     },
     scheduler: {
-        checkIfAvailable: function(date, time, cb){
-            var branchID = $('.venueSchedToday').data('id') || 1;
+        checkIfAvailable: function(event, date, time, cb){
+            var branchID = event.data.branch || 1;
             $.ajax({
                 type: "GET",
                 url: "api/v1/sched/check",
-                data: {date: date, branch: branchID, time: time},
+                data: {date: date, branch: branchID, time: time, id: event._id},
                 success: (res)=>{
                     if(res.success){
                         cb(null, res.status);
@@ -181,5 +181,14 @@ var app = {
                 }
             });
         },
+        getBranchName: function(id, cb){
+            $.get('api/v1/branch/'+id+'/address', function(res){
+                if(res.success){
+                    cb(null, res.data);
+                }else{
+                    cb(new Error(res.detail));
+                }
+            });
+        }
     }
 }

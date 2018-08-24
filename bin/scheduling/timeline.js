@@ -178,8 +178,8 @@ var Timeline = function(options){
                 });       
             };
 
-            task1(()=>{
-                task2(()=>{
+            task2(()=>{
+                task1(()=>{
                     lookUp();
                 });
             });

@@ -171,7 +171,12 @@ exports.register = function(req, res, next){
             var registerUserAcc = function(user, pass){
                 return new Promise((resolve0, reject0)=>{
                     accountModel.register([user, pass, 3], function(err, accID){
-                        if(err) return reject0(err);
+                        if(err){
+                            if(err.errno == 1062){
+                                res.status(200).send({success:false, detail:"Username Already Taken!"});
+                            }
+                            return reject0(err);
+                        }
                         resolve0(accID);
                     });
                 });
@@ -326,7 +331,9 @@ exports.register = function(req, res, next){
             }).then(function(paidCourse){
                 student.payCourseEnrolled(enrollmentID, paidCourse.courseID, paidCourse.paid, function(err){
                     if(err) return reject(err);
-                    student.addHours(studentID, paidCourse.hours, function(er){
+                    var initHour = parseInt(paidCourse.hours);
+                    var hours = initHour >= 20 ? initHour+2 : initHour >= 15 ? initHour+1 : initHour;
+                    student.addHours(studentID, hours, function(er){
                         if(er) return reject(er);
                         resolve(true);
                     });
@@ -354,7 +361,7 @@ exports.register = function(req, res, next){
                     if(flag) return payEnrollment(ORcode);
                 }).then(function(flag){
                     var sched = require('../../model/scheduleModel');
-                    if(flag) return sched.autoAssignSched(studentID);
+                    if(flag) return sched.autoAssignSched_1(studentID);
                 }).then(function(flag){
                     if(flag) return resolve(true);
                 }).catch(reject);

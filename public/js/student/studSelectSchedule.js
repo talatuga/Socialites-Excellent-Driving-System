@@ -69,7 +69,7 @@ $(function() {
         updateCalendar(event);
         var date = moment(event.start).format("YYYY-MM-DD");
         var time = moment(event.start).format("HH:mm:ss");
-        app.scheduler.checkIfAvailable(date, time, function(err, available){
+        app.scheduler.checkIfAvailable(event, date, time, function(err, available){
           if(err){
             event.color = "#ff1e1e";
             updateCalendar(event);
@@ -130,8 +130,16 @@ $(function() {
       }
     },
     eventClick: function(event, jsEvent, view){
-      //console.log(event); OPEN A MODAL THAT SHOWS THE INFO ABOUT THIS SCHEDULE <----------------------------------------
-      $('#viewSchedModal').modal("show");
+      app.others.getInstName(event.data.instructor.instID, function(err, name){
+        app.others.getBranchName(event.data.branch, function(er, bname){
+          if(Array.isArray(name)) name = "Not assigned";
+          $('#schedDate').html(moment(event.start).format("MM/DD/YYYY"));
+          $('#timeSched').html(moment(event.start).format("hh:mm A") + " - " + moment(event.start).add('hour',1).format("hh:mm A"));
+          $('#instSched').html(name.replace(/_/g, " "));
+          $('#venueSched').html(bname);
+          $('#viewSchedModal').modal("show");
+        });
+      });
     },
     selectable: true,
     selectHelper: true,
@@ -221,6 +229,7 @@ $(function() {
   }
 
   $('.todaySched').hide();
+  $('.option2').hide();
 });
 
 function changePref(){
