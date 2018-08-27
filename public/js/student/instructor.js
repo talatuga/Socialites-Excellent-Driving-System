@@ -1,10 +1,11 @@
-var instID, studID;
+var instID, studID, courseID;
 var studID = $('body').data('studid');
 
 function evaluateInst(a){
     instID = a;
     var data = $('#a'+a).data('info');
     var name = data.fullname.replace(/_/g, ' ');
+    courseID = data.courseID;
     $('.instNameToEval').val(name);
     $('input:radio[name=rbInstEval]').each(function () { $(this).prop('checked', false); });    
     $('#taInstEval').val("");
@@ -39,7 +40,7 @@ function doneEvalInst(){
             instID: instID,
             comment: comment,
             target: 0,
-            courseID: 1,
+            courseID: courseID,
             grade: grade,
             dateEvaluated: dateEvaluated
         }
@@ -50,6 +51,8 @@ function doneEvalInst(){
             }else{
                 swal ("Success!", "Your instructor evaluation has been submitted!", "success");
                 $('#evalInstModal').modal("hide");
+                var trID = "#a" + instID;
+                $(trID).remove();
             }
         });
     }

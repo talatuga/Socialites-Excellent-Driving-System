@@ -1,3 +1,4 @@
+var studID;
 $(function() {
     document.getElementById("studCP1").checked = true;
     document.getElementById("studCP2").checked = false;
@@ -17,9 +18,10 @@ function evaluateStud(){
 }
 
 $("#btnViewStudent").on("click", function() { //opens view student page upon clicking view details
-    resetSettingsStud();
     $('.viewDiv').hide();
     $('.view-viewStudent').show();
+    resetSettingsStud();
+    loadEvalStud();
 });
 
 $(".backStud").on("click", function() { //closes view instructor page then goes back to previous page
@@ -438,10 +440,38 @@ var deleteStudentData = function(id){
     });
 }
 
+function loadEvalStud(){
+    inst.getStudEval(function (err, data){
+        if(err){
+            swal("Failed!", err.message, "error");
+            console.log(err);
+        }else{
+            $('#evalStudAdmin').html("");
+            var x = 1;
+            var pad = "0000";
+            var eval;
+            if(data.length!=0){
+                data.forEach((e,i)=>{
+                    var html = "<div class='sl-item'><div class='sl-left'> <img src='assets/images/user4.png' alt='Student' id='studEvalPic' class='img-circle /> </div><div class='sl-right'>";
+                    html += "<div><a href='#' class='link' id='instEvalName'>" + e.fullname.replace(/_/g, ' ') + "</a> <span class='sl-date'>" + (Date.parse(e.dateEvaluated ).toString("MMM dd, yyyy")) + "</span>";
+                    html += "<br><small class='crsEval'>CRS-" + e.carType.toUpperCase() + (pad.substring(0, pad.length-(e.courseID+"").length) + e.courseID) + "</small><div class='separator2'></div>";
+                    html += "<p style='color: #455a64;'>Overall Grade: <span class='instOverallGrade'>" + e.grade + " (" + (e.grade == 5 ? '100%' : (e.grade == 4 ? '80%' : (e.grade == 3 ? '60%' : (e.grade == 2 ? '40%' : '20%')))) + ")" + "</span><br>";
+                    html += "Evaluation: <span style='color: #455a64;'>" + (e.grade <= 24 ? 'NEEDS TO EXTEND' : ((e.grade <= 34 && e.grade >= 25) ? 'NEEDS PRACTICE' : 'PASSED'))+"</span><br><br>";
+                    html += "\"" + e.comment + "\"</p>";
+                    html += "</div></div></div><hr>";
+                    x++;
+                    $('#evalStudAdmin').append(html);
+                });
+            }
+        }
+    });
+}
+
 var viewStud = function(id){
     stud.selected = id;
     stud.getLocalData(function(profile){
         stud.selectedID = profile.studID;
+        studID = profile.studID;
         $('.studNum').html(profile.studID);
         $('.studName').html(profile.fullname.replace(/_/g, " "));
         $('.studAddress').html(profile.address);

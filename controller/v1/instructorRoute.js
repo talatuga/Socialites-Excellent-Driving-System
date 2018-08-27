@@ -3,6 +3,8 @@ var router = require('express').Router();
 //Instructor Middelware
 var middleware = require('../../middleware/lib/instructor');
 
+router.get('/:id/eval', middleware.getEvalInst);
+router.get('/stud/:id/eval', middleware.getEvalStud);
 router.route('/')
     .post(middleware.create)
     .get(middleware.get);

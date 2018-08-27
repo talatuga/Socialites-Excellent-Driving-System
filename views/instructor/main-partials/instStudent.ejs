@@ -18,13 +18,16 @@
             <div class="row instructorCard">
                 <!-- Start of col-lg-3 -->
                 <div class="col-lg-3">
+                    <div class="p-30">
+                        <button type="button" onclick="refreshInstStud()" class="pull-right btn100p btn btn-inverse m-b-10 m-l-5">Refresh</button>
+                    </div>
                     <div class="card p-30">
                         <div class="media">
                             <div class="media-left meida media-middle">
                                 <span><i class="icon icon-profession10 tiSide f-s-40 color-danger"></i></span>
                             </div>
                             <div class="media-body media-text-right">
-                                <h2 class="allStudInst">0</h2>
+                                <h2 class="allStudInst"><%=students.length+studentsPast.length%></h2>
                                 <p class="m-b-0" style="color: black">Students Handled<br><span>(since Jan. 2018)</span></p>
                             </div>
                         </div>
@@ -48,12 +51,13 @@
                     <div class="card">
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs profile-tab" role="tablist">
-                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#profile1" role="tab">Current Students</a> </li>
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#current" role="tab">Current Students</a> </li>
+                            <li class="nav-item"> <a class="nav-link" onclick="viewHandledPast()" data-toggle="tab" href="#past" role="tab">Past Students</a> </li>
                         </ul>
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <!--first tab-->
-                            <div class="tab-pane active" id="profile1" role="tabpanel">
+                            <div class="tab-pane active" id="current" role="tabpanel">
                                 <div class="card-body">
                                     <form class="studTab">
                                         <table class="table tblRecSched tblHandledStud">
@@ -77,8 +81,43 @@
                                                     html += "<td>" + e.fullname.replace(/_/g, ' ') + "</td>";
                                                     html += "<td> CRS-" + e.carType.toUpperCase() + (pad.substring(0, pad.length-(e.courseID+"").length) + e.courseID) + "</td>";
                                                     html += "<td>" + (e.special ? "Yes" : "No") + "</td>";
-                                                    html += "<td>" + e.address + "</td>";
+                                                    html += "<td>" + e.name + "</td>";
                                                     html += "<td><button type='button' onclick='viewGradesInst(\""+ e.studID +"\")' class='btn100px btn13 btn btn-success m-b-10 m-l-5'>View Grades</button></td>";
+                                                    html += "</tr>"; 
+                                                }); 
+                                            %>
+                                            <%-html%>
+                                            </tbody>
+                                        </table>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="past" role="tabpanel">
+                                <div class="card-body">
+                                    <form class="studTab">
+                                        <table class="table tblRecSched tblHandledStudPast">
+                                            <thead>
+                                                <tr>
+                                                    <th>Student Number</th>
+                                                    <th>Student Name</th>
+                                                    <th>Course</th>
+                                                    <th>Special</th>
+                                                    <th>Branch</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tblHandledStudPast">
+                                            <% 
+                                                var html = "";
+                                                var pad = "000";
+                                                studentsPast.forEach((e,i)=>{
+                                                    html += "<tr id='a"+ e.studID +"' data-info='"+ JSON.stringify(e) +"'>";
+                                                    html += "<td>" + e.studID + "</td>";
+                                                    html += "<td>" + e.fullname.replace(/_/g, ' ') + "</td>";
+                                                    html += "<td> CRS-" + e.carType.toUpperCase() + (pad.substring(0, pad.length-(e.courseID+"").length) + e.courseID) + "</td>";
+                                                    html += "<td>" + (e.special ? "Yes" : "No") + "</td>";
+                                                    html += "<td>" + e.name + "</td>";
+                                                    html += "<td><button type='button' onclick='viewEvalPast(\""+ e.studID +"\")' class='btn100p btn13 btn btn-success m-b-10 m-l-5'>View Evaluation</button></td>";
                                                     html += "</tr>"; 
                                                 }); 
                                             %>

@@ -17,4 +17,35 @@ var evaluation = {
             cb(new Error("Error: On submitting evaluation details"));
         });
     },
+    getGradesStud: function(cb){
+        var req = $.get('api/v1/grade/stud/' + studID, function(response){
+            if(response.success == false){
+                console.log(response.detail);
+                cb(new Error(response.detail));
+            }else{
+                cb(null, response.data);
+            }
+        }).fail(function(request){
+            console.log(request.status + ": " + request.statusText);
+            cb(new Error("Error: On displaying grades"));
+        });
+    },
+    delete: function(id, cb){
+        var onSuccess = function(response){
+            if(response.success){
+                cb(null, true);
+            }else{
+                onFail(response.detail);
+            }
+        };
+        var onFail = function(err){
+            cb(new Error('Error: performing action.'));
+        };
+        $.ajax({
+            type: "DELETE",
+            url: 'api/v1/car/' + id,
+            success: onSuccess,
+            error: onFail
+        });
+    },
 }

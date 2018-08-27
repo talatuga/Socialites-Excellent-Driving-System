@@ -36,7 +36,7 @@ exports.user = function(req, res, next){
 
 exports.student = function(req, res, next){
     res.locals.title = 'Socialites Excellent Driving';
-    res.locals.instID = req.session.studID;
+    res.locals.studID = req.session.studID;
     if(req.session.studID != -1){
         res.render('student/index', res.locals);
     }else{
@@ -94,7 +94,21 @@ exports.instructor = function(req, res, next){
                 resolve(lessonsAv);
             });
         });
-        Promise.all([getStudents, getEvalInst, getEvalInstNumber, getGradesInst, getGradesSum, getAvailableLessons]).then((results)=>{
+        var getHandledPast = new Promise((resolve, reject)=>{
+            students.getHandledPast(req.session.instID, function(err, stud){
+                if(err) return reject(err);
+                res.locals.studentsPast = stud;
+                resolve(stud);
+            });
+        });
+        var getEvalInstPerc = new Promise((resolve, reject)=>{
+            grades.getEvalInstPerc(req.session.instID, function(err, stud){
+                if(err) return reject(err);
+                res.locals.evalPerc = stud;
+                resolve(stud);
+            });
+        });
+        Promise.all([getStudents, getEvalInst, getEvalInstNumber, getGradesInst, getGradesSum, getAvailableLessons, getHandledPast, getEvalInstPerc]).then((results)=>{
             res.render('instructor/index', res.locals);
         }).catch(next);
     }else{

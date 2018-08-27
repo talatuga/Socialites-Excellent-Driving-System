@@ -15,11 +15,10 @@
     <div class="container-fluid">
         <!-- Start of Card  -->
         <div class="instructorCard">
+            <div class="card">
+                <h5>You can only evaluate your instructor/s upon the completion of the course.</h5>
+            </div>
             <div class="row instructorCard">
-                <!-- Start of col-lg-3 -->
-                
-                <!-- End of col-lg-3 -->
-
                 <!-- Start of col-lg-9 -->
                 <div class="col-lg-12">
                     <div class="card">
@@ -50,7 +49,7 @@
                                                         html += "<tr id='a"+ e.id +"' data-info='"+ JSON.stringify(e) +"'>";
                                                         html += "<td> CRS-" + e.carType.toUpperCase() + (pad.substring(0, pad.length-(e.courseID+"").length) + e.courseID) + "</td>";
                                                         html += "<td>" + e.fullname.replace(/_/g, ' ') + "</td>";
-                                                        html += "<td><button type='button' onclick='evaluateInst(\""+ e.id + "\")' class='btn100px btn13 btn btn-inverse m-b-10 m-l-5'>Evaluate</button></td>";
+                                                        html += "<td><button type='button' onclick='evaluateInst(\""+ e.id +"\")' class='btnEvalInst btn100px btn13 btn btn-inverse m-b-10 m-l-5'>Evaluate</button></td>";
                                                         html += "</tr>"; 
                                                         // x++;
                                                     }); 

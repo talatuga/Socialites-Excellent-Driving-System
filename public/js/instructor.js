@@ -1,3 +1,4 @@
+var instID;
 $(function () {
     //DB: Pakilagay naman yung highlightTr
     // $('.tblInstructor tbody tr:first').addClass("highlightTr");
@@ -15,7 +16,8 @@ $(function () {
     $("#btnViewInstructor").on("click", function () { //opens view instructor page upon clicking view details
         $('.view-instructor').hide();
         $('.view-viewInstructor').show();
-        resetSettingsInst();        
+        resetSettingsInst();
+        loadEvalInst();   
     });
     $(".backInst").on("click", function () { //when back button is clicked (right side of instructor information)
         //SD: Dapat may modal pa dito kung ididiscard ba yung changes
@@ -58,6 +60,32 @@ var loadInst = function(){
         viewInstProfile(inst.pages[inst.currPage][0].instID);
         // $(".preloader").fadeOut();          
     });    
+}
+
+function loadEvalInst(){
+    inst.getInstEval(function (err, data){
+        if(err){
+            swal("Failed!", err.message, "error");
+            console.log(err);
+        }else{
+            $('#evalInstAdmin').html("");
+            var x = 1;
+            var pad = "0000";
+            var eval;
+            if(data.length!=0){
+                data.forEach((e,i)=>{
+                    var html = "<div class='sl-item'><div class='sl-left'> <img src='assets/images/user4.png' alt='Student' id='studEvalPic' class='img-circle /> </div><div class='sl-right' id='evalInstAdmin'>";
+                    html += "<div><a href='#' class='link' id='studEvalName'>" + e.fullname.replace(/_/g, ' ') + "</a> <span class='sl-date'>" + (Date.parse(e.dateEvaluated ).toString("MMM dd, yyyy")) + "</span>";
+                    html += "<br><small class='crsInstEval'>CRS-" + e.carType.toUpperCase() + (pad.substring(0, pad.length-(e.courseID+"").length) + e.courseID) + "</small><div class='separator2'></div>";
+                    html += "<p style='color: #455a64;'>Evaluation Grade: <span class='studEvalGrade'>" + e.grade + " (" + (e.grade == 5 ? '100%' : (e.grade == 4 ? '80%' : (e.grade == 3 ? '60%' : (e.grade == 2 ? '40%' : '20%')))) + ")" + "</span></p>";
+                    html += "<p class='m-t-10 studEvalMsg'>\"" + e.comment + "\"</p>";
+                    html += "</div></div></div><hr>";
+                    x++;
+                    $('#evalInstAdmin').append(html);
+                }); 
+            }
+        }
+    });
 }
 
 function resetNewInstr() //resets fields on add instructor modal
@@ -530,6 +558,7 @@ var viewInstProfile = function(id){
     inst.selected = id;
     renderInstEdit();
     inst.getLocalData(function(profile){
+        instID = profile.instID;
         $('.instNum').html(profile.instID);
         $('.instName').html(profile.fullname.replace(/_/g,' '));
         $('.instAddress').html(profile.address);

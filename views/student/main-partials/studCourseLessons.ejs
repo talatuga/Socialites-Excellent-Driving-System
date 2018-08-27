@@ -34,21 +34,20 @@
                                             <th>Hours</th>
                                             <th>Special</th>
                                             <th>Date Started</th>
-                                            <th>Date Ended</th>
+                                            <th>Status</th>
                                        </tr>
                                    </thead>
                                    <tbody id="enrolledCrsTbl">
                                         <% 
-                                            
                                             var html = "";
                                             var pad = "000";
                                             courses.forEach((e,i)=>{
                                                 html += "<tr>";
-                                                html += "<td> CRS-" + e.carType.toUpperCase() + (pad.substring(0, pad.length-(e.courseID+"").length) + e.courseID) + "</td>";
+                                                html += "<td id='"+ e.courseID +"'> CRS-" + e.carType.toUpperCase() + (pad.substring(0, pad.length-(e.courseID+"").length) + e.courseID) + "</td>";
                                                 html += "<td>" + e.days + "</td>";
                                                 html += "<td>" + (e.special ? "Yes" : "No") + "</td>";
                                                 html += "<td>" + (e.status == 1 ? (Date.parse(e.dateEnrolled).toString("MMM dd, yyyy")) : (e.status == 2 ? "---" : "date")) + "</td>";
-                                                html += "<td>" + (e.status == 1 ? "---" : (e.status == 2 ? "---" : "date")) + "</td>";
+                                                html += "<td>" + (e.status == 1 ? "Ongoing" : (e.status == 2 ? "Pending" : "Finished")) + "</td>";
                                                 html += "</tr>"; 
                                             }); 
                                         %>
@@ -62,7 +61,8 @@
                     <div class="tab-pane" id="lessonTab" role="tabpanel">
                         <div class="card-body">
                             <div class="studTab">
-                                <h4><b>[<span class="h4selCrsforLes">CRS-M0001</span> ]</b></h4>
+                                <h4 style="float: left"><b>[<span class="h4selCrsforLes">CRS-M0001</span> ]</b></h4>
+                                <button type="button" onclick="viewGradesStud()" class="pull-right btn100px btn btn-inverse m-b-10 m-l-5">Refresh</button>
                                 <table class="table tblCustom">
                                    <thead>
                                        <tr>
@@ -76,29 +76,10 @@
                                             <th width="20%">Comment</th>
                                        </tr>
                                    </thead>
-                                   <tbody>
-                                       <% 
-                                            var html = "";
-                                            var x = 1;
-                                            gradesStud.forEach((e,i)=>{
-                                                html += "<tr>";
-                                                html += "<td>" + x + "</td>";
-                                                html += "<td>" + e.title + "</td>";
-                                                html += "<td>" + (Date.parse(e.date).toString("MMM dd, yyyy")) + "</td>";
-                                                html += "<td>" + (Date.parse(e.time).toString("HH:mm")) + "</td>";
-                                                html += "<td>" + e.fullname.replace(/_/g, ' ') + "</td>";
-                                                
-                                                html += "<td>" + e.grade + "</td>";
-                                                html += "<td>" + e.comment + "</td>";
-                                                html += "</tr>"; 
-                                                x++;
-                                            }); 
-                                        %>
-                                        <%-html%>
-                                   </tbody>
+                                   <tbody id="studGradesStud"></tbody>
                                </table><br>
                                <div class="pull-right">
-                                    <button type="button" onclick="viewEvaluationStud()" class="pull-right btn100px btn btn-success m-b-10 m-l-5">View</button>
+                                    <button type="button" onclick="viewEvaluationStud()" class="btnViewEval pull-right btn100px btn btn-success m-b-10 m-l-5">View</button>
                                     <h6 class="alignR">You can only view the evaluation from your instructor at the end of the course.</h6>
                                </div>
                             </div>

@@ -245,7 +245,7 @@
                       html += "<h6>Overall Grade: <b><span class='overallGrade'>"+ evalStud[0].grade +"</span>&nbsp;(<span class='overallGrPerc'>"+ (evalStud[0].grade)*2 +"%</span>)</b></h6>";
                       html += "<h6>Evaluation: <b><span class='evalGrade'>"+ (evalStud[0].grade <= 24 ? 'NEEDS TO EXTEND' : ((evalStud[0].grade <= 34 && evalStud[0].grade >= 25) ? 'NEEDS PRACTICE' : 'PASSED')) +"</span></b></h6><br><br>";
                       html += "<h6>Comment:</h6><textarea class='enrTxtArea' id='commentInstEval' readonly style='font-size: 14px' rows='3'>"+ evalStud[0].comment +"</textarea><br><br>";
-                      html += "<h6>Evaluated by: <b><span class='instEvaluator'>"+ evalStud[0].fullname +"</span></b></h6>";
+                      html += "<h6>Evaluated by: <b><span class='instEvaluator'>"+ evalStud[0].fullname.replace(/_/g, ' ') +"</span></b></h6>";
                       html += "<h6>Date Evaluated: <b><span class='evalDate'>"+ (Date.parse(evalStud[0].dateEvaluated).toString("MMM dd, yyyy")) +"</span></b></h6>";
                     }
                 %>

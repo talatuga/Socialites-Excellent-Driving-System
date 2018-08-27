@@ -57,6 +57,7 @@ exports.update = function(req, res, next){
     data.push(dataIn.comment);
     data.push(dataIn.schedID);
     
+    // console.log(data);
     grade.update(id, dataIn.grade, "grade", function(err){
         if(err) return next(err);
         grade.update(id, dataIn.comment, "comment", function(er){
@@ -107,6 +108,22 @@ exports.getGradesInst = function(req, res, next){
     });
 }
 
+exports.getGradesStud = function(req, res, next){
+    if(res.locals.authenticated == 0) return next();
+    grade.getGradesStudent(req.params.id, function(err, result){
+        if(err) return next(err);
+        res.status(200).send({success: true, data: result});
+    });
+}
+
+exports.getEvalStud = function(req, res, next){
+    if(res.locals.authenticated == 0) return next();
+    grade.getEvalStud(req.params.id, function(err, result){
+        if(err) return next(err);
+        res.status(200).send({success: true, data: result});
+    });
+}
+
 exports.getGradesSum = function(req, res, next){
     if(res.locals.authenticated == 0) return next();
     grade.getGradesSum(req.params.id, function(err, result){
@@ -147,6 +164,14 @@ exports.getLessonEnrolled = function(req, res, next){
         var availableLesson = results[1];
         var promises = [];
 
+        var sendData = function (){
+            res.status(200).send({success: true, data: allLesson});
+        }
+
+        if(availableLesson.length == 0){
+            sendData();
+        }
+
         availableLesson.forEach((e,i)=>{
             promises.push(new Promise((resolvee, rej)=>{
                 var curr = e;
@@ -163,7 +188,7 @@ exports.getLessonEnrolled = function(req, res, next){
             
             if(i==availableLesson.length-1){
                 Promise.all(promises).catch(next).then((ress)=>{
-                    res.status(200).send({success: true, data: allLesson});
+                    sendData();
                 });
             }
         });

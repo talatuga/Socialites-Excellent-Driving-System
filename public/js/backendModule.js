@@ -280,6 +280,32 @@ var inst = {
             renderInstTablePage(this.pages[this.currPage]);
         });
     },
+    getInstEval: function(cb){
+        $.get('api/v1/instructor/' + instID + '/eval', function(response){
+            if(response.success == false){
+                console.log(response.detail);
+                cb(new Error(response.detail));
+            }else{
+                cb(null, response.data);
+            }
+        }).fail(function(request){
+            console.log(request.status + ": " + request.statusText);
+            cb(new Error("Error: On displaying evaluation details"));
+        });
+    },
+    getStudEval: function(cb){
+        $.get('api/v1/instructor/stud/' + studID + '/eval', function(response){
+            if(response.success == false){
+                console.log(response.detail);
+                cb(new Error(response.detail));
+            }else{
+                cb(null, response.data);
+            }
+        }).fail(function(request){
+            console.log(request.status + ": " + request.statusText);
+            cb(new Error("Error: On displaying evaluation details"));
+        });
+    },
 }
 /* 
 *   branch module, simplified tong isang ito for better readability. 
