@@ -13,16 +13,20 @@ Account.db = db;
 
 Account.getBalance = function(ORno){
     return new Promise(function(resolve, reject){
-        var sql = "SELECT balance, transaction, data, price FROM "+ table +" WHERE ORno = ?";
+        var sql = "SELECT balance, transaction, data, price, date FROM "+ table +" WHERE ORno = ?";
         db.get().query(sql, [ORno], function(err, result){
             if(err) return reject(err);
-            resolve(result[0]);
+            if(result.length==0){
+                resolve([]);
+            }else{
+                resolve(result[0]);
+            }
         });
     });
 };
 
 Account.addBill = function(transaction,transData, feeType, bill, cb){
-    var randPost = generator.generateNumberToken(9);
+    var randPost = generator.generateNumberToken(4);
     var datePre = Date.parse("today").toString("yyMMdd");
 
     var data = [""];
@@ -33,13 +37,24 @@ Account.addBill = function(transaction,transData, feeType, bill, cb){
     data.push(bill);
     data.push(bill);
 
+    var createBill = function(){
+        Account.getBalance(data[1]).then(res=>{
+            if(res.length==0){
+                Account.create(data, function(err,result){
+                    if(err) return cb(err);
+                    cb(null,{id: result.insertId, ORid: datePre+randPost});
+                });
+            }else{
+                data[1] = datePre + generator.generateNumberToken(4);
+                createBill();
+            }
+        });
+    };
+
     valid.checkUndef(data, function(passed){
         if(passed){
             data.push(null);
-            Account.create(data, function(err,result){
-                if(err) return cb(err);
-                cb(null,{id: result.insertId, ORid: datePre+randPost});
-            });
+            createBill();
         }else{
             cb(new Error("Invalid data"));
         }
@@ -80,6 +95,7 @@ Account.getEnrollBal = function(ORnum){
         var sql = "SELECT balance, transaction, data, price FROM "+ table +" WHERE ORno = ?";
         db.get().query(sql, [ORnum], function(err, transaction){
             if(err) return reject(err);
+            if(transaction.length==0) return resolve([]);
             var course = require('./lessonModel');
             var transData = JSON.parse(transaction[0].data);
             var total = 0;
@@ -119,6 +135,7 @@ Account.getTransactions = function(ORnum){
             if(err) return reject(err);
             if(result.length == 0) return resolve(null);
             var accSummary = {
+                ORno: ORnum,
                 transaction: [],
                 balance: 0,
                 bill: 0

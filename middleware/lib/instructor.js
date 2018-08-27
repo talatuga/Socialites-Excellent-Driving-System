@@ -143,5 +143,11 @@ exports.getEvalStud = function(req, res, next){
     grade.getEvalStud(req.params.id, function(err, result){
         if(err) return next(err);
         res.status(200).send({success: true, data: result});
+exports.testGettingAvailInst = function(req, res, next){
+    var sched = require('../../model/scheduleModel');
+    sched.getSchedule({}, function(err, result){
+        instructor.assignToSched(result,function(err, result){
+            res.status(200).send(result);
+        });
     });
 }

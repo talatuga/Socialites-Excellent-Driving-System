@@ -4,6 +4,18 @@
         <% include ../utils/studentCSS %>
     </head>
     <body>
+        <%
+            Number.prototype.formatMoney = function(c, d, t){
+                var n = this, 
+                c = isNaN(c = Math.abs(c)) ? 2 : c, 
+                d = d == undefined ? "." : d, 
+                t = t == undefined ? "," : t, 
+                s = n < 0 ? "-" : "", 
+                i = String(parseInt(n = Math.abs(Number(n) || 0).toFixed(c))), 
+                j = (j = i.length) > 3 ? j % 3 : 0;
+                return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+            };
+        %>
         <center>
             <div>
                 <h1>SOCIALITES EXCELLENT DRIVING</h1>
@@ -25,12 +37,12 @@
                             <h3 style="letter-spacing: 5px; text-align: left">INVOICE<br></small></h3>
                         </td>
                         <td>
-                            <h4 style="text-align: right">Invoice No. <span style="color: #5d0000;">1787</span><br>Date: <span>August 7, 2018</span></h4>
+                            <h4 style="text-align: right">Invoice No. <span style="color: #5d0000;"><%=ORno%></span><br>Date: <%=date%></h4>
                         </td>
                     </tr>
                 </tbody>
             </table><br>
-            <h3>TO: <span style="font-weight: bolder">Kenard Smith Belarmino Bautista</span><hr width="50%">
+            <h3>TO: <span style="font-weight: bolder"><%=name.replace(/_/g," ").toUpperCase()%></span><hr width="50%">
             <table width="90%">
                 <thead>
                     <tr>
@@ -42,7 +54,21 @@
                     </tr>
                 </thead>
                 <tbody style="font-size: 13px">
-                    
+                    <%
+                        var html = "";
+                        if(payments.length!=0){
+                            payments.forEach((element,index)=>{
+                                html += "<tr>";
+                                html += "<td>"+ date +"</td>";
+                                html += "<td>"+ element.desc +"</td>";
+                                html += "<td>"+ element.assessment +"</td>";
+                                html += "<td>"+ element.payment +"</td>";
+                                html += "<td>"+ element.balance +"</td>";
+                                html += "</tr>";
+                            });
+                        }
+                    %>
+                    <%-html%>
                 </tbody>
             </table><br><br><hr>
             <table class="pull-right" width="40%">
@@ -50,7 +76,7 @@
                 <tbody style="font-size: 13px">
                     <tr>
                         <td>SUBTOTAL</td>
-                        <td>2,500.00</td>
+                        <td><%=(parseFloat(price).formatMoney(2))%></td>
                     </tr>
                     <tr>
                         <td>TAX RATE</td>
@@ -67,6 +93,7 @@
                     <tr><td></td><td></td></tr>
                     <tr>
                         <td>TOTAL</td>
+                        <td><%=(parseFloat(price).formatMoney(2))%></td>
                     </tr>
                 </tbody>
             </table><hr><br><br>

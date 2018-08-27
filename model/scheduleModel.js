@@ -10,15 +10,17 @@ var timelineOptions = {
 
 var Model = {}
 
+Model.table = table;
+
 Model.create = function (data, cb) { //data = [], cb = (error=new Error, result=[])=>{}
     var sql = "INSERT INTO "+ table +" VALUES (NULL,?,?, ?, ?, ?, ?, ?, ?);";
     db.get().query(sql, data, function(err, result){
         if(err) return cb(err);
-        cb(null, true);
+        cb(null, result);
     });
 }
 
-Model.get = function (id, field, cd) {
+Model.get = function (id, field, cb) {
     if (typeof field == "function") {
         cb = field;
         field = null;
@@ -149,6 +151,14 @@ Model.getInstAssign = function(date, time, cb){
     db.get().query(sql, [date, time], function(err, data){
         if(err) return cb(err);
         cb(null, data);
+    });
+};
+
+Model.assignInst = function(sched_inst, cb){
+    var sql = "UPDATE " + table + " SET instID = ? WHERE id = ?";
+    db.get().query(sql, [sched_inst.instID, sched_inst.schedID], function(err){
+        if(err) return cb(err);
+        cb(null);
     });
 };
 
@@ -420,7 +430,7 @@ Model.autoAssignSched_1 = function(studentID){
             var promises = [];
             scheds.forEach((e,i)=>{
                 promises.push(new Promise((resolve, reject)=>{
-                        var data = [
+                    var data = [
                         'session#' + (i+1),
                         e.date,
                         e.time,
@@ -432,19 +442,18 @@ Model.autoAssignSched_1 = function(studentID){
                     ];
                     Model.create(data, function(err,result){
                         if(err) return reject(err);
-                        resolve(result);
+                        resolve(result.insertId);
                     });
                 }));
                 if(i == scheds.length-1){
                     Promise.all(promises).catch(error).then(function(result){
-                        studentModel.update(studID,0,'hours', function(err){
-                            if(err) return x1(err);
-                            r1(true);
+                        studentModel.update(studentID,0,'hours', function(err){
+                            if(err) return error(err);
+                            done(result);
                         });
                     });
                 }
             });
-            done(scheds);
         }
 
         var chain = function(loop){
@@ -508,6 +517,10 @@ Model.getFreeSchedOnDay = function(branch, day){
 };
 
 Model.autoAssignInstructor = function(){
+
+};
+
+Model.isInstructorFree = function(){
 
 };
 
