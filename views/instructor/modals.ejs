@@ -158,6 +158,44 @@
   </div>
 </div>
 
+<!-- View Student Evaluation Modal -->
+<div class="modal fade" id="viewEvalStudModal" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="viewEvalStudModal">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <center>
+            <h2>PERFORMANCE EVALUATION</h2>
+            <h6>Grades for every lesson are tallied and computed to analyze the student's performance for the whole course.</h6>
+        </center>
+        <hr class="hrCustom">
+        <div class="stot">
+          <form>
+            <div class="row">
+              <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                <h6>Course: <b><span class='evalCrs'></span></b></h6>
+                <h6>Overall Grade: <b><span class='overallGrade'></span>&nbsp;(<span class='overallGrPerc'></span>)</b></h6>
+                <h6>Evaluation: <b><span class='evalGrade'></span></b></h6><br><br>
+                <h6>Comment:</h6><textarea class='enrTxtArea commentInstEval1' readonly style='font-size: 14px' rows='3'></textarea><br><br>
+                <h6>Evaluated by: <b><span class='instEvaluator'></span></b></h6>
+                <h6>Date Evaluated: <b><span class='evalDate'></span></b></h6>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <h6><b>Evaluation Basis:</b></h6>
+                <h6><b>35-50</b> - Passed</h6>
+                <h6><b>25-34</b> - Needs Practice</h6>
+                <h6><b>0-24&nbsp;&nbsp; </b> - Needs To Extend</h6>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn100 btn13 btn-inverse" data-dismiss="modal">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Cancel Schedule Modal -->
 <div class="modal fade" id="cancelSchedModal" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="cancelSchedModal">
   <div class="modal-dialog modal-dialog-centered" role="document">

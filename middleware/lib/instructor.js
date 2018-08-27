@@ -1,4 +1,5 @@
 var instructor = require('../../model/instructorModel');
+var grade = require('../../model/evaluationModel');
 var Email = require('../../bin/emailer');
 
 exports.create = function(req, res, next){
@@ -126,5 +127,27 @@ exports.delete = function(req, res, next){
     instructor.delete(id, date, function(err, done){
         if(err) return next(err);
         res.status(200).send({success: true, detail: "Successfully Deleted!"});
+    });
+}
+
+exports.getEvalInst = function(req, res, next){
+    if(res.locals.authenticated == 0) return next();
+    grade.getEvalInst(req.params.id, function(err, result){
+        if(err) return next(err);
+        res.status(200).send({success: true, data: result});
+    });
+}
+
+exports.getEvalStud = function(req, res, next){
+    if(res.locals.authenticated == 0) return next();
+    grade.getEvalStud(req.params.id, function(err, result){
+        if(err) return next(err);
+        res.status(200).send({success: true, data: result});
+exports.testGettingAvailInst = function(req, res, next){
+    var sched = require('../../model/scheduleModel');
+    sched.getSchedule({}, function(err, result){
+        instructor.assignToSched(result,function(err, result){
+            res.status(200).send(result);
+        });
     });
 }

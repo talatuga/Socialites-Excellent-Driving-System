@@ -175,6 +175,10 @@ function uncheckLesSelct(){
 
 }
 
+function payMeth2(){
+    swal ("Oops!", "We're sorry, but this option is not available for now.", "error");
+}
+
 function payMeth1(){
     $('.paymentOptionDiv').hide();
     $('.paymentOptionDiv1').show();

@@ -40,7 +40,7 @@ var evaluation = {
             }
         }).fail(function(request){
             console.log(request.status + ": " + request.statusText);
-            cb(new Error("Error: On submitting grades for lessons"));
+            cb(new Error("Error: On displaying student grades"));
         });
     },
     getGradesSum: function(cb){
@@ -99,6 +99,19 @@ var evaluation = {
             data: {data: JSON.stringify(data)},
             success: onSuccess,
             error: onFail
+        });
+    },
+    getEvalStud: function(cb){
+        var req = $.get('api/v1/grade/student/' + studID + '/eval', function(response){
+            if(response.success == false){
+                console.log(response.detail);
+                cb(new Error(response.detail));
+            }else{
+                cb(null, response.data);
+            }
+        }).fail(function(request){
+            console.log(request.status + ": " + request.statusText);
+            cb(new Error("Error: On displaying evaluation"));
         });
     },
 }

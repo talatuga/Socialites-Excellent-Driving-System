@@ -163,8 +163,20 @@ Lesson.getLessonEnrolled = function(studID, cb){
 }
 
 Lesson.getHandledStudents = function(instID, cb){
-    var sql = "SELECT s.studID, s.instID, ui.fullname, ce.courseID, ce.special, b.address, c.carType FROM course c, schedule s, student st, userinfo ui, course_enrolled ce, branch b, enrollment e WHERE s.instID = ? AND st.userInfo = ui.id AND st.id = s.studID AND s.branch = b.id AND e.studID = st.id  AND ce.enrollmentID = e.id AND c.id = ce.courseID AND ce.status = 1 GROUP BY s.studID";
-    db.get().query(sql, [instID], function(err, result){
+    var sql = "SELECT s.studID, s.instID, ui.fullname, ce.courseID, ce.special, b.name, c.carType FROM course c, schedule s, student st, userinfo ui, course_enrolled ce, branch b, enrollment e WHERE s.instID = ? AND st.userInfo = ui.id AND st.id = s.studID AND s.branch = b.id AND e.studID = st.id  AND ce.enrollmentID = e.id AND c.id = ce.courseID AND ce.status = 1 GROUP BY s.studID";
+        db.get().query(sql, [instID], function(err, result){
+        // console.log(result);
+        if(err) return cb(err);
+        if(result.length == 0) return cb(null, []);
+        if(err) return cb(err);
+        cb(null, result);
+    });
+}
+
+Lesson.getHandledPast = function(instID, cb){
+    var sql = "SELECT s.studID, s.instID, ui.fullname, ce.courseID, ce.special, b.name, c.carType FROM course c, schedule s, student st, userinfo ui, course_enrolled ce, branch b, enrollment e WHERE s.instID = ? AND st.userInfo = ui.id AND st.id = s.studID AND s.branch = b.id AND e.studID = st.id  AND ce.enrollmentID = e.id AND c.id = ce.courseID AND ce.status = 0 GROUP BY s.studID";
+        db.get().query(sql, [instID], function(err, result){
+        // console.log(result);
         if(err) return cb(err);
         if(result.length == 0) return cb(null, []);
         if(err) return cb(err);

@@ -25,10 +25,10 @@ Grade.addGrade = function (data, cb){
 Grade.addGradeModal = function(studID, instID, cb){
     var sql = "SELECT i.id AS instID, ui.fullname, st.id AS studId, s.id AS schedID, s.date, s.time AS schedtime FROM userinfo ui, schedule s, instructor i, student st WHERE st.id = ? AND st.id = s.studID AND s.instID = ? AND i.id = s.instID AND i.userinfo = ui.id GROUP BY s.date";
     db.get().query(sql, [studID, instID], function(err, result){
-        console.log(err);
+        // console.log(err);
         if(err) return cb(err);
         if(result.length == 0) return cb(null, []);
-        console.log(result);
+        // console.log(result);
         if(err) return cb(err);
         cb(null, result);
     });
@@ -46,7 +46,7 @@ Grade.saveAddGrade = function(data, cb){
 }
 
 Grade.getAssignedInst = function(studID, cb){
-    var sql = "SELECT c.carType, ce.courseID, i.id, ui.fullname, b.address FROM instructor i, userinfo ui, course_enrolled ce, student st, vehicle v, branch b, schedule s, course c, enrollment e WHERE st.id = ? AND i.userInfo = ui.id AND i.id = s.instID AND s.branch = b.id AND s.studID = st.id AND ce.enrollmentID = e.id AND c.id = ce.courseID GROUP BY ui.fullname";
+    var sql = "SELECT c.carType, ce.courseID, i.id, ui.fullname, b.name FROM instructor i, userinfo ui, course_enrolled ce, student st, vehicle v, branch b, schedule s, course c, enrollment e WHERE st.id = ? AND i.userInfo = ui.id AND i.id = s.instID AND s.branch = b.id AND s.studID = st.id AND ce.enrollmentID = e.id AND c.id = ce.courseID GROUP BY ui.fullname";
     db.get().query(sql, [studID], function(err, result){
         // console.log(studID);
         if(err) return cb(err);
@@ -62,6 +62,17 @@ Grade.getEvalInst = function (instID, cb){
     db.get().query(sql, [instID], function(err, result){
         if(err) return cb(err);
         if(result.length == 0) return cb(null, []);
+        console.log(result);
+        if(err) return cb(err);
+        cb(null, result);
+    });
+}
+
+Grade.getEvalInstPerc = function (instID, cb){
+    var sql = "SELECT ROUND(AVG(e.grade), 0) AS count FROM instructor i, userinfo ui, course_enrolled ce, evaluation e, student st, course c WHERE st.id = e.studID AND st.userInfo = ui.id AND ce.courseID = e.courseID AND e.instID = ? AND e.target = 0 AND i.id = e.instID AND c.id = ce.courseID GROUP BY ui.fullname ORDER BY e.dateEvaluated DESC";
+    db.get().query(sql, [instID], function(err, result){
+        if(err) return cb(err);
+        if(result.length == 0) return cb(null, []);
         // console.log(result);
         if(err) return cb(err);
         cb(null, result);
@@ -69,11 +80,12 @@ Grade.getEvalInst = function (instID, cb){
 }
 
 Grade.getEvalStud = function (studID, cb){
-    var sql = "SELECT i.id, ui.fullname, e.courseID, c.carType, e.dateEvaluated, e.grade, e.comment FROM instructor i, userinfo ui, course_enrolled ce, evaluation e, course c, student st WHERE st.id = e.studID AND i.userInfo = ui.id AND ce.courseID = e.courseID AND e.studID = ? AND e.target = 1 AND i.id = e.instID GROUP BY ui.fullname";
+    var sql = "SELECT i.id, ui.fullname, e.courseID, c.carType, e.dateEvaluated, e.grade, e.comment FROM instructor i, userinfo ui, course_enrolled ce, evaluation e, course c, student st WHERE st.id = e.studID AND i.userInfo = ui.id AND ce.courseID = e.courseID AND e.studID = ? AND e.target = 1 AND i.id = e.instID GROUP BY ui.fullname ORDER BY e.dateEvaluated DESC";
     db.get().query(sql, [studID], function(err, result){
+        // console.log(result);
         if(err) return cb(err);
         if(result.length == 0) return cb(null, []);
-        console.log(result);
+        // console.log(result);
         if(err) return cb(err);
         cb(null, result);
     });
@@ -97,7 +109,6 @@ Grade.getGradesStudent = function (studID, cb){
         // console.log(result);
         if(err) return cb(err);
         if(result.length == 0) return cb(null, []);
-        // console.log(result);
         if(err) return cb(err);
         cb(null, result);
     });
@@ -106,7 +117,7 @@ Grade.getGradesStudent = function (studID, cb){
 Grade.getGradesInst = function (studID, cb){
     var sql = "SELECT ce.selectedLesson, g.*, ui.fullname, i.id AS instID, l.title, s.date, s.time FROM course_enrolled ce, enrollment en, grades g, instructor i, userinfo ui, lesson l, schedule s WHERE en.id = ce.enrollmentID AND en.studID = ? AND g.studID = en.studID AND ce.status = 1 AND g.instID = i.id AND i.userinfo = ui.id AND g.lessonID = l.id AND s.id = g.schedID ORDER BY s.date";
     db.get().query(sql, [studID], function(err, result){
-        console.log(result);
+        // console.log(result);
         if(err) return cb(err);
         if(result.length == 0) return cb(null, []);
         if(err) return cb(err);

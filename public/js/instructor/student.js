@@ -1,11 +1,24 @@
 var studName, studID, courseID, schedID, lessonID, dataID;
-var selectedLesson, selectedGrade, selectedComment, selectedDate, selectedTime, selectedDataID, selectedInstID;
+var selectedLesson, selectedGrade, selectedComment, selectedDate, selectedTime, selectedDataID, selectedInstID, selectedLessonID, selectedSchedID;
 var rowCount, course, sum, percent;
 var instID = $('body').data('instid');
+
+var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1
+    var yyyy = today.getFullYear();
+    if(dd<10) { dd = '0'+dd } 
+    if(mm<10) { mm = '0'+mm } 
 
 $(function(){  
     loadStudentI();
 });
+
+function refreshInstStud(){
+    location.reload();
+    // window.location = window.location
+    // history.go(0)
+}
 
 function loadStudentI(){
     rowCount = $('.tblHandledStud').length;
@@ -38,9 +51,9 @@ function viewGradesInst(id){
             data.forEach(e => {
                 dataID = e.id;
                 var html = "<tr id='"+ e.id +"'>";
-                html += "<td>" + x + "</td>";
-                html += "<td id='"+ e.id +"'>" + e.title + "</td>";
-                html += "<td>" + (Date.parse(e.date).toString("MMM dd, yyyy")) + "</td>";
+                html += "<td id='"+ e.id +"'>" + x + "</td>";
+                html += "<td id='"+ e.lessonID +"'>" + e.title + "</td>";
+                html += "<td id='"+ e.schedID +"'>" + (Date.parse(e.date).toString("MMM dd, yyyy")) + "</td>";
                 html += "<td>" + (Date.parse(e.time).toString("HH:mm")) + "</td>";
                 html += "<td id='"+ e.instID +"' data-name='"+ e.fullname +"' >" + e.fullname.replace(/_/g, ' ') + "</td>";
                 html += "<td>" + e.grade + "</td>";
@@ -62,8 +75,10 @@ function viewGradesInst(id){
                 selectedComment = $(this).closest('tr').find('td:eq(6)').text();
                 selectedDate = $(this).closest('tr').find('td:eq(2)').text();
                 selectedTime = $(this).closest('tr').find('td:eq(3)').text();
-                selectedDataID = $(this).closest('tr').find('td:eq(1)').attr("id");
+                selectedDataID = $(this).closest('tr').find('td:eq(0)').attr("id");
+                selectedLessonID = $(this).closest('tr').find('td:eq(1)').attr("id");
                 selectedInstID = $(this).closest('tr').find('td:eq(4)').attr("id");
+                selectedSchedID = $(this).closest('tr').find('td:eq(2)').attr("id");
                 if (selectedInstID==instID) showEditGradeModal();
                 else swal("Oops!", "You cannot update this grade because you are not the assigned instructor.", "error");
             });
@@ -99,12 +114,20 @@ function addGradeModal(){
             swal("Failed!", err.message, "error");
             console.log(err);
         }else{
+            var dateToday = new Date();
+            dateToday = Date.parse(dateToday).toString("MMM dd, yyyy");
             $('#dateLessonList').html("");
             data.forEach((e,i)=>{
                 var html = "";
-                html += "<option id='" + e.schedID + "' data-info='" + JSON.stringify(e) + "' value='" + (Date.parse(e.schedtime).toString("HH:mm")) + "'>" + (Date.parse(e.date).toString("MMM dd, yyyy")) + "</option>";
-                selected = e.schedID;
-                $('#dateLessonList').append(html);
+                if (dateToday >= (Date.parse(e.date).toString("MMM dd, yyyy"))){
+                    html += "<option id='" + e.schedID + "' data-info='" + JSON.stringify(e) + "' value='" + (Date.parse(e.schedtime).toString("HH:mm")) + "'>" + (Date.parse(e.date).toString("MMM dd, yyyy")) + "</option>";
+                    selected = e.schedID;
+                    $('#dateLessonList').append(html);
+                }else{
+                    html += "<option id='" + e.schedID + "'disabled data-info='" + JSON.stringify(e) + "' value='" + (Date.parse(e.schedtime).toString("HH:mm")) + "'>" + (Date.parse(e.date).toString("MMM dd, yyyy")) + "</option>";
+                    selected = e.schedID;
+                    $('#dateLessonList').append(html);
+                }       
             }); 
             $(".dateLessonList").change(function() {
                 schedID = $(this).children(":selected").attr("id");
@@ -148,12 +171,20 @@ function showEditGradeModal(){
             swal("Failed!", err.message, "error");
             console.log(err);
         }else{
+            var dateToday = new Date();
+            dateToday = Date.parse(dateToday).toString("MMM dd, yyyy");
             $('#dateLessonListEdit').html("");
             data.forEach((e,i)=>{
                 var html = "";
-                html += "<option id='" + e.schedID + "' data-info='" + JSON.stringify(e) + "' value='" + (Date.parse(e.schedtime).toString("HH:mm")) + "'>" + (Date.parse(e.date).toString("MMM dd, yyyy")) + "</option>";
-                selected = e.schedID;
-                $('#dateLessonListEdit').append(html);
+                if (dateToday >= (Date.parse(e.date).toString("MMM dd, yyyy"))){
+                    html += "<option id='" + e.schedID + "' data-info='" + JSON.stringify(e) + "' value='" + (Date.parse(e.schedtime).toString("HH:mm")) + "'>" + (Date.parse(e.date).toString("MMM dd, yyyy")) + "</option>";
+                    selected = e.schedID;
+                    $('#dateLessonListEdit').append(html);
+                }else{
+                    html += "<option id='" + e.schedID + "' disabled data-info='" + JSON.stringify(e) + "' value='" + (Date.parse(e.schedtime).toString("HH:mm")) + "'>" + (Date.parse(e.date).toString("MMM dd, yyyy")) + "</option>";
+                    selected = e.schedID;
+                    $('#dateLessonListEdit').append(html);
+                }                
             }); 
             $("#dateLessonListEdit").change(function() {
                 schedID = $(this).children(":selected").attr("id");
@@ -228,11 +259,11 @@ function saveEditLessonGrade(){
         id: selectedDataID,
         studID: studID,
         
-        lessonID: 2,
+        lessonID: selectedLessonID,
         grade: grade,
         comment: comment,
-        courseID: 2,
-        schedID: 19
+        courseID: courseID,
+        schedID: selectedSchedID
     }
     evaluation.updateGradeLesson(_data, function(err){
         if(err){
@@ -247,19 +278,6 @@ function saveEditLessonGrade(){
 }
 
 function doneEvalStud(){
-    var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth()+1; //January is 0!
-    var yyyy = today.getFullYear();
-
-    if(dd<10) {
-        dd = '0'+dd
-    } 
-
-    if(mm<10) {
-        mm = '0'+mm
-    } 
-    
     today = mm + '/' + dd + '/' + yyyy;
     var dateEvaluated = (Date.parse(today).toString("yyyy-MM-dd"));
     var commentEval = $('#commentInstEval').val();
@@ -283,9 +301,36 @@ function doneEvalStud(){
             }else{
                 swal ("Success!", "Course is finished! Evaluation details has been submitted.", "success");
                 $('#evalStudModal').modal("hide");
+                //DB: dito po pakitawag yung function para maging 0 yung status nya :)
             }
         });
-        swal("Success!", "Student is successfully evaluated!", "success");
-        $('#evalStudModal').modal('hide');
     }
+}
+
+function viewEvalPast(){
+    studID = $('#tblHandledStudPast tr').closest('tr').find('td:eq(0)').text();
+    evaluation.getEvalStud(function (err, data){
+        if(err){
+            swal("Failed!", err.message, "error");
+            console.log(err);
+        }else{
+            var html;
+            $('#formViewEvalStud').html("");
+            var x = 1;
+            var pad = "0000";
+            var eval;
+            if(data.length!=0){
+                var course = "CRS-"+ (data[0].carType.toUpperCase() + pad.substring(0,pad.length - (data[0].courseID+"").length)) + data[0].courseID;
+                $('.evalCrs').html(course);
+                $('.overallGrade').html(data[0].grade);
+                $('.overallGrPerc').html((data[0].grade)*2 + "%");
+                $('.evalGrade').html((data[0].grade <= 24 ? 'NEEDS TO EXTEND' : ((data[0].grade <= 34 && data[0].grade >= 25) ? 'NEEDS PRACTICE' : 'PASSED')));
+                $('.commentInstEval1').val(data[0].comment);
+                $('.instEvaluator').html(data[0].fullname.replace(/_/g, ' '));
+                $('.evalDate').html((Date.parse(data[0].dateEvaluated).toString("MMM dd, yyyy")));
+            }
+            $('#formViewEvalStud').append(html);
+        }
+    });
+    $('#viewEvalStudModal').modal("show");
 }
