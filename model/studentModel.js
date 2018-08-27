@@ -13,14 +13,25 @@ PreRegister.table = "preRegStudent";
 PreRegister.db = db;
 
 //Business Logic Code Below:
-Student.getList = function(offset, limit, type, cb){
-    var sql = "";
-    if(type == 0){
-        sql = "CALL getStudList(?,?)";
-    }else{
-        sql = "CALL getPastStud(?,?)";
+Student.getList = function(offset, limit, type, branch, cb){
+    if(typeof branch == "function"){
+        cb = branch;
+        branch = null;
     }
-    db.get().query(sql, [offset, limit], function(err, result){
+    var sql = "";
+    var data = [offset, limit];
+    if(branch){
+        sql = "CALL getStudListOnBranch(?,?,?,?)";
+        data.push(branch);
+        data.push(type);
+    }else{
+        if(type == 0){
+            sql = "CALL getStudList(?,?)";
+        }else{
+            sql = "CALL getPastStud(?,?)";
+        }
+    }
+    db.get().query(sql, data, function(err, result){
         if(err) return cb(err);
         cb(null, result[0]);
     });
@@ -115,9 +126,22 @@ Student.getEnrollment = function(studentID){
     
 };
 
-Student.getStudentInfo = function(accID, cb){
+Student.getStudentInfo = function(accID, field, cb){
+    if(typeof field == "function"){
+        cb = field;
+        field = null;
+    }
+
     var sql = "SELECT s.id as 'studid', i.* FROM student s, userinfo i, useraccount a WHERE a.id = i.userAcc AND s.userInfo = i.id AND a.id = ?";
-    db.get().query(sql, [accID], function(err, result){
+    var data = [accID];
+    if(field){
+        if(field.name == "branch"){
+            sql += " AND s.branch = ?"
+            data.push(field.value);
+        } 
+    }
+    
+    db.get().query(sql, data, function(err, result){
         if(err) return cb(err);
         cb(null, result[0]);
     });

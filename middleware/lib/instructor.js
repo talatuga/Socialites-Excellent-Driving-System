@@ -128,12 +128,3 @@ exports.delete = function(req, res, next){
         res.status(200).send({success: true, detail: "Successfully Deleted!"});
     });
 }
-
-exports.testGettingAvailInst = function(req, res, next){
-    var sched = require('../../model/scheduleModel');
-    sched.getSchedule({}, function(err, result){
-        instructor.assignToSched(result,function(err, result){
-            res.status(200).send(result);
-        });
-    });
-}

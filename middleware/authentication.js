@@ -32,7 +32,7 @@ exports.login = function(req, res, next){
     var id = req.sessionID;
     checkUser(id, function(user){
         if(user == null){
-            if(req.method == "POST"){
+            if(req.method == "POST"){ 
                 //sign up process, db querying and callback to here.
                 var user = req.body.user;
                 var pass = req.body.pass;
@@ -40,8 +40,9 @@ exports.login = function(req, res, next){
                     if(err) return next(err);
                     if(result){
                         users[id] = {accID: result.id, accType: result.accType};
-                        req.session.accID = id;
+                        req.session.accID = result.id;
                         req.session.adminID = id;
+                        req.session.accType = result.accType;
                         res.locals.authenticated = 1;
                         next();
                     }else{

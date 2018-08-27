@@ -105,7 +105,7 @@ Account.getEnrollBal = function(ORnum){
                 overall: 0,
             };
             var query = [];
-            transData.enrolled.forEach((e,i)=>{
+            transData.enrolled.forEach((e,i)=>{ ('asd').split('\\')
                 var callback = new Promise((resolve1, reject1)=>{
                     course.getCourse(e.course, function(error, courseData){
                         if(error) return reject1(error);

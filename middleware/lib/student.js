@@ -40,7 +40,8 @@ exports.get = function(req, res, next){
         var offset = query.offset == undefined ? 0 : parseInt(query.offset);
         var limit = query.limit == undefined ? 10 : parseInt(query.limit);
         var type = query.filter == undefined ? 0 : parseInt(query.filter);
-        student.getList(offset, limit, type, function(err, result){
+        var branch = query.branch;
+        student.getList(offset, limit, type, branch, function(err, result){
             if(err) return next(err);
             res.status(200).send({success: true, data: result});
         });

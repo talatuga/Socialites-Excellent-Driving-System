@@ -79,6 +79,7 @@ var branchStudent = function (){
     $('.viewDiv').hide();
     $(".view-branchStudent").show();
     $(".search-box").hide();
+    loadStud();
 }
 
 var branchInstructor = function (){

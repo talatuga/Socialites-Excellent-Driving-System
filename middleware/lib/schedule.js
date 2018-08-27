@@ -94,6 +94,10 @@ exports.calendar = function(req, res, next){
     }
 };
 
+exports.adminCalendar = function(req, res, next){
+
+};
+
 exports.assignSched = function(req, res, next){
     schedule.assignSched(req.params.id, function(err){
         if(err) return next(err);
@@ -212,7 +216,8 @@ exports.schedAvailability = function(req, res, next){
     var date = new Date(req.query.date);
     var time = req.query.time;
     var id = req.query.id;
-    schedule.checkSched(id, branchID, date, time).catch(next).then((available)=>{
+    var instID = req.query.inst;
+    schedule.checkSched(id, branchID, instID, date, time).catch(next).then((available)=>{
         res.status(200).send({success: true, status: available});
     });
 };

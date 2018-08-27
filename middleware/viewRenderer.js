@@ -5,6 +5,7 @@
 
 var auth = require('./authentication');
 
+/** @type {RequestHandler} */
 exports.admin = function (req, res, next){
     if (res.locals.authenticated == 1) {
         var user = auth.getUser(req.sessionID);
@@ -13,7 +14,12 @@ exports.admin = function (req, res, next){
             if(req.xhr == true){
                 res.status(200).send({sucess: true, detail: "Successfully Logged In!"});
             }else{
-                res.render('admin/index', {info:data[0]});
+                if(user.accType == 1){
+                    res.render('admin/index', {info:data[0]});
+                }else if(user.accType == 4){
+                    req.session.locals = data;
+                    res.redirect('/branch');
+                }
             }
         });
     }else {
@@ -104,15 +110,30 @@ exports.instructor = function(req, res, next){
 }
 
 exports.branch = function(req, res, next){
-    res.render('branch/index',{title: 'Socialites Excellent Driving'});
+    if(req.session.accType == 4){
+        var adminModel = require('../model/adminModel');
+        res.locals.title = 'Socialites Excellent Driving';
+        res.locals.info = req.session.locals;
+        adminModel.getBranchHandled(res.locals.info.id, function(err, branchID){
+            res.locals.branchID = branchID;
+            res.render('branch/index', res.locals);
+        });
+    }else{
+        res.render('admin/login');
+    }
 }
 
 var getUserInfo = function(data, cb){ //REPAIR THIS WHOLE UNIT!!!! 
-    var models = ['','adminModel', 'studentModel', 'instructorModel', 'branchModel'];
-    var model = require('../model/' + models[data.accType]);
-    model.getInfo(data.accID, function(err, result){
+    // var models = ['','adminModel', 'studentModel', 'instructorModel', 'branchModel'];
+    // var model = require('../model/' + models[data.accType]);
+    // model.getInfo(data.accID, function(err, result){
+    //     if(err) return cb(err);
+    //     cb(null, result);
+    // });
+    var userInfo = require('../model/userInfoModel');
+    userInfo.getInfo(data.accID, function(err, result){
         if(err) return cb(err);
-        cb(null, result);
+        cb(null, result[0]);
     });
 }
 
