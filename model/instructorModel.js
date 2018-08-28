@@ -118,4 +118,103 @@ Instructor.getInstInfo = function(accID, cb){
     });
 }
 
+Instructor.assignToSched = function(schedule, cb){
+    if(Array.isArray(schedule)){
+        var preffered = null;
+        var instructor = [];
+        var done = 0;
+        var checkAvailalble = function(){
+            if(done == schedule.length){
+                return cb(null, instructor);
+            }
+            var sched = schedule[done];
+
+            var task1 = new Promise((resolve, reject)=>{
+                Instructor.getAvailableInst(sched.branch, sched.date, sched.time, function(err, inst){
+                    if(err) return reject(err);              
+                    if(inst.length==0) return resolve(false);
+                    instructor.push({
+                        schedID: sched.id,
+                        instID: inst[0].id
+                    });
+                    resolve(true);
+                });
+            });
+
+            var task2 = new Promise((resolve,reject)=>{ //This suppose to check whether preffered instructor is free on that time, or else find someone to replace
+                // MAKE THIS AFTER PRE-FINAL     
+            });
+
+            var task = preffered ? task2 : task1;
+
+            return (task.then((isOk)=>{
+                if(isOk){
+                    done++;
+                }
+                checkAvailalble();
+            }));
+        }
+        checkAvailalble();
+    }else{
+        this.getAvailableInst(schedule.branch, schedule.date, schedule.time, function(err, inst){
+            if(err) return cb(err);
+            if(inst.length==0) return cb(null, false);
+            console.log("Instructor:",inst," available");
+            cb(null, inst[0]);
+        });
+    }
+};
+
+Instructor.getAvailableInst = function(branch, date, time, cb){
+    var sched = require('./scheduleModel');
+
+    var getInst = new Promise((resolve, reject)=>{
+        var sql = "SELECT id, userInfo FROM " + table + " WHERE status > 0";
+        db.get().query(sql, function(err, result){
+            if(err) reject(err);
+            resolve(result);
+        });
+    });
+
+    var checkInstOnSched = new Promise((resolve, reject)=>{
+        var sql = "SELECT instID FROM " + sched.table + " WHERE date = ? AND time = ? AND branch = ? AND status > 0";
+        db.get().query(sql, [date, time, branch], function(err, result){
+            if(err) return reject(err);
+            resolve(result);
+        });
+    });
+
+    var error = null;
+    Promise.all([getInst, checkInstOnSched]).then(resultSet=>{
+        if(error!=null) return cb(new Error("getAvailableInst() failed to finish: " + error));
+        if(resultSet[1].length==0){
+            cb(error, resultSet[0]);
+        }else{
+            var promises = [];
+            resultSet[1].forEach((e,i)=>{
+                promises.push(new Promise((resolve, reject)=>{
+                    var schedInst = e.instID;
+                    resultSet[0].forEach((instructor, index)=>{
+                        if(instructor.id == schedInst){
+                            resultSet[0].splice(index, 1);
+                            resolve();
+                        }
+                        if(index == resultSet[0].length-1){
+                            resolve();
+                        }
+                    });
+                }));
+                if(i==resultSet[1].length-1){
+                    Promise.all(promises).then(()=>{
+                        return cb(error, resultSet[0]);
+                    });
+                }
+            });
+        }
+    }).catch(reason=>{
+        error = reason;
+        return;
+    });
+}
+
 module.exports = Instructor; //Export model for middleware use.

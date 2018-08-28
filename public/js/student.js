@@ -1,6 +1,5 @@
 var studName, studID, courseID, schedID, lessonID, dataID;
 var selectedLesson, selectedGrade, selectedComment, selectedDate, selectedTime, selectedDataID, selectedInstID, selectedLessonID, selectedSchedID;
-
 $(function() {
     document.getElementById("studCP1").checked = true;
     document.getElementById("studCP2").checked = false;
@@ -57,7 +56,9 @@ var loadStud = function(){
         stud.getList(function(err){
             if(err) return swal("Failed!",err.message,"error");
             renderStudentTable(stud.pages.current[stud.currPage[0]], function(){
-                viewStud(stud.pages.current[stud.currPage[0]][0].id);
+                if(stud.pages.current.length!=0){
+                    viewStud(stud.pages.current[stud.currPage[0]][0].id);
+                }
                 $('tableStud').addClass("highlightTr");                
                 $('.tableStud tbody tr').click(function () {
                     var selected = $(this).hasClass("highlightTr");

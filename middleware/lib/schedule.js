@@ -22,6 +22,8 @@ var checkConflict = function(branchID, schedules){
     });   
 }
 
+var sendingEmailStatus = false;
+
 exports.calendar = function(req, res, next){
     var type = req.session.studID ? 0 : 1;
     var id = req.session.instID || req.session.studID;
@@ -32,48 +34,50 @@ exports.calendar = function(req, res, next){
             return res.status(200).send(sched);
         }
         data.forEach((e,i) => {
-            var minDate = Date.parse("last sunday");
-            var maxDate = Date.parse("next saturday");
-            var date = new Date(e.date);
-            var _editable;
-            var eColor = "#3A87AD";
-            var startDate = date.toString("yyyy-MM-dd") + " " + e.time;
-            var endDate = new Date(startDate);
-            endDate.addHours(parseInt(e.hour));
-            
-            if(date.between(minDate, maxDate)){
-                _editable = false;
-            }else if(date.compareTo(minDate) == -1){
-                _editable = false;
-            }else{
-                _editable = true;
-            }
-
-            if(e.status == 3){
-                eColor = "#64ff59";
-            }else if(e.status == 4){
-                eColor = "#ff1e1e";
-            }
-
-            sched.push({
-                _id: e.id,
-                title: e.title,
-                start: startDate,
-                end: endDate.toString("yyyy-MM-dd HH:mm:ss"),
-                editable: _editable,
-                color: eColor,
-                overlap: false,
-                data: {
-                    instructor:{
-                        instID: e.instID,
-                        name: "",
-                    },
-                    student: {
-                        id: e.studID,
-                    },
-                    branch: e.branch,
+            if(e.status != 1){
+                var minDate = Date.parse("last sunday");
+                var maxDate = Date.parse("next saturday");
+                var date = new Date(e.date);
+                var _editable;
+                var eColor = "#3A87AD";
+                var startDate = date.toString("yyyy-MM-dd") + " " + e.time;
+                var endDate = new Date(startDate);
+                endDate.addHours(parseInt(e.hour));
+                
+                if(date.between(minDate, maxDate)){
+                    _editable = false;
+                }else if(date.compareTo(minDate) == -1){
+                    _editable = false;
+                }else{
+                    _editable = true;
                 }
-            });
+    
+                if(e.status == 3){
+                    eColor = "#64ff59";
+                }else if(e.status == 4){
+                    eColor = "#ff1e1e";
+                }
+    
+                sched.push({
+                    _id: e.id,
+                    title: e.title,
+                    start: startDate,
+                    end: endDate.toString("yyyy-MM-dd HH:mm:ss"),
+                    editable: _editable,
+                    color: eColor,
+                    overlap: false,
+                    data: {
+                        instructor:{
+                            instID: e.instID,
+                            name: "",
+                        },
+                        student: {
+                            id: e.studID,
+                        },
+                        branch: e.branch,
+                    }
+                });
+            }
 
             if(i == data.length-1){
                 res.status(200).send(sched);
@@ -92,6 +96,10 @@ exports.calendar = function(req, res, next){
             processSched(data);
         });
     }
+};
+
+exports.adminCalendar = function(req, res, next){
+    //      Ano na??
 };
 
 exports.assignSched = function(req, res, next){
@@ -171,7 +179,6 @@ exports.getStudHour = function(req, res, next){
     }).catch(next);
 };
 
-/** @type {RequestHandler} */
 exports.getFreeInst = function(req, res, next){
     if(req.session.authenticated==0) return next();
     var branchID = req.query.branch;
@@ -212,7 +219,8 @@ exports.schedAvailability = function(req, res, next){
     var date = new Date(req.query.date);
     var time = req.query.time;
     var id = req.query.id;
-    schedule.checkSched(id, branchID, date, time).catch(next).then((available)=>{
+    var instID = req.query.inst;
+    schedule.checkSched(id, branchID, instID, date, time).catch(next).then((available)=>{
         res.status(200).send({success: true, status: available});
     });
 };
@@ -283,4 +291,122 @@ exports.getSched = function(req, res, next){
         if(err) return next(err);
         res.status(200).send({success: true, data: sched});
     });
+};
+
+exports.cancel = function(req, res, next){
+    var id = req.params.id;
+    schedule.update(id, 4, "status", function(err){
+        if(err) return next(err);
+        res.status(200).send({success: true, detail: "Schedule cancelled"});
+    });
+};
+
+exports.done = function(req, res, next){
+    var id = req.params.id;
+    schedule.update(id, 3, "status", function(err){
+        if(err) return next(err);
+        res.status(200).send({success: true, detail: "Attendance successfully record"});
+    });
+};
+
+exports.suspend = function(req, res, next){
+    var date = req.body.date;
+    var reason = req.body.reason;
+
+    if(req.body.emailTaskWait){
+        var sendingEmailTimeloop = setInterval(()=>{
+            if(sendingEmailStatus == false){
+                clearInterval(sendingEmailTimeloop);
+                res.status(200).send({success: true, detail: "Suspension Annoucement Sent!"});
+            }
+        }, 2000);
+        return;
+    }
+
+    updateSchedule(function(error, schedAffected){
+        if(error) return next(error);
+        sendingEmailStatus = true;
+        res.status(200).send({success: true, detail: "Successfully change schedules, sending announcement."});
+        getEmail(schedAffected, function(err, emails){
+            if(err) return next(err);
+            sendEmail(emails);
+        });
+    });
+
+    function sendEmail(recipient){
+        var Emailer = require('../../bin/emailer');
+        var mailer = new Emailer();
+
+        if(recipient.length!=0){
+            var promises = [];
+            recipient.forEach((e,i)=>{
+                promises.push(new Promise((resolve, reject)=>{
+                    var mail = {
+                        subject:"Suspension of Classes!",
+                        body: "Sorry Class Suspend For " + date + " for the reason: \""+ reason +"\" Please reschedule your session. Thank you!",
+                    };
+            
+                    mailer.send(e, mail, function(err, response){
+                        if(err) return next(err);
+                        resolve(response);
+                    });
+                }));
+                if(i==recipient.length-1){
+                    Promise.all(promises).then(results=>{
+                        sendingEmailStatus = false;
+                    }).catch(next);
+                }
+            });
+        }else{
+            sendingEmailStatus = false;
+        }
+    };
+
+    function getEmail(schedules, cb){
+        var inst = require('../../model/instructorModel');
+        var stud = require('../../model/studentModel');
+
+        var emails = [];
+        var promises = [];
+        if(schedules.length==0) return cb(null,[]);
+        schedules.forEach((e,i)=>{
+            promises.push(new Promise((resolve,reject)=>{
+                var task1 = new Promise((r1,x1)=>{
+                    inst.get(e.instID, "email", function(err, email){
+                        if(err) return x1(err);
+                        emails.push(email);
+                        r1();
+                    });
+                }); 
+                var task2 = new Promise((r1,x1)=>{
+                    stud.get(e.studID, "email", function(err, studentEmail){
+                        if(err) return x1(err);
+                        emails.push(studentEmail);
+                        r1();
+                    });
+                });
+                Promise.all([task1,task2]).then(()=>{
+                    resolve();
+                }).catch(reason=>{
+                    reject(reason);
+                });
+            }));
+            if(i==schedules.length-1){
+                Promise.all(promises).then(result=>{
+                    cb(null, emails);
+                }).catch(x=>{
+                    cb(new Error(x));
+                })
+            }
+        });
+    };
+
+    function updateSchedule(cb){
+        var day = Date.parse(date).toString("yyyy-MM-dd");
+        var time = Date.parse(date).toString("HH:mm:ss");
+        schedule.cancelSched(day,time, function(err, schedAffected){
+            if(err) return cb(err);
+            cb(null, schedAffected);
+        });
+    };
 };

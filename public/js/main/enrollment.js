@@ -884,11 +884,12 @@ function regDone(){
             course: getSpecialCourseID(),
             location: $('input[name=specialCrs]:checked').length > 0 ? $('#enrPickup').val() : null,
         };
-        enrollment.enroll(preRegData.info,preRegData.course, preRegData.branch, paymentMeth, preRegData.license,preRegData.special,preRegData.trans,preRegData.vehicle,preRegData.sched).submit(function(err){
+        enrollment.enroll(preRegData.info,preRegData.course, preRegData.branch, paymentMeth, preRegData.license,preRegData.special,preRegData.trans,preRegData.vehicle,preRegData.sched).submit(function(err,invoiceLink, name){
             if(err) return swal("Failed!", err.message, "error");
             if (paymentMeth==1){
                 $('.oneWeekDeadline').html(Date.parse("next week").toString("MMM dd, yyyy"));
                 preRegData.license = $('input[name="enrReqP"]:checked').val();
+                $('#invoiceLink').attr('href','api/v1/web/invoice?orno=' + invoiceLink + '&fullname=' + name);
                 $('#successEnrollModal1').modal('show');
             }
             else if (paymentMeth==2){

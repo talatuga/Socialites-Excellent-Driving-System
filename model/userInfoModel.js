@@ -9,8 +9,13 @@ UserInfo.table = table;
 UserInfo.db = db;
 
 //Module related functionality:
-UserInfo.getInfo = function(accID, cb){
-    var sql = "SELECT * FROM " + this.table + " WHERE userAcc = ?";
+UserInfo.getInfo = function(accID, userInfo, cb){
+    if(typeof userInfo == "function"){
+        cb = userInfo;
+        userInfo = null;
+    }
+    var sql = "SELECT * FROM " + this.table;
+    sql += (userInfo ? " WHERE id = ?" : " WHERE userAcc = ?");
     db.get().query(sql, [accID], function(err, result){
         if(err) return cb(err);
         cb(null, result);

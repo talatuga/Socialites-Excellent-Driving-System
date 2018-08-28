@@ -40,7 +40,7 @@ var app = {
         },
     },
     getBranchName: function(id, cb){
-        $.get('api/v1/branch/'+id+'/address', function(res){
+        $.get('api/v1/branch/'+id+'/name', function(res){
             if(res.success){
                 cb(null, res.data);
             }else{

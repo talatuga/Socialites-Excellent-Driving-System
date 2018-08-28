@@ -8,6 +8,7 @@ router.get('/stud/:id/eval', middleware.getEvalStud);
 router.route('/')
     .post(middleware.create)
     .get(middleware.get);
+
 router.route('/:id')
     .put(middleware.update)
     .get(middleware.get)

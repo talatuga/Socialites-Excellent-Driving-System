@@ -8,17 +8,19 @@ var timelineOptions = {
     break: [{start: '12:00', end: '13:30'}],
 };
 
-var Model = {}
+var Schedule = {}
 
-Model.create = function (data, cb) { //data = [], cb = (error=new Error, result=[])=>{}
+Schedule.table = table;
+
+Schedule.create = function (data, cb) { //data = [], cb = (error=new Error, result=[])=>{}
     var sql = "INSERT INTO "+ table +" VALUES (NULL,?,?, ?, ?, ?, ?, ?, ?);";
     db.get().query(sql, data, function(err, result){
         if(err) return cb(err);
-        cb(null, true);
+        cb(null, result);
     });
 }
 
-Model.get = function (id, field, cd) {
+Schedule.get = function (id, field, cb) {
     if (typeof field == "function") {
         cb = field;
         field = null;
@@ -36,7 +38,7 @@ Model.get = function (id, field, cd) {
     });
 }
 
-Model.getAll = function(id, cb){
+Schedule.getAll = function(id, cb){
     var sql = "SELECT * FROM schedule WHERE id = ?";
     db.get().query(sql, [id], function (err, result) {
         if (err) return cb(err);
@@ -44,7 +46,7 @@ Model.getAll = function(id, cb){
     });
 }
 
-Model.getList = function(offset, limit, cb){
+Schedule.getList = function(offset, limit, cb){
     var sql = "SELECT * FROM schedule WHERE id < ? ORDER BY id DESC LIMIT ?";
     db.get().query(sql, [offset, limit], function(err, result){
         if(err) return cb(err);
@@ -52,7 +54,7 @@ Model.getList = function(offset, limit, cb){
     });
 }
 
-Model.update = function (id, param, field, cb) {
+Schedule.update = function (id, param, field, cb) {
     if (typeof field == "function") {
         cb = field;
         field = null;
@@ -73,11 +75,11 @@ Model.update = function (id, param, field, cb) {
     });
 }
 
-Model.delete = function (id, cb) {
+Schedule.delete = function (id, cb) {
     //Still ondev
 }
 
-Model.getSchedule = function(query, cb){
+Schedule.getSchedule = function(query, cb){
     var sql = "SELECT * FROM "+ table +" WHERE status > 0 AND date BETWEEN ? AND ?";
     
     var month = query.month || Date.parse('today').toString('MMMM');
@@ -111,7 +113,7 @@ Model.getSchedule = function(query, cb){
     });
 };
 
-Model.getAvailable = function(id, cb){
+Schedule.getAvailable = function(id, cb){
     var sql = "SELECT * FROM "+ table +" WHERE studID = ? AND status = 1";
     db.get().query(sql, [id], function(err, result){
         if(err) return cb(err);
@@ -119,7 +121,7 @@ Model.getAvailable = function(id, cb){
     });
 };
 
-Model.getAssigned = function(id, type, cb){
+Schedule.getAssigned = function(id, type, cb){
     var types = ['studID', 'instID'];
     var sql = "SELECT * FROM "+ table +" WHERE "+ types[type] +" = ? AND status > 1";
     db.get().query(sql, [id], function(err, result){
@@ -128,7 +130,7 @@ Model.getAssigned = function(id, type, cb){
     });
 };
 
-Model.removeSched = function(id, cb){
+Schedule.removeSched = function(id, cb){
     var sql = "UPDATE " + table + " SET status = 1 WHERE id = ?";
     db.get().query(sql, [id], function(err){
         if(err) return cb(err);
@@ -136,7 +138,7 @@ Model.removeSched = function(id, cb){
     });
 };
 
-Model.assignSched = function(id, cb){
+Schedule.assignSched = function(id, cb){
     var sql = "UPDATE " + table + " SET status = 2 WHERE id = ?";
     db.get().query(sql, [id], function(err){
         if(err) return cb(err);
@@ -144,7 +146,7 @@ Model.assignSched = function(id, cb){
     });
 };
 
-Model.getInstAssign = function(date, time, cb){
+Schedule.getInstAssign = function(date, time, cb){
     var sql = "SELECT * FROM instructor inst, userinfo info, schedule sched WHERE inst.userInfo = info.id AND sched.instID = inst.id AND sched.date = ? AND sched.time = ? GROUP BY inst.id";
     db.get().query(sql, [date, time], function(err, data){
         if(err) return cb(err);
@@ -152,12 +154,20 @@ Model.getInstAssign = function(date, time, cb){
     });
 };
 
+Schedule.assignInst = function(sched_inst, cb){
+    var sql = "UPDATE " + table + " SET instID = ? WHERE id = ?";
+    db.get().query(sql, [sched_inst.instID, sched_inst.schedID], function(err){
+        if(err) return cb(err);
+        cb(null);
+    });
+};
+
 /**
- * Automatically assign a student to a schedule, using its preferred information.
+ * Automatically assign a student to a schedule, using its preferred information. (DEPRECATED)
  * @param {String} studID ID of the student to auto-assign
  * @returns A promise the returns true when done and no error happen.
  */
-Model.autoAssignSched = function(studID){
+Schedule.autoAssignSched = function(studID){
     return new Promise((r1, x1)=>{
         var studentModel = require('./studentModel');
         var days = ['','monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
@@ -181,7 +191,7 @@ Model.autoAssignSched = function(studID){
                         prefdays[pos] = 1;
                     }
                     var nextDay = Date.parse('next ' + weekCount + ' ' + days[prefdays[pos]]);
-                    promises.push(Model.getAvailableSchedOnDay(student.branch, nextDay)); //Include branch filter someday, after pre-final
+                    promises.push(Schedule.getAvailableSchedOnDay(student.branch, nextDay)); //Include branch filter someday, after pre-final
                     if(pos == (prefdays.length-1)){
                         pos = 0;
                         weekCount++;
@@ -215,7 +225,7 @@ Model.autoAssignSched = function(studID){
                         student.branch,      //  <------- changes this, by default it's 1 for main,
                         2       
                     ];
-                    Model.create(data, function(err,result){
+                    Schedule.create(data, function(err,result){
                         if(err) return not(err);
                         ok(result);
                     });
@@ -239,10 +249,25 @@ Model.autoAssignSched = function(studID){
  * @param {Date} day date where to look for schedule.
  * @returns A promise the returns Array of schedules for the specific parameters provided.
  */
-Model.getSchedOnDay = function(branch, day){
+Schedule.getSchedOnDay = function(branch, instID, day){
     return new Promise((resolve, reject)=>{
-        var sql = "SELECT id, date, time, hour FROM " + table + " WHERE branch = ? AND status = 2 AND date = ? ORDER BY time ASC";
-        db.get().query(sql, [branch, day.toString('yyyy-MM-dd')], function(err, result){
+        var sql = "SELECT id, date, time, hour FROM " + table + " WHERE status = 2 AND date = ?";
+        var data = [day.toString('yyyy-MM-dd')];
+        
+        var branchID = branch ? branch : null;
+        var inst = instID ? instID : null;
+
+        if(inst){
+            sql += " AND instID = ?";
+            data.push(inst);
+        }
+        if(branchID){
+            sql += " AND branch = ?";
+            data.push(branchID);
+        }
+
+        sql += " ORDER BY time ASC";
+        db.get().query(sql, data, function(err, result){
             if(err) return reject(err);
             resolve(result);
         });
@@ -254,7 +279,7 @@ Model.getSchedOnDay = function(branch, day){
  * @param {number} branch unique ID of specific branch to search for available schedule.
  * @param {Date} weekday  specific day to look for available schedule.
  */
-Model.getAvailableSchedOnDay = function(branch, weekday){
+Schedule.getAvailableSchedOnDay = function(branch, weekday){
     return new Promise((resolve, reject)=>{
         var nextWeek = Date.parse('next sunday');
         var nextDay = weekday;
@@ -272,7 +297,7 @@ Model.getAvailableSchedOnDay = function(branch, weekday){
         }
         var lookForSched = function(){
             return new Promise((ok, not)=>{
-                Model.getSchedOnDay(branch, nextDay).then(function(schedules){
+                Schedule.getSchedOnDay(branch, nextDay).then(function(schedules){
                     var timeline = new Timeline(timelineOptions);
                     var getSched = function(){
                         timeline.getFreeTime(60, res=>{
@@ -317,12 +342,12 @@ Model.getAvailableSchedOnDay = function(branch, weekday){
  * @param {String} time 
  * @returns Promise that returns either 0 - unavailable, 1 - available, 2 - overtime
  */
-Model.checkSched = function(id, branch, date, time){
+Schedule.checkSched = function(id, branch, instID, date, time){
     return new Promise((resolve, reject)=>{
         if(Date.compare(Date.parse('next sunday'),date) > 0){
             return resolve(0);
         }
-        this.getSchedOnDay(branch, date).catch(reject).then((schedules)=>{
+        this.getSchedOnDay(branch, instID, date).catch(reject).then((schedules)=>{
             var timeline = new Timeline(timelineOptions);
             var getSched = function(){
                 timeline.isTimeFree(time, 60, function(availability){
@@ -345,7 +370,7 @@ Model.checkSched = function(id, branch, date, time){
     });
 };
 
-Model.updateSchedule = function(schedule, cb){
+Schedule.updateSchedule = function(schedule, cb){
     var sql = "UPDATE " + table + " SET date = ?, time = ?, status = 2 WHERE id = ?";
     if(Array.isArray(schedule)){
         var promises = [];
@@ -381,7 +406,7 @@ Model.updateSchedule = function(schedule, cb){
  * @param {String} studID ID of the student to auto-assign
  * @returns A promise that returns array of sched found when done and no error happen.
  */
-Model.autoAssignSched_1 = function(studentID){
+Schedule.autoAssignSched_1 = function(studentID){
     return new Promise((done, error)=>{
         var studentModel = require('./studentModel');
         var days = ['','monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
@@ -409,7 +434,7 @@ Model.autoAssignSched_1 = function(studentID){
                     date.addWeeks(1);
                 }
                 date.addWeeks(week);
-                Model.getFreeSchedOnDay(student.branch, date).catch(reject).then((result)=>{
+                Schedule.getFreeSchedOnDay(student.branch, date).catch(reject).then((result)=>{
                     pos++;
                     resolve(result);
                 });
@@ -420,7 +445,7 @@ Model.autoAssignSched_1 = function(studentID){
             var promises = [];
             scheds.forEach((e,i)=>{
                 promises.push(new Promise((resolve, reject)=>{
-                        var data = [
+                    var data = [
                         'session#' + (i+1),
                         e.date,
                         e.time,
@@ -430,21 +455,20 @@ Model.autoAssignSched_1 = function(studentID){
                         student.branch,      //  <------- changes this, by default it's 1 for main,
                         2       
                     ];
-                    Model.create(data, function(err,result){
+                    Schedule.create(data, function(err,result){
                         if(err) return reject(err);
-                        resolve(result);
+                        resolve(result.insertId);
                     });
                 }));
                 if(i == scheds.length-1){
                     Promise.all(promises).catch(error).then(function(result){
-                        studentModel.update(studID,0,'hours', function(err){
-                            if(err) return x1(err);
-                            r1(true);
+                        studentModel.update(studentID,0,'hours', function(err){
+                            if(err) return error(err);
+                            done(result);
                         });
                     });
                 }
             });
-            done(scheds);
         }
 
         var chain = function(loop){
@@ -469,11 +493,11 @@ Model.autoAssignSched_1 = function(studentID){
     });
 };
 
-Model.getFreeSchedOnDay = function(branch, day){
+Schedule.getFreeSchedOnDay = function(branch, day){
     return new Promise(function(resolve, reject){
         var targetDate = day;
         var lookForSched = function(){
-            Model.getSchedOnDay(branch, targetDate).catch(reject).then((daySchedules)=>{
+            Schedule.getSchedOnDay(branch, null, targetDate).catch(reject).then((daySchedules)=>{ /* ADD INSTRUCTOR HERE ,*/
                 var timeline = new Timeline(timelineOptions);
     
                 var getTime = function(){
@@ -507,8 +531,28 @@ Model.getFreeSchedOnDay = function(branch, day){
     });
 };
 
-Model.autoAssignInstructor = function(){
+Schedule.autoAssignInstructor = function(){
 
 };
 
-module.exports = Model;
+Schedule.isInstructorFree = function(){
+
+};
+
+Schedule.checkIfVacant = function(){
+
+}
+
+Schedule.cancelSched = function(date, time, cb){
+    var sql = "SELECT studID, instID FROM " + table + " WHERE date = ? AND time >= ?";
+    db.get().query(sql,[date,time], function(err,schedules){
+        if(err) return cb(err);
+        sql = "UPDATE " + table + " SET status = 4 WHERE date = ? AND time >= ? AND status = 2";
+        db.get().query(sql, [date, time], function(error){
+            if(error) return cb(error);
+            cb(null, schedules);
+        });
+    });
+};
+
+module.exports = Schedule;

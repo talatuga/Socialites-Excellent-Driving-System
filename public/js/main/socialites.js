@@ -291,7 +291,7 @@ var enrollment = {
         var data = this.data;
         return $.post('api/v1/web/enroll', {data: JSON.stringify(data)}, function(res){
             if(res.success){
-                cb(null);
+                cb(null,res.invoice, res.name);
             }else{
                 cb(new Error("Invalid Account Type!"));
             }

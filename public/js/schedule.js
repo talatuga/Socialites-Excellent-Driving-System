@@ -6,36 +6,92 @@ $(function() {
   $("#schedTime").prop("disabled", true);
   $("#schedBranch").prop("disabled", true);
 
-    $('.calendarAdmin').fullCalendar({
-      header: {
-          left: 'prev,next today',
-          center: 'title',
-          right: 'month,agendaWeek,agendaDay'
-      },
-      editable: false,
-      eventSources:[
-          {
-              url: "/api/v1/sched/calendar",
-              type: "GET",
-              data: {priv: 'admin', monthCount: 3, month: Date.parse('last month').toString("MMMM")},
-              success: (res)=>{
-                if(res.length==0){
-                }
-              },
-              error: function(res){
-                swal("Error getting schedule", res.statusText, "error");
-                console.log(res.statusText);
-              },
-          },
-      ],
-      businessHours:[
-          {
-              dow: [ 1, 2, 3, 4, 5, 6, 7 ], // Monday, Tuesday, Wednesday
-              start: '09:00', // 8am
-              end: '17:30' // 6pm
-          },
-      ],
+  $('.cancelSched').on('click', function(){
+    swal({
+      title: "Cancel Schedule?",
+      text: "Are you sure you want cancel this schedule?",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      cancelButtonColor: "#DD6B55",
+      confirmButtonText: "Yes",
+      cancelButtonText: "Cancel",
+      closeOnConfirm: true,
+      closeOnCancel: true
+    },function(isConfirm){
+      if(isConfirm){
+        scheduler.cancelSched(scheduler.selected, function(err, message){
+          console.log("cancelled");
+          if(err){
+            swal("Failed!", err.message, "error");
+          }else{
+            swal("Done!", message, "success");
+          }
+          $('#viewSchedModal').modal("hide");
+          $('.calendarAdmin').fullCalendar('refetchEvents');
+        });
+      }
     });
+  });
+  $('.doneSched').on('click', function(){
+    swal({
+      title: "Check Attendance?",
+      text: "Is this schedule done?",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      cancelButtonColor: "#DD6B55",
+      confirmButtonText: "Yes",
+      cancelButtonText: "Cancel",
+      closeOnConfirm: true,
+      closeOnCancel: true
+    },function(isConfirm){
+      if(isConfirm){
+        scheduler.doneSched(scheduler.selected, function(err, message){
+          console.log("done");
+          if(err){
+            swal("Failed!", err.message, "error");
+          }else{
+            swal("Done!", message, "success");
+          }
+          $('#viewSchedModal').modal("hide");
+          $('.calendarAdmin').fullCalendar('refetchEvents');
+        });
+      }
+    });
+  });
+
+  $('.calendarAdmin').fullCalendar({
+    header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'month,agendaWeek,agendaDay'
+    },
+    editable: false,
+    eventClick: schedClicked,
+    eventSources:[
+        {
+            url: "/api/v1/sched/calendar",
+            type: "GET",
+            data: {priv: 'admin', monthCount: 3, month: Date.parse('last month').toString("MMMM")},
+            success: (res)=>{
+              if(res.length==0){
+              }
+            },
+            error: function(res){
+              swal("Error getting schedule", res.statusText, "error");
+              console.log(res.statusText);
+            },
+        },
+    ],
+    businessHours:[
+        {
+            dow: [ 1, 2, 3, 4, 5, 6, 7 ], // Monday, Tuesday, Wednesday
+            start: '09:00', // 8am
+            end: '17:30' // 6pm
+        },
+    ],
+  });
 });
 
 $('#btnUpdSched').on('click', function(){
@@ -166,7 +222,7 @@ function cancelSuspend(){
 }
 
 function sendEmailSuspend(){
-  var suspendDate = $('.suspendDate').val();
+  var suspendDate = Date.parse($('.suspendDate').val());
   var msg = $('#suspendMsg').val();
   if (suspendDate=="" || msg.replace(/\ /g, '') == "")
   {
@@ -174,7 +230,7 @@ function sendEmailSuspend(){
   }else{
     swal({
     title: "Are you sure",
-    text: "you want to suspend classes for " + suspendDate + "? All students with a schedule on that day will be notified via e-mail.",
+    text: "you want to suspend classes for " + suspendDate.toString('MMM dd, yyyy hh:mm tt') + "? All students with a schedule on that day will be notified via e-mail.",
     type: "warning",
     showCancelButton: true,
     confirmButtonColor: "#DD6B55",
@@ -186,9 +242,16 @@ function sendEmailSuspend(){
   },
     function(isConfirm){
         if (isConfirm) {
-          swal("Success!", "Email was sent to students and calendar is now updated!", "success");
+          scheduler.suspendSched(suspendDate.toString('MMM dd, yyyy HH:mm'), function(err, detail){
+            if(err){
+              swal("Failed!", err.message, "error");
+            }else{
+              swal("Success!", "Email was sent to students and calendar is now updated!", "success");
+              console.log(detail);
+              schedule();
+            }
+          });
           //DB: suspend classes function here
-          schedule();
         }
     });
   }
@@ -201,4 +264,20 @@ function searchSchedView(){
   }else{
     $('.displaySchedDiv').show();
   }
+}
+
+function schedClicked(event){
+  $('#schedDate').html(moment(event.start).format("MM/DD/YYYY"));
+  $('#timeSched').html(moment(event.start).format("hh:mm A") + " - " + moment(event.start).add(1,'hour').format("hh:mm A"));
+  scheduler.getStudName(event.data.student.id, function(err, student){
+    $('#studSched').html(student.fullname.replace(/_/g, " "));
+    scheduler.getInstName(event.data.instructor.instID, function(err, name){
+      $('#instSched').html(name.replace(/_/g," "));
+      scheduler.getBranchName(event.data.branch, function(err, branch){
+        $('#venueSched').html(branch);
+        scheduler.selected = event._id;
+        $('#viewSchedModal').modal("show");
+      });
+    });
+  });
 }

@@ -40,7 +40,8 @@ exports.get = function(req, res, next){
         var offset = query.offset == undefined ? 0 : parseInt(query.offset);
         var limit = query.limit == undefined ? 10 : parseInt(query.limit);
         var type = query.filter == undefined ? 0 : parseInt(query.filter);
-        student.getList(offset, limit, type, function(err, result){
+        var branch = query.branch;
+        student.getList(offset, limit, type, branch, function(err, result){
             if(err) return next(err);
             res.status(200).send({success: true, data: result});
         });
@@ -357,11 +358,55 @@ exports.register = function(req, res, next){
             var task = [];
             task.push(sendEmail(data.userData));
             var sideTask = new Promise((resolve, reject)=>{
+                var sched = require('../../model/scheduleModel');
+                var instModel = require('../../model/instructorModel');
                 enrollCourse(studentID, ORcode, data.userData.data.course).then(function(flag){
                     if(flag) return payEnrollment(ORcode);
                 }).then(function(flag){
-                    var sched = require('../../model/scheduleModel');
                     if(flag) return sched.autoAssignSched_1(studentID);
+                }).then(function(schedules){
+                    return new Promise((r1, x1)=>{
+                        var promises = [];
+                        schedules.forEach((e,i)=>{
+                            promises.push(new Promise((r2,x2)=>{
+                                sched.get(e, null, function(err,data){
+                                    if(err) return x2(err);
+                                    r2(data);
+                                });
+                            }));
+                            if(i==schedules.length-1){
+                                Promise.all(promises).then(result=>{
+                                    r1(result);
+                                }).catch(x1);
+                            }
+                        });
+                    });
+                }).then(function(schedules){
+                    if(schedules) return new Promise((r1,x1)=>{
+                        instModel.assignToSched(schedules,function(err,result){
+                            if(err) return x1(err);
+                            r1(result);
+                        });
+                    });
+                }).then(function(instructors){
+                    if(instructors) return new Promise((r1,x1)=>{
+                        var promises = [];
+                        if(instructors.length==0) return r1(true);
+                        instructors.forEach((e,i)=>{
+                            promises.push(new Promise((r2,x2)=>{
+                                sched.assignInst(e, function(err){
+                                    if(err) return x2(err);
+                                    r2(true);
+                                });
+                            }));
+                            if(i==instructors.length-1){
+                                Promise.all(promises).then(results=>{
+                                    if(results.indexOf(false)!=-1) return x1(new Error("Error happen on updatings scheds")); 
+                                    r1(true);
+                                }).catch(x1);
+                            }
+                        });
+                    });
                 }).then(function(flag){
                     if(flag) return resolve(true);
                 }).catch(reject);
@@ -370,7 +415,7 @@ exports.register = function(req, res, next){
             
             Promise.all(task).then(function(results){
                 if(results.indexOf(false) != -1){
-                    next(new Error("One/All of the Executing tasks after enrollment failed"));
+                    next(new Error("One/All of the Executing tasks after enrollment failed: " + results.indexOf(false)));
                 }
             }).catch(function(reason){
                 next(reason);

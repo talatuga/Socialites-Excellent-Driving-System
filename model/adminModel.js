@@ -25,7 +25,7 @@ Admin.getBranchAdmin = function(branchID, cb){
         if(err) return cb(err);
         if(result.length != 0){
             out["id"] = result[0].id;        
-            UserInfo.getInfo(result[0].userinfo, function(err, result2){
+            UserInfo.getInfo(result[0].userinfo, result[0].userinfo, function(err, result2){
                 if(err) return cb(err);
                 out["name"] = result2[0].fullname;
                 cb(null, out);            
@@ -33,6 +33,14 @@ Admin.getBranchAdmin = function(branchID, cb){
         }else{
             cb(null, out);
         }
+    });
+}
+
+Admin.getBranchHandled = function(id, cb){
+    var sql = "SELECT branchID FROM " + table + " WHERE userInfo = ?";
+    db.get().query(sql, [id], function(err, result){
+        if(err) return cb(err);
+        cb(null, result[0].branchID);
     });
 }
 

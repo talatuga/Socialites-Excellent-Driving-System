@@ -106,7 +106,7 @@ var app = {
             $.ajax({
                 type: "GET",
                 url: "api/v1/sched/check",
-                data: {date: date, branch: branchID, time: time, id: event._id},
+                data: {date: date, branch: branchID, time: time, id: event._id, inst: event.data.instructor.instID},
                 success: (res)=>{
                     if(res.success){
                         cb(null, res.status);
@@ -183,7 +183,7 @@ var app = {
             });
         },
         getBranchName: function(id, cb){
-            $.get('api/v1/branch/'+id+'/address', function(res){
+            $.get('api/v1/branch/'+id+'/name', function(res){
                 if(res.success){
                     cb(null, res.data);
                 }else{

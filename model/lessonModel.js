@@ -69,7 +69,7 @@ Lesson.getCoursePrice = function(courseArr){
             query.push(new Promise((res, rej)=>{
                 Lesson.getCourse(e.course, function(err, result){
                     if(err) return rej(err);
-                    data.course.push({id: result.id, trans: result.carType, price: result.amount});
+                    data.course.push({id: result.id, days: result.days, trans: result.carType, price: result.amount});
                     data.total += e.special ? (result.amount * 2) : result.amount;
                     data.origTotal += result.amount;
                     res();
@@ -103,7 +103,7 @@ Lesson.enrollCourse = function(enrollmentID, courseData, cb){
             entry.push(e.branch);
             entry.push(JSON.stringify(e.lesson));
             entry.push(e.special ? 1 : 0);
-            entry.push(null);
+            entry.push(Date.parse("today").toString("yyyy-MM-dd hh:mm:ss"));
             entry.push(0);
             entry.push(2);
             bulk.push(entry);

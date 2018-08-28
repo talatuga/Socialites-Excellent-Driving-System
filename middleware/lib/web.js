@@ -40,7 +40,6 @@ exports.enrollWeb = function(req, res, next){
             special: data.special.course.indexOf(""+e) == -1 ? false : true,
         });
         if(i == data.course.length-1){
-            
             if(data.account){
                 student.getStudentByID(req.session.accID, function(err, id){
                     if(err) return next(err);
@@ -69,7 +68,7 @@ exports.enrollWeb = function(req, res, next){
                                 if(err) return next(err);
                                 req.session.cart = [];
                                 req.session.ORNUM = result.ORid;
-                                res.status(200).send({success: true});
+                                res.status(200).send({success: true, invoice: result.ORid, name: data.info.fullname});
                             });
                         });
                     });
@@ -124,17 +123,66 @@ exports.generateInvoice = function(req, res, next){
     var lic = require('../../model/requireModel');
     var billing = require('../../model/accountModel');
 
-    billing.getTransactions(req.session.ORNUM).catch(next).then(transaction=>{
+    var ornum = req.query.orno;
+    var fullname = req.query.fullname;
 
-    });
+    if(!ornum || !fullname){
+        return res.status(404).send("Not Found");
+    }
 
-    pdf.generateView(pdf.templates.invoice, {}, function(err, html){
-        if(err) return next(err);
-        pdf.generatePDF(html, pdf.getBuffer, function(err, buffer){
+    var createInvoice = function(transaction){
+        pdf.generateView(pdf.templates.invoice, transaction, function(err, html){
             if(err) return next(err);
-            res.set('Content-disposition', 'attachment; filename=' + fileName);
-            res.set('Content-Type', 'Application/pdf');
-            res.status(200).send(buffer);
+            pdf.generatePDF(html, pdf.getBuffer, function(err, buffer){
+                if(err) return next(err);
+                res.set('Content-disposition', 'attachment; filename=' + fileName);
+                res.set('Content-Type', 'Application/pdf');
+                res.status(200).send(buffer);
+            });
         });
+    }
+
+    billing.getBalance(ornum).catch(next).then(transaction=>{
+        if(transaction){
+            transaction.ORno = ornum;
+            transaction.date = Date.parse(transaction.date).toString("MMM dd, yyyy");
+            transaction.data = JSON.parse(transaction.data);
+            transaction.payments = [];
+
+            var getLicense = new Promise((resolve, reject)=>{
+                lic.getLicenseApply(transaction.data.apply, function(err, license){
+                    if(err) return reject(err);
+                    resolve(license[0]);
+                });
+            });
+
+            Promise.all([course.getCoursePrice(transaction.data.enrolled), getLicense]).catch(next).then(results=>{
+                results.forEach(e=>{
+                    if(e==undefined) return next(new Error("Data Process Error"));
+                });
+                var payments = [];
+                results[0].course.forEach((e,i)=>{
+                    payments.push({
+                        desc: "Enroll " + e.days + " day/s " + (e.trans=="m" ? "Manual" : "Automatic") + " Course",
+                        assessment: e.price,
+                        balance: e.price,
+                        payment: 0,
+                    });
+                    if(i==results[0].course.length-1){
+                        payments.push({
+                            desc: "Apply " + results[1].desc,
+                            assessment: results[1].price,
+                            balance: results[1].price,
+                            payment: 0,
+                        });
+                        transaction.payments = payments;
+                        transaction.name = fullname;
+                        createInvoice(transaction);
+                    }
+                });
+            });
+        }else{
+            res.status(404).send("Not Found");        
+        }
     });
 };

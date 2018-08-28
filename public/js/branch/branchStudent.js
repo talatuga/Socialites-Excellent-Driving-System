@@ -40,7 +40,9 @@ var loadStud = function(){
         stud.getList(function(err){
             if(err) return swal("Failed!",err.message,"error");
             renderStudentTable(stud.pages.current[stud.currPage[0]], function(){
-                viewStud(stud.pages.current[stud.currPage[0]][0].id);
+                if(stud.pages.current.length!=0){
+                    viewStud(stud.pages.current[stud.currPage[0]][0].id);
+                }
                 $('tableStud').addClass("highlightTr");                
                 $('.tableStud tbody tr').click(function () {
                     var selected = $(this).hasClass("highlightTr");
@@ -342,7 +344,7 @@ var getStudent = function(_type, offset, limit){ // <--- Nag declase ako ng vari
 var renderStudentTable = function(data, cb){ // <--- nag declare ng var na may laman ng function. with parameter expecting to be an array[]
     var html = ""; // <--- initialized a blank string para kung walang ma process walang i didisplay.
     var render = function(){ // <--- nagdeclare ako ng local var na may laman na function. ang purpose is tatawagin to pag tapus na yung forEach() sa baba. 
-        $('#studentTable').html(html); // <--- hahanapin yung element sa html na may id na studentTable and papalitan yung html nun nung laman nung html string.       
+        $('#studentTableBranch').html(html); // <--- hahanapin yung element sa html na may id na studentTable and papalitan yung html nun nung laman nung html string.       
         cb();
     }
     if(data == undefined || data.length == 0) return render();

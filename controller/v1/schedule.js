@@ -21,8 +21,13 @@ router.route('/')
     .get(scheduler.getSched)
     .put(auth.auth, scheduler.updateSchedule);
 
+router.post('/suspend', auth.auth, scheduler.suspend);
+
+router.put('/:id/done', auth.auth, scheduler.done);
+router.put('/:id/cancel', auth.auth, scheduler.cancel);
+
 router.route('/:id')
-    .patch(scheduler.removeSchedFromCalendar)
-    .put(scheduler.assignSched);
+    .patch(auth.auth,scheduler.removeSchedFromCalendar)
+    .put(auth.auth, scheduler.assignSched);
 
 module.exports = router;
