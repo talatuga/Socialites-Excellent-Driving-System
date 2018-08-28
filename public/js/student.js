@@ -1,4 +1,6 @@
-var studID;
+var studName, studID, courseID, schedID, lessonID, dataID;
+var selectedLesson, selectedGrade, selectedComment, selectedDate, selectedTime, selectedDataID, selectedInstID, selectedLessonID, selectedSchedID;
+
 $(function() {
     document.getElementById("studCP1").checked = true;
     document.getElementById("studCP2").checked = false;
@@ -22,6 +24,7 @@ $("#btnViewStudent").on("click", function() { //opens view student page upon cli
     $('.view-viewStudent').show();
     resetSettingsStud();
     loadEvalStud();
+    viewGradesStud();
 });
 
 $(".backStud").on("click", function() { //closes view instructor page then goes back to previous page
@@ -440,6 +443,58 @@ var deleteStudentData = function(id){
     });
 }
 
+function viewGradesStud(){
+    // var data = $('#a'+studID).data('info');
+    // var dataId = data.id;
+    // var pad = "0000";
+    // courseID = data.courseID;
+    // course = "CRS-"+ (data.carType.toUpperCase() + pad.substring(0,pad.length - (data.courseID+"").length)) + data.courseID;
+    // $('.enrolledCrs').html("CRS-"+ (data.carType.toUpperCase() + pad.substring(0,pad.length - (data.courseID+"").length)) + data.courseID);
+
+    stud.getGradesStud(function(err, data){
+        if(err){
+            swal("Failed!", err.message, "error");
+            console.log(err);
+        }else{
+            $('#studGradesInst').html("");
+            var x = 1;
+            var dataLen = data.length;
+            data.forEach(e => {
+                dataID = e.id;
+                var html = "<tr id='"+ e.id +"'>";
+                html += "<td id='"+ e.id +"'>" + x + "</td>";
+                html += "<td id='"+ e.lessonID +"'>" + e.title + "</td>";
+                html += "<td id='"+ e.schedID +"'>" + (Date.parse(e.date).toString("MMM dd, yyyy")) + "</td>";
+                html += "<td>" + (Date.parse(e.time).toString("HH:mm")) + "</td>";
+                html += "<td id='"+ e.instID +"' data-name='"+ e.fullname +"' >" + e.fullname.replace(/_/g, ' ') + "</td>";
+                html += "<td>" + e.grade + "</td>";
+                html += "<td>" + e.comment + "</td>";
+                html += "</tr>";
+                x++;
+                $('#studGradesInst').append(html);
+            });
+            // if (dataLen==10){
+            //     $('.btnAddI').hide();
+            //     $('.btnEvalI').show();
+            // }else{
+            //     $('.btnAddI').show();
+            //     $('.btnEvalI').hide();
+            // }
+            $("#studGradesInst tr").on('click', function() {
+                selectedLesson = $(this).closest('tr').find('td:eq(1)').text();
+                selectedGrade = $(this).closest('tr').find('td:eq(5)').text();
+                selectedComment = $(this).closest('tr').find('td:eq(6)').text();
+                selectedDate = $(this).closest('tr').find('td:eq(2)').text();
+                selectedTime = $(this).closest('tr').find('td:eq(3)').text();
+                selectedDataID = $(this).closest('tr').find('td:eq(0)').attr("id");
+                selectedLessonID = $(this).closest('tr').find('td:eq(1)').attr("id");
+                selectedInstID = $(this).closest('tr').find('td:eq(4)').attr("id");
+                selectedSchedID = $(this).closest('tr').find('td:eq(2)').attr("id");
+            });
+        }
+    });
+}
+
 function loadEvalStud(){
     inst.getStudEval(function (err, data){
         if(err){
@@ -490,6 +545,10 @@ var viewStud = function(id){
                 html += "<td>"+ parseFloat(e.balance).formatMoney(2) +"</td>";
                 html += "</tr>";
                 $('#tblStudPayment1').append(html);
+            });
+            $("#tblStudPayment1 tr").on('click', function() {
+                $('#addPaymentModal1').modal('show');
+                //applicable lang dapat pag may balance pa. pag walang balance, di dapat lalabas to
             });
         });
         renderEditInfo();

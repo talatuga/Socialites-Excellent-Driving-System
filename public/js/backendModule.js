@@ -541,6 +541,19 @@ var stud = {
             cb(null, res.data);
         });
     },
+    getGradesStud: function(cb){
+        var req = $.get('api/v1/grade/student/' + studID, function(response){
+            if(response.success == false){
+                console.log(response.detail);
+                cb(new Error(response.detail));
+            }else{
+                cb(null, response.data);
+            }
+        }).fail(function(request){
+            console.log(request.status + ": " + request.statusText);
+            cb(new Error("Error: On displaying student grades"));
+        });
+    },
 }
 /* 
 *   lesson module,

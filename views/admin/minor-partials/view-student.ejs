@@ -152,29 +152,29 @@
                             <div class="tab-pane" id="gradeS" role="tabpanel">
                                 <div class="card-body">
                                     <div class="studTab">
-                                        <h3 class="pull-right">Course: <span class="studCourse">CRS-001-A</span></h3><br><br>
+                                        <!-- <h3 class="pull-right">Course: <span class="studCourse">CRS-001-A</span></h3><br><br> -->
                                         <div class="table-responsive">
-                                            <table class="table tblStudGrades1 table-hover">
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>Lesson</th>
-                                                        <th>Date</th>
-                                                        <th>Time</th>
-                                                        <th>Instructor</th>
-                                                        <th>Vehicle</th>
-                                                        <th>Grade</th>
-                                                        <th>Comment</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="studentTblGrade">
-                                                </tbody>
-                                            </table>
+                                        <table class="table tblCustom" id="lessonForGradeTbl">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Lesson</th>
+                                                    <th>Date</th>
+                                                    <th>Time</th>
+                                                    <th>Instructor</th>
+                                                    <th>Grade</th>
+                                                    <th width="20%">Comment</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="studGradesInst">
+                                                <tr></tr>
+                                            </tbody>
+                                        </table><br><br>
                                         </div><br><br>
-                                        <div class="pull-right">
+                                        <!-- <div class="pull-right">
                                             <button type="button" class="btn btn-warning m-b-10 m-l-5" onclick="addGrade()">Add Grade</button>
                                             <button type="button" class="btn btn-light m-b-10 m-l-5" onclick="evaluateStud()">Evaluate</button>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>
