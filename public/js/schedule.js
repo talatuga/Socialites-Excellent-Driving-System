@@ -1,4 +1,5 @@
 var today = new Date();
+var searchSched;
 
 $(function() {
   $("#schedStudName").prop("disabled", true);
@@ -144,8 +145,8 @@ function todaySched(){
         html += "<td>"+ results[0] +"</td>";
         html += "<td>"+ (Array.isArray(results[1]) ? "No one assigned" : results[1].replace(/_/g," ")) +"</td>";
         html += "<td>"+ results[2].fullname.replace(/_/g," ") +"</td>";
-        html += "<td></td>";
-        html += '<td><button type="button" style="vertical-align: sub" class="btn btn-success btnLicense" onclick="doneSched()">Done</button><br><button type="button" style="vertical-align: sub" class="btn btn-inverse btnLicense" onclick="cancelSched()">Cancel</button></td>';
+        // html += "<td></td>";
+        html += '<td><button type="button" style="vertical-align: sub; float: left; margin-right: 10px" class="btn btn-success btnLicense" onclick="doneSched()">Done</button><button type="button" style="margin-left: 10px" class="btn btn-inverse btnLicense" onclick="cancelSched()">Cancel</button></td>';
         html += "</tr>";
         $('#todaySched').append(html);
       }).catch(reason=>console.log(reason));
@@ -258,11 +259,13 @@ function sendEmailSuspend(){
 }
 
 function searchSchedView(){
-  var x = $('.searchDateDisplayList').val();
-  if (x==""){
+  searchSched = $('.searchDateDisplayList').val();
+  searchSched = Date.parse(searchSched).toString("MMM dd, yyyy");
+  if (searchSched==""){
     swal ("Oops!", "Please input date to display schedule.", "error");
   }else{
     $('.displaySchedDiv').show();
+    $('.searchDateDisplayListSpan').html(searchSched);
   }
 }
 
