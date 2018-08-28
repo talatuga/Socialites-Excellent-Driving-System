@@ -1318,4 +1318,25 @@ var scheduler = {
             cb(new Error(xhr.status + ": " + xhr.statusText));
         });
     },
+    getSched: function(date, branch, cb){
+        $.ajax({
+            type: "GET",
+            url: "api/v1/sched",
+            data: {
+                branch: branch,
+                month: (date).toString('MMM'),
+                day: (date).toString('dd'),
+            },
+            success: res=>{
+                if(res.success){
+                    cb(null, res.data);
+                }else{
+                    cb(new Error(res.detail));
+                }
+            },
+            error: xhr=>{
+                cb(new Error(xhr.status+": "+xhr.statusText));
+            }
+        });
+    },
 }

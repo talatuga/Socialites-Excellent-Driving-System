@@ -31,6 +31,10 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `getStudList`(IN `_offset` INT(7), I
     NO SQL
 SELECT s.id as studID, i.* FROM student s, userinfo i WHERE s.id > _offset AND i.id = s.userInfo AND s.status > 0 ORDER BY s.id ASC limit _limit$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getStudListOnBranch`(IN `_offset` INT(3), IN `_limit` INT(3), IN `_branch` INT(3), IN `_status` INT(1))
+    READS SQL DATA
+SELECT s.id as studID, i.* FROM student s, userinfo i WHERE s.id > _offset AND i.id = s.userInfo AND s.branch = _branch AND s.status = _status ORDER BY s.id ASC limit _limit$$
+
 CREATE DEFINER=`root`@`localhost` FUNCTION `addUserAcc`(`un` VARCHAR(30), `pw` VARCHAR(40), `atype` INT(2)) RETURNS int(10) unsigned
     MODIFIES SQL DATA
 BEGIN
@@ -85,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `branch` (
 `id` int(3) NOT NULL,
   `address` varchar(150) NOT NULL,
   `telno` varchar(24) NOT NULL,
-  `name` varchar(15) NOT NULL,
+  `name` varchar(30) NOT NULL,
   `purgeFlag` int(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -259,7 +263,7 @@ CREATE TABLE IF NOT EXISTS `schedule` (
   `studID` varchar(15) NOT NULL,
   `instID` varchar(15) DEFAULT NULL,
   `branch` int(3) NOT NULL,
-  `status` int(1) NOT NULL DEFAULT '0'
+  `status` int(1) NOT NULL DEFAULT '0' COMMENT '0 - disabled, 1 - pending, 2 - scheduled, 3 - done, 4 - cancelled'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `student` (
@@ -272,6 +276,14 @@ CREATE TABLE IF NOT EXISTS `student` (
   `branch` int(3) NOT NULL DEFAULT '1',
   `dateRegistered` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` int(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE IF NOT EXISTS `transfer_request` (
+  `id` int(5) NOT NULL,
+  `studID` varchar(15) NOT NULL,
+  `to_branchID` int(3) NOT NULL,
+  `from_branchID` int(3) NOT NULL,
+  `request_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `useraccount` (
@@ -312,7 +324,7 @@ CREATE TABLE IF NOT EXISTS `vehicle` (
 CREATE TABLE IF NOT EXISTS `web_branch` (
 `id` int(3) NOT NULL,
   `branchID` int(3) NOT NULL,
-  `branchName` varchar(10) NOT NULL,
+  `branchName` varchar(30) NOT NULL,
   `location` varchar(30) NOT NULL,
   `fulladdress` varchar(100) NOT NULL,
   `telno` varchar(30) NOT NULL

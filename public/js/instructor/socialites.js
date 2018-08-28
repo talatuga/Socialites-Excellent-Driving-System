@@ -8,6 +8,7 @@ var app = {
                     month: Date.parse('today').toString('MMMM'),
                     day: Date.parse('today').toString('dd'),
                     instid: 'self',
+                    status: 2,
                 },
                 success: function(res){
                     if(res.success){
@@ -36,6 +37,38 @@ var app = {
                     }
                 },
                 error: xhr=>cb(new Error(xhr.status + ": " + xhr.statusText)),
+            });
+        },
+        done: function(id, cb){
+            $.ajax({
+                type: "PUT",
+                url: "api/v1/sched/" + id + "/done",
+                success: res=>{
+                    if(res.success){
+                        cb(null, res.detail);
+                    }else{
+                        cb(new Error(res.detail));
+                    }
+                },
+                error: xhr=>{
+                    cb(new Error(xhr.status + ": " + xhr.statusText));
+                },
+            });
+        },
+        cancel: function(id, cb){
+            $.ajax({
+                type: "PUT",
+                url: "api/v1/sched/" + id + "/cancel",
+                success: res=>{
+                    if(res.success){
+                        cb(null, res.detail);
+                    }else{
+                        cb(new Error(res.detail));
+                    }
+                },
+                error: xhr=>{
+                    cb(new Error(xhr.status + ": " + xhr.statusText));
+                },
             });
         },
     },

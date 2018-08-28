@@ -80,7 +80,7 @@ Schedule.delete = function (id, cb) {
 }
 
 Schedule.getSchedule = function(query, cb){
-    var sql = "SELECT * FROM "+ table +" WHERE status > 0 AND date BETWEEN ? AND ?";
+    var sql = "SELECT * FROM "+ table +" WHERE date BETWEEN ? AND ?";
     
     var month = query.month || Date.parse('today').toString('MMMM');
     var day = query.day || null;
@@ -92,6 +92,11 @@ Schedule.getSchedule = function(query, cb){
 
     if(query.start && query.end){
         data = [query.start,query.end];
+    }
+    if(query.all){
+        var start = Date.parse('1969').toString('yyyy-MM-01');
+        var end = Date.parse('next year').toString('yyyy-12-31');
+        data = [start,end];
     }
 
     if(query.instid){
@@ -105,6 +110,12 @@ Schedule.getSchedule = function(query, cb){
     if(query.branch){
         sql += " AND branch = ?";
         data.push(query.branch);
+    }
+    if(query.status){
+        sql += " AND status = ?";
+        data.push(query.status);
+    }else{
+        sql += " AND status > 0";
     }
 
     db.get().query(sql, data, function(err,result){

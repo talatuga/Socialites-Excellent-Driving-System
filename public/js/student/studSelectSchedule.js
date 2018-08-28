@@ -1,3 +1,4 @@
+var schedToRemove = [];
 $(function() {
   $('#external-events .fc-event').each(function() {
     // store data so the calendar knows to render an event upon drop
@@ -45,6 +46,8 @@ $(function() {
       if ($('#drop-remove').is(':checked')) {
         // if so, remove the element from the "Draggable Events" list
         $(this).remove();
+        var index = schedToRemove.indexOf($(this).data("schedid"));
+        schedToRemove.splice(index,1);
       }
     },
     eventDragStop: function (event, jsEvent, ui, view) {
@@ -58,7 +61,8 @@ $(function() {
               revert: true,
               revertDuration: 0
             });
-            el.data('event', { title: event.title, _id: event._id, stick: true });
+            el.data('event', { title: event.title, _id: event._id, stick: true, data: event.data });
+            schedToRemove.push(event._id);
           }
         });
       }
@@ -369,6 +373,39 @@ function updateSchedule(){
     });
   };
 
+  var removeSched = ()=>{
+    swal({
+      title: "Edit Schedule?",
+      text: "Are you sure you want to change?",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+      closeOnConfirm: false,
+      closeOnCancel: true
+    },function(conf){
+      if(conf){
+        var promises = [];
+        schedToRemove.forEach((e,i)=>{
+          promises.push(new Promise((resolve,reject)=>{
+            app.scheduler.removeSched(e,(err)=>{
+              if(err) return reject(err);
+              resolve();
+            });
+          }));
+          if(i==schedToRemove.length-1){
+            Promise.all(promises).then(()=>{
+              swal("Updated!", "Schedule Successfully Remove", "success");
+            }).catch(reason=>{
+              swal("Failed!", reason, "error");
+            });
+          }
+        });
+      }    
+    });
+  };
+
   var validateChange = function(cb){
     var promises = [];
     rawEvents.forEach((e,i)=>{
@@ -393,6 +430,11 @@ function updateSchedule(){
       }
     });
   };
+
+  if(schedToRemove.length!=0){
+    removeSched();
+    return;
+  }
 
   validateChange((res)=>{
     res.forEach((element,i)=>{

@@ -93,6 +93,15 @@ $(function() {
         },
     ],
   });
+
+  $('.searchTodaySched').on('click', function(e){
+    search.init(office.pages[office.currPage], ["branchID","name"], function(data){
+        renderBranchTable(data);
+    });
+  });
+  $('.searchTodaySched').on('keyup', function(e){
+      search.keypress($('#searchBranch').val());
+  });
 });
 
 $('#btnUpdSched').on('click', function(){
@@ -152,6 +161,11 @@ function todaySched(){
       }).catch(reason=>console.log(reason));
     });
   });
+  $('.branchSelect').html("");
+  office.pages[office.currPage].forEach((e,i)=>{
+    var html = "<option value='"+ e.id +"'>"+ e.name +"</option>";
+    $('.branchSelect').append(html);
+  });
   $('.viewDiv').hide();
   $('.view-todaySched').show();
 }
@@ -164,6 +178,11 @@ function suspendClass(){
 }
 
 function schedListView(){
+  $('.selBranchSchedView').html("");
+  office.pages[office.currPage].forEach((e,i)=>{
+    var html = "<option value='"+ e.id +"'>"+ e.name +"</option>";
+    $('.selBranchSchedView').append(html);
+  });
   $('.searchDateDisplayList').val("");
   $('.viewDiv').hide();
   $('.view-schedListView').show();
@@ -259,13 +278,34 @@ function sendEmailSuspend(){
 }
 
 function searchSchedView(){
-  searchSched = $('.searchDateDisplayList').val();
-  searchSched = Date.parse(searchSched).toString("MMM dd, yyyy");
+  var searchSched = $('.searchDateDisplayList').val();
+  var branchSelected = $('.selBranchSchedView').val();
   if (searchSched==""){
     swal ("Oops!", "Please input date to display schedule.", "error");
   }else{
-    $('.displaySchedDiv').show();
-    $('.searchDateDisplayListSpan').html(searchSched);
+    scheduler.getSched(Date.parse(searchSched), branchSelected, function(err, data){
+      if(err) return swal("Failed!", err.message, "error");
+      $('#schedListView').html(""); 
+      data.forEach((e,i)=>{
+        scheduler.getBranchName(e.branch,(_,branch)=>{
+          scheduler.getInstName(e.instID,(_,instName)=>{
+            scheduler.getStudName(e.studID,(_,studName)=>{
+              var html = "<tr>";
+              html += "<td>"+ e.id +"</td>";
+              html += "<td>"+ Date.parse(e.time).toString("hh:mm tt") +"</td>";
+              html += "<td>"+ branch +"</td>";
+              html += "<td>"+ instName.replace(/_/g," ") +"</td>";
+              html += "<td>"+ studName.fullname.replace(/_/g," ") +"</td>";
+              html += "<td></td>";
+              html += "</tr>";
+              $('#schedListView').append(html);
+            });
+          });
+        });
+      });
+      $('.displaySchedDiv').show();
+      $('.searchDateDisplayListSpan').html(Date.parse(searchSched).toString("MMMM dd, yyyy"));
+    });
   }
 }
 

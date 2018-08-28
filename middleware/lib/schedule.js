@@ -261,7 +261,7 @@ exports.updateSchedule = function(req, res, next){
     var promises = [];
     schedules.forEach((e,i)=>{
         var task = new Promise((resolve, reject)=>{
-            schedule.checkSched(branchID, Date.parse(e.date), e.time).catch(reject).then(resolve);
+            schedule.checkSched(e.id, branchID, e.instructor.instID, Date.parse(e.date), e.time).catch(reject).then(resolve);
         });
         promises.push(task);
         if(i==schedules.length-1){

@@ -140,6 +140,22 @@ var app = {
                 }
             });
         },
+        removeSched: function(schedule, cb){
+            $.ajax({
+                type: "PATCH",
+                url: "api/v1/sched/" + schedule,
+                success: res=>{
+                    if(res.success){
+                        cb(null);
+                    }else{
+                        cb(new Error(res.detail));
+                    }
+                },
+                error: xhr=>{
+                    cb(new Error(xhr.status + ": " + xhr.statusText));
+                },
+            });
+        },
         getHours: function(studID, cb){
             $.get('api/v1/sched/hours/'+studID,function(res){
                 if(res.success){
