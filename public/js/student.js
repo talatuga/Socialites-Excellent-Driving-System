@@ -524,6 +524,8 @@ function loadEvalStud(){
 }
 
 var viewStud = function(id){
+    var today = new Date();
+    var payName, payDate, payType, payAssess, payBalance, payTotalBal;
     stud.selected = id;
     stud.getLocalData(function(profile){
         stud.selectedID = profile.studID;
@@ -534,6 +536,10 @@ var viewStud = function(id){
         $('.studPhone').html(profile.telno);
         $('.studEmail').html(profile.email);
         $('.enrolledCrs').html("");
+
+        payName = (profile.fullname.replace(/_/g, " "));
+        payDate = ((Date.parse(today).toString('MM/dd/yyyy')));
+
         stud.getPaymentAccount(profile.studID, function(err, data){
             if(err) return console.error(err);
             $('#tblStudPayment1').html('');
@@ -548,6 +554,17 @@ var viewStud = function(id){
                 $('#tblStudPayment1').append(html);
             });
             $("#tblStudPayment1 tr").on('click', function() {
+                payType = $(this).closest('tr').find('td:eq(1)').text();
+                payAssess = $(this).closest('tr').find('td:eq(2)').text();
+                payBalance = $(this).closest('tr').find('td:eq(4)').text();
+
+                $('.addPayName').html(payName);
+                $('.addPayDate').html(payDate);
+                $('.addPayType').html(payType);
+                $('.addPayAssess').html(payAssess);
+                $('.addPayBal').html(payBalance);
+                $('.addPayTotAmount').html(payBalance);
+                
                 $('#addPaymentModal1').modal('show');
                 //applicable lang dapat pag may balance pa. pag walang balance, di dapat lalabas to
             });
