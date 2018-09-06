@@ -218,6 +218,16 @@ CREATE TABLE IF NOT EXISTS `newsletter` (
   `status` int(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+CREATE TABLE IF NOT EXISTS `notification` (
+`id` int(10) NOT NULL,
+  `accID` int(10) DEFAULT NULL,
+  `type` varchar(100) NOT NULL,
+  `detail` varchar(500) NOT NULL,
+  `action` text NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` int(1) NOT NULL DEFAULT '1' COMMENT '1 - pending, 2 - seen, 0 - deleted'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 CREATE TABLE IF NOT EXISTS `other_info` (
 `id` int(9) NOT NULL,
   `referenceID` int(9) NOT NULL,
@@ -397,6 +407,9 @@ ALTER TABLE `license_apply_price`
 ALTER TABLE `newsletter`
  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `email` (`email`);
 
+ALTER TABLE `notification`
+ ADD PRIMARY KEY (`id`), ADD KEY `account` (`accID`);
+
 ALTER TABLE `other_info`
  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `referenceID` (`referenceID`);
 
@@ -470,6 +483,8 @@ ALTER TABLE `license_apply_price`
 MODIFY `id` int(2) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `newsletter`
 MODIFY `id` int(4) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `notification`
+MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `other_info`
 MODIFY `id` int(9) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `payment`
@@ -544,6 +559,9 @@ ADD CONSTRAINT `lesson_ibfk_1` FOREIGN KEY (`prerequisite`) REFERENCES `lesson` 
 ALTER TABLE `lesson_courses`
 ADD CONSTRAINT `lesson_courses_ibfk_1` FOREIGN KEY (`courseID`) REFERENCES `course` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
 ADD CONSTRAINT `lesson_courses_ibfk_2` FOREIGN KEY (`lessonID`) REFERENCES `lesson` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+ALTER TABLE `notification`
+ADD CONSTRAINT `notification_ibfk_1` FOREIGN KEY (`accID`) REFERENCES `useraccount` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 ALTER TABLE `other_info`
 ADD CONSTRAINT `other_info_ibfk_1` FOREIGN KEY (`referenceID`) REFERENCES `userinfo` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
