@@ -1304,13 +1304,27 @@ var scheduler = {
             },
         });
     },
-    suspendSched: function(date, cb){
-        $.post('api/v1/sched/suspend', {date: date}, function(res){
+    suspendSched: function(date, reason, cb){
+        $.post('api/v1/sched/suspend', {date: date, reason: reason}, function(res){
             if(res.success){
                 cb(null, res.detail);
-                $.post('api/v1/sched/suspend',{emailTaskWait: true}, function(res){
-                    swal("Suspension Announcement!", res.detail, "success");
-                });
+                var notif = ()=>{
+                    $.ajax({
+                        type: "POST",
+                        url: 'api/v1/sched/suspend',
+                        data: {emailTaskWait: true},
+                        timeout: 10000,
+                        success: res=>{
+                            swal("Suspension Announcement!", res.detail, "success");
+                        },
+                        error: xhr=>{
+                            if(xhr.statusText == "timeout"){
+                                notif();
+                            }
+                        }
+                    });
+                };
+                notif();
             }else{
                 cb(new Error(res.detail));
             }

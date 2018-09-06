@@ -36,6 +36,9 @@ router.use('/grade', grade);
 // All routes below are secured with authentication.
 router.use(auth.auth, err.error401);
 
+var notif = require('./notification');
+router.use('/notif', notif);
+
 //Student route
 var studentRoute = require('./studentRouter');
 router.use('/stud', studentRoute);

@@ -39,9 +39,13 @@ exports.login = function(req, res, next){
                 account.login({username: user, password: pass},function(err, result){
                     if(err) return next(err);
                     if(result){
+                        if(result.accType == 1){
+                            req.session.adminID = id;
+                        }else if(result.accType == 4){
+                            req.session.branchID = id;
+                        }
                         users[id] = {accID: result.id, accType: result.accType};
                         req.session.accID = result.id;
-                        req.session.adminID = id;
                         req.session.accType = result.accType;
                         res.locals.authenticated = 1;
                         next();
@@ -160,6 +164,8 @@ exports.instLogin = function(req, res, next){
             if(user.accType == 2){
                 (require('../model/instructorModel')).getInstInfo(user.id, function(err, info){
                     req.session.instID = info.instid;
+                    req.session.accID = user.id;
+                    res.locals.userInfo = info;
                     users[req.sessionID] = {accID: user.id, instID: info.instid, accType: user.accType};
                     next();
                 });

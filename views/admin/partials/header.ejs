@@ -25,14 +25,14 @@
             <!-- User profile and search -->
             <ul class="navbar-nav my-lg-0">
                 <!-- Search -->
-                <li class="nav-item hidden-sm-down search-box"> <a class="nav-link hidden-sm-down text-muted  " href="javascript:void(0)"><i class="ti-search"></i></a>
+                <%# <li class="nav-item hidden-sm-down search-box"> <a class="nav-link hidden-sm-down text-muted  " href="javascript:void(0)"><i class="ti-search"></i></a>
                     <form class="app-search">
                         <input type="text" id="searchDashboard" class="form-control" placeholder="Search here"> <a class="srh-btn"><i class="ti-close"></i></a> </form>
-                </li>
+                </li> %>
                 <!-- Comment -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-muted text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="ti-bell"></i>
-                        <div class=""> <span class="point"></span> </div>
+                    <a class="nav-link dropdown-toggle text-muted text-muted notif-box" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="ti-bell"></i>
+                        <div id="notify-box" class="notify"> <span class="notify-alert heartbit"></span><span class="point"></span> </div>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right mailbox animated zoomIn">
                         <ul>
@@ -56,7 +56,7 @@
                                         </div>
                                     </a> %>
                                     <!-- Message -->
-                                    <a href="#">
+                                    <%# <a href="#">
                                         <div class="btn btn-info btn-circle m-r-10"><i class="ti-settings"></i></div>
                                         <div class="mail-contnet">
                                             <h5>This is title</h5> <span class="mail-desc">You can customize this template as you want</span> <span class="time">9:08 AM</span>
@@ -68,7 +68,7 @@
                                         <div class="mail-contnet">
                                             <h5>This is another title</h5> <span class="mail-desc">Just see the my admin!</span> <span class="time">9:02 AM</span>
                                         </div>
-                                    </a>
+                                    </a> %>
                                 </div>
                             </li>
                         </ul>
@@ -76,11 +76,11 @@
                 </li>
                 <!-- End Comment -->
                 <!-- Messages -->
-                <li class="nav-item dropdown">
+                <%# <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-muted  " href="#" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="ti-email"></i>
                         <div class=""> <span class="point"></span> </div>
                     </a>
-                </li>
+                </li> %>
                 <!-- End Messages -->
                 <!-- Profile -->
                 <li class="nav-item dropdown headerAdmin">

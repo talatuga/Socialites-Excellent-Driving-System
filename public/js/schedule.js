@@ -262,7 +262,7 @@ function sendEmailSuspend(){
   },
     function(isConfirm){
         if (isConfirm) {
-          scheduler.suspendSched(suspendDate.toString('MMM dd, yyyy HH:mm'), function(err, detail){
+          scheduler.suspendSched(suspendDate.toString('MMM dd, yyyy HH:mm'), msg.trim(),function(err, detail){
             if(err){
               swal("Failed!", err.message, "error");
             }else{

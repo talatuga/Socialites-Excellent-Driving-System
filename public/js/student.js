@@ -1,8 +1,8 @@
 var studName, studID, courseID, schedID, lessonID, dataID;
 var selectedLesson, selectedGrade, selectedComment, selectedDate, selectedTime, selectedDataID, selectedInstID, selectedLessonID, selectedSchedID;
 $(function() {
-    document.getElementById("studCP1").checked = true;
-    document.getElementById("studCP2").checked = false;
+    //document.getElementById("studCP1").checked = true;
+    //document.getElementById("studCP2").checked = false;
     //getStudent(1, studentTable.offset, studentTable.limit).then(renderStudentTable); // <--- tawagin yung getStudent() then after yung renderStudentTable().    
 });
 

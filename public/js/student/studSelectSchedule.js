@@ -1,4 +1,5 @@
 var schedToRemove = [];
+var schedChange = [];
 $(function() {
   $('#external-events .fc-event').each(function() {
     // store data so the calendar knows to render an event upon drop
@@ -412,7 +413,9 @@ function updateSchedule(){
       promises.push(new Promise((r,x)=>{
         mainEvents.forEach((el,count)=>{
           if(e._id == el._id){
-            if(moment(e.start).format('YYYY-MM-DD HH:mm')==moment(el.start).format('YYYY-MM-DD HH:mm')){
+            if(e.data.instructor.instID!=el.data.instructor.instID){
+              r(e);
+            }else if(moment(e.start).format('YYYY-MM-DD HH:mm')==moment(el.start).format('YYYY-MM-DD HH:mm')){
               r(0);
             }else{
               r(e);
@@ -431,7 +434,7 @@ function updateSchedule(){
     });
   };
 
-  if(schedToRemove.length!=0){
+  if(schedToRemove.length>0){
     removeSched();
     return;
   }
@@ -458,12 +461,13 @@ function doneChangeSched(){
   var schedEvent = $('#calendarSelectSched').fullCalendar('clientEvents', eventID)[0];
   var inst = $('#instSelect').val();
   var instName = $('option[value='+ inst +']').data('name');
-  console.log(eventID)
   if(schedEvent.data){
     schedEvent.data.instructor = {instID: inst, name: instName};
   }else{
     schedEvent.data = {instructor: {instID: inst, name: instName}};
   }
   
+  schedChange.push(schedEvent);
+
   $('#calendarSelectSched').fullCalendar('updateEvent', schedEvent);
 }

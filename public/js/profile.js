@@ -2,7 +2,7 @@ function openDropzone(){
     $('#uploadProfileModal').modal("show");
 }
 
-dropzone.options.profileDrop = {
+Dropzone.options.profileDrop = {
     init: function(){
         this.on("queuecomplete", function(file){
             setTimeout(function() {location.reload();

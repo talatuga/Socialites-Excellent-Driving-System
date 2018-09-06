@@ -10,18 +10,47 @@ $(function() {
     
     var x = $(window).height();
     $(".page-wrapper").height(x);
-
+    
     $(".liSide").removeClass("active");
     $("#li1").addClass("active");
     $('.viewDiv').hide();
     $(".view-dashboard").show();
-
+    
     $(".view-viewInstructor").hide();
     $(".view-viewStudent").hide();
+    
+    $('.notif-box').on('click', function(){
+        $('#notify-box').fadeOut();
+    });
+    $('#notify-box').hide();
+
     $( document ).ajaxComplete(function(e, xhr, settings) {
         ajaxHandler.complete(xhr, settings);
     }).ajaxSend(function(e, xhr, settings){
         ajaxHandler.send(xhr, settings);
+    });
+
+    notifier.init(function(notification){
+        var placeholder = $('.message-center');
+        var types = {};
+        var html = '<a href="#">'; 
+        html += '<div class="btn btn-danger btn-circle m-r-10">'; 
+        html +=     '<i class="fa fa-link"></i>';
+        html += '</div>'; 
+        html += '<div class="mail-contnet">'; 
+        html +=     '<h5>This is title</h5>'; 
+        html +=     '<span class="mail-desc">Just see the my new admin!</span>'; 
+        html +=     '<span class="time">9:30 AM</span>'; 
+        html += '</div>'; 
+        html += '</a>';
+        if(typeof notification == "string"){
+            
+        }else{
+
+        }
+        var oldHtml = placeholder.html();
+        placeholder.html(html + oldHtml);
+        $('#notify-box').fadeIn();
     });
 });
 

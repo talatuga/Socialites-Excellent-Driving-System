@@ -69,7 +69,10 @@ public/js/main/jquery.magnific-popup.js
 public/js/main/jquery.masonry.min.js
 public/js/main/jquery.mixitup.min.js
 public/js/main/plugins.js
+public/image_upload/*
+public/other_upload/*
 
+# EXCEPTIONS (put here you want to exclude from ignore)
 !public/css/main/style.css
 !public/css/style.css
 !public/css/login.css
