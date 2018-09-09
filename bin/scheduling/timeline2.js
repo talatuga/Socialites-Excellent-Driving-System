@@ -1,10 +1,4 @@
-/**
- * Timeline module
- * use to plot and trace daytime
- * @param {Object} options 
- */
 var Timeline = function(options){
-    //#region Declarations
     if(!options) options = {};
     var worker = options.worker || 1;
     var events = [];
@@ -24,7 +18,6 @@ var Timeline = function(options){
             breakTime.push(singleEvent);
         });
     }
-    //#endregion
 
     //#region Public functions 
     /**
@@ -128,7 +121,7 @@ var Timeline = function(options){
             if(x==worker){
                 var outAvail = available.slice();
                 var slots = new Array(available.length);
-                slots.fill(worker,0,available.length);
+                slots.fill(5,0,available.length);
                 populateSlots(()=>{
                     cb(outAvail,schedPerWorker,slots);
                 });

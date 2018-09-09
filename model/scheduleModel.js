@@ -546,14 +546,6 @@ Schedule.autoAssignInstructor = function(){
 
 };
 
-Schedule.isInstructorFree = function(){
-
-};
-
-Schedule.checkIfVacant = function(){
-
-}
-
 Schedule.cancelSched = function(date, time, cb){
     var sql = "SELECT studID, instID FROM " + table + " WHERE date = ? AND time >= ?";
     db.get().query(sql,[date,time], function(err,schedules){
@@ -563,6 +555,44 @@ Schedule.cancelSched = function(date, time, cb){
             if(error) return cb(error);
             cb(null, schedules);
         });
+    });
+};
+
+/**
+ * Automatically assign a student to a schedule, using its preferred information. instructor and branch
+ * (Third Attempt and hope the last)
+ * @param {String} studID ID of the student to auto-assign
+ * @returns {Promise<Number[]>} A promise that returns array of sched found when done and no error happen.
+ */
+Schedule.autoAssignSched_2 = function(studID){
+    return new Promise((resolve, reject)=>{
+        var studentModel = require('./studentModel');
+        var days = ['','monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
+
+        getStudent(studID, function(err, student){
+            if(err) return reject(err);
+            var hours = parseInt(student.hours);
+            var prefDaysRaw = JSON.parse(student.prefDays);
+            var prefDays = [];
+
+            prefDaysRaw.forEach((e,i)=>{
+                prefDays.push(days[e]);
+                if(i == prefDaysRaw.length-1){
+                    next();
+                }
+            });
+
+            function next(){
+                //Schedule.getSchedOnDay(student.branch, null, ); // <<<<<<<<<<<<<<<<<---------------- CONTINUE HERE,
+            }
+        });
+
+        function getStudent(id, cb){
+            studentModel.getData(id, function(err, data){
+                if(err) return cb(err);
+                cb(null, data);
+            });
+        }
     });
 };
 

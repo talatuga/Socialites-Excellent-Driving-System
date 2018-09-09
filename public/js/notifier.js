@@ -1,13 +1,14 @@
 var notifier = {
-    init: (cb)=>{
+    request: null,
+    init: cb=>{
         notifier.getNotif(cb);
     },
-    getNotif: (cb)=>{
+    getNotif: cb=>{
         var notif = ()=>{
-            $.ajax({
+            notifier.request = $.ajax({
                 type: "GET",
                 url: "api/v1/notif",
-                timeout: 15000,
+                timeout: 0,
                 success: res=>{
                     if(res.success){
                         cb(res.data);
@@ -19,11 +20,14 @@ var notifier = {
                 },
                 error: xhr=>{
                     if(xhr.statusText == "timeout"){
-                        notif();
+                        //notif();
                     }
                 },
             });
         };
         notif();
+    },
+    stop: ()=>{
+        return notifier.request.abort();
     },
 };

@@ -2,15 +2,16 @@ function openDropzone(){
     $('#uploadProfileModal').modal("show");
 }
 
-Dropzone.options.profileDrop = {
+/* Dropzone.options.profileDrop = {
     init: function(){
         this.on("queuecomplete", function(file){
-            setTimeout(function() {location.reload();
-            });
+            // setTimeout(function() {location.reload();
+            // });
+            console.log(file);
         });
     }
 };
-
+ */
 function resetAdmin1P(){
     $(".btnUpdateAdminAcc1").show();
     $(".btnDeactAdminAcc").show();

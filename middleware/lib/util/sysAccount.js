@@ -91,3 +91,7 @@ exports.delete = function(req, res, next){
 exports.changePass = function(req, res, next){
     
 }
+
+exports.changeProfileData = function(req, res, next){
+    
+}

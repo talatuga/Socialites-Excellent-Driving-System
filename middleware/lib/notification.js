@@ -61,6 +61,7 @@ exports.notificationPoll = function(req, res, next){
                         res: res
                     }
                 });
+                setRequestTimeout(res, userID);
             });
         }
     });
@@ -95,7 +96,9 @@ function notifyPending(targetId, notifId, cb){
                 notifModel.getPending(notifId, function(err, notifData){
                     if(err) return cb(err);
                     user.http.res.status(200).send({success: true, data: notifData});
-                    cb(null);
+                    removePending(targetId, ()=>{
+                        cb(null);
+                    });
                 });
             }
         });
@@ -147,4 +150,14 @@ function removePending(id, cb){
             cb(true);
         }
     });
+}
+
+function setRequestTimeout(res, requestID){
+    setTimeout(()=>{
+        if(!res.headerSent){
+            removePending(requestID,()=>{
+                res.status(200).send({success: false, detail: "timeout"});
+            });
+        }
+    },60000);
 }

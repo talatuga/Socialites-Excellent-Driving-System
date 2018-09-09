@@ -123,14 +123,95 @@ exports.register = function(req, res, next){
     var enrollmentID;
     var enrolleeData;
 
-    var generateID = function(accID,infoID){
+    // <------ Execute Synchronously ------> //
+    getEnrollee(id).catch(next).then(enrollee=>{
+        return checkBalance(enrollee);
+    }).then(result=>{
+        if(result.passed){
+            return enroll(result.enrollee);
+        }else{
+            return res.next(200).send({success: false, detail: result.reason});
+        }
+    }).then(data=>{
+        res.status(200).send({success: data.success, detail: data.detail});
+        if(data.success){
+            var task = [];
+            task.push(sendEmail(data.userData));
+            var sideTask = new Promise((resolve, reject)=>{
+                var sched = require('../../model/scheduleModel');
+                var instModel = require('../../model/instructorModel');
+                enrollCourse(studentID, ORcode, data.userData.data.course).then(function(flag){
+                    if(flag) return payEnrollment(ORcode);
+                }).then(function(flag){
+                    if(flag) return sched.autoAssignSched_1(studentID);
+                }).then(function(schedules){
+                    return new Promise((r1, x1)=>{
+                        var promises = [];
+                        schedules.forEach((e,i)=>{
+                            promises.push(new Promise((r2,x2)=>{
+                                sched.get(e, null, function(err,data){
+                                    if(err) return x2(err);
+                                    r2(data);
+                                });
+                            }));
+                            if(i==schedules.length-1){
+                                Promise.all(promises).then(result=>{
+                                    r1(result);
+                                }).catch(x1);
+                            }
+                        });
+                    });
+                }).then(function(schedules){
+                    if(schedules) return new Promise((r1,x1)=>{
+                        instModel.assignToSched(schedules,function(err,result){
+                            if(err) return x1(err);
+                            r1(result);
+                        });
+                    });
+                }).then(function(instructors){
+                    if(instructors) return new Promise((r1,x1)=>{
+                        var promises = [];
+                        if(instructors.length==0) return r1(true);
+                        instructors.forEach((e,i)=>{
+                            promises.push(new Promise((r2,x2)=>{
+                                sched.assignInst(e, function(err){
+                                    if(err) return x2(err);
+                                    r2(true);
+                                });
+                            }));
+                            if(i==instructors.length-1){
+                                Promise.all(promises).then(results=>{
+                                    if(results.indexOf(false)!=-1) return x1(new Error("Error happen on updatings scheds")); 
+                                    r1(true);
+                                }).catch(x1);
+                            }
+                        });
+                    });
+                }).then(function(flag){
+                    if(flag) return resolve(true);
+                }).catch(reject);
+            });
+            task.push(sideTask);
+            
+            Promise.all(task).then(function(results){
+                if(results.indexOf(false) != -1){
+                    next(new Error("One/All of the Executing tasks after enrollment failed: " + results.indexOf(false)));
+                }
+            }).catch(function(reason){
+                throw new Error(reason);
+            });
+        }
+    });
+
+    //#region Function Declaration 
+    function generateID(accID,infoID){
         accID = accID + "";
         infoID = infoID + "";
         var pad = "000";
         return (pad.substring(0,pad.length-accID.length)+accID) + (pad.substring(0,pad.length-infoID.length)+infoID);
     };
 
-    var getEnrollee = function(enrolleeID){
+    function getEnrollee(enrolleeID){
         return new Promise((resolve, reject)=>{
             student.getEnrollee(enrolleeID, function(err, enrollee){
                 if(err) return next(err);
@@ -140,7 +221,7 @@ exports.register = function(req, res, next){
         });
     };
 
-    var checkBalance = function(enrollee){
+    function checkBalance(enrollee){
         return new Promise((resolve, reject)=>{
             var OR = enrollee.data.transaction.ORnum;
             ORcode = OR;
@@ -162,7 +243,7 @@ exports.register = function(req, res, next){
         });
     };
 
-    var enroll = function(enrollee){
+    function enroll(enrollee){
         return new Promise((resolve, reject)=>{
             /**
              * Register User Account
@@ -246,7 +327,7 @@ exports.register = function(req, res, next){
         });
     };
     
-    var sendEmail = function(dataIn){
+    function sendEmail(dataIn){
         return new Promise((resolve, reject)=>{
             var accountMail = new Email();
             var mailBody = {
@@ -266,7 +347,7 @@ exports.register = function(req, res, next){
         });
     };
 
-    var enrollCourse = function(studID, accID){
+    function enrollCourse(studID, accID){
         return new Promise((resolve, reject)=>{
             student.enrollCourse([studID, accID],function(err, result1){
                 if(err) return reject(err);
@@ -300,7 +381,7 @@ exports.register = function(req, res, next){
         });
     };
 
-    var payEnrollment = function(ORnum){
+    function payEnrollment(ORnum){
         return new Promise((resolve, reject)=>{
             payments.getBalance(ORnum).then(function(transaction){
                 return (parseFloat(transaction.price) - parseFloat(transaction.balance));
@@ -342,86 +423,36 @@ exports.register = function(req, res, next){
             }).catch(next);
         });
     };
+    //#endregion
 
-    // <------ Execute Synchronously ------> //
-    getEnrollee(id).catch(next).then(enrollee=>{
-        return checkBalance(enrollee);
-    }).then(result=>{
-        if(result.passed){
-            return enroll(result.enrollee);
-        }else{
-            return res.next(200).send({success: false, detail: result.reason});
-        }
-    }).then(data=>{
-        res.status(200).send({success: data.success, detail: data.detail});
-        if(data.success){
-            var task = [];
-            task.push(sendEmail(data.userData));
-            var sideTask = new Promise((resolve, reject)=>{
-                var sched = require('../../model/scheduleModel');
-                var instModel = require('../../model/instructorModel');
-                enrollCourse(studentID, ORcode, data.userData.data.course).then(function(flag){
-                    if(flag) return payEnrollment(ORcode);
-                }).then(function(flag){
-                    if(flag) return sched.autoAssignSched_1(studentID);
-                }).then(function(schedules){
-                    return new Promise((r1, x1)=>{
-                        var promises = [];
-                        schedules.forEach((e,i)=>{
-                            promises.push(new Promise((r2,x2)=>{
-                                sched.get(e, null, function(err,data){
-                                    if(err) return x2(err);
-                                    r2(data);
-                                });
-                            }));
-                            if(i==schedules.length-1){
-                                Promise.all(promises).then(result=>{
-                                    r1(result);
-                                }).catch(x1);
-                            }
-                        });
+    function autoSchedule(studentID){
+        return new Promise((resolve, reject)=>{
+            var sched = require('../../model/scheduleModel');
+            sched.autoAssignSched_1(studentID).then(function(schedules){
+                if(schedules) return new Promise((r1, x1)=>{
+                    var promises = [];
+                    schedules.forEach((e,i)=>{
+                        promises.push(new Promise((r2,x2)=>{
+                            sched.get(e, null, function(err,data){
+                                if(err) return x2(err);
+                                r2(data);
+                            });
+                        }));
+                        if(i==schedules.length-1){
+                            Promise.all(promises).then(result=>{
+                                r1(result);
+                            }).catch(x1);
+                        }
                     });
-                }).then(function(schedules){
-                    if(schedules) return new Promise((r1,x1)=>{
-                        instModel.assignToSched(schedules,function(err,result){
-                            if(err) return x1(err);
-                            r1(result);
-                        });
-                    });
-                }).then(function(instructors){
-                    if(instructors) return new Promise((r1,x1)=>{
-                        var promises = [];
-                        if(instructors.length==0) return r1(true);
-                        instructors.forEach((e,i)=>{
-                            promises.push(new Promise((r2,x2)=>{
-                                sched.assignInst(e, function(err){
-                                    if(err) return x2(err);
-                                    r2(true);
-                                });
-                            }));
-                            if(i==instructors.length-1){
-                                Promise.all(promises).then(results=>{
-                                    if(results.indexOf(false)!=-1) return x1(new Error("Error happen on updatings scheds")); 
-                                    r1(true);
-                                }).catch(x1);
-                            }
-                        });
-                    });
-                }).then(function(flag){
-                    if(flag) return resolve(true);
-                }).catch(reject);
-            });
-            task.push(sideTask);
-            
-            Promise.all(task).then(function(results){
-                if(results.indexOf(false) != -1){
-                    next(new Error("One/All of the Executing tasks after enrollment failed: " + results.indexOf(false)));
-                }
-            }).catch(function(reason){
-                next(reason);
-            });
-        }
-    });
+                });
+                throw new Error("No schedule Produce");
+            }).then(function(schedules){
+
+            }).catch(function(err){
+                throw new Error("High level Error: " + err.stack);
+            }).catch(reject);
+        });
+    }
 }
 
 exports.getPreRegList = function(req, res, next){
