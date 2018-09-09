@@ -46,8 +46,8 @@
                                                 html += "<td id='"+ e.courseID +"'> CRS-" + e.carType.toUpperCase() + (pad.substring(0, pad.length-(e.courseID+"").length) + e.courseID) + "</td>";
                                                 html += "<td>" + e.days + "</td>";
                                                 html += "<td>" + (e.special ? "Yes" : "No") + "</td>";
-                                                html += "<td>" + (e.status == 1 ? (Date.parse(e.dateEnrolled).toString("MMM dd, yyyy")) : (e.status == 2 ? "---" : "date")) + "</td>";
-                                                html += "<td>" + (e.status == 1 ? "Ongoing" : (e.status == 2 ? "Pending" : "Finished")) + "</td>";
+                                                html += "<td>" + (e.enrollStatus == 1 ? (Date.parse(e.dateEnrolled).toString("MMM dd, yyyy")) : (e.enrollStatus == 2 ? "---" : "date")) + "</td>";
+                                                html += "<td>" + (e.enrollStatus == 1 ? "Ongoing" : (e.enrollStatus == 2 ? "Pending" : "Finished")) + "</td>";
                                                 html += "</tr>"; 
                                             }); 
                                         %>

@@ -33,6 +33,9 @@ exports.updateCart = function(req, res, next){
 exports.enrollWeb = function(req, res, next){
     var data = JSON.parse(req.body.data);
     var student = require('../../model/studentModel');
+    var billing = require('../../model/accountModel'); 
+    var course = require('../../model/lessonModel');
+    var lic = require('../../model/requireModel');
     var enroll = [];
     req.session.cart.forEach((e,i)=>{
         enroll.push({
@@ -41,22 +44,55 @@ exports.enrollWeb = function(req, res, next){
         });
         if(i == data.course.length-1){
             if(data.account){
-                student.getStudentByID(req.session.accID, function(err, id){
+                student.getStudentByID(req.session.accID, function(err, studentData){
                     if(err) return next(err);
-                    if(id == false) return res.status(200).send({success: false});
-                    data.course.forEach(element => {
-                        student.enrollCourse([null,id,element,data.branch,data.lesson,null,null,1],function(errr,result){
-                            if(errr) return next(errr);
-                            res.status(200).send({success: true});
+                    if(studentData.id == false) return res.status(200).send({success: false});
+                    course.getCoursePrice(enroll).then(coursePrice=>{
+                        var total = parseFloat(coursePrice.total);
+                        var transaction = ("Enrollment");
+                        billing.addBill(transaction, {enrolled: enroll, apply: 0}, data.payment, total, function(error, billResult){
+                            if(error) return next(error);
+                            student.enrollCourse([studentData.id, billResult.ORid, 2],function(errr,result){
+                                if(errr) return next(errr);
+                                var lesson = require('../../model/lessonModel');
+                                var course_enroll = [];
+                                enroll.forEach((e,i)=>{
+                                    course_enroll.push({
+                                        id: e.course,
+                                        special: e.special,
+                                        branch: studentData.branch,
+                                        lesson: data.lesson ? data.lesson : [],
+                                    });
+                                    if(enroll.length==1){
+                                        lesson.enrollCourse(result.insertId, course_enroll[0], function(er){
+                                            if(er) return next(er);
+                                            student.getStudentInfo(req.session.accID, 'fullname', function(errrr, studInfo){
+                                                if(errrr) return next(errrr);
+                                                res.status(200).send({success: true, invoice: billResult.ORid, name: studInfo.fullname});
+                                            });
+                                        });
+                                    }else if(i==enroll.length-1){
+                                        lesson.enrollCourse(result.insertId, course_enroll, function(er){
+                                            if(er) return next(er);
+                                            student.getStudentInfo(req.session.accID, 'fullname', function(errrr, studInfo){
+                                                if(errrr) return next(errrr);
+                                                res.status(200).send({success: true, invoice: result.ORid, name: studInfo.fullname});
+                                            });
+                                        });
+                                    }                                  
+                                });
+                            });
                         });
+                    }).catch(reason=>{
+                        throw new Error(reason);
+                    }).catch(reason=>{
+                        next(new Error(reason));
                     });
                 });
             }else{
-                var billing = require('../../model/accountModel'); 
-                var course = require('../../model/lessonModel');
-                var lic = require('../../model/requireModel');
                 course.getCoursePrice(enroll).catch(next).then(function(coursePrice){
                     lic.getLicenseApply(data.applyLicense, function(err, license){
+                        if(err) return next(err);
                         var total = parseFloat(coursePrice.total) + parseFloat(license[0].price);
                         data.transaction.transaction = ("Enrollment" + (data.applyLicense==0 ? "" : ", Apply-" + data.applyLicense));
                         billing.addBill(data.transaction.transaction, {enrolled: enroll, apply: data.applyLicense}, data.payment, total, function(err, result){

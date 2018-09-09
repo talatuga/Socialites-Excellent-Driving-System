@@ -78,7 +78,7 @@ function successLoginEnroll ()
     $('.validate-form1').on('submit',function(e){
         e.preventDefault();
         var username = $('#usernameEnroll').val();
-        var password = $('#usernameEnroll').val();
+        var password = $('#passwordEnroll').val();
         var check = true;
 
         for(var i=0; i<input.length; i++) {

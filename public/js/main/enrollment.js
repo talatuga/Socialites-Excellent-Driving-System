@@ -195,8 +195,8 @@ function payMeth1(){
     });
     preRegData.trans.transaction = "Enrolment" + preRegData.trans.transaction;
     $('#payCourse').html(ids.join());
-    $('#payPrice').html(transactionDisplay.enrollTotal.formatMoney(0));
-    $('#totalAmount').html((transactionDisplay.total).formatMoney(0));
+    $('#payPrice').html(total.formatMoney(0));
+    $('#totalAmount').html(total.formatMoney(0));
 }
 
 function paymentBack(){
@@ -889,7 +889,7 @@ function regDone(){
             if (paymentMeth==1){
                 $('.oneWeekDeadline').html(Date.parse("next week").toString("MMM dd, yyyy"));
                 preRegData.license = $('input[name="enrReqP"]:checked').val();
-                $('#invoiceLink').attr('href','api/v1/web/invoice?orno=' + invoiceLink + '&fullname=' + name);
+                $('.invoiceLink').attr('href','api/v1/web/invoice?orno=' + invoiceLink + '&fullname=' + name);
                 $('#successEnrollModal1').modal('show');
             }
             else if (paymentMeth==2){
@@ -914,11 +914,11 @@ function regDoneA(){
             course: getSpecialCourseID(),
             location: $('input[name=specialCrs]:checked').length > 1 ? $('#enrPickup').val() : null,
         };
-        enrollment.enrollWithAcc(1,preRegData.course, preRegData.lesson,preRegData.branch,paymentMeth, preRegData.special).submit(function(err){
+        enrollment.enrollWithAcc(1,preRegData.course, preRegData.lesson,preRegData.branch,paymentMeth, preRegData.special).submit(function(err,invoiceLink, name){
             if(err) return swal("Failed!", err.message, "error");
             if (paymentMeth==1){
                 $('.oneWeekDeadline').html(Date.parse("next week").toString("MMM dd, yyyy"));
-                // preRegData.license = $('input[name="enrReqP"]:checked').val();
+                $('.invoiceLink').attr('href','api/v1/web/invoice?orno=' + invoiceLink + '&fullname=' + name);
                 $('#successEnrollModal1A').modal('show');
             }
             else if (paymentMeth==2){

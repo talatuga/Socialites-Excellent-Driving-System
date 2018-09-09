@@ -19,10 +19,6 @@ $(function (){
 });
 
 function viewGradesStud(){
-    var data = $(studID).data('info');
-    var pad = "0000";
-    // var dataId = data.id;
-
     evaluation.getGradesStud(function(err, data){
         if(err){
             swal("Failed!", err.message, "error");

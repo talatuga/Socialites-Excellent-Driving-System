@@ -84,7 +84,6 @@ Student.getPreRegList = function(offset, limit, cb){
         if(err) return cb(err);
         cb(null, result);
     });
-    //PreRegister.getList(offset, limit, cb);
 }
 
 Student.getEnrollee = function(id, cb){
@@ -104,8 +103,13 @@ Enroll.db = db;
 
 Student.enrollCourse = function(data, cb){
     data.unshift(null);
-    data.push(null);
-    data.push(1);
+    if(!data[3]){
+        data.push(null);
+        data.push(1);
+    }else{
+        data.push(data[3]);
+        data[3] = null;
+    }
     Enroll.create(data, cb);
 };
 
@@ -114,10 +118,10 @@ Student.getStudentByID = function(accID, cb){
     db.get().query(sql, [accID], function(err, result){
         if(err) return cb(err);
         if(result.length < 1) return cb(null, false);
-        sql = "SELECT id FROM student WHERE userInfo = ?";
+        sql = "SELECT id, branch FROM student WHERE userInfo = ?";
         db.get().query(sql,[result[0].id],function(err2, result2){
             if(err2) return cb(err2);
-            cb(null, result2[0].id);            
+            cb(null, result2[0]);            
         });
     });
 };
