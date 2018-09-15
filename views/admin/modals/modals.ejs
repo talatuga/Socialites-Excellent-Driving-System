@@ -746,3 +746,107 @@
     </div>
   </div>
 </div>
+
+<!-- Add Announcement Modal -->
+<div class="modal fade" id="addAnnouncementModal" tabindex="-1" role="dialog" aria-labelledby="addAnnouncementModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <center>
+            <h2>ADD NEW ANNOUNCEMENT</h2>
+            <h6>Fill out all required (<span class="asterisk">*</span>) fields.</h6>
+        </center>
+        <hr class="hrCustom"><br>
+        <div>
+            <form class="formAddBranch">
+                <div>
+                    <h5 class="h5Enr"><span class="asterisk">*</span>Title <small>Maximum of 50 characters</small></h5>
+                    <input type="text" class="txtEnr3" required name="newAnnTitle" id="newAnnTitle">
+                </div><br>
+                <div>
+                    <h5 class="h5Enr"><span class="asterisk">*</span>Message <small>Maximum of 2,000 characters</small></h5>
+                    <textarea rows="8" class="enrTxtArea2" required name="newAnnMsg" id="newAnnMsg"></textarea>            
+                </div><br>
+                <div>
+                    <h5 class="h5Enr"><span class="asterisk">*</span>Announcement Date</h5>
+                    <input type="date" class="txtEnr3" required name="newAnnDateFrom" id="newAnnDateFrom">           
+                </div><br>
+            </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" onclick="cancAnn()" class="btn btn100px btn-danger">Cancel</button>
+        <button type="button" onclick="addAnn()" class="btn btn100px btn-success">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- View Announcement Modal -->
+<div class="modal fade" id="viewAnnouncementModal" tabindex="-1" role="dialog" aria-labelledby="viewAnnouncementModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <center>
+            <h2>VIEW ANNOUNCEMENT</h2>
+        </center>
+        <hr class="hrCustom"><br>
+        <div>
+            <form class="formAddBranch">
+                <div>
+                    <h5 class="h5Enr">Title</h5>
+                    <input type="text" class="txtEnr3" readonly name="viewAnnTitle" id="viewAnnTitle">
+                </div><br>
+                <div>
+                    <h5 class="h5Enr">Message</h5>
+                    <textarea rows="8" class="enrTxtArea2" readonly name="viewAnnMsg" id="viewAnnMsg"></textarea>            
+                </div><br>
+                <div>
+                    <h5 class="h5Enr">Announcement Date</h5>
+                    <input type="text" class="txtEnr3" readonly name="viewAnnDateFromTo" id="viewAnnDateFromTo">          
+                </div><br>
+            </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" data-dismiss="modal" class="btn btn100px btn-success">Okay</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Announcement Modal -->
+<div class="modal fade" id="editAnnouncementModal" tabindex="-1" role="dialog" aria-labelledby="editAnnouncementModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <center>
+            <h2>EDIT ANNOUNCEMENT DETAILS</h2>
+            <h6>Fill out all required (<span class="asterisk">*</span>) fields.</h6>
+        </center>
+        <hr class="hrCustom"><br>
+        <div>
+            <form class="formAddBranch">
+                <div>
+                    <h5 class="h5Enr"><span class="asterisk">*</span>Title <small>Maximum of 50 characters</small></h5>
+                    <input type="text" class="txtEnr3" required name="editAnnTitle" id="editAnnTitle">
+                </div><br>
+                <div>
+                    <h5 class="h5Enr"><span class="asterisk">*</span>Message <small>Maximum of 2,000 characters</small></h5>
+                    <textarea rows="8" class="enrTxtArea2" required name="editAnnMsg" id="editAnnMsg"></textarea>            
+                </div><br>
+                <div>
+                    <h5 class="h5Enr"><span class="asterisk">*</span>Announcement Date</h5>
+                    <input type="date" class="txtEnr3" required name="editAnnDateFrom" id="editAnnDateFrom">           
+                </div><br>
+            </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" onclick="cancEditAnn()" class="btn btn100px btn-danger">Cancel</button>
+        <button type="button" onclick="resetAnn()" class="btn btn100px btn-warning">Reset</button>
+        <button type="button" onclick="editAnn()" class="btn btn100px btn-success">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

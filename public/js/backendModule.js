@@ -1354,3 +1354,69 @@ var scheduler = {
         });
     },
 }
+
+var announcement = {
+    selected: -1,
+    offset: 0,
+    limit: 20,
+    currPage: 0,
+    pages: [],
+    addAnnouncement: function(_data, cb){
+        var req = $.post('api/v1/announce', {data: JSON.stringify(_data)}, function(response){
+            if(response.success == false){
+                console.log(response.detail);
+                cb(new Error(response.detail));
+            }else{
+                cb(null);
+            }
+        }).fail(function(request){
+            console.log(request.status + ": " + request.statusText);
+            cb(new Error("Error: On submitting announcement details"));
+        });
+    },
+    getAnnouncementList: function(cb){
+        var req = $.get('api/v1/announce/list', function(response){
+            if(response.success == false){
+                console.log(response.detail);
+                cb(new Error(response.detail));
+            }else{
+                cb(null, response.data);
+            }
+        }).fail(function(request){
+            console.log(request.status + ": " + request.statusText);
+            cb(new Error("Error: On displaying list of announcements"));
+        });
+    },
+    viewAnnouncement: function(cb){
+        var req = $.get('api/v1/announce/list/' + annID, function(response){
+            if(response.success == false){
+                console.log(response.detail);
+                cb(new Error(response.detail));
+            }else{
+                cb(null, response.data);
+            }
+        }).fail(function(request){
+            console.log(request.status + ": " + request.statusText);
+            cb(new Error("Error: On displaying list of announcements"));
+        });
+    },
+    editAnnouncement: function(data, cb){
+        var onSuccess = function(res){
+            if(res.success){
+                cb(null, true);
+            }else{
+                onFail(res.detail);
+            }
+        };
+        var onFail = function(err){
+            cb(new Error("Error: " + err));
+        };
+        $.ajax({
+            type: "PUT",
+            url: 'api/v1/announce/'+ annID,
+            data: {data: JSON.stringify(data)},
+            success: onSuccess,
+            error: onFail
+        });
+    }
+}

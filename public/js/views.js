@@ -213,6 +213,7 @@ var cert = function (){
 }
 
 var announce = function (){
+    viewAnnouncements();
     $('.viewDiv').hide();
     $(".view-announce").show();
     $(".search-box").hide();

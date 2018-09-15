@@ -7957,6 +7957,16 @@ tiCustom
   font-weight: bold;
 }
 
+.enrTxtArea2, .enrCivStatus
+{
+  font-size: 14px;
+  margin-left: 10px;
+  width: 95%;
+  padding: 3px;
+  background-color: #FCFCFC;
+  border: solid 1px #E2E2E2;
+}
+
 .enrTxtArea, .enrCivStatus
 {
   font-size: 14px;
@@ -7976,7 +7986,7 @@ tiCustom
   border: solid 1px #E2E2E2;
 }
 
-.enrTxtArea:focus, .enrCivStatus:focus, .enrTxtArea1:focus, .enrCivStatus1:focus
+.enrTxtArea:focus, .enrCivStatus:focus, .enrTxtArea1:focus, .enrCivStatus1:focus, .enrTxtArea2:focus
 {
   border: solid 1px #FFCD40;
   background-color: #fff;
@@ -8546,4 +8556,19 @@ tiCustom
 }
 .studNameSTC, .studCrsSTC, .studNumSTC{
   font-weight: bolder;
+}
+.tblAnnounce{
+  width: 100%;
+}
+.tblAnnounce td{
+  max-width: 0;;
+}
+.annMsg {
+  width: 45%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.noAnnounceDiv{
+  padding: 10px;
 }

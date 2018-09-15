@@ -33,6 +33,9 @@ router.use('/sched', schedule);
 var grade = require('./gradesRoute');
 router.use('/grade', grade);
 
+var announce = require('./announcementRoute');
+router.use('/announce', announce);
+
 // All routes below are secured with authentication.
 router.use(auth.auth, err.error401);
 
