@@ -44,6 +44,7 @@ exports.student = function(req, res, next){
     res.locals.title = 'Socialites Excellent Driving';
     res.locals.studID = req.session.studID;
     if(req.session.studID != -1){
+        //console.log(res.locals);
         res.render('student/index', res.locals);
     }else{
         res.locals.login = 'loginStudent';

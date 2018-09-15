@@ -20,6 +20,9 @@ router.route('/:id')
     .get(middleware.get)
     .put(middleware.update)
     .delete(middleware.del);
+
+router.get('/:id/course_enrolled', middleware.getCourse);
+
 router.route('/:id/:field')
     .get(middleware.get)
     .put(middleware.update);

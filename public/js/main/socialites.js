@@ -181,8 +181,8 @@ var cart = {
             html += "</td>";
             html += "<td>"+ data.days * parseInt(data.hour/60) +"</td>";
             html += "<td><span class='cartFree'>"+ (data.days>=20?"2":data.days>=15?"1":"None") +"</span></td>";
-            html += "<td>₱<span class='cartPrice'>"+ parseFloat(data.price).formatMoney(0) +"</span></td>";
-            html += "<td><input type='checkbox' value="+ data.courseID +" id='special"+ data.courseID +"' name='specialCrs'> Yes</td>"; //DB: Added special course checkbox
+            html += "<td>₱<span class='cartPrice cartPrice_"+ data.courseID +"'>"+ parseFloat(data.price).formatMoney(0) +"</span></td>";
+            html += "<td><input type='checkbox' data-price='" + data.price + "' value="+ data.courseID +" id='special"+ data.courseID +"' name='specialCrs'> Yes</td>"; //DB: Added special course checkbox
             html += "<td><a href='#' title='Remove' onclick='cart.delToCart("+ index +")'><i class='icon icon-trash2 iconTrash'></i></a></td>";
             html += "</tr>";
             $('#cartTbl').append(html);
@@ -192,7 +192,10 @@ var cart = {
         });
         var pickup;        
         $('input[name=specialCrs]').change(function(){
+            var id = $(this).val();
+            var newPrice = $(this).data('price');
             if (this.checked){
+                newPrice *= 2;
                 $('.divPickup').show();
                 $('#enrPickup').val("");
                 pickup=1;
@@ -202,6 +205,7 @@ var cart = {
                 $('#enrPickup').val("");
                 pickup=2;
             } //DB: Price must be doubled when checkbox is clicked
+            $('.cartPrice_' + id).html(parseFloat(newPrice).formatMoney(0));
         });
     },
 };

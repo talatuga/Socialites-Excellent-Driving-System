@@ -131,6 +131,18 @@ Lesson.getCourseEnrolled = function(studID, cb){
     });
 }
 
+Lesson.endCourse = function(studentID, cb){
+    var sql = "SELECT ce.id as 'id' FROM "+ CourseEnrolled.table +" ce, enrollment e WHERE e.id = ce.enrollmentID AND ce.status = 1 AND e.studID = ?";
+    var sql2 = "UPDATE " + CourseEnrolled.table + " SET status = 0 WHERE status = 1 AND id = ?";
+    db.get().query(sql, [studentID], function(err, course_enrolled){
+        if(err) return cb(err);
+        db.get().query(sql2, [course_enrolled[0].id], function(err){
+            if(err) return cb(err);
+            cb(null);
+        });
+    });
+}
+
 Lesson.getLessonEnrolled = function(studID, cb){
     var sql = "SELECT ce.selectedLesson, l.id, l.title FROM course_enrolled ce, enrollment en, lesson l WHERE en.id = ce.enrollmentID AND en.studID = ?";
     db.get().query(sql, [studID], function(err, result){
@@ -141,7 +153,6 @@ Lesson.getLessonEnrolled = function(studID, cb){
                 if(err) return cb(err);
                 cb(null,result);
             });
-            // console.log(result);
         }else{
             var lessonsIDArr = JSON.parse(result[0].selectedLesson);
             var query = [];
@@ -165,10 +176,8 @@ Lesson.getLessonEnrolled = function(studID, cb){
 Lesson.getHandledStudents = function(instID, cb){
     var sql = "SELECT s.studID, s.instID, ui.fullname, ce.courseID, ce.special, b.name, c.carType FROM course c, schedule s, student st, userinfo ui, course_enrolled ce, branch b, enrollment e WHERE s.instID = ? AND st.userInfo = ui.id AND st.id = s.studID AND s.branch = b.id AND e.studID = st.id  AND ce.enrollmentID = e.id AND c.id = ce.courseID AND ce.status = 1 GROUP BY s.studID";
         db.get().query(sql, [instID], function(err, result){
-        // console.log(result);
         if(err) return cb(err);
         if(result.length == 0) return cb(null, []);
-        if(err) return cb(err);
         cb(null, result);
     });
 }
@@ -176,10 +185,8 @@ Lesson.getHandledStudents = function(instID, cb){
 Lesson.getHandledPast = function(instID, cb){
     var sql = "SELECT s.studID, s.instID, ui.fullname, ce.courseID, ce.special, b.name, c.carType FROM course c, schedule s, student st, userinfo ui, course_enrolled ce, branch b, enrollment e WHERE s.instID = ? AND st.userInfo = ui.id AND st.id = s.studID AND s.branch = b.id AND e.studID = st.id  AND ce.enrollmentID = e.id AND c.id = ce.courseID AND ce.status = 0 GROUP BY s.studID";
         db.get().query(sql, [instID], function(err, result){
-        // console.log(result);
         if(err) return cb(err);
         if(result.length == 0) return cb(null, []);
-        if(err) return cb(err);
         cb(null, result);
     });
 }

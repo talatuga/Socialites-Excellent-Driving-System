@@ -24,6 +24,26 @@ $("#btnViewStudent").on("click", function() { //opens view student page upon cli
     resetSettingsStud();
     loadEvalStud();
     viewGradesStud();
+    scheduler.getStudSched(stud.selectedID, function(err, sched){
+        if(err) return console.error(err);
+        if(sched.length == 0) return;
+        var html = "<table class='table tblCustom'>";
+        html += "<thead><tr><th>Date</th><th>Time</th><th>Instructor</th><th>Branch</th></tr></thead><tbody class='studScheduleTbl'></tbody></table>";
+        $('#studentSched').html(html);
+        sched.forEach((e,i)=>{
+            scheduler.getInstName(e.instID, function(err, name){
+                scheduler.getBranchName(e.branch, function(err, branch){
+                    var row = "<tr>";
+                    row += "<td>"+ Date.parse(e.date).toString('MMM dd, yyyy') +"</td>";
+                    row += "<td>"+ Date.parse(e.time).toString('hh:mm tt') +"</td>";
+                    row += "<td>"+ name.replace(/_/g, " ") +"</td>";
+                    row += "<td>"+ branch +"</td>";
+                    row += "</tr>";
+                    $('.studScheduleTbl').append(row);
+                });
+            });
+        });
+    });
 });
 
 $(".backStud").on("click", function() { //closes view instructor page then goes back to previous page
@@ -366,9 +386,9 @@ var renderStudentTable = function(data, cb){ // <--- nag declare ng var na may l
     }
     if(data == undefined || data.length == 0) return render();
     var loopCounter = data.length; // <--- declare ng counter. di kasi gumagana yung break; sa forEach() and Asynchronous kasi siya.
-    data.forEach(element => { // <--- expecting na array yung data, gagamitin natin yung forEach() which is asynchronous function. ilalagay sa element variable yung bawat element nung data and i perform yung action below it.       
+    data.forEach((element,index) => { // <--- expecting na array yung data, gagamitin natin yung forEach() which is asynchronous function. ilalagay sa element variable yung bawat element nung data and i perform yung action below it.       
         html += "<tr onclick='viewStud("+ element.id +")'>";
-        html += "<td>" + element.id + "</td>";
+        html += "<td>" + /* element.id */ (index+1) + "</td>";
         html += "<td>" + element.fullname.replace(/_/g, " ") + "</td>";
         //html += "<td>" + element.accStatus + "</td>"; // <-- pa edit nalang nito kung pano yung may warning/sucess
         html += "</tr>"; // <--- common sense na siguro yung start nito till here. hahaha
@@ -535,7 +555,15 @@ var viewStud = function(id){
         $('.studAddress').html(profile.address);
         $('.studPhone').html(profile.telno);
         $('.studEmail').html(profile.email);
-        $('.enrolledCrs').html("");
+        $('.enrolledCrs').html('none');
+
+        stud.getCourseEnrolled(function(err, course){
+            if(err) return console.error(err);
+            courseModule.selected = course.courseID;
+            courseModule.getLocalData(function(courseData){
+                $('.enrolledCrs').html(courseData.courseID);
+            });
+        });
 
         payName = (profile.fullname.replace(/_/g, " "));
         payDate = ((Date.parse(today).toString('MM/dd/yyyy')));

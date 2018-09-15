@@ -19,11 +19,13 @@ exports.addNotificationMethod = function(target, type, message, action, cb){
         var dbTarget = null;
         if(target != "admin"){
             dbTarget = target;
+        }else{
+            dbTarget = 1;
         }
         notifModel.add(dbTarget, type, message, action, function(err, id){
             if(err) return next(err);
             cb(null, "Notifying user/s");
-            notifyPending(target, id, err=>{if(err) return cb(err)});
+            notifyPending(dbTarget, id, err=>{if(err) return cb(err)});
         });
     }
 }
@@ -103,7 +105,11 @@ function notifyPending(targetId, notifId, cb){
             }
         });
     }else{
-        getActivePending(targetId, function(user){
+        var id = targetId;
+        if(targetId == 'admin'){
+            id = 1;
+        }
+        getActivePending(id, function(user){
             if(user){
                 notifModel.getPending(notifId, function(err, notifData){
                     if(err) return cb(err);

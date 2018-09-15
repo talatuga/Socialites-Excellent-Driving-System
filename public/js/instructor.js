@@ -18,6 +18,26 @@ $(function () {
         $('.view-viewInstructor').show();
         resetSettingsInst();
         loadEvalInst();   
+        scheduler.getInstSched(inst.selected, function(err, sched){
+            if(err) return console.error(err);
+            if(sched.length == 0) return;
+            var html = "<table class='table tblCustom'>";
+            html += "<thead><tr><th>Date</th><th>Time</th><th>Instructor</th><th>Branch</th></tr></thead><tbody class='instScheduleTbl'></tbody></table>";
+            $('#instructorSched').html(html);
+            sched.forEach((e,i)=>{
+                scheduler.getStudName(e.studID, function(err, student){
+                    scheduler.getBranchName(e.branch, function(err, branch){
+                        var row = "<tr>";
+                        row += "<td>"+ Date.parse(e.date).toString('MMM dd, yyyy') +"</td>";
+                        row += "<td>"+ Date.parse(e.time).toString('hh:mm tt') +"</td>";
+                        row += "<td>"+ student.fullname.replace(/_/g, " ") +"</td>";
+                        row += "<td>"+ branch +"</td>";
+                        row += "</tr>";
+                        $('.instScheduleTbl').append(row);
+                    });
+                });
+            });
+        });
     });
     $(".backInst").on("click", function () { //when back button is clicked (right side of instructor information)
         //SD: Dapat may modal pa dito kung ididiscard ba yung changes

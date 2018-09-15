@@ -16,8 +16,9 @@ var generateInstId = function(account, info){
     account = "" + account;
     info = "" + info;
     var prefix = "INST";
-    var pad = "000";
-    return prefix + "-" + (pad.substring(0, pad.length - account.length) + account) + (pad.substring(0, pad.length - info.length) + info);
+    var pad = "0000";
+    var date = Date.parse('now').toString('yyyy');
+    return prefix + "-" + (date + "-" + (pad.substring(0, pad.length - info.length) + info));
 }
 
 //Override getList() function from parent model class.
@@ -160,7 +161,7 @@ Instructor.assignToSched = function(schedule, cb){
         this.getAvailableInst(schedule.branch, schedule.date, schedule.time, function(err, inst){
             if(err) return cb(err);
             if(inst.length==0) return cb(null, false);
-            console.log("Instructor:",inst," available");
+            //console.log("Instructor:",inst," available");
             cb(null, inst[0]);
         });
     }

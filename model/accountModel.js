@@ -2,6 +2,7 @@ var db = require('./db');
 var ModelModule = require('./model');
 var table = "account";
 var paymentTable = "payment";
+var paymentSlipTable = "payment_slip";
 var generator = require('../bin/util/tokenGenerator');
 var validation = require('../bin/util/validation');
 var valid = new validation();
@@ -153,6 +154,14 @@ Account.getStudentTransactions = function(studID, cb){
         if(err) return cb(err);
         cb(null, result)
     });
+}
+
+Account.addPaymentSlip = function(ORnum, filepath, cb){
+    var sql = "INSERT INTO " + paymentSlipTable + " VALUES(null,?,?,null,null)";
+    db.get().query(sql, [ORnum, filepath], function(err, result){
+        if(err) return cb(err);
+        cb(null, result.insertId);
+    });    
 }
 
 module.exports = Account;

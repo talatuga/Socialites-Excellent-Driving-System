@@ -1,32 +1,4 @@
 var a;
-$(function(){
-    $('input[name=specialCrs]').change(function(){
-        if (this.checked){
-            $('.divPickup').show();
-            $('#enrPickup').val("");
-            a=1;
-        }
-        else{
-            $('.divPickup').hide();
-            $('#enrPickup').val("");
-            a=2;
-        }
-    });
-});
-
-
-function specialCrsChange(){
-    if (this.checked){
-            $('.divPickup').show();
-            $('#enrPickup').val("");
-            a=1;
-        }
-        else{
-            $('.divPickup').hide();
-            $('#enrPickup').val("");
-            a=2;
-        }
-}
 
 function enrollClick (){
     var x = $('#enrPickup').val();

@@ -554,6 +554,26 @@ var stud = {
             cb(new Error("Error: On displaying student grades"));
         });
     },
+    getCourseEnrolled: function(cb){
+        $.ajax({
+            type: 'GET',
+            url: 'api/v1/stud/' + this.selectedID + '/course_enrolled',
+            success: res=>{
+                if(res.success){
+                    res.data.forEach((e,i)=>{
+                        if(e.enrollStatus == 1){
+                            return cb(null, e);
+                        }
+                    });
+                }else{
+                    cb(new Error(res.detail));
+                }
+            },
+            error: xhr=>{
+                cb(new Error(xhr.status + ":" + xhr.statusText));
+            }
+        });
+    }
 }
 /* 
 *   lesson module,
@@ -1353,6 +1373,46 @@ var scheduler = {
             }
         });
     },
+  getStudSched: function(studID, cb){
+        $.ajax({
+            type: "GET",
+            url: "api/v1/sched",
+            data: {
+                studid: studID,
+                status: 2
+            },
+            success: res=>{
+                if(res.success){
+                    cb(null, res.data);
+                }else{
+                    cb(new Error(res.detail));
+                }
+            },
+            error: xhr=>{
+                cb(new Error(xhr.status + ":" + xhr.statusText));
+            }
+        });
+    },
+    getInstSched: function(instID, cb){
+        $.ajax({
+            type: "GET",
+            url: "api/v1/sched",
+            data: {
+                instid: instID,
+                status: 2
+            },
+            success: res=>{
+                if(res.success){
+                    cb(null, res.data);
+                }else{
+                    cb(new Error(res.detail));
+                }
+            },
+            error: xhr=>{
+                cb(new Error(xhr.status + ":" + xhr.statusText));
+            }
+        });
+    },
 }
 
 var announcement = {
@@ -1418,5 +1478,5 @@ var announcement = {
             success: onSuccess,
             error: onFail
         });
-    }
+    },
 }

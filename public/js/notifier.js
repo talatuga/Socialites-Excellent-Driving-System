@@ -14,7 +14,6 @@ var notifier = {
                         cb(res.data);
                         notif();
                     }else{
-                        cb(res.detail);
                         notif();
                     }
                 },

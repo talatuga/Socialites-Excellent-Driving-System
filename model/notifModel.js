@@ -3,7 +3,7 @@ var table = "notification";
 
 exports.add = function(target, type, message, actions, cb){
     var sql = "INSERT INTO " + table + "(accID, type, detail, action) VALUES(?,?,?,?)";
-    db.get().query(sql, [target, type, message, actions], function(err, result){
+    db.get().query(sql, [target, type, JSON.stringify(message), actions], function(err, result){
         if(err) return cb(err);
         cb(null, result.insertId);
     });

@@ -114,6 +114,7 @@ exports.delAll = function(req, res, next){} //Deprecated. Soon to delete from AP
  * @param {Function} next 
  */
 exports.register = function(req, res, next){
+    //#region Variable Declaration 
     var id = req.body.id;
     var password = require('../../bin/util/tokenGenerator').generateToken(15);
     var accountModel = require('../../model/userAccModel');
@@ -122,6 +123,7 @@ exports.register = function(req, res, next){
     var ORcode;
     var enrollmentID;
     var enrolleeData;
+    //#endregion
 
     // <------ Execute Synchronously ------> //
     getEnrollee(id).catch(next).then(enrollee=>{
@@ -167,10 +169,10 @@ exports.register = function(req, res, next){
 
     //#region Function Declaration 
     function generateID(accID,infoID){
-        accID = accID + "";
         infoID = infoID + "";
-        var pad = "000";
-        return (pad.substring(0,pad.length-accID.length)+accID) + (pad.substring(0,pad.length-infoID.length)+infoID);
+        var pad = "0000";
+        var date = Date.parse('now').toString('yyyy');
+        return (date + "-" + (pad.substring(0,pad.length-infoID.length)+infoID));
     };
 
     function getEnrollee(enrolleeID){
@@ -386,35 +388,6 @@ exports.register = function(req, res, next){
         });
     };
     //#endregion
-
-    function autoSchedule(studentID){
-        return new Promise((resolve, reject)=>{
-            var sched = require('../../model/scheduleModel');
-            sched.autoAssignSched_1(studentID).then(function(schedules){
-                if(schedules) return new Promise((r1, x1)=>{
-                    var promises = [];
-                    schedules.forEach((e,i)=>{
-                        promises.push(new Promise((r2,x2)=>{
-                            sched.get(e, null, function(err,data){
-                                if(err) return x2(err);
-                                r2(data);
-                            });
-                        }));
-                        if(i==schedules.length-1){
-                            Promise.all(promises).then(result=>{
-                                r1(result);
-                            }).catch(x1);
-                        }
-                    });
-                });
-                throw new Error("No schedule Produce");
-            }).then(function(schedules){
-
-            }).catch(function(err){
-                throw new Error("High level Error: " + err.stack);
-            }).catch(reject);
-        });
-    }
 }
 
 exports.getPreRegList = function(req, res, next){
@@ -482,7 +455,7 @@ exports.enroll = function(req, res, next){
 }
 
 exports.getCourse = function(req , res, next){
-    var studID = req.session.studID;
+    var studID = req.params.id || req.session.studID;
     var offset = req.query.offset ? req.query.offset : 0;
     var limit = req.query.limit ? req.query.limit : 10;
 

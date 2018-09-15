@@ -286,21 +286,22 @@ function searchSchedView(){
     scheduler.getSched(Date.parse(searchSched), branchSelected, function(err, data){
       if(err) return swal("Failed!", err.message, "error");
       $('#schedListView').html(""); 
-      data.forEach((e,i)=>{
-        scheduler.getBranchName(e.branch,(_,branch)=>{
-          scheduler.getInstName(e.instID,(_,instName)=>{
-            scheduler.getStudName(e.studID,(_,studName)=>{
-              var html = "<tr>";
-              html += "<td>"+ e.id +"</td>";
-              html += "<td>"+ Date.parse(e.time).toString("hh:mm tt") +"</td>";
-              html += "<td>"+ branch +"</td>";
-              html += "<td>"+ instName.replace(/_/g," ") +"</td>";
-              html += "<td>"+ studName.fullname.replace(/_/g," ") +"</td>";
-              html += "<td></td>";
-              html += "</tr>";
-              $('#schedListView').append(html);
+      scheduler.getBranchName(branchSelected,(_,branch)=>{
+        $('.searchBranchDisplayListSpan').html(branch);
+        data.forEach((e,i)=>{
+            scheduler.getInstName(e.instID,(_,instName)=>{
+              scheduler.getStudName(e.studID,(_,studName)=>{
+                var html = "<tr>";
+                html += "<td>"+ e.id +"</td>";
+                html += "<td>"+ Date.parse(e.time).toString("hh:mm tt") +"</td>";
+                html += "<td>"+ branch +"</td>";
+                html += "<td>"+ instName.replace(/_/g," ") +"</td>";
+                html += "<td>"+ studName.fullname.replace(/_/g," ") +"</td>";
+                html += "<td></td>";
+                html += "</tr>";
+                $('#schedListView').append(html);
+              });
             });
-          });
         });
       });
       $('.displaySchedDiv').show();

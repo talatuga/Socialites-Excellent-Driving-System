@@ -1,5 +1,6 @@
 var account = require('../../model/accountModel');
 var license = require('../../model/requireModel');
+var notifier = require('./notification');
 var Validation = new (require('../../bin/util/validation'));
 
 var addPaymentFunc = function(ORno, amount){
@@ -85,4 +86,17 @@ exports.addOnlinePayment = function(req, res, next){
 
 exports.getEnrollmentBal = function(req, res, next){
 
+};
+
+exports.uploadPaymentSlip = function(req, res, next){
+    if(!req.file) return res.status(200).send({success: false, detail: 'No file Uploaded!'});
+    var paymentSlip = req.file.path;
+    var ornum = req.body.ornumber;
+    account.addPaymentSlip(ornum, paymentSlip, function(err, id){
+        if(err) return next(err);
+        res.status(200).send({success: true, detail: 'Successfully Submitted, Please wait for an hour to validate the payment.'});
+        notifier.addNotificationMethod('admin', 'payments', {title: 'Payment Slip Received', message: 'Bank Payment Slip Submitted, Please Validate'}, '', function(err){
+            if(err) return next(err);
+        });
+    });
 };

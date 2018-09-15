@@ -20,16 +20,20 @@
         <%
             var asd;
             var pad = "000";
-            courses.forEach((ei)=>{
-                if(ei.enrollStatus == 1){
-                    asd = ei;
+            courses.forEach((e,i)=>{
+                if(e.enrollStatus == 1){
+                    asd = e;
+                }
+                if(i==courses.length-1 && !asd){
+                    asd = {branch: 0, carType: ''};
                 }
             });
-            var currBranch;
+            var currBranch = {id: 1};
+            console.log(branch);
             branch.forEach((e,i)=>{
-            if(e.id == asd.branch){
-                currBranch = e;
-            }
+                if(e.id == asd.branch){
+                    currBranch = e;
+                }
             });
             var selectVehiA = [];
             var selectVehiB = [];

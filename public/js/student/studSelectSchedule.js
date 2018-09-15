@@ -1,5 +1,7 @@
 var schedToRemove = [];
 var schedChange = [];
+var overtime = 0;
+var straight = 0;
 $(function() {
   $('#external-events .fc-event').each(function() {
     // store data so the calendar knows to render an event upon drop
@@ -20,6 +22,31 @@ $(function() {
 
   var updateCalendar = (event)=>{
     $('#calendarSelectSched').fullCalendar("updateEvent",event);
+    var events = $('#calendarSelectSched').fullCalendar("clientEvents");
+    overtime = 0;
+    straight = 0;
+    events.forEach((e,i)=>{
+      if(e.overtime){
+        overtime++;
+      }
+      if(i==events.length-1){
+        var total = overtime * 50;
+        $('.tempOTF').html(total.formatMoney(2));
+      }
+    });
+    for(var x=0; x<events.length; x++){
+      for(var y=x+1; y<events.length; y++){
+        var sched1 = moment(events[x].start).format("MMDDYYYY");
+        var sched2 = moment(events[y].start).format("MMDDYYYY");
+        if(sched1 == sched2){
+          straight++;
+        }
+        if(x==events.length-2 && y==events.length-1){
+          var total = straight * 100;
+          $('.tempSF').html(total.formatMoney(2));
+        }
+      }
+    }
   };
 
   /* initialize the calendar
@@ -39,7 +66,7 @@ $(function() {
     eventLimit: true, // allow "more" link when too many events
     eventClick: function(event, jsEvent, view){
       //console.log(event); OPEN A MODAL THAT SHOWS THE INFO ABOUT THIS SCHEDULE <----------------------------------------
-      console.log(event._id);
+      //console.log(event._id);
       editRecSched1(event._id);
     },
     drop: function(date, jsEvent, ui, resourceId) {
@@ -79,18 +106,20 @@ $(function() {
             event.color = "#ff1e1e";
             updateCalendar(event);
           }else{
+            event.overtime = false;
             var color;
             switch(available){
-              case 0 : {
+              case 0 : { //Unavailable
                 color = "#ff1e1e";
                 break;
               } 
-              case 1 : {
+              case 1 : {  //Available
                 color = "#3A87AD";
                 break;
               } 
-              case 2 : {
+              case 2 : {  //Overtime
                 color = "#ffbd16";
+                event.overtime = true;
                 break;
               } 
             }

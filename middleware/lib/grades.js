@@ -14,10 +14,12 @@ exports.create = function(req, res, next){
     data.push(dataInput.grade);
     data.push(dataInput.dateEvaluated);
 
-    grade.addEvaluation(data, function(err, result){
-        console.log(err);
+    grade.addEvaluation(data, function(err){
         if(err) return next(err);
-        res.status(200).send({success: true, detail: "Successfully Created!"});
+        lesson.endCourse(dataInput.studID, function(err){
+            if(err) return next(err);
+            res.status(200).send({success: true, detail: "Successfully Created!"});
+        })
     });
 }
 
@@ -57,7 +59,6 @@ exports.update = function(req, res, next){
     data.push(dataIn.comment);
     data.push(dataIn.schedID);
     
-    // console.log(data);
     grade.update(id, dataIn.grade, "grade", function(err){
         if(err) return next(err);
         grade.update(id, dataIn.comment, "comment", function(er){
@@ -93,7 +94,6 @@ exports.addGrade = function(req, res, next){
     data.push(dataInput.courseID);
     data.push(dataInput.schedID);
     
-    // console.log(data);
     grade.create(data, function(err, result){
         if(err) return next(err);
         res.status(200).send({success: true, detail: "Successfully Created!"});
