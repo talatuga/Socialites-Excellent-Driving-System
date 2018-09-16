@@ -108,6 +108,14 @@ exports.getGradesInst = function(req, res, next){
     });
 }
 
+exports.getGradesInst2 = function(req, res, next){
+    if(res.locals.authenticated == 0) return next();
+    grade.getGradesInst2(req.params.id, function(err, result){
+        if(err) return next(err);
+        res.status(200).send({success: true, data: result});
+    });
+}
+
 exports.getGradesStud = function(req, res, next){
     if(res.locals.authenticated == 0) return next();
     grade.getGradesStudent(req.params.id, function(err, result){
@@ -116,9 +124,25 @@ exports.getGradesStud = function(req, res, next){
     });
 }
 
+exports.getGradesStud2 = function(req, res, next){
+    if(res.locals.authenticated == 0) return next();
+    grade.getGradesStudent2(req.params.id, function(err, result){
+        if(err) return next(err);
+        res.status(200).send({success: true, data: result});
+    });
+}
+
 exports.getEvalStud = function(req, res, next){
     if(res.locals.authenticated == 0) return next();
     grade.getEvalStud(req.params.id, function(err, result){
+        if(err) return next(err);
+        res.status(200).send({success: true, data: result});
+    });
+}
+
+exports.getEvalInstPerc = function(req, res, next){
+    if(res.locals.authenticated == 0) return next();
+    grade.getEvalInstPerc(req.params.id, function(err, result){
         if(err) return next(err);
         res.status(200).send({success: true, data: result});
     });
@@ -135,6 +159,14 @@ exports.getGradesSum = function(req, res, next){
 exports.addGradeModal = function (req, res, next){
     if(res.locals.authenticated == 0) return next();
     grade.addGradeModal(req.params.id, req.session.instID, function(err, result){
+        if(err) return next(err);
+        res.status(200).send({success: true, data: result});
+    });
+}
+
+exports.getEvalInst = function (req, res, next){
+    if(res.locals.authenticated == 0) return next();
+    grade.getEvalInst(req.params.id, function(err, result){
         if(err) return next(err);
         res.status(200).send({success: true, data: result});
     });

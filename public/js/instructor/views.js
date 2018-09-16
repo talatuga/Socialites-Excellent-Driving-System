@@ -57,6 +57,7 @@ var instStudent = function (){
 }
 
 var instEvaluation = function (){
+    loadEvalInst();
     $('.viewDiv').hide();
     $(".view-instEvaluation").show();
     $(".search-box").hide();

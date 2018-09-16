@@ -13,7 +13,9 @@ $(function (){
             selectedCourse = $(this).closest('tr').find('td:eq(0)').text();
             $('.h4selCrsforLes').html(selectedCourse);
             $('.nav1 a[href="#lessonTab"]').tab('show');
+            $(".preloader").fadeIn(); 
             viewGradesStud();
+            $(".preloader").fadeOut(); 
             }
     });
 });
@@ -54,5 +56,18 @@ function viewGradesStud(){
 }
 
 function viewEvaluationStud(){
+    evaluation.getGradesStud(function(err, data){
+        if(err){
+            swal("Failed!", err.message, "error");
+            console.log(err);
+        }else{
+            $('.lessh6').html("");
+            data.forEach(e => {
+                dataID = e.id;
+                var html = e.title + " &bull; ";
+                $('.lessh6').append(html);
+            });
+        }
+    });
     $('#viewEvalStudModal').modal("show");
 }

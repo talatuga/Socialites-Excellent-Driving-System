@@ -69,19 +69,19 @@ function viewGradesInst(id){
                 $('.btnAddI').show();
                 $('.btnEvalI').hide();
             }
-            $("#studGradesInst tr").on('click', function() {
-                selectedLesson = $(this).closest('tr').find('td:eq(1)').text();
-                selectedGrade = $(this).closest('tr').find('td:eq(5)').text();
-                selectedComment = $(this).closest('tr').find('td:eq(6)').text();
-                selectedDate = $(this).closest('tr').find('td:eq(2)').text();
-                selectedTime = $(this).closest('tr').find('td:eq(3)').text();
-                selectedDataID = $(this).closest('tr').find('td:eq(0)').attr("id");
-                selectedLessonID = $(this).closest('tr').find('td:eq(1)').attr("id");
-                selectedInstID = $(this).closest('tr').find('td:eq(4)').attr("id");
-                selectedSchedID = $(this).closest('tr').find('td:eq(2)').attr("id");
-                if (selectedInstID==instID) showEditGradeModal();
-                else swal("Oops!", "You cannot update this grade because you are not the assigned instructor.", "error");
-            });
+            // $("#studGradesInst tr").on('click', function() {
+            //     selectedLesson = $(this).closest('tr').find('td:eq(1)').text();
+            //     selectedGrade = $(this).closest('tr').find('td:eq(5)').text();
+            //     selectedComment = $(this).closest('tr').find('td:eq(6)').text();
+            //     selectedDate = $(this).closest('tr').find('td:eq(2)').text();
+            //     selectedTime = $(this).closest('tr').find('td:eq(3)').text();
+            //     selectedDataID = $(this).closest('tr').find('td:eq(0)').attr("id");
+            //     selectedLessonID = $(this).closest('tr').find('td:eq(1)').attr("id");
+            //     selectedInstID = $(this).closest('tr').find('td:eq(4)').attr("id");
+            //     selectedSchedID = $(this).closest('tr').find('td:eq(2)').attr("id");
+            //     if (selectedInstID==instID) showEditGradeModal();
+            //     else swal("Oops!", "You cannot update this grade because you are not the assigned instructor.", "error");
+            // });
         }
     });
 }
@@ -212,6 +212,19 @@ function evaluateModal(){
             $('.evalGrade').html(sum <= 24 ? "NEEDS TO EXTEND" : ((sum <= 34 && sum >= 25) ? "NEEDS PRACTICE" : "PASSED"));
         }
     });
+    evaluation.getGradesInst(function(err, data){
+        if(err){
+            swal("Failed!", err.message, "error");
+            console.log(err);
+        }else{
+            $('.lessh6').html("");
+            data.forEach(e => {
+                dataID = e.id;
+                var html = e.title + " &bull; ";
+                $('.lessh6').append(html);
+            });
+        }
+    });
     $('.evalCrs').html(course);
     $('#commentInstEval').val("");
     $('.instEvaluator').html('Austin Butler');
@@ -244,7 +257,9 @@ function saveLessonGrade(){
             }else{
                 swal ("Success!", "Lesson grade has been added!", "success");
                 $('#addGradeModal').modal('hide');
+                $(".preloader").fadeIn(); 
                 viewGradesInst(studID);
+                $(".preloader").fadeOut(); 
             }
         });
     }
@@ -272,7 +287,9 @@ function saveEditLessonGrade(){
         }else{
             swal ("Success!", "Changes have been saved!", "success");
             $('#editGradeModal').modal('hide');
+            $(".preloader").fadeIn(); 
             viewGradesInst(studID);
+            $(".preloader").fadeOut(); 
         }
     });
 }
@@ -309,6 +326,19 @@ function doneEvalStud(){
 
 function viewEvalPast(){
     studID = $('#tblHandledStudPast tr').closest('tr').find('td:eq(0)').text();
+    evaluation.getGradesInst2(function(err, data){
+        if(err){
+            swal("Failed!", err.message, "error");
+            console.log(err);
+        }else{
+            $('.lessh6').html("");
+            data.forEach(e => {
+                dataID = e.id;
+                var html = e.title + " &bull; ";
+                $('.lessh6').append(html);
+            });
+        }
+    });
     evaluation.getEvalStud(function (err, data){
         if(err){
             swal("Failed!", err.message, "error");

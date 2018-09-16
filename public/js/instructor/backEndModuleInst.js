@@ -43,6 +43,19 @@ var evaluation = {
             cb(new Error("Error: On displaying student grades"));
         });
     },
+    getGradesInst2: function(cb){
+        var req = $.get('api/v1/grade/student2/' + studID, function(response){
+            if(response.success == false){
+                console.log(response.detail);
+                cb(new Error(response.detail));
+            }else{
+                cb(null, response.data);
+            }
+        }).fail(function(request){
+            console.log(request.status + ": " + request.statusText);
+            cb(new Error("Error: On displaying student grades"));
+        });
+    },
     getGradesSum: function(cb){
         var req = $.get('api/v1/grade/student/' + studID + "/sum", function(response){
             if(response.success == false){
@@ -112,6 +125,32 @@ var evaluation = {
         }).fail(function(request){
             console.log(request.status + ": " + request.statusText);
             cb(new Error("Error: On displaying evaluation"));
+        });
+    },
+    getEvalInstPerc: function(cb){
+        var req = $.get('api/v1/grade/eval/' + instID, function(response){
+            if(response.success == false){
+                console.log(response.detail);
+                cb(new Error(response.detail));
+            }else{
+                cb(null, response.data);
+            }
+        }).fail(function(request){
+            console.log(request.status + ": " + request.statusText);
+            cb(new Error("Error: On displaying evaluation percentage"));
+        });
+    },
+    getEvalInst: function(cb){
+        var req = $.get('api/v1/grade/evalInst/' + instID, function(response){
+            if(response.success == false){
+                console.log(response.detail);
+                cb(new Error(response.detail));
+            }else{
+                cb(null, response.data);
+            }
+        }).fail(function(request){
+            console.log(request.status + ": " + request.statusText);
+            cb(new Error("Error: On displaying evaluation report"));
         });
     },
 }

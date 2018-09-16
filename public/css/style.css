@@ -1692,6 +1692,7 @@ textarea {
     position: relative;
   }
   .mini-sidebar .sidebar-nav #sidebarnav li.active {
+    color: #F8D108;
     width:100%;
   }
   .mini-sidebar .sidebar-nav #sidebarnav > li > ul {
@@ -8586,4 +8587,19 @@ tiCustom
 }
 .noAnnounceDiv, .noFaqDiv{
   padding: 10px;
+}
+.accH5{
+  text-align: center;
+  color: #EDD55D;
+  border-bottom: solid 2px #e7713a6e;
+  border-top: solid 2px #e7713a6e;
+  padding: 5px
+}
+.h5a{
+  color: #5d0000;
+  padding-top: 10px;
+}
+.noEvalYet{
+  padding: 20px;
+  text-align: center
 }

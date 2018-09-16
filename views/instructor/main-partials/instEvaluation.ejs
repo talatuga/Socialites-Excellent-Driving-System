@@ -23,30 +23,15 @@
                                 <span><i class="icon icon-business-24 tiSide f-s-40 color-danger"></i></span>
                             </div>
                             <div class="media-body media-text-right">
-                                <% 
-                                    if (evalPerc.length!=0){
-                                        var html = "<h2 class='startEvalPerc'>" + (evalPerc[0].count*20 + "%") + "</h2>";
-                                    }else{
-                                        var html = "<h2 class='startEvalPerc'>" + ("0%") + "</h2>";
-                                    }
-                                %>
-                                <%-html%>
-                                <p class="m-b-0" style="color: black">Overall Evaluation Percentage<br><span>(since Jan. <span class="yearEval"></span>)</span></p>
+                                <h2 class='startEvalPerc'></h2>
+                                <p class="m-b-0" style="color: black">Overall Evaluation Percentage<br><span>(from January - <span class="uptoMonth">August</span> <span class="yearEval"></span>)</span></p>
                             </div>
                         </div>
                     </div>
                     <div class="card">
-                    <h5>Search evaluation:</h5>
-                        <div class="form-group">
-                            <div class="input-group input-group-flat">
-                                <!-- <span class="input-group-btn"><button class="btn btn-custom" type="submit"><i class="ti-search"></i></button></span> -->
-                                <input type="text" class="form-control" placeholder="Search for student name..." style="font-size: 12px;">
-                                <span class="input-group-btn"><button class="btn btn-primary input-group-close-icon" onclick="clrSearchBranch()" type="button"><i class="ti-close"></i></button></span>
-                            </div>
-                        </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <h6>Month:</h6>
+                                <h6 style="font-weight: bolder">Month (<span class="yrNow"></span>):</h6>
                                 <select class="selectFromEval" style="width: 100%">
                                     <option value="1">January</option>
                                     <option value="2">February</option>
@@ -63,7 +48,7 @@
                                 </select>
                             </div>
                         </div><br>
-                        <button type="button" onclick="goEvalSearch()" style="width: 100%" class="btn13 btn btn-dark m-b-10 m-l-5">Go</button>
+                        <button type="button" onclick="goEvalSearch()" style="width: 95%" class="btn13 btn btn-dark m-b-10 m-l-5">Go</button>
                     </div>
 
                 </div>
@@ -81,7 +66,8 @@
                             <!--first tab-->
                             <div class="tab-pane active" id="evaluationInst" role="tabpanel">
                                 <div class="card-body">
-                                    <div class="profiletimeline instTab">
+                                    <h5 class="noEvalYet">Evaluation report is not yet available for display and may only be viewed by the end of the month.</h5>
+                                    <div class="profiletimeline instTab evalInstDiv">
                                         <% 
                                             var html = "";
                                             var pad = "000";

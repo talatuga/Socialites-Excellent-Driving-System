@@ -46,7 +46,7 @@
                                                 html += "<td id='"+ e.courseID +"'> CRS-" + e.carType.toUpperCase() + (pad.substring(0, pad.length-(e.courseID+"").length) + e.courseID) + "</td>";
                                                 html += "<td>" + e.days + "</td>";
                                                 html += "<td>" + (e.special ? "Yes" : "No") + "</td>";
-                                                html += "<td>" + (e.enrollStatus == 1 ? (Date.parse(e.dateEnrolled).toString("MMM dd, yyyy")) : (e.enrollStatus == 2 ? "---" : "date")) + "</td>";
+                                                html += "<td>" + (e.enrollStatus == 1 || e.enrollStatus == 0 ? (Date.parse(e.dateEnrolled).toString("MMM dd, yyyy")) : (e.enrollStatus == 2 ? "---" : "date")) + "</td>";
                                                 html += "<td>" + (e.enrollStatus == 1 ? "Ongoing" : (e.enrollStatus == 2 ? "Pending" : "Finished")) + "</td>";
                                                 html += "</tr>"; 
                                             }); 
@@ -63,6 +63,7 @@
                             <div class="studTab">
                                 <h4 style="float: left"><b>[<span class="h4selCrsforLes">CRS-M0001</span> ]</b></h4>
                                 <button type="button" onclick="viewGradesStud()" class="pull-right btn100px btn btn-inverse m-b-10 m-l-5">Refresh</button>
+                                <br><h6 class="h5a">Note: 1 - lowest; 5 - highest (GRADES)</h6>
                                 <table class="table tblCustom">
                                    <thead>
                                        <tr>

@@ -8,10 +8,16 @@ router.get('/student/:id/sched', middleware.addGradeModal);
 router.route('/student/:id')
     .get(middleware.getGradesInst)
     .post(middleware.addGrade);
+router.route('/student2/:id')
+    .get(middleware.getGradesInst2);
 router.route('/student/:id/eval')
     .get(middleware.getEvalStud)
 router.route('/stud/:id')
     .get(middleware.getGradesStud)
+router.route('/eval/:id')
+    .get(middleware.getEvalInstPerc)
+router.route('/evalInst/:id')
+    .get(middleware.getEvalInst)
 router.route('/')
     .post(auth.auth, middleware.create)
     .get(middleware.get);
