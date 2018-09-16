@@ -29,25 +29,11 @@ SELECT s.id as studID, s.dateRegistered, s.hours, u.* FROM student s, userinfo u
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getStudList`(IN `_offset` INT(7), IN `_limit` INT(5))
     NO SQL
-SELECT s.id as studID, i.* FROM student s, userinfo i WHERE s.id > _offset AND i.id = s.userInfo AND s.status > 0 ORDER BY s.id ASC limit _limit$$
+SELECT s.id as studID, i.*, oi.data FROM student s, userinfo i, other_info oi WHERE s.id > _offset AND i.id = s.userInfo AND s.status > 0  AND oi.referenceID = i.id ORDER BY s.id ASC limit _limit$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getStudListOnBranch`(IN `_offset` INT(3), IN `_limit` INT(3), IN `_branch` INT(3), IN `_status` INT(1))
     READS SQL DATA
 SELECT s.id as studID, i.* FROM student s, userinfo i WHERE s.id > _offset AND i.id = s.userInfo AND s.branch = _branch AND s.status = _status ORDER BY s.id ASC limit _limit$$
-
-CREATE DEFINER=`root`@`localhost` FUNCTION `addUserAcc`(`un` VARCHAR(30), `pw` VARCHAR(40), `atype` INT(2)) RETURNS int(10) unsigned
-    MODIFIES SQL DATA
-BEGIN
-INSERT useraccount(username, password, accType) VALUES (un,SHA1(pw),atype);
-RETURN LAST_INSERT_ID();
-END$$
-
-CREATE DEFINER=`root`@`localhost` FUNCTION `addUserInfo`(`ua` INT(10), `name` VARCHAR(50), `address` VARCHAR(100), `phone` VARCHAR(12), `bdate` DATE, `bplace` VARCHAR(50), `gender` VARCHAR(3), `civil` VARCHAR(10), `mail` VARCHAR(30), `utype` INT(1)) RETURNS int(10) unsigned
-    MODIFIES SQL DATA
-BEGIN
-INSERT INTO `userinfo` (`userAcc`, `fullname`, `address`, `telno`, `birthdate`, `birthplace`, `sex`, `civilStatus`, `email`, `userType`) VALUES (ua, name, address, phone, bdate, bplace, gender, civil, mail, utype);
-return LAST_INSERT_ID();
-END$$
 
 DELIMITER ;
 
@@ -279,6 +265,14 @@ CREATE TABLE IF NOT EXISTS `payment` (
   `datePay` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+CREATE TABLE IF NOT EXISTS `payment_slip` (
+`id` int(10) NOT NULL,
+  `transactionID` varchar(15) NOT NULL,
+  `filepath` varchar(150) NOT NULL,
+  `date_submit` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `date_approved` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 CREATE TABLE IF NOT EXISTS `preregstudent` (
 `id` int(10) NOT NULL,
   `data` text NOT NULL,
@@ -460,6 +454,9 @@ ALTER TABLE `passedrequirement`
 ALTER TABLE `payment`
  ADD PRIMARY KEY (`id`), ADD KEY `transactionID` (`transactionID`);
 
+ALTER TABLE `payment_slip`
+ ADD PRIMARY KEY (`id`), ADD KEY `transaction` (`transactionID`);
+
 ALTER TABLE `preregstudent`
  ADD PRIMARY KEY (`id`);
 
@@ -538,6 +535,8 @@ ALTER TABLE `other_info`
 MODIFY `id` int(9) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `payment`
 MODIFY `id` int(7) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `payment_slip`
+MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `preregstudent`
 MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `requirement`
@@ -628,6 +627,9 @@ ADD CONSTRAINT `passedRequirement_ibfk_2` FOREIGN KEY (`studID`) REFERENCES `stu
 
 ALTER TABLE `payment`
 ADD CONSTRAINT `payment_ibfk_1` FOREIGN KEY (`transactionID`) REFERENCES `account` (`ORno`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+ALTER TABLE `payment_slip`
+ADD CONSTRAINT `payment_slip_ibfk_1` FOREIGN KEY (`transactionID`) REFERENCES `account` (`ORno`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 ALTER TABLE `schedule`
 ADD CONSTRAINT `schedule_ibfk_1` FOREIGN KEY (`studID`) REFERENCES `student` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,

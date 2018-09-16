@@ -28,10 +28,11 @@ UserAccount.changePass = function(id, pass, cb){
 }
 
 UserAccount.register = function(data, cb){
-    var sql = "SELECT addUserAcc(?,?,?) as id";
+    // var sql = "SELECT addUserAcc(?,?,?) as id";
+    var sql = "INSERT " + table + "(username, password, accType) VALUES (?,SHA1(?),?)";
     this.db.get().query(sql, data, function(err, result){
         if(err) return cb(err);
-        cb(null, result[0].id);
+        cb(null, result.insertId);
     });
 }
 

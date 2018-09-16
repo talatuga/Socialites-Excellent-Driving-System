@@ -42,11 +42,11 @@ exports.errLogger = function(err){
 
 exports.logger = function(message){
     var today = new Date();
-    var data = "["+ today.toString('MM-dd-yyyy HH:mm') +"] " + message;
+    var data = "["+ today.toString('MM-dd-yyyy HH:mm') +"] " + message + "\n";
     fs.appendFile('./log/' + today.toString('MM-dd-yyyy') + '.log', data, function(err){
         if(err){
-            throw err;
             console.log('[SERVER] Logging ' + err.stack);
+            throw err;
         }
     });
 }

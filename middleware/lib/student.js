@@ -139,6 +139,7 @@ exports.register = function(req, res, next){
         if(data.success){
             var task = [];
             task.push(sendEmail(data.userData));
+            task.push(sendSms(data.userData));
             var sideTask = new Promise((resolve, reject)=>{
                 var sched = require('../../model/scheduleModel');
                 enrollCourse(studentID, ORcode, data.userData.data.course).then(function(flag){
@@ -307,6 +308,22 @@ exports.register = function(req, res, next){
                     logger.logger("Email sent to " + dataIn.data.info.email);
                     resolve(true);               
                 }
+            });
+        });
+    };
+
+    function sendSms(student){
+        return new Promise((resolve, reject)=>{
+            var SMS = require('../../bin/smsSender');
+            var sender = new SMS();
+            var phone = student.data.info.telno;
+            var msg = "Welcome Student! You can check your email for the password of your student dashboard."; //May 100 character limit lang :(
+            sender.send(phone, msg, 0).then(res=>{
+                resolve(res);
+            }).catch(reason=>{
+                throw new Error(reason.message);
+            }).catch(error=>{
+                reject(error);
             });
         });
     };

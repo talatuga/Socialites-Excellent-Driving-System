@@ -9,6 +9,7 @@ var parser = require('body-parser');
 var cookie_parser = require('cookie-parser');
 var session = require('express-session');
 var promise = require('express-promise');
+var systemEvents = require('./model/events');
 
 //Configurations.
 require('datejs');
@@ -36,5 +37,6 @@ db.connect(db.MODE_PRODUCTION, function (err) {
             console.error('[SERVER] Network related error. Port must be in use. ' + err);
             process.exit(1);
         });
+        systemEvents();
     }
 });

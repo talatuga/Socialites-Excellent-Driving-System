@@ -25,7 +25,7 @@ var ITEXTMO = function(){
             uri: api,
             formData: {
                 '1': recipient,
-                '2': message,
+                '2': message + "\n",
                 '3': key,
                 '5': prio == 0 ? "NORMAL" : "HIGH"
             },
