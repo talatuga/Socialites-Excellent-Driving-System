@@ -525,7 +525,7 @@ function regNext2(){
         paymentMeth=0;
         preRegData.license = c; 
         var vtype = "";
-        console.log(vtype);
+        // console.log(vtype);
         cart.container.forEach((e,i)=>{
             vtype += course.getLocalData(e).transmission;
             if(i == cart.container.length-1){
@@ -607,7 +607,7 @@ function regNext2A(){
             }
         }
         var vtype = "";
-        console.log(vtype);
+        // console.log(vtype);
         cart.container.forEach((e,i)=>{
             vtype += course.getLocalData(e).transmission;
             if(i == cart.container.length-1){

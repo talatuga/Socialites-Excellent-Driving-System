@@ -15,6 +15,8 @@ router.post('/enroll', middleware.enrollWeb);
 
 router.get('/invoice', middleware.generateInvoice);
 
+router.get('/receipt', middleware.generateReceipt);
+
 router.post('/subscription', middleware.subscribe);
 
 router.get('/unsubscribe/:email/:token', middleware.unsubscribe);
