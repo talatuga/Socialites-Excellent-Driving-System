@@ -26,6 +26,11 @@ exports.get = function(req, res, next){
     if(res.locals.authenticated == 0) return next();    
     var query = Object.keys(req.query).length ? req.query : {};
     var param = Object.keys(req.params).length ? req.params : null;
+    if(req.session.studID && !param){
+        param = {
+            id: req.session.studID,
+        }
+    }
     if(param){
         /* if(query != {}){
             res.status(403).send({}); // delete this after implementation
@@ -149,7 +154,7 @@ exports.register = function(req, res, next){
                 }).then(function(flag){
                     if(flag){
                         var notifier = require('./notification');
-                        notifier.addNotificationMethod('admin', 'QUICK_BROADCAST', {message: 'Done scheduling ' + studentID, messageType: 'schedule', title: 'Student Automatic Schedule'}, 'none', function(err, detail){
+                        notifier.addNotificationMethod('admin', 'QUICK_BROADCAST', {message: 'Done scheduling StudentID: ' + studentID, messageType: 'schedule', title: 'Student Automatic Schedule'}, 'none', function(err, detail){
                             if(err) return reject('notifying fail');
                         });
                         resolve(true);
@@ -192,7 +197,7 @@ exports.register = function(req, res, next){
             ORcode = OR;
             Promise.all([payments.getEnrollBal(OR),payments.getTransactions(OR)]).catch(reject).then(function(dataArr){
                 dataArr.forEach(function(e){
-                    if(e == undefined){
+                    if(e == undefined || e == null){
                         return next(new Error("Undefined data"));
                     }
                 });
@@ -247,7 +252,10 @@ exports.register = function(req, res, next){
                     info.push(enrollee.data.info.email);
                     info.push(3);
 
-                    var other = [enrollee.data.info.occupation, enrollee.data.info.guardian];
+                    var other = {
+                        occupation: enrollee.data.info.occupation,
+                        guardian: enrollee.data.info.guardian
+                    }
 
                     valid.checkUndef(info, function(passed){
                         if(passed){
@@ -565,6 +573,7 @@ exports.prepareViewData = function(req, res, next){
             student.getData(req.session.studID, function(err,data){
                 if(err) return reject(err);
                 student.getStudentInfo(req.session.accID, function(er, data2){
+                    data2.data = JSON.parse(data2.data);
                     res.locals.student = {
                         personalInfo: data2,
                         studentInfo: data

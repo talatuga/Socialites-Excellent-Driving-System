@@ -68,7 +68,7 @@ Instructor.register = function(data, cb){
         var info = data.info;
         info.unshift(accID);
 
-        UserInfo.register(info, function(err, userID){
+        UserInfo.register(info, {avatar: null},function(err, userID){
             if(err) return cb(err);  
 
             var inst = data.inst;

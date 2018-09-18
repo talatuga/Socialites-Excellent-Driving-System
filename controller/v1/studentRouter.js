@@ -2,6 +2,8 @@
 var router = require('express').Router();
 //Student Middleware
 var middleware = require('../../middleware/lib/student');
+var util = require('../../middleware/lib/util/sysAccount');
+var upload = require('../../middleware/fileUploader');
 
 router.route('/register')
     .post(middleware.register)
@@ -22,6 +24,9 @@ router.route('/:id')
     .delete(middleware.del);
 
 router.get('/:id/course_enrolled', middleware.getCourse);
+router.route('/:id/avatar')
+    .post(upload.single('file'), util.uploadPic)
+    .put(util.uploadPic);
 
 router.route('/:id/:field')
     .get(middleware.get)

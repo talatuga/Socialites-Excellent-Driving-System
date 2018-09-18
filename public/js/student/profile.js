@@ -2,21 +2,38 @@ function openDropzoneStud(){
     $('#uploadProfileStudModal').modal('show');
 }
 
-dropzone.options.profileDrop = {
-    init: function(){
-        this.on("queuecomplete", function(file){
-            setTimeout(function() {location.reload();
-            });
-        });
-    }
-};
-
 function resetStudent1P(){
     $(".btnUpdateStudentAcc1").show();
     $(".btnDeactStudentAcc").show();
     $(".btnSaveUpdStudent1").hide();
     $(".btnResetUpdStudent1").hide();
     $(".btnCancUpdStudent1").hide();
+    app.account.getInfo(function(err, data){
+        if(err) return swal("Failed", err.message, "error");
+        data.forEach(element => {
+            var fullname = element.fullname.split("_");
+            var otherData = JSON.parse(element.data);
+            $('#editStudentAccFN').val(fullname[0]);
+            $('#editStudentAccMN').val(fullname[1]);
+            $('#editStudentAccSN').val(fullname[2]);
+            $('.profileNameStud').html(element.fullname.replace(/_/g, " "));
+            $('#editStudentAccBday').val(Date.parse(element.birthdate).toString("yyyy-MM-dd"));
+            $('#editStudentAccBplace').val(element.birthplace);
+            $('#editStudentAccAdd').val(element.address);
+            $('.profileAddressStud').html(element.address);
+            $('#editStudentAccCivStatus').val(element.civilStatus);
+            $('#editStudentAccCont').val(element.telno);
+            $('.profilePhoneStud').html(element.telno);
+            $('#editStudentAccEmail').val(element.email);
+            $('.profileEmailStud').html(element.email);
+            $('input[name=editStudentAccSex][value='+ element.sex +']').prop('checked','checked');
+            $('#editStudentAccOcc').val(otherData.occupation);
+            $('#editStudAccGuard').val(otherData.guardian.name);
+            $('#editStudAccGuardCont').val(otherData.guardian.telno);
+            $('.profPicStud').attr('src',otherData.avatar || "assets/images/user-medium.png");
+            $('.profileBranchStud').html("STUD-" + element.studID);
+        });
+    });
 }
 
 function showbtnsP1(){
@@ -27,6 +44,19 @@ function showbtnsP1(){
     $(".btnCancUpdStudent1").show();
 }
 
+function saveProfPicStud(action){
+    app.account.updatePic(app.account.studentID, app.account.infoID, action == 1 ? true : false, function(err, done, path){
+        if(err){
+            swal("Failed!", err.message, "error");
+            console.error(err);
+        }else{
+            swal("Done!", done, "success");
+            $('.profPicStud').attr('src', path || "assets/images/user-medium.png");
+            $('.userImg').attr('src', path || "assets/images/user4.png");
+        }
+        $('#uploadProfileStudModal').modal('hide');
+    });
+}
 
 function resetSettingsStudent (){
     $("#editStudentAccFN").prop("disabled", true);

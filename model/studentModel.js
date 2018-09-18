@@ -136,7 +136,7 @@ Student.getStudentInfo = function(accID, field, cb){
         field = null;
     }
 
-    var sql = "SELECT s.id as 'studid', i.* FROM student s, userinfo i, useraccount a WHERE a.id = i.userAcc AND s.userInfo = i.id AND a.id = ?";
+    var sql = "SELECT s.id as 'studid', i.*, oi.data FROM student s, userinfo i, useraccount a, other_info oi WHERE a.id = i.userAcc AND oi.referenceID = i.id AND s.userInfo = i.id AND a.id = ?";
     var data = [accID];
     if(field){
         if(field.name == "branch"){

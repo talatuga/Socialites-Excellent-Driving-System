@@ -52,7 +52,15 @@
                     <div class="toKnowCrs1">
                         <h4>Available Vehicle/s:</h4>
                         <ul style="list-style-type: disc; padding-left: 10px;">
-                            <li>Toyota Atlis/Vios</li>
+                            <%
+                                var crs1 = "";
+                                car.forEach((e,i)=>{
+                                    if(e.transmission.toLowerCase()=='m'){
+                                        crs1 += "<li>"+ (e.brand +" "+ e.model) +"</li>";
+                                    }
+                                });
+                            %>
+                            <%-crs1%>
                         </ul><br>
                         <h4>Requirements:</h4>
                         <ul style="list-style-type: disc; padding-left: 10px;">
@@ -74,7 +82,15 @@
                     <div class="toKnowCrs2">
                         <h4>Available Vehicle/s:</h4>
                         <ul style="list-style-type: disc; padding-left: 10px;">
-                            <li>Hyundai</li>
+                        <%
+                            var crs2 = "";
+                            car.forEach((e,i)=>{
+                                if(e.transmission.toLowerCase()=='a'){
+                                    crs2 += "<li>"+ (e.brand +" "+ e.model) +"</li>";
+                                }
+                            });
+                        %>
+                        <%-crs2%>
                         </ul><br>
                         <h4>Requirements:</h4>
                         <ul style="list-style-type: disc; padding-left: 10px;">
@@ -93,7 +109,7 @@
                         </ul>
                     </div>
 
-                    <!-- <div class="toKnowCrs3">
+                    <!-- <%# <div class="toKnowCrs3">
                         <ul style="list-style-type: disc; padding-left: 10px;">
                             <li>You get to choose the place where we can pick you up.</li>
                             <li>No additional fees for straight and overtime schedules.</li>
@@ -119,7 +135,7 @@
                             <li>Courses with <b style="color: #6E0303; font-size: 17px;">*</b> have an additional 1 hour of lesson <b style="color: #6E0303">FOR FREE.</b></li>
                             <li>Courses with <b style="color: #6E0303; font-size: 17px;">**</b> have additional 2 hours of lesson <b style="color: #6E0303">FOR FREE.</b></li>
                         </ul>
-                    </div> -->
+                    </div> %> -->
                 </div>
             </div>
             <!-- End of col-lg-3 -->

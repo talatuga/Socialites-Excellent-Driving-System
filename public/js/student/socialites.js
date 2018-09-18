@@ -189,6 +189,7 @@ var app = {
         },
     },
     others: {
+        currentBranch: "",
         getInstName: function(instid,cb){
             $.get('api/v1/instructor/'+instid+'/fullname', function(res){
                 if(res.success){
@@ -199,13 +200,80 @@ var app = {
             });
         },
         getBranchName: function(id, cb){
+            var self = this;
             $.get('api/v1/branch/'+id+'/name', function(res){
                 if(res.success){
+                    self.currentBranch = res.data;
                     cb(null, res.data);
                 }else{
                     cb(new Error(res.detail));
                 }
             });
         }
-    }
+    },
+    account: {
+        loaded: false,
+        infoID: -1,
+        studentID: -1,
+        getInfo: function(cb){
+            var self = this;
+            if(self.loaded) return cb(null, []);
+            $.ajax({
+                type: "GET",
+                url: "api/v1/stud",
+                success: function(res){
+                    if(res.success){
+                        if(res.data.length == 0) return cb(new Error("No data receive"));
+                        self.loaded = true;
+                        res.data[0].branch = app.others.currentBranch;
+                        self.infoID = res.data[0].id;
+                        self.studentID = res.data[0].studID;
+                        cb(null, res.data);
+                    }else{
+                        cb(new Error(res.detail));
+                    }
+                },
+                error: function(xhr){
+                    cb(new Error(xhr.status + ":" + xhr.statusText));
+                }
+            });
+        },
+        update: function(data, cb){
+            $.ajax({
+                type: "PUT",
+                url: "api/v1/stud/" + data.studID,
+                data: data,
+                success: function(res){
+                    if(res.success){
+                        cb(null, res.detail);
+                    }else{
+                        cb(new Error(res.detail));
+                    }
+                },
+                error: function(xhr){
+                    cb(new Error(xhr.status + ":" + xhr.statusText));
+                }
+            });
+        },
+        updatePic: function(studID, infoID, confirm, cb){
+            $.ajax({
+                type: "PUT",
+                url: "api/v1/stud/" + studID + "/avatar",
+                data:{
+                    id: infoID,
+                    confirm: confirm,
+                },
+                success: res=>{
+                    if(res.success){
+                        cb(null, res.detail, res.path);
+                    }else{
+                        cb(new Error(res.detail));
+                    }
+                },
+                error: xhr=>{
+                    cb(new Error(xhr.status + ":" + xhr.statusText));
+                }
+            });
+        }
+    },
 }

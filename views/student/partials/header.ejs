@@ -4,7 +4,7 @@
         <div class="navbar-header">
             <a class="navbar-brand" href="#" onclick="dashboard()" > 
                 <!-- Logo icon -->
-                <b><img src="assets/images/icon.png" alt="SED Logo" class="dark-logo" style="padding-left: 0px"/></b>
+                <b><img src="<%= /*student.personalInfo.data.avatar*/ null || 'assets/images/icon.png'%>" alt="SED Logo" class="dark-logo " style="padding-left: 0px"/></b><%# userImg %>
                 <!--End Logo icon -->
                 <!-- Logo text -->
                 <span style="float:right; padding-top: 10px; padding-left: 10px;"><h4 class="navbarSoci"><span style="letter-spacing: 8px;">SOCIALITES</span><br>
@@ -52,7 +52,7 @@
                 <!-- End Messages -->
                 <!-- Profile -->
                 <li class="nav-item dropdown headerStudent">
-                    <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/images/user4.png" alt="user" class="profile-pic" /></a>
+                    <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="<%=student.personalInfo.data.avatar || 'assets/images/user4.png'%>" alt="user" class="profile-pic userImg" /></a>
                     <div class="dropdown-menu dropdown-menu-right animated zoomIn">
                         <ul class="dropdown-user">
                             <li><a onclick="studAccount()"><i class="ti-user"></i> Profile</a></li>

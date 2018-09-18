@@ -25,7 +25,7 @@ SELECT s.id as studID, i.* FROM student s, userinfo i WHERE s.id > _offset AND i
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getStud`(IN `_id` VARCHAR(15))
     READS SQL DATA
-SELECT s.id as studID, s.dateRegistered, s.hours, u.* FROM student s, userinfo u WHERE s.id = _id AND s.userInfo = u.id$$
+SELECT s.id as studID, s.dateRegistered, s.hours, u.*, oi.data FROM student s, userinfo u, other_info oi WHERE s.id = _id AND s.userInfo = u.id AND oi.referenceID = u.id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getStudList`(IN `_offset` INT(7), IN `_limit` INT(5))
     NO SQL
