@@ -130,9 +130,11 @@ exports.delete = function(req, res, next){
     });
 }
 
-exports.getEvalInst = function(req, res, next){
+exports.getEvalInst = function (req, res, next){
     if(res.locals.authenticated == 0) return next();
-    grade.getEvalInst(req.params.id, function(err, result){
+    var year = req.query.year;
+    var month = req.query.month;
+    grade.getEvalInst(req.params.id, month, year, function(err, result){
         if(err) return next(err);
         res.status(200).send({success: true, data: result});
     });

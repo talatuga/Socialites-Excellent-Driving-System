@@ -5563,7 +5563,6 @@ tbody tr td:last-child {
 }
 .profiletimeline .sl-date {
   color: #262b2e;
-  font-size: 12px;
 }
 .profiletimeline .time-item {
   border-color: rgba(120, 130, 140, 0.13);
@@ -8602,4 +8601,16 @@ tiCustom
 .noEvalYet{
   padding: 20px;
   text-align: center
+}
+.startEvalPerc{
+  padding: 10px
+}
+.evalInstDiv{
+  color: black
+}
+#evalInstAdmin{
+  font-size: 13px
+}
+.crsInstEval{
+  color: black
 }

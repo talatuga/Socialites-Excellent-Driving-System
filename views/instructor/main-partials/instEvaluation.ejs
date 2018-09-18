@@ -17,17 +17,6 @@
             <div class="row">
                 <!-- Start of col-lg-3 -->
                 <div class="col-lg-4 col-md-4 col-xs-6 col-sm-6 pull-left">
-                    <div class="card p-30">
-                        <div class="media">
-                            <div class="media-left meida media-middle">
-                                <span><i class="icon icon-business-24 tiSide f-s-40 color-danger"></i></span>
-                            </div>
-                            <div class="media-body media-text-right">
-                                <h2 class='startEvalPerc'></h2>
-                                <p class="m-b-0" style="color: black">Overall Evaluation Percentage<br><span>(from January - <span class="uptoMonth">August</span> <span class="yearEval"></span>)</span></p>
-                            </div>
-                        </div>
-                    </div>
                     <div class="card">
                         <div class="row">
                             <div class="col-md-12">
@@ -50,7 +39,19 @@
                         </div><br>
                         <button type="button" onclick="goEvalSearch()" style="width: 95%" class="btn13 btn btn-dark m-b-10 m-l-5">Go</button>
                     </div>
-
+                    <div class="card p-30">
+                        <div class="media">
+                            <div class="media-left meida media-middle">
+                                <span><i class="icon icon-business-24 tiSide f-s-40 color-danger"></i></span>
+                            </div>
+                            <div class="media-body media-text-right">
+                                <h2 class='startEvalPerc'></h2>
+                                <p class="m-b-0" style="color: black">Overall Evaluation Percentage<br><span>(from January - <span class="uptoMonth">August</span> <span class="yearEval"></span>)</span></p><hr>
+                                <h2 class='monthEvalPerc'>100%</h2>
+                                <p class="m-b-0" style="color: black">Monthly Evaluation Percentage<br><span class="curMonth">September</span></p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- End of col-lg-3 -->
 
@@ -67,23 +68,7 @@
                             <div class="tab-pane active" id="evaluationInst" role="tabpanel">
                                 <div class="card-body">
                                     <h5 class="noEvalYet">Evaluation report is not yet available for display and may only be viewed by the end of the month.</h5>
-                                    <div class="profiletimeline instTab evalInstDiv">
-                                        <% 
-                                            var html = "";
-                                            var pad = "000";
-                                            var x = 1;
-                                            evaluationI.forEach((e,i)=>{
-                                                html += "<div class='sl-item' id='1'> <div class='sl-left'> <img src='assets/images/user4.png' alt='Student' id='studEvalPic' class='img-circle' /> </div> <div class='sl-right'>";
-                                                html += "<div><a href='#' class='link' id='studEvalName'>" + e.fullname.replace(/_/g, ' ') + "</a> <span class='sl-date'>" + (Date.parse(e.dateEvaluated ).toString("MMM dd, yyyy")) + "</span>";
-                                                html += "<br><small class='crsStudEval'>CRS-" + e.carType.toUpperCase() + (pad.substring(0, pad.length-(e.courseID+"").length) + e.courseID) + "</small><div class='separator2'></div>";
-                                                html += "<p style='color: #455a64;'>Evaluation Grade: <span class='studEvalGrade'>" + e.grade + " (" + (e.grade == 5 ? '100%' : (e.grade == 4 ? '80%' : (e.grade == 3 ? '60%' : (e.grade == 2 ? '40%' : '20%')))) + ")" + "</span></p>";
-                                                html += "<p class='m-t-10 studEvalMsg'>\"" + e.comment + "\"</p>";
-                                                html += "</div></div></div><hr>";
-                                                x++;
-                                            }); 
-                                        %>
-                                        <%-html%>
-                                    </div>
+                                    <div class="profiletimeline instTab evalInstDiv"></div>
                                 </div>
                             </div>
                         </div>

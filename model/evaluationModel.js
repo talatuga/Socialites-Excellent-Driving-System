@@ -51,9 +51,11 @@ Grade.getAssignedInst = function(studID, cb){
     });
 }
 
-Grade.getEvalInst = function (instID, cb){
-    var sql = "SELECT i.id, ui.fullname, e.courseID, e.grade, e.comment, c.carType, e.dateEvaluated FROM instructor i, userinfo ui, course_enrolled ce, evaluation e, student st, course c WHERE st.id = e.studID AND st.userInfo = ui.id AND ce.courseID = e.courseID AND e.instID = ? AND e.target = 0 AND i.id = e.instID AND c.id = ce.courseID AND MONTH(e.dateEvaluated) = 9 AND YEAR(e.dateEvaluated) = 2018 GROUP BY ui.fullname ORDER BY e.dateEvaluated DESC";
-    db.get().query(sql, [instID], function(err, result){
+// Needed values: instID, selected month, year (EVALUATION REPORTS FOR SPECIFIC MONTH)
+Grade.getEvalInst = function (instID, month, year, cb){
+    var sql = "SELECT i.id, ui.fullname, e.courseID, e.grade, e.comment, c.carType, e.dateEvaluated FROM instructor i, userinfo ui, course_enrolled ce, evaluation e, student st, course c WHERE st.id = e.studID AND st.userInfo = ui.id AND ce.courseID = e.courseID AND e.instID = ? AND e.target = 0 AND i.id = e.instID AND c.id = ce.courseID AND MONTH(e.dateEvaluated) = ? AND YEAR(e.dateEvaluated) = ? GROUP BY ui.fullname ORDER BY e.dateEvaluated DESC";
+    db.get().query(sql, [instID, month, year], function(err, result){
+        // console.log(result);
         if(err) return cb(err);
         if(result.length == 0) return cb(null, []);
         if(err) return cb(err);
@@ -61,9 +63,22 @@ Grade.getEvalInst = function (instID, cb){
     });
 }
 
-Grade.getEvalInstPerc = function (instID, cb){
-    var sql = "SELECT ROUND(AVG(e.grade), 0) AS count FROM instructor i, userinfo ui, course_enrolled ce, evaluation e, student st, course c WHERE st.id = e.studID AND st.userInfo = ui.id AND ce.courseID = e.courseID AND e.instID = ? AND YEAR(e.dateEvaluated) = 2018 AND e.target = 0 AND i.id = e.instID AND c.id = ce.courseID GROUP BY ui.fullname ORDER BY e.dateEvaluated DESC";
-    db.get().query(sql, [instID], function(err, result){
+// Needed values: instID, past month, year (OVERALL PERCENTAGE FROM JAN - PAST MONTH)
+Grade.getEvalInstPerc = function (instID, year, month, cb){
+    var sql = "SELECT ROUND(AVG(e.grade), 0) AS count FROM instructor i, userinfo ui, course_enrolled ce, evaluation e, student st, course c WHERE st.id = e.studID AND st.userInfo = ui.id AND ce.courseID = e.courseID AND e.instID = ? AND YEAR(e.dateEvaluated) = ? AND MONTH(e.dateEvaluated) >= 1 AND MONTH(e.dateEvaluated) <= ? AND e.target = 0 AND i.id = e.instID AND c.id = ce.courseID GROUP BY ui.fullname ORDER BY e.dateEvaluated DESC";
+    db.get().query(sql, [instID, year, month], function(err, result){
+        // console.log(result);
+        if(err) return cb(err);
+        if(result.length == 0) return cb(null, []);
+        cb(null, result);
+    });
+}
+
+// Needed values: instID, selected month, year (MONTHLY PERCENTAGE)
+Grade.getEvalInstPercMonth = function (instID, year, month, cb){
+    var sql = "SELECT ROUND(AVG(e.grade), 0) AS count FROM instructor i, userinfo ui, course_enrolled ce, evaluation e, student st, course c WHERE st.id = e.studID AND st.userInfo = ui.id AND ce.courseID = e.courseID AND e.instID = ? AND YEAR(e.dateEvaluated) = ? AND MONTH(e.dateEvaluated) = ? AND e.target = 0 AND i.id = e.instID AND c.id = ce.courseID GROUP BY ui.fullname ORDER BY e.dateEvaluated DESC";
+    db.get().query(sql, [instID, year, month], function(err, result){
+        // console.log(result);
         if(err) return cb(err);
         if(result.length == 0) return cb(null, []);
         cb(null, result);
