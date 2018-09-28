@@ -38,7 +38,7 @@
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <hr class="hrCustom">
                     <div class="card instCard">
-                        <h3>List of Vehicles</h3><br>
+                        <h3>List of Vehicles</h3><hr class="hrVehi">
                         <div class="table-responsive">
                             <table class="table tblVehicle table-hover">
                                 <thead>
@@ -50,23 +50,11 @@
                                         <th>Status</th>
                                     </tr>
                                 </thead>
-                                <tbody id="carTableA">
-                                    <tr class="highlightTr">
-                                        <td>1</td>
-                                        <td>Toyota</td>
-                                        <td>Vios (Sedan)</td>
-                                        <td>Automatic</td>
-                                        <td><span class="text-success">Available</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Toyota</td>
-                                        <td>Corolla Atlis (Sedan)</td>
-                                        <td>Manual</td>
-                                        <td><span class="text-success">Available</span></td>
-                                    </tr>
-                                </tbody>
+                                <tbody id="carTableA"></tbody>
                             </table>
+                            <div class="noVehiTr" style="padding: 15px">
+                                <center><h5>There are no vehicles to display.</h5></center>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -77,16 +65,16 @@
                     <hr class="hrCustom">
                     <div class="card instCard">
                         <h3>Vehicle Information</h3><hr>
-                        <div style="padding-left: 30px;">
+                        <div class="hasVehiDet" style="padding-left: 30px;">
                             <div class="row">
-                                <div class="col-md-8 col-lg-8 col-sm-7 col-xs-7">
+                                <div class="col-md-9 col-lg-9 col-sm-8 col-xs-8">
                                     <h4 id="vehiName">Toyota, Vios (Sedan)</h4>
                                     <h6>ID: <span id="vehiID">V0001-A</span></h6>
                                 </div>
-                                <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1">
+                                <div class="col-md-1 col-lg-1 col-sm-2 col-xs-2">
                                     <i class="ti-pencil tiV" id="btnEditVehi" onclick="editVehicle()" data-toggle="tooltip" data-placement="bottom" title="Update"></i>
                                 </div>
-                                <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1">
+                                <div class="col-md-1 col-lg-1 col-sm-2 col-xs-2">
                                     <i class="ti-close tiV" id="btnDelVehi" onclick="confDelVehicle()" data-toggle="tooltip" data-placement="bottom" title="Remove"></i>
                                 </div>
                                 <!-- <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1">
@@ -143,6 +131,9 @@
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
+                        <div class="noVehiDetTr" style="padding: 15px">
+                            <center><h5>There are no vehicle details to display.</h5></center>
                         </div>
                     </div>
                 </div> <!-- End of col-lg-6 -->

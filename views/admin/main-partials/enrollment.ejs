@@ -37,7 +37,7 @@
                     <div class="col-md-8 col-lg-8 col-sm-12 col-xs-12">
                             <hr class="hrCustom">
                             <div class="card branchCard">
-                                <h3>List of Enrollees</h3>
+                                <h3>List of Enrollees</h3><hr class="hrReg">
                                 <div class="table-responsive">
                                     <table class="table tblReg tblCustom table-hover">
                                         <thead>
@@ -47,24 +47,11 @@
                                                 <th>Requirement</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="preRegTbl">
-                                            <tr>
-                                                <td>May 24, 2018</td>
-                                                <td>Graciella C. Tatel</td>
-                                                <td>W-SDP</td>
-                                            </tr>
-                                            <tr>
-                                                <td>May 24, 2018</td>
-                                                <td>Kenard Smith B. Bautista</td>
-                                                <td>TA-SDP</td>
-                                            </tr>
-                                            <tr>
-                                                <td>May 24, 2018</td>
-                                                <td>Zac Efron</td>
-                                                <td>TA-NPL</td>
-                                            </tr>
-                                        </tbody>
+                                        <tbody id="preRegTbl"></tbody>
                                     </table>
+                                    <div class="noEnrolleesTr" style="padding: 15px">
+                                        <center><h5>There are no enrollees to display.</h5></center>
+                                    </div>
                                 </div>
                             </div>
                         <hr class="hrCustom">
@@ -73,7 +60,7 @@
                         <hr class="hrCustom">
                         <div class="card branchCard" style="position: relative">
                             <h3>Enrolment Details</h3><hr>
-                            <div class="row">
+                            <div class="row hasEnrollee">
                                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                                     <h5 class="regEnrName"></h5>
                                     <!-- <h5 class="regEnrBranch">SEDQC</h5> -->
@@ -87,10 +74,13 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="row divBottom">
+                            <div class="row divBottom hasEnrolleeBtn">
                                 <button type="button" onclick="viewRegForm()" class="btnCstom2 btn btn-light m-b-10 m-l-5" style="width: 93%">View</button>
                                 <button type="button" onclick="openPayment()" class="btnCstom2 btn btn-success m-b-10 m-l-5" style="width: 93%" class="a">Approve</button>
                                 <button type="button" onclick="remRegForm()" class="btnCstom2 btn btn-danger m-b-10 m-l-5" style="width: 93%">Remove</button>
+                            </div>
+                            <div class="noEnrolleesDet" style="padding: 15px">
+                                <center><h5>There are no enrollment details to display.</h5></center>
                             </div>
                         </div>
                         <hr class="hrCustom">

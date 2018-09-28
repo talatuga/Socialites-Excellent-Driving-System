@@ -9,21 +9,34 @@ var car = {
     currPage: 0,
     pages: [],
     renderATable: function(data){
-        var html = "";
-        var dayToday = Date.parse("today").toString('ddd');
-        var dayName = ["","Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
-        for(var x=0; x < data.length; x++){
-            if(data[x].status != 0){
-                html += "<tr class='carTbl' onclick='viewCarProfile("+ data[x].id +")'>";
-                html += "<td>" + data[x].id + "</td>";
-                html += "<td>" + data[x].brand + "</td>";
-                html += "<td>" + data[x].model + "</td>";
-                html += "<td>" + (data[x].transmission == "M" ? "Manual" : "Automatic") + "</td>";
-                html += "<td>" + (dayName[data[x].offday] == dayToday ? "<span class='text-danger'>Unavailable</span>" : (data[x].status == 2 ? "<span class='text-warning'>In Use</span>" : "<span class='text-success'>Available</span>")) + "</td>";
-                html += "</html>";
+        if (data.length!=0){
+            $('.noVehiTr').hide();
+            $('.noVehiDetTr').hide();
+            $('.hrVehi').hide();
+            $('.tblVehicle').show();
+            $('.hasVehiDet').show();
+            var html = "";
+            var dayToday = Date.parse("today").toString('ddd');
+            var dayName = ["","Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+            for(var x=0; x < data.length; x++){
+                if(data[x].status != 0){
+                    html += "<tr class='carTbl' onclick='viewCarProfile("+ data[x].id +")'>";
+                    html += "<td>" + data[x].id + "</td>";
+                    html += "<td>" + data[x].brand + "</td>";
+                    html += "<td>" + data[x].model + "</td>";
+                    html += "<td>" + (data[x].transmission == "M" ? "Manual" : "Automatic") + "</td>";
+                    html += "<td>" + (dayName[data[x].offday] == dayToday ? "<span class='text-danger'>Unavailable</span>" : (data[x].status == 2 ? "<span class='text-warning'>In Use</span>" : "<span class='text-success'>Available</span>")) + "</td>";
+                    html += "</html>";
+                }
             }
+            $('#carTableA').html(html);
+        }else{
+            $('.noVehiTr').show();
+            $('.noVehiDetTr').show();
+            $('.hrVehi').show();
+            $('.tblVehicle').hide();
+            $('.hasVehiDet').hide();
         }
-        $('#carTableA').html(html);
     },
     getATableData: function(cb){
         $.get('api/v1/car?offset=' + this.offset + '&limit=' + this.limit, function(response){

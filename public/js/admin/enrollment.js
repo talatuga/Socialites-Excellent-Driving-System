@@ -22,8 +22,20 @@ var loadPreReg = function(refresh){
                 if(err) return console.error(err);
                 renderEnrollTbl(preRegAssess.pages[preRegAssess.currPage]);
                 if(preRegAssess.pages[preRegAssess.currPage].length==0){
+                    $('.noEnrolleesTr').show();
+                    $('.noEnrolleesDet').show();
+                    $('.hrReg').show();
+                    $('.hasEnrollee').hide();
+                    $('.hasEnrolleeBtn').hide();
+                    $('.tblReg').hide();
                     viewPendingStudent(-1);
                 }else{
+                    $('.noEnrolleesTr').hide();
+                    $('.noEnrolleesDet').hide();
+                    $('.hrReg').hide();
+                    $('.hasEnrollee').show();
+                    $('.hasEnrolleeBtn').show();
+                    $('.tblReg').show();
                     viewPendingStudent(preRegAssess.pages[preRegAssess.currPage][0].id);
                 }
                 bindMark();
@@ -357,22 +369,26 @@ var renderEnrollTbl = function(data){
     $('#preRegTbl').html("");    
     var task = function(_data, cb){
         var temp = _data;
-        office.selected = temp.data.branch;
-        office.getLocalData(function(branch){
-            temp.data["branchName"] = branch.name;
-            var targetID = temp.id;
-            var html = "";
-            html += "<tr onclick='viewPendingStudent("+ targetID +")'>";
-            html += "<td>"+ Date.parse(temp.dateSubmit).toString("MMM dd, yyyy") +"</td>";
-            html += "<td>"+ (temp.data.info.fullname).replace(/_/g,' ') +"</td>";
-            html += "<td class='enrollReq"+ targetID +"'></td>";
-            html += "</tr>";
-            $('#preRegTbl').append(html); 
-            license.getLocal(temp.data.applyLicense, l=>{
-                $('.enrollReq'+targetID).html(l.desc);
+            $('.noEnrolleesTr').hide();
+            office.selected = temp.data.branch;
+            office.getLocalData(function(branch){
+                temp.data["branchName"] = branch.name;
+                var targetID = temp.id;
+                var html = "";
+                html += "<tr onclick='viewPendingStudent("+ targetID +")'>";
+                html += "<td>"+ Date.parse(temp.dateSubmit).toString("MMM dd, yyyy") +"</td>";
+                html += "<td>"+ (temp.data.info.fullname).replace(/_/g,' ') +"</td>";
+                html += "<td class='enrollReq"+ targetID +"'></td>";
+                html += "</tr>";
+                $('#preRegTbl').append(html); 
+                license.getLocal(temp.data.applyLicense, l=>{
+                    $('.enrollReq'+targetID).html(l.desc);
+                });
+                cb(null);
             });
-            cb(null);
-        });
+        // }else{
+        //     $('.noEnrolleesTr').hide();
+        // }
     }
     queryer.start(task,data,function(err,done){
         if(err) return console.error(err);

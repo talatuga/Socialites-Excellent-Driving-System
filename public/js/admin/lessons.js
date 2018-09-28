@@ -206,7 +206,7 @@ var renderLessonTable = function(data){
     data.forEach(x=>{
         if(x.purgeFlag != 0){
             html += "<tr onclick='viewLessonDetail("+ x.id +")'>";
-            html += "<td>"+ x.lessonID +"</td>";
+            // html += "<td>"+ x.lessonID +"</td>";
             html += "<td>"+ x.title +"</td>";
             html += "</tr>";
         }
@@ -218,7 +218,7 @@ var viewLessonDetail = function(id){
     topic.selected = id;
     topic.getLocalData(function(profile){
         $('.lesName').html(profile.title);
-        $('.lesID').html(profile.lessonID);
+        // $('.lesID').html(profile.lessonID);
         $('.lesDesc').html(profile.description);
         var pad = "000";
         var preID = "SED-L" + (pad.substring(0,pad.length - (profile.prerequisite + "").length) + profile.prerequisite);

@@ -1731,7 +1731,7 @@ textarea {
   }
   .mini-sidebar .sidebar-nav #sidebarnav > li > a {
     padding: 9px 18px;
-    width: 50px;
+    width: 60px;
   }
   .mini-sidebar .user-profile {
     padding-bottom: 15px;
@@ -8121,13 +8121,17 @@ tiCustom
   font-size: 14px;
 }
 
-.branchCard, .accountCard{
+.branchCard{
   height: 400px;
   overflow-y: auto;
   overflow-x: hidden;
 }
-.studCard, .instCard, .reqCard{
+.studCard, .instCard, .reqCard,{
   height: 500px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.accountCard{
   overflow-y: auto;
   overflow-x: hidden;
 }

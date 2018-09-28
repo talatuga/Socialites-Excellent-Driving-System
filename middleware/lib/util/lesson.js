@@ -182,7 +182,7 @@ exports.getCourse = function(req, res, next){
             result.forEach(element => {
                 if(element.status != 0){
                     var pad = "000";
-                    element["courseID"] = "CRS-M" + (pad.substring(0,pad.length-(element.id+"").length) + element.id);
+                    element["courseID"] = "CRS-" + element["carType"] + (pad.substring(0,pad.length-(element.id+"").length) + element.id);
                     processData.push(element);
                 }
                 count--;

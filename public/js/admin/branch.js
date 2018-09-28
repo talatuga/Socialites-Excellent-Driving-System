@@ -249,16 +249,29 @@ function fieldCheck(){
 
 var renderBranchTable = function(data){
     var html = "";
-    data.forEach(element => {
-        var telno = element.telno.split("/");
-        html += "<tr onclick='viewBranchProfile(\""+ element.id +"\")'>";
-        html += "<td>"+ element.branchID +"</td>";
-        html += "<td>"+ element.name +"</td>";
-        html += "<td>"+ (telno[0] + (telno[1] == undefined ? "" : ("<br>" + telno[1]))) +"</td>";
-        html += "<td>"+ (element.purgeFlag == 1 ? "<span class='text-success'>Open</span>" : element.purgeFlag == 2 ? "<span class='text-danger'>Inactive</span>" : "") +"</td>";
-        html += "</tr>";
-    });
-    $('#branchTable').html(html);
+    if (data.length!=0){
+        $('.noBranchTr').hide();
+        $('.noBranchDetTr').hide();
+        $('.hrBranch').hide();
+        $('.tblBranches').show();
+        $('.hasBranchDet').show();
+        data.forEach(element => {
+            var telno = element.telno.split("/");
+            html += "<tr onclick='viewBranchProfile(\""+ element.id +"\")'>";
+            html += "<td>"+ element.branchID +"</td>";
+            html += "<td>"+ element.name +"</td>";
+            html += "<td>"+ (telno[0] + (telno[1] == undefined ? "" : ("<br>" + telno[1]))) +"</td>";
+            html += "<td>"+ (element.purgeFlag == 1 ? "<span class='text-success'>Open</span>" : element.purgeFlag == 2 ? "<span class='text-danger'>Inactive</span>" : "") +"</td>";
+            html += "</tr>";
+        });
+        $('#branchTable').html(html);
+    }else{
+        $('.noBranchTr').show();
+        $('.noBranchDetTr').show();
+        $('.hrBranch').show();
+        $('.tblBranches').hide();
+        $('.hasBranchDet').hide();
+    }
 }
 
 var viewBranchProfile = function(id){

@@ -38,7 +38,7 @@
                     <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                         <hr class="hrCustom">
                         <div class="card branchCard">
-                            <h3>List of Branches</h3>
+                            <h3>List of Branches</h3><hr class="hrBranch">
                             <div class="table-responsive">
                                 <table class="table tblBranches table-hover">
                                     <thead>
@@ -49,27 +49,11 @@
                                             <th>Status</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="branchTable">
-                                        <tr>
-                                            <td>SED-BR001</td>
-                                            <td><div>Maria Clara, Quezon City</div></td>
-                                            <td>741-7185/448-5137</td>
-                                            <td><span class="text-success">Open</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>SED-BR002</td>
-                                            <td><div>Market! Market!, Taguig</div></td>
-                                            <td>844-7734</td>
-                                            <td><span class="text-success">Open</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>SED-BR003</td>
-                                            <td><div>Shopwise Cubao, Quezon City</div></td>
-                                            <td>439-4485</td>
-                                            <td><span class="text-danger">Inactive</span></td>
-                                        </tr>
-                                    </tbody>
+                                    <tbody id="branchTable"></tbody>
                                 </table>
+                                <div class="noBranchTr" style="padding: 15px">
+                                    <center><h5>There are no branches to display.</h5></center>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -77,33 +61,38 @@
                         <hr class="hrCustom">
                         <div class="card branchCard" style="position: relative">
                             <h3>Branch Details</h3>
-                            <div>
-                                <center>
-                                    <hr width="50%">
-                                    <h4 class="brnchName">Maria Clara, Quezon City</h4>
-                                    <h5 class="brnchId">SED-BR001</h5>
-                                    <hr width="50%">
-                                </center><br>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <span class="fa fa-user fa-red fa-rightB">&nbsp;&nbsp;</span>
-                                        <span class="brnchReg">Neville Longbottom</span><br> 
-                                        <span class="fa fa-map-marker fa-red fa-rightB">&nbsp;&nbsp;</span>
-                                        <span class="brnchAdd">Mayon St. Cor. Maria Clara, Quezon City</span><br> 
+                            <div class="hasBranchDet">
+                                <div>
+                                    <center>
+                                        <hr width="50%">
+                                        <h4 class="brnchName">Maria Clara, Quezon City</h4>
+                                        <h5 class="brnchId">SED-BR001</h5>
+                                        <hr width="50%">
+                                    </center><br>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <span class="fa fa-user fa-red fa-rightB">&nbsp;&nbsp;</span>
+                                            <span class="brnchReg">Neville Longbottom</span><br> 
+                                            <span class="fa fa-map-marker fa-red fa-rightB">&nbsp;&nbsp;</span>
+                                            <span class="brnchAdd">Mayon St. Cor. Maria Clara, Quezon City</span><br> 
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="fa fa-phone fa-red fa-rightB">&nbsp;&nbsp;</span>
+                                            <span class="brnchPhone">741-7185/448-5137</span><br> 
+                                        </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <span class="fa fa-phone fa-red fa-rightB">&nbsp;&nbsp;</span>
-                                        <span class="brnchPhone">741-7185/448-5137</span><br> 
+                                </div>
+                                <div class="row divBottom">
+                                    <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                                        <button type="button" id="btnRemBrnch" onclick="remBranch()" class="btn btn-danger m-b-10 m-l-5">Remove</button>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                                        <button type="button" id="btnUpdBrnch" onclick="editBranch()" class="btn btn-primary m-b-10 m-l-5">Update</button>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row divBottom">
-                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
-                                    <button type="button" id="btnRemBrnch" onclick="remBranch()" class="btn btn-danger m-b-10 m-l-5">Remove</button>
-                                </div>
-                                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
-                                    <button type="button" id="btnUpdBrnch" onclick="editBranch()" class="btn btn-primary m-b-10 m-l-5">Update</button>
-                                </div>
+                            <div class="noBranchDetTr" style="padding: 15px">
+                                <center><h5>There are no branch details to display.</h5></center>
                             </div>
                         </div>
                     </div>

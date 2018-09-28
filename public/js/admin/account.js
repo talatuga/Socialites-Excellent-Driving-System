@@ -11,9 +11,11 @@ var loadAccount = function(){
             if(err) return console.error(err);
             var data = acc.pages[acc.currTbl];
             if(data.length != 0){
+                $('.noAccTr').hide();
                 renderAccTbl(data[acc.currPage[acc.currTbl]]);            
                 accountLoaded++;
             }else{
+                $('.noAccTr').show();
                 renderAccTbl([]);                            
             }
             $(".preloader").fadeOut();              
@@ -170,16 +172,23 @@ function deactAcc(id){
 
 var renderAccTbl = function(data){
     var html = "";
-    data.forEach(element => {
-        html += "<tr>";
-        html += "<td>"+ element.accID +"</td>";
-        html += "<td>"+ element.username +"</td>";
-        html += "<td><button type='button' onclick='deactAcc("+ element.id +")' class='btnCstom1 btn btn-danger m-b-10 m-l-5'>Deactivate</button></td>";
-        html += "<td><button type='button' onclick='updateAcc("+ element.id +")' class='btnCstom1 btn btn-success m-b-10 m-l-5'>Update</button></td>";
-        html += "</tr>";
-    });
-    var table = acc.currTbl == 0 ? "adminAccTbl" : acc.currTbl == 1 ? "instAccTbl" : acc.currTbl == 2 ? "studAccTbl" : "";
-    $("#"+table).html(html);
+    if (data.length!=0){
+        $('.noAccTr').hide();
+        $("#"+table).show();
+        data.forEach(element => {
+            html += "<tr>";
+            html += "<td>"+ element.accID +"</td>";
+            html += "<td>"+ element.username +"</td>";
+            html += "<td><button type='button' onclick='deactAcc("+ element.id +")' class='btnCstom1 btn btn-danger m-b-10 m-l-5'>Deactivate</button></td>";
+            html += "<td><button type='button' onclick='updateAcc("+ element.id +")' class='btnCstom1 btn btn-success m-b-10 m-l-5'>Update</button></td>";
+            html += "</tr>";
+        });
+        var table = acc.currTbl == 0 ? "adminAccTbl" : acc.currTbl == 1 ? "instAccTbl" : acc.currTbl == 2 ? "studAccTbl" : "";
+        $("#"+table).html(html);
+    }else{
+        $('.noAccTr').show();
+        $("#"+table).hide();
+    }
 }
 
 var selectInstTbl = function(id){

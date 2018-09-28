@@ -37,7 +37,7 @@
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <hr class="hrCustom">
                     <div class="card instCard">
-                        <h3>List of Instructors</h3><br>
+                        <h3>List of Instructors</h3><hr class="hrInst">
                         <div class="table-responsive">
                             <table class="table tblInstructor table-hover">
                                 <thead>
@@ -47,29 +47,11 @@
                                         <th>Status</th>
                                     </tr>
                                 </thead>
-                                <tbody id="instructorTable">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Graciella Tatel</td>
-                                        <td><span class="badge badge-success">Available</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Christian Paul Tupas</td>
-                                        <td><span class="badge badge-danger">Day Off</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Janelle Joy Gabat</td>
-                                        <td><span class="badge badge-warning">In session</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td>Perrine Laganzo</td>
-                                        <td><span class="badge badge-success">Available</span></td>
-                                    </tr>
-                                </tbody>
+                                <tbody id="instructorTable"></tbody>
                             </table>
+                            <div class="noInstTr" style="padding: 15px">
+                                <center><h5>There are no instructors to display.</h5></center>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -80,7 +62,7 @@
                     <hr class="hrCustom">
                     <div class="card instCard">
                         <h3>Instructor Information</h3><hr>
-                        <div class="row">
+                        <div class="row hasInstDet">
                             <div class="col-md-5 col-lg-5">
                                 <span><img src="assets/images/user-medium.png" alt="Student Picture" class="studPic"/></span>
                             </div>
@@ -101,6 +83,9 @@
                                 <button type="button" id="btnViewInstructor" class="btn btn-primary m-b-10 m-l-5">View Profile</button>
                             </div>
                         </div> <!-- End of row -->
+                        <div class="noInstDetTr" style="padding: 15px">
+                            <center><h5>There are no instructor details to display.</h5></center>
+                        </div>
                     </div>
                 </div> <!-- End of col-lg-6 -->
             </div> <!-- End of row -->

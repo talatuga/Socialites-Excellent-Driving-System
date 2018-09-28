@@ -36,9 +36,9 @@
                             <div class="col-md-6 pull-left">
                                 <h3>List of Students</h3>
                             </div>
-                        </div><br>
+                        </div><hr class="hrStud">
                         <div class="table-responsive">
-                            <table class="table tableStud tblCustom table-hover" style="margin-top: 30px;"> 
+                            <table class="table tableStud tblCustom table-hover" style="margin-top: 15px;"> 
                                 <!-- //DB: to change to tblStudent -->
                                 <thead>
                                     <tr>
@@ -48,6 +48,9 @@
                                 </thead>
                                 <tbody id="studentTable"></tbody>
                             </table>
+                            <div class="noStudTr" style="padding: 15px">
+                                <center><h5>There are no student details to display.</h5></center>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -58,7 +61,7 @@
                     <hr class="hrCustom">
                     <div class="card studCard">
                         <h3>Student Details</h3><hr>
-                        <div class="row">
+                        <div class="row hasStudDetails">
                             <div class="col-md-5 col-lg-5 col-sm-5 col-xs-5">
                                 <span><img src="assets/images/user-medium.png" alt="Student Picture" class="studPic"/></span><br><br>
                                 <center>
@@ -77,6 +80,9 @@
                                 <button type="button" id="btnViewStudent" class="btn btn-primary m-b-10 m-l-5">View Profile</button>
                             </div>
                         </div> <!-- End of row -->
+                        <div class="noStudDetTr" style="padding: 15px">
+                            <center><h5>There are no enrolled students yet.</h5></center>
+                        </div>
                     </div>
                 </div> <!-- End of col-lg-6 -->
             </div> <!-- End of row -->

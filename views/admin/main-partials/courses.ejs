@@ -49,28 +49,7 @@
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody id="courseTable">
-                                    <tr>
-                                        <td>CRS-M001</td>
-                                        <td>5 Days</td>
-                                        <td>2,500.00</td>
-                                        <td>Manual</td>
-                                        <td>
-                                            <i class="ti-pencil tiDef2 btnRemCourse" onclick="editCourse()" data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
-                                            <i class="ti-close tiDef2 btnEditCourse" onclick="remCourse()" data-toggle="tooltip" data-placement="bottom" title="Remove"></i>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>CRS-M002</td>
-                                        <td>7 Days</td>
-                                        <td>3,500.00</td>
-                                        <td>Manual</td>
-                                        <td>
-                                            <i class="ti-pencil tiDef2 btnRemCourse" onclick="editCourse()" data-toggle="tooltip" data-placement="bottom" title="Edit"></i>
-                                            <i class="ti-close tiDef2 btnEditCourse" onclick="remCourse()" data-toggle="tooltip" data-placement="bottom" title="Remove"></i>
-                                        </td>
-                                    </tr>
-                                </tbody>
+                                <tbody id="courseTable"></tbody>
                             </table>
                         </div>
                     </div>
@@ -106,8 +85,8 @@
                     <h5 class="h5Enr">Transmission Type<span class="asterisk">*</span></h5>
                     <select required class="enrCivStatus3" name="newCrsVehiType" id="newCrsVehiType">
                         <option value="0">---</option>
-                        <option value="a">Automatic</option>
-                        <option value="m">Manual</option>
+                        <option value="A">Automatic</option>
+                        <option value="M">Manual</option>
                     </select>
                 </div><hr>
             </form>

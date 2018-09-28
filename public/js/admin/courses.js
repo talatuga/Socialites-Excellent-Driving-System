@@ -229,7 +229,7 @@ var renderCourseTable = function(data){
             html += "<td>"+ item.courseID +"</td>";
             html += "<td>"+ item.days +" Days</td>";
             html += "<td>" + parseInt(item.amount).formatMoney(2) + "</td>";
-            html += "<td>" + (item.carType == "a" ? "Automatic" : "Manual") + "</td>";
+            html += "<td>" + (item.carType == "A" ? "Automatic" : "Manual") + "</td>";
             html += "<td><i class='ti-pencil tiDef2 btnRemCourse' onclick='editCourse("+ item.id +")' data-toggle='tooltip' data-placement='bottom' title='Edit'></i><i class='ti-close tiDef2 btnEditCourse' onclick='remCourse("+ item.id +")' data-toggle='tooltip' data-placement='bottom' title='Remove'></i></td>";
             html += "</tr>";
         }

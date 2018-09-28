@@ -737,16 +737,29 @@ function resignInst(){
 var renderInstTablePage = function (data) {
     var html = "";
     var counter = 1;
-    data.forEach(element => {
-        var status = (element.vacant == Date.parse("today").toString('dddd') ? "<span class='text-danger'>Day Off</span>" : element.status == 1 ? "<span class='text-success'>Available</span>" : element.status == 2 ? "<span class='text-warning'>In session</span>" : "<span class='text-danger'>Resigned</span>");
-        html += "<tr onclick='viewInstProfile(\""+ element.instID +"\")'>";
-        html += "<td>" + counter + "</td>";
-        html += "<td>" + (element.fullname.replace(/_/g," ")) + "</td>";
-        html += "<td>" + status + "</td>";
-        html += "</tr>";
-        counter++;
-    });
-    $('#instructorTable').html(html); 
+    if (data.length!=0){
+        $('.noInstTr').hide();
+        $('.noInstDetTr').hide();
+        $('.hrInst').hide();
+        $('.hasInstDet').show();
+        $('.tblInstructor').show();
+        data.forEach(element => {
+            var status = (element.vacant == Date.parse("today").toString('dddd') ? "<span class='text-danger'>Day Off</span>" : element.status == 1 ? "<span class='text-success'>Available</span>" : element.status == 2 ? "<span class='text-warning'>In session</span>" : "<span class='text-danger'>Resigned</span>");
+            html += "<tr onclick='viewInstProfile(\""+ element.instID +"\")'>";
+            html += "<td>" + counter + "</td>";
+            html += "<td>" + (element.fullname.replace(/_/g," ")) + "</td>";
+            html += "<td>" + status + "</td>";
+            html += "</tr>";
+            counter++;
+        });
+        $('#instructorTable').html(html); 
+    }else{
+        $('.noInstTr').show();
+        $('.noInstDetTr').show();
+        $('.hrInst').show();
+        $('.hasInstDet').hide();
+        $('.tblInstructor').hide();
+    }
 }
 
 var viewInstProfile = function(id){

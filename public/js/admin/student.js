@@ -425,18 +425,31 @@ var renderStudentTable = function(data, cb){ // <--- nag declare ng var na may l
         $('#studentTable').html(html); // <--- hahanapin yung element sa html na may id na studentTable and papalitan yung html nun nung laman nung html string.       
         cb();
     }
-    if(data == undefined || data.length == 0) return render();
-    var loopCounter = data.length; // <--- declare ng counter. di kasi gumagana yung break; sa forEach() and Asynchronous kasi siya.
-    data.forEach((element,index) => { // <--- expecting na array yung data, gagamitin natin yung forEach() which is asynchronous function. ilalagay sa element variable yung bawat element nung data and i perform yung action below it.       
-        html += "<tr onclick='viewStud("+ element.id +")'>";
-        html += "<td>" + /* element.id */ (index+1) + "</td>";
-        html += "<td>" + element.fullname.replace(/_/g, " ") + "</td>";
-        // html += "<td>" + element.id + "</td>";
-        //html += "<td>" + element.accStatus + "</td>"; // <-- pa edit nalang nito kung pano yung may warning/sucess
-        html += "</tr>"; // <--- common sense na siguro yung start nito till here. hahaha
-        loopCounter--; // <--- reduce counter value.
-        if(loopCounter == 0) render(); // <--- ichecheck kung zero na ba. kasi kung oo tawagin na yung render variable na may laman na function.        
-    });// <--- ending nung forEach();
+    if(data == undefined || data.length == 0){
+        $('.hrStud').show();
+        $('.tableStud').hide();
+        $('.noStudTr').show();
+        $('.hasStudDetails').hide();
+        $('.noStudDetTr').show();
+        return render();
+    }else{
+        var loopCounter = data.length; // <--- declare ng counter. di kasi gumagana yung break; sa forEach() and Asynchronous kasi siya.
+        $('.hrStud').hide();
+        $('.tableStud').show();
+        $('.noStudTr').hide();
+        $('.hasStudDetails').show();
+        $('.noStudDetTr').hide();
+        data.forEach((element,index) => { // <--- expecting na array yung data, gagamitin natin yung forEach() which is asynchronous function. ilalagay sa element variable yung bawat element nung data and i perform yung action below it.       
+            html += "<tr onclick='viewStud("+ element.id +")'>";
+            html += "<td>" + /* element.id */ (index+1) + "</td>";
+            html += "<td>" + element.fullname.replace(/_/g, " ") + "</td>";
+            // html += "<td>" + element.id + "</td>";
+            //html += "<td>" + element.accStatus + "</td>"; // <-- pa edit nalang nito kung pano yung may warning/sucess
+            html += "</tr>"; // <--- common sense na siguro yung start nito till here. hahaha
+            loopCounter--; // <--- reduce counter value.
+            if(loopCounter == 0) render(); // <--- ichecheck kung zero na ba. kasi kung oo tawagin na yung render variable na may laman na function.        
+        });// <--- ending nung forEach();
+    }  
 }
 var rst_done = 0; // <--- to prevent spamming sana, pero nevermind muna to.
 var refreshStudentTable = function () { // <--- I suggest applying pagination. Self explain kung ano ginagawa nito.
@@ -577,58 +590,58 @@ var viewStud = function(id){
     var today = new Date();
     var payName, payDate, payType, payAssess, payBalance, payTotalBal;
     stud.selected = id;
-    stud.getLocalData(function(profile){
-        stud.selectedID = profile.studID;
-        studID = profile.studID;
-        $('.studNum').html(profile.studID);
-        $('.studName').html(profile.fullname.replace(/_/g, " "));
-        $('.studAddress').html(profile.address);
-        $('.studPhone').html(profile.telno);
-        $('.studEmail').html(profile.email);
-        $('.enrolledCrs').html('none');
-
-        stud.getCourseEnrolled(function(err, course){
-            if(err) return console.error(err);
-            courseModule.selected = course.courseID;
-            courseModule.getLocalData(function(courseData){
-                $('.enrolledCrs').html(courseData.courseID);
+        stud.getLocalData(function(profile){   
+            stud.selectedID = profile.studID;
+            studID = profile.studID;
+            $('.studNum').html(profile.studID);
+            $('.studName').html(profile.fullname.replace(/_/g, " "));
+            $('.studAddress').html(profile.address);
+            $('.studPhone').html(profile.telno);
+            $('.studEmail').html(profile.email);
+            $('.enrolledCrs').html('none');
+    
+            stud.getCourseEnrolled(function(err, course){
+                if(err) return console.error(err);
+                courseModule.selected = course.courseID;
+                courseModule.getLocalData(function(courseData){
+                    $('.enrolledCrs').html(courseData.courseID);
+                });
             });
+    
+            payName = (profile.fullname.replace(/_/g, " "));
+            payDate = ((Date.parse(today).toString('MM/dd/yyyy')));
+    
+            stud.getPaymentAccount(profile.studID, function(err, data){
+                if(err) return console.error(err);
+                $('#tblStudPayment1').html('');
+                data.forEach((e,i) => {
+                    var html = "<tr>";
+                    html += "<td>"+ Date.parse(e.date).toString('MM/dd/yyyy') +"</td>";
+                    html += "<td>"+ e.transaction +"</td>";
+                    html += "<td>"+ parseFloat(e.price).formatMoney(2) +"</td>";
+                    html += "<td>"+ (parseFloat(e.price) - parseFloat(e.balance)).formatMoney(2) +"</td>";
+                    html += "<td>"+ parseFloat(e.balance).formatMoney(2) +"</td>";
+                    html += "</tr>";
+                    $('#tblStudPayment1').append(html);
+                });
+                $("#tblStudPayment1 tr").on('click', function() {
+                    payType = $(this).closest('tr').find('td:eq(1)').text();
+                    payAssess = $(this).closest('tr').find('td:eq(2)').text();
+                    payBalance = $(this).closest('tr').find('td:eq(4)').text();
+                    if(payBalance!="0.00"){
+                        $('.addPayName').html(payName);
+                        $('.addPayDate').html(payDate);
+                        $('.addPayType').html(payType);
+                        $('.addPayAssess').html(payAssess);
+                        $('.addPayBal').html(payBalance);
+                        $('.addPayTotAmount').html(payBalance);
+                        
+                        $('#addPaymentModal1').modal('show');
+                    }
+                });
+            });
+            renderEditInfo();
         });
-
-        payName = (profile.fullname.replace(/_/g, " "));
-        payDate = ((Date.parse(today).toString('MM/dd/yyyy')));
-
-        stud.getPaymentAccount(profile.studID, function(err, data){
-            if(err) return console.error(err);
-            $('#tblStudPayment1').html('');
-            data.forEach((e,i) => {
-                var html = "<tr>";
-                html += "<td>"+ Date.parse(e.date).toString('MM/dd/yyyy') +"</td>";
-                html += "<td>"+ e.transaction +"</td>";
-                html += "<td>"+ parseFloat(e.price).formatMoney(2) +"</td>";
-                html += "<td>"+ (parseFloat(e.price) - parseFloat(e.balance)).formatMoney(2) +"</td>";
-                html += "<td>"+ parseFloat(e.balance).formatMoney(2) +"</td>";
-                html += "</tr>";
-                $('#tblStudPayment1').append(html);
-            });
-            $("#tblStudPayment1 tr").on('click', function() {
-                payType = $(this).closest('tr').find('td:eq(1)').text();
-                payAssess = $(this).closest('tr').find('td:eq(2)').text();
-                payBalance = $(this).closest('tr').find('td:eq(4)').text();
-                if(payBalance!="0.00"){
-                    $('.addPayName').html(payName);
-                    $('.addPayDate').html(payDate);
-                    $('.addPayType').html(payType);
-                    $('.addPayAssess').html(payAssess);
-                    $('.addPayBal').html(payBalance);
-                    $('.addPayTotAmount').html(payBalance);
-                    
-                    $('#addPaymentModal1').modal('show');
-                }
-            });
-        });
-        renderEditInfo();
-    });
 }
 
 var allStudTblLoad = 0;
