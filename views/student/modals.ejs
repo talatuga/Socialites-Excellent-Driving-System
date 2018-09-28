@@ -385,3 +385,47 @@
     </div>
   </div>
 </div>
+
+<!-- Transfer Branch Modal -->
+<div class="modal fade" id="transferBranchModal" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="transferBranchModal">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <center>
+            <h6>Socialites Excellent Driving</h6>
+            <h2>TRANSFER TO BRANCH</h2>
+        </center>
+        <hr class="hrCustom">
+        <div class="stot">
+            <form>
+              <table width="95%">
+                <tr>
+                  <td><h5 style="float: left; padding-top: 5px">Branch From: </h5></td>
+                  <td><input type="text" id="txtBranchFrom" class="txtEnr" style="width: 100%" readonly value="SED-Quezon City"></td>
+                </tr>
+                <tr>
+                  <td><h5 style="float: left; padding-top: 5px">Branch To: </h5></td>
+                  <td>
+                    <select class="enrTxtArea selTransferBranch" name="selTransferBranch" style="width: 100%">
+                        <option val="0">SED-Taguig City</option>
+                        <option val="1">SED-Pasay City</option>
+                        <option val="2">SED-Makati City</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td><h5 style="float: left; padding-top: 5px">Requested Date of Transfer: </h5></td>
+                  <td><input type="date" id="txtTransferDate" class="txtEnr" style="width: 100%"></td>
+                </tr>
+              </table>
+              <center><small style="color: #5d0000"><b>Note: Date of transfer must be two days away or more from today.</b></small></center><hr>
+            </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn100px btn btn-light btnLicense" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn100px btn btn-success btnLicense" onclick="submitTransReq()">Done</button>
+      </div>
+    </div>
+  </div>
+</div>

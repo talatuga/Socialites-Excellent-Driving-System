@@ -103,9 +103,9 @@ Grade.getEvalInstNumber = function (instID, cb){
     });
 }
 
-Grade.getGradesStudent = function (studID, cb){
-    var sql = "SELECT ce.selectedLesson, g.*, ui.fullname, l.title, s.date, s.time FROM course_enrolled ce, enrollment en, grades g, instructor i, userinfo ui, lesson l, schedule s WHERE en.id = ce.enrollmentID AND en.studID = ? AND g.studID = en.studID AND g.instID = i.id AND i.userinfo = ui.id AND g.lessonID = l.id AND s.id = g.schedID ORDER BY s.date";
-    db.get().query(sql, [studID], function(err, result){
+Grade.getGradesStudent = function (studID, gCourse, ceCourse, cb){
+    var sql = "SELECT ce.selectedLesson, g.*, ui.fullname, l.title, s.date, s.time FROM course_enrolled ce, enrollment en, grades g, instructor i, userinfo ui, lesson l, schedule s WHERE en.id = ce.enrollmentID AND en.studID = ? AND g.courseID = ? AND ce.courseID = ? AND g.studID = en.studID AND g.instID = i.id AND i.userinfo = ui.id AND g.lessonID = l.id AND s.id = g.schedID ORDER BY s.date";
+    db.get().query(sql, [studID, gCourse, ceCourse], function(err, result){
         if(err) return cb(err);
         if(result.length == 0) return cb(null, []);
         cb(null, result);

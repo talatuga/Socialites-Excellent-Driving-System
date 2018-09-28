@@ -476,7 +476,7 @@ exports.getCourse = function(req , res, next){
     var offset = req.query.offset ? req.query.offset : 0;
     var limit = req.query.limit ? req.query.limit : 10;
 
-    if(!studID) return res.status(401).send({detail: "No credential Found"});
+    if(!studID) return res.status(401).send({detail: "No credential found"});
 
     lesson.getCourseEnrolled(studID, function(err, result){
         if(err) return next(err);
@@ -533,13 +533,6 @@ exports.prepareViewData = function(req, res, next){
                 resolve(crs);
             });
         });
-        var getGradesStudent = new Promise((resolve, reject)=>{
-            grades.getGradesStudent(req.session.studID, function(err, crs){
-                if(err) return reject(err);
-                res.locals.gradesStud = crs;
-                resolve(crs);
-            });
-        });
         var getInstructors = new Promise((resolve, reject)=>{
             grades.getAssignedInst(req.session.studID, function(err, inst){
                 if(err) return reject(err);
@@ -580,7 +573,7 @@ exports.prepareViewData = function(req, res, next){
                 resolve(true);
             });
         });
-        var query = [getSched, getLicense, getCourse, getLessons, getInstructors, getBranch, getStudentInfo, getVehi, getEvalStud, getGradesStudent];
+        var query = [getSched, getLicense, getCourse, getLessons, getInstructors, getBranch, getStudentInfo, getVehi, getEvalStud];
         Promise.all(query).then((results)=>{
             next();
         }).catch(next);

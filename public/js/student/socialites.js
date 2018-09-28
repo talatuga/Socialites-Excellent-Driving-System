@@ -3,6 +3,7 @@ var app = {
         this.preference.getPreference('',function(){});
         this.paymentAccount.getPayment(function(err, data){
             if(err) throw new Error('Null result');
+            var fullname = $('#studentName').data('name');
             $('#accountTable').html('');
             data.forEach((e,i)=>{
                 var html = "<tr>";
@@ -11,7 +12,7 @@ var app = {
                 html += "<td>"+ parseFloat(e.price).formatMoney(2) +"</td>";
                 html += "<td>"+ (parseFloat(e.price) - parseFloat(e.balance)).formatMoney(2) +"</td>";
                 html += "<td>"+ parseFloat(e.balance).formatMoney(2) +"</td>";
-                html += "<td>a class='invoiceLink'<button type='button' onclick='viewReceipt()' class='btn100px btn13 btn btn-inverse m-b-10 m-l-5' "+ (e.balance>0 ? 'disabled' : '') +">View Receipt</button></a></td>";
+                html += "<td><a class='receiptLink' href='api/v1/web/receipt?fullname="+ fullname +"&orno="+ e.ORno +"'><button type='button' class='btn100px btn13 btn btn-inverse m-b-10 m-l-5' "+ (e.balance>0 ? 'disabled' : '') +">View Receipt</button></a></td>";
                 html += "</tr>";
                 $('#accountTable').append(html);
             });

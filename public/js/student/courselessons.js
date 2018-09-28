@@ -14,13 +14,13 @@ $(function (){
             $('.h4selCrsforLes').html(selectedCourse);
             $('.nav1 a[href="#lessonTab"]').tab('show');
             $(".preloader").fadeIn(); 
-            viewGradesStud();
+            viewGradesStud(courseID);
             $(".preloader").fadeOut(); 
             }
     });
 });
 
-function viewGradesStud(){
+function viewGradesStud(a){
     evaluation.getGradesStud(function(err, data){
         if(err){
             swal("Failed!", err.message, "error");

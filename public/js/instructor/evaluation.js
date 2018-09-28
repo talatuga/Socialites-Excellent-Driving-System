@@ -25,49 +25,57 @@ function loadEvalInst(){
         }
     });
 
-    evaluation.getEvalInstPercMonth(function(err, data){
-        if(err){
-            swal("Failed!", err.message, "error");
-            console.log(err);
-        }else{
-            $('.monthEvalPerc').html("");
-            var dataLen = data.length;
-            if(data.length!=0){
-                var html = data[0].count*20 + "%";
-                $('.monthEvalPerc').append(html);
-            } else{
-                var html = "0%";
-                $('.monthEvalPerc').append(html);
+    if (monthnow== (new Date()).getUTCMonth()+1){
+        $('.monthEvalPerc').html("0%");
+    }else{
+        evaluation.getEvalInstPercMonth(function(err, data){
+            if(err){
+                swal("Failed!", err.message, "error");
+                console.log(err);
+            }else{
+                $('.monthEvalPerc').html("");
+                var dataLen = data.length;
+                if(data.length!=0){
+                    var html = data[0].count*20 + "%";
+                    $('.monthEvalPerc').append(html);
+                } else{
+                    var html = "0%";
+                    $('.monthEvalPerc').append(html);
+                }
             }
-        }
-    });
+        });
+    }
 
-    evaluation.getEvalInst(function(err, data){
-        if(err){
-            swal("Failed!", err.message, "error");
-            console.log(err);
-        }else{
-            $('.evalInstDiv').html("");
-            var pad = "000";
-            var x = 1;
-            var dataLen = data.length;
-            if(data.length!=0){
-                $('.noEvalYet').hide();
-                data.forEach(e => {
-                    var html = "<div class='sl-item' id='1'> <div class='sl-left'> <img src='assets/images/user4.png' alt='Student' id='studEvalPic' class='img-circle' /> </div> <div class='sl-right'>";
-                    html += "<div>Date Evaluated: <span class='sl-date'>" + (Date.parse(e.dateEvaluated ).toString("MMM dd, yyyy")) + "</span>";
-                    html += "<br>Course Enrolled: <span class='crsStudEval'>CRS-" + e.carType.toUpperCase() + (pad.substring(0, pad.length-(e.courseID+"").length) + e.courseID) + "</span><div class='separator2'></div>";
-                    html += "<p style='color: #455a64;'>Evaluation Grade: <span class='studEvalGrade'>" + e.grade + " (" + (e.grade == 5 ? '100%' : (e.grade == 4 ? '80%' : (e.grade == 3 ? '60%' : (e.grade == 2 ? '40%' : '20%')))) + ")" + "</span></p>";
-                    html += "<p class='m-t-10 studEvalMsg'>\"" + e.comment + "\"</p>";
-                    html += "</div></div></div><hr>";
-                    x++;
-                    $('.evalInstDiv').append(html);
-                });
-            } else{
-                $('.noEvalYet').show();
+    if (monthnow== (new Date()).getUTCMonth()+1){
+        $('.noEvalYet').show();
+    }else{
+        evaluation.getEvalInst(function(err, data){
+            if(err){
+                swal("Failed!", err.message, "error");
+                console.log(err);
+            }else{
+                $('.evalInstDiv').html("");
+                var pad = "000";
+                var x = 1;
+                var dataLen = data.length;
+                if(data.length!=0){
+                    $('.noEvalYet').hide();
+                    data.forEach(e => {
+                        var html = "<div class='sl-item' id='1'> <div class='sl-left'> <img src='assets/images/user4.png' alt='Student' id='studEvalPic' class='img-circle' /> </div> <div class='sl-right'>";
+                        html += "<div>Date Evaluated: <span class='sl-date'>" + (Date.parse(e.dateEvaluated ).toString("MMM dd, yyyy")) + "</span>";
+                        html += "<br>Course Enrolled: <span class='crsStudEval'>CRS-" + e.carType.toUpperCase() + (pad.substring(0, pad.length-(e.courseID+"").length) + e.courseID) + "</span><div class='separator2'></div>";
+                        html += "<p style='color: #455a64;'>Evaluation Grade: <span class='studEvalGrade'>" + e.grade + " (" + (e.grade == 5 ? '100%' : (e.grade == 4 ? '80%' : (e.grade == 3 ? '60%' : (e.grade == 2 ? '40%' : '20%')))) + ")" + "</span></p>";
+                        html += "<p class='m-t-10 studEvalMsg'>\"" + e.comment + "\"</p>";
+                        html += "</div></div></div><hr>";
+                        x++;
+                        $('.evalInstDiv').append(html);
+                    });
+                } else{
+                    $('.noEvalYet').show();
+                }
             }
-        }
-    });
+        });
+    }
 
     switch (monthnow){
         case 1: 
@@ -143,48 +151,56 @@ function goEvalSearch(){
     $('.curMonth').html("(" + selMonth + ")");
     $(".preloader").fadeIn(); 
 
-    evaluation.getEvalInstPercMonth(function(err, data){
-        if(err){
-            swal("Failed!", err.message, "error");
-            console.log(err);
-        }else{
-            $('.monthEvalPerc').html("");
-            var dataLen = data.length;
-            if(data.length!=0){
-                var html = data[0].count*20 + "%";
-                $('.monthEvalPerc').append(html);
-            } else{
-                var html = "0%";
-                $('.monthEvalPerc').append(html);
+    if (monthnow== (new Date()).getUTCMonth()+1){
+        $('.monthEvalPerc').html("0%");
+    }else{
+        evaluation.getEvalInstPercMonth(function(err, data){
+            if(err){
+                swal("Failed!", err.message, "error");
+                console.log(err);
+            }else{
+                $('.monthEvalPerc').html("");
+                var dataLen = data.length;
+                if(data.length!=0){
+                    var html = data[0].count*20 + "%";
+                    $('.monthEvalPerc').append(html);
+                } else{
+                    var html = "0%";
+                    $('.monthEvalPerc').append(html);
+                }
             }
-        }
-    });
+        });
+    }
 
-    evaluation.getEvalInst(function(err, data){
-        if(err){
-            swal("Failed!", err.message, "error");
-            console.log(err);
-        }else{
-            $('.evalInstDiv').html("");
-            var pad = "000";
-            var x = 1;
-            var dataLen = data.length;
-            if(data.length!=0){
-                $('.noEvalYet').hide();
-                data.forEach(e => {
-                    var html = "<div class='sl-item' id='1'> <div class='sl-left'> <img src='assets/images/user4.png' alt='Student' id='studEvalPic' class='img-circle' /> </div> <div class='sl-right'>";
-                    html += "<div>Date Evaluated: <span class='sl-date'>" + (Date.parse(e.dateEvaluated ).toString("MMM dd, yyyy")) + "</span>";
-                    html += "<br>Course Enrolled: <span class='crsStudEval'>CRS-" + e.carType.toUpperCase() + (pad.substring(0, pad.length-(e.courseID+"").length) + e.courseID) + "</span><div class='separator2'></div>";
-                    html += "<p style='color: #455a64;'>Evaluation Grade: <span class='studEvalGrade'>" + e.grade + " (" + (e.grade == 5 ? '100%' : (e.grade == 4 ? '80%' : (e.grade == 3 ? '60%' : (e.grade == 2 ? '40%' : '20%')))) + ")" + "</span></p>";
-                    html += "<p class='m-t-10 studEvalMsg'>\"" + e.comment + "\"</p>";
-                    html += "</div></div></div><hr>";
-                    x++;
-                    $('.evalInstDiv').append(html);
-                });
-            } else{
-                $('.noEvalYet').show();
+    if (monthnow== (new Date()).getUTCMonth()+1){
+        $('.noEvalYet').show();
+    }else{
+        evaluation.getEvalInst(function(err, data){
+            if(err){
+                swal("Failed!", err.message, "error");
+                console.log(err);
+            }else{
+                $('.evalInstDiv').html("");
+                var pad = "000";
+                var x = 1;
+                var dataLen = data.length;
+                if(data.length!=0){
+                    $('.noEvalYet').hide();
+                    data.forEach(e => {
+                        var html = "<div class='sl-item' id='1'> <div class='sl-left'> <img src='assets/images/user4.png' alt='Student' id='studEvalPic' class='img-circle' /> </div> <div class='sl-right'>";
+                        html += "<div>Date Evaluated: <span class='sl-date'>" + (Date.parse(e.dateEvaluated ).toString("MMM dd, yyyy")) + "</span>";
+                        html += "<br>Course Enrolled: <span class='crsStudEval'>CRS-" + e.carType.toUpperCase() + (pad.substring(0, pad.length-(e.courseID+"").length) + e.courseID) + "</span><div class='separator2'></div>";
+                        html += "<p style='color: #455a64;'>Evaluation Grade: <span class='studEvalGrade'>" + e.grade + " (" + (e.grade == 5 ? '100%' : (e.grade == 4 ? '80%' : (e.grade == 3 ? '60%' : (e.grade == 2 ? '40%' : '20%')))) + ")" + "</span></p>";
+                        html += "<p class='m-t-10 studEvalMsg'>\"" + e.comment + "\"</p>";
+                        html += "</div></div></div><hr>";
+                        x++;
+                        $('.evalInstDiv').append(html);
+                    });
+                } else{
+                    $('.noEvalYet').show();
+                }
             }
-        }
-    });
+        });
+    }
     $(".preloader").fadeOut(); 
 }

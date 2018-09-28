@@ -7119,10 +7119,24 @@ tbody tr td:last-child {
   padding-right: 10px;
   cursor: pointer;
 }
-.backInst:hover, .backStud:hover
+.backInst:hover, .backStud:hover, .back:hover
 {
   cursor: pointer;
   color: #5D0000;
+}
+.back1
+{
+  padding-right: 10px;
+  cursor: pointer;
+}
+.back1:hover
+{
+  cursor: pointer;
+  color: #5D0000;
+}
+.h4selCrsforLes{
+  color: #5d0000;
+  font-weight: bolder
 }
 .studPic, .profPic1, .profPicStud, .profPicInst, .profPicInstView, .profPicInstructor
 {
@@ -8469,6 +8483,17 @@ tiCustom
 
 .fc-title{
   color: white;
+  font-size: 11px
+}
+
+.fc-time{
+  color: white;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.fc-today{
+  background-color: #5d0000
 }
 
 .profPic1:hover{

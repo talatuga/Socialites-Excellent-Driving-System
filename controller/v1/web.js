@@ -19,6 +19,9 @@ router.get('/receipt', middleware.generateReceipt);
 
 router.post('/subscription', middleware.subscribe);
 
+router.get('/display/totEnroll', middleware.getDisplayTotEnroll);
+router.get('/display/totStud', middleware.getDisplayStud);
+
 router.get('/unsubscribe/:email/:token', middleware.unsubscribe);
 
 module.exports = router;

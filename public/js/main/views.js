@@ -1,21 +1,39 @@
+var yearNow = (new Date()).getFullYear();
+
 $(function() {    
-    $("#main_menu").removeClass("menu-scroll");
-    $("#service").hide();
-    $("#branches").hide();
-    $("#aboutus").hide();
-    $("#gallery").hide();
-    $("#tips").hide();
-    $("#login").hide();
-    $("#courses").hide();
-    $("#cart").hide();
-    $("#faq").hide();
-    $("#enrollment").hide();
-    $("#announcements").hide();
-    $("#homeCls").show();
+    homeClick();
 });
 
 var homeClick = function() 
 {
+    $('.yrNowWeb').html(yearNow);
+    display.getTotEnrollees(function(err, data){
+        if(err){
+            swal("Failed!", err.message, "error");
+            console.log(err);
+        }else{
+            if(data.length!=0){
+                var x = data[0].counter;
+                $('.enrolleesJan').html(x);
+            }else{
+                $('.enrolleesJan').html('0');
+            }
+        }
+    });
+    display.getTotStud(function(err, data){
+        if(err){
+            swal("Failed!", err.message, "error");
+            console.log(err);
+        }else{
+            if(data.length!=0){
+                var x = data[0].counter;
+                $('.curStud').html(x);
+            }else{
+                $('.curStud').html('0');
+            }
+        }
+    });
+    $('.enrolleesJan').html();
     $("#main_menu").removeClass("menu-scroll");
     $("#service").hide();
     $("#aboutus").hide();

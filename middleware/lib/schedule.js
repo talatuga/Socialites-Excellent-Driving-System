@@ -53,9 +53,9 @@ exports.calendar = function(req, res, next){
                 }
     
                 if(e.status == 3){
-                    eColor = "#64ff59";
+                    eColor = "#42AA3B";
                 }else if(e.status == 4){
-                    eColor = "#ff1e1e";
+                    eColor = "#AA1414";
                 }
     
                 sched.push({

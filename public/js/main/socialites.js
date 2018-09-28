@@ -384,3 +384,39 @@ var faq = {
         });
     },
 }
+
+var display = {
+    selected: -1,
+    offset: 0,
+    limit: 20,
+    currPage: 0,
+    pages: [],
+    getTotEnrollees: function(cb){
+        $.ajax({
+            type: "GET",
+            url: 'api/v1/web/display/totEnroll',
+            data: {year: yearNow},
+            success: (res)=>{
+                if(res.success){
+                    cb(null, res.data);
+                }else{
+                    cb(new Error(res.detail));
+                }
+            },
+            error: xhr=>cb(new Error(xhr.status+": "+xhr.statusText)),
+        });
+    },
+    getTotStud: function(cb){
+        var req = $.get('api/v1/web/display/totStud', function(response){
+            if(response.success == false){
+                console.log(response.detail);
+                cb(new Error(response.detail));
+            }else{
+                cb(null, response.data);
+            }
+        }).fail(function(request){
+            console.log(request.status + ": " + request.statusText);
+            cb(new Error("Error: On displaying total number of current students"));
+        });
+    },
+}

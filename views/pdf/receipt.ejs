@@ -4,6 +4,18 @@
         <% include ../utils/studentCSS %>
     </head>
     <body>
+        <%
+            Number.prototype.formatMoney = function(c, d, t){
+                var n = this, 
+                c = isNaN(c = Math.abs(c)) ? 2 : c, 
+                d = d == undefined ? "." : d, 
+                t = t == undefined ? "," : t, 
+                s = n < 0 ? "-" : "", 
+                i = String(parseInt(n = Math.abs(Number(n) || 0).toFixed(c))), 
+                j = (j = i.length) > 3 ? j % 3 : 0;
+                return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+            };
+        %>
         <center>
             <div>
                 <h1>SOCIALITES EXCELLENT DRIVING</h1>
@@ -25,13 +37,13 @@
                             <h3 style="letter-spacing: 5px; text-align: left">OFFICIAL RECEIPT<br> <small>(Sale of Service)</small></h3>
                         </td>
                         <td>
-                            <h4>No. <span style="color: #5d0000; text-align: right">1787</span><br>Date: <span>August 7, 2018</span></h4>
+                            <h4>No. <span style="color: #5d0000; text-align: right"><%=or%></span><br>Date: <span><%=date%></span></h4>
                         </td>
                     </tr>
                 </tbody>
             </table><br>
-            <h3>Received from <span style="font-weight: bolder">Kenard Smith Belarmino Bautista</span> with the sum of &#8369;
-                <span style="font-weight: bolder">2,500.00</span><hr width="50%">
+            <h3>Received from <span style="font-weight: bolder"><%=name.replace(/_/g," ")%></span> with the sum of &#8369;
+                <span style="font-weight: bolder"><%=transaction.price.formatMoney(2)%></span><hr width="50%">
             <table width="90%">
                 <thead>
                     <tr>
@@ -43,7 +55,13 @@
                     </tr>
                 </thead>
                 <tbody style="font-size: 13px">
-                    
+                    <tr style="text-align: center">
+                        <td><%=transaction.date%></td>
+                        <td><%=transaction.transaction%></td>
+                        <td><%=transaction.price.formatMoney(2)%></td>
+                        <td><%=(transaction.price - transaction.balance).formatMoney(2)%></td>
+                        <td><%=transaction.balance.formatMoney(2)%></td>
+                    </tr>
                 </tbody>
             </table><br><br><br>
             <input type="text" style="border-color: 0px 0px 1px 0px solid black; text-align: center; font-size: 13px" value="Graciella C. Tatel">

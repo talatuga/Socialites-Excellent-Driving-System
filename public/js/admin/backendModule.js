@@ -325,6 +325,19 @@ var inst = {
             error: xhr=>cb(new Error(xhr.status+": "+xhr.statusText)),
         });
     },
+    getStudEval: function(cb){
+        var req = $.get('api/v1/grade/student/' + studID + '/eval', function(response){
+            if(response.success == false){
+                console.log(response.detail);
+                cb(new Error(response.detail));
+            }else{
+                cb(null, response.data);
+            }
+        }).fail(function(request){
+            console.log(request.status + ": " + request.statusText);
+            cb(new Error("Error: On displaying list of FAQ under this label"));
+        });
+    },
 }
 /* 
 *   branch module, simplified tong isang ito for better readability. 
@@ -561,9 +574,23 @@ var stud = {
         });
     },
     getGradesStud: function(cb){
-        var req = $.get('api/v1/grade/student/' + studID, function(response){
+        $.ajax({
+            type: "GET",
+            url: 'api/v1/grade/stud/' + studID,
+            data: {gCourse: courseID, ceCourse: courseID},
+            success: (res)=>{
+                if(res.success){
+                    cb(null, res.data);
+                }else{
+                    cb(new Error(res.detail));
+                }
+            },
+            error: xhr=>cb(new Error(xhr.status+": "+xhr.statusText)),
+        });
+    },
+    getCourseEnrolled: function(cb){
+        var req = $.get('api/v1/stud/' + studID + '/course_enrolled', function(response){
             if(response.success == false){
-                console.log(response.detail);
                 cb(new Error(response.detail));
             }else{
                 cb(null, response.data);
@@ -572,26 +599,24 @@ var stud = {
             console.log(request.status + ": " + request.statusText);
             cb(new Error("Error: On displaying student grades"));
         });
-    },
-    getCourseEnrolled: function(cb){
-        $.ajax({
-            type: 'GET',
-            url: 'api/v1/stud/' + this.selectedID + '/course_enrolled',
-            success: res=>{
-                if(res.success){
-                    res.data.forEach((e,i)=>{
-                        if(e.enrollStatus == 1){
-                            return cb(null, e);
-                        }
-                    });
-                }else{
-                    cb(new Error(res.detail));
-                }
-            },
-            error: xhr=>{
-                cb(new Error(xhr.status + ":" + xhr.statusText));
-            }
-        });
+        // $.ajax({
+        //     type: 'GET',
+        //     url: 'api/v1/stud/' + studID + '/course_enrolled',
+        //     success: res=>{
+        //         if(res.success){
+        //             res.data.forEach((e,i)=>{
+        //                 if(e.enrollStatus == 1){
+        //                     return cb(null, e);
+        //                 }
+        //             });
+        //         }else{
+        //             cb(new Error(res.detail));
+        //         }
+        //     },
+        //     error: xhr=>{
+        //         cb(new Error(xhr.status + ":" + xhr.statusText));
+        //     }
+        // });
     }
 }
 /* 

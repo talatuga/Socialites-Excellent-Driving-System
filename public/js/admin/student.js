@@ -1,9 +1,6 @@
 var studName, studID, courseID, schedID, lessonID, dataID;
 var selectedLesson, selectedGrade, selectedComment, selectedDate, selectedTime, selectedDataID, selectedInstID, selectedLessonID, selectedSchedID;
 $(function() {
-    //document.getElementById("studCP1").checked = true;
-    //document.getElementById("studCP2").checked = false;
-    //getStudent(1, studentTable.offset, studentTable.limit).then(renderStudentTable); // <--- tawagin yung getStudent() then after yung renderStudentTable().    
 });
 
 $("#studentTblGrade tr").on('click', function() {
@@ -23,7 +20,7 @@ $("#btnViewStudent").on("click", function() { //opens view student page upon cli
     $('.view-viewStudent').show();
     resetSettingsStud();
     loadEvalStud();
-    viewGradesStud();
+    loadCourses();
     scheduler.getStudSched(stud.selectedID, function(err, sched){
         if(err) return console.error(err);
         if(sched.length == 0) return;
@@ -96,6 +93,50 @@ var loadStud = function(){
 function clrSearchStudent ()
 {
     $('#searchStudent').val("");
+}
+
+function loadCourses(){
+    $('.enrolledCrsTbl1').show();
+    $('#lessonForGradeTbl').hide();
+    $('.h4selCrsforLes1').hide();
+    stud.getCourseEnrolled(function(err, data){
+        if(err){
+            swal("Failed!", err.message, "error");
+            console.log(err);
+        }else{
+            $('#enrolledCrsTblStud').html("");
+            var pad = "000";
+            if(data.length!=0){
+                $('.noGradeTr').hide();
+                $('.noCrsTr').hide();
+                data.forEach(e => {
+                    var html = "<tr><td id='"+ e.courseID +"'> CRS-" + e.carType.toUpperCase() + (pad.substring(0, pad.length-(e.courseID+"").length) + e.courseID) + "</td>";
+                    html += "<td>" + e.days + "</td>";
+                    html += "<td>" + (e.special ? "Yes" : "No") + "</td>";
+                    html += "<td>" + (e.enrollStatus == 1 || e.enrollStatus == 0 ? (Date.parse(e.dateEnrolled).toString("MMM dd, yyyy")) : (e.enrollStatus == 2 ? "---" : "date")) + "</td>";
+                    html += "<td>" + (e.enrollStatus == 1 ? "Ongoing" : (e.enrollStatus == 2 ? "Pending" : "Finished")) + "</td>";
+                    html += "</tr>"; 
+                    $('#enrolledCrsTblStud').append(html);
+                });
+            }else{
+                $('.noGradeTr').hide();
+                $('.noCrsTr').show();
+            }
+            $('#enrolledCrsTblStud tr').click(function () {
+                var selected = $(this).hasClass("highlightTr");
+                $('#enrolledCrsTblStud tr').removeClass("highlightTr");
+                if (!selected){
+                    $(this).addClass("highlightTr");
+                    courseID = $(this).closest('tr').find('td:eq(0)').attr("id");
+                    var selectedCourse = $(this).closest('tr').find('td:eq(0)').text();
+                    $('.h4selCrsforLes').html(selectedCourse);
+                    $(".preloader").fadeIn(); 
+                    viewGradesStud(courseID);
+                    $(".preloader").fadeOut(); 
+                    }
+            });
+        }
+    });
 }
 
 function resetSettingsStud (){
@@ -390,6 +431,7 @@ var renderStudentTable = function(data, cb){ // <--- nag declare ng var na may l
         html += "<tr onclick='viewStud("+ element.id +")'>";
         html += "<td>" + /* element.id */ (index+1) + "</td>";
         html += "<td>" + element.fullname.replace(/_/g, " ") + "</td>";
+        // html += "<td>" + element.id + "</td>";
         //html += "<td>" + element.accStatus + "</td>"; // <-- pa edit nalang nito kung pano yung may warning/sucess
         html += "</tr>"; // <--- common sense na siguro yung start nito till here. hahaha
         loopCounter--; // <--- reduce counter value.
@@ -465,13 +507,9 @@ var deleteStudentData = function(id){
 }
 
 function viewGradesStud(){
-    // var data = $('#a'+studID).data('info');
-    // var dataId = data.id;
-    // var pad = "0000";
-    // courseID = data.courseID;
-    // course = "CRS-"+ (data.carType.toUpperCase() + pad.substring(0,pad.length - (data.courseID+"").length)) + data.courseID;
-    // $('.enrolledCrs').html("CRS-"+ (data.carType.toUpperCase() + pad.substring(0,pad.length - (data.courseID+"").length)) + data.courseID);
-
+    $('.enrolledCrsTbl1').hide();
+    $('#lessonForGradeTbl').show();
+    $('.h4selCrsforLes1').show();
     stud.getGradesStud(function(err, data){
         if(err){
             swal("Failed!", err.message, "error");
@@ -480,38 +518,27 @@ function viewGradesStud(){
             $('#studGradesInst').html("");
             var x = 1;
             var dataLen = data.length;
-            data.forEach(e => {
-                dataID = e.id;
-                var html = "<tr id='"+ e.id +"'>";
-                html += "<td id='"+ e.id +"'>" + x + "</td>";
-                html += "<td id='"+ e.lessonID +"'>" + e.title + "</td>";
-                html += "<td id='"+ e.schedID +"'>" + (Date.parse(e.date).toString("MMM dd, yyyy")) + "</td>";
-                html += "<td>" + (Date.parse(e.time).toString("HH:mm")) + "</td>";
-                html += "<td id='"+ e.instID +"' data-name='"+ e.fullname +"' >" + e.fullname.replace(/_/g, ' ') + "</td>";
-                html += "<td>" + e.grade + "</td>";
-                html += "<td>" + e.comment + "</td>";
-                html += "</tr>";
-                x++;
-                $('#studGradesInst').append(html);
-            });
-            // if (dataLen==10){
-            //     $('.btnAddI').hide();
-            //     $('.btnEvalI').show();
-            // }else{
-            //     $('.btnAddI').show();
-            //     $('.btnEvalI').hide();
-            // }
-            $("#studGradesInst tr").on('click', function() {
-                selectedLesson = $(this).closest('tr').find('td:eq(1)').text();
-                selectedGrade = $(this).closest('tr').find('td:eq(5)').text();
-                selectedComment = $(this).closest('tr').find('td:eq(6)').text();
-                selectedDate = $(this).closest('tr').find('td:eq(2)').text();
-                selectedTime = $(this).closest('tr').find('td:eq(3)').text();
-                selectedDataID = $(this).closest('tr').find('td:eq(0)').attr("id");
-                selectedLessonID = $(this).closest('tr').find('td:eq(1)').attr("id");
-                selectedInstID = $(this).closest('tr').find('td:eq(4)').attr("id");
-                selectedSchedID = $(this).closest('tr').find('td:eq(2)').attr("id");
-            });
+            if(data.length!=0){
+                $('.noGradeTr').hide();
+                $('.noCrsTr').hide();
+                data.forEach(e => {
+                    dataID = e.id;
+                    var html = "<tr id='"+ e.id +"'>";
+                    html += "<td id='"+ e.id +"'>" + x + "</td>";
+                    html += "<td id='"+ e.lessonID +"'>" + e.title + "</td>";
+                    html += "<td id='"+ e.schedID +"'>" + (Date.parse(e.date).toString("MMM dd, yyyy")) + "</td>";
+                    html += "<td>" + (Date.parse(e.time).toString("HH:mm")) + "</td>";
+                    html += "<td id='"+ e.instID +"' data-name='"+ e.fullname +"' >" + e.fullname.replace(/_/g, ' ') + "</td>";
+                    html += "<td>" + e.grade + "</td>";
+                    html += "<td>" + e.comment + "</td>";
+                    html += "</tr>";
+                    x++;
+                    $('#studGradesInst').append(html);
+                });
+            }else{
+                $('.noCrsTr').hide();
+                $('.noGradeTr').show();
+            }
         }
     });
 }
@@ -527,6 +554,7 @@ function loadEvalStud(){
             var pad = "0000";
             var eval;
             if(data.length!=0){
+                $('.noEvalDiv').hide();
                 data.forEach((e,i)=>{
                     var html = "<div class='sl-item'><div class='sl-left'> <img src='assets/images/user4.png' alt='Student' id='studEvalPic' class='img-circle /> </div><div class='sl-right'>";
                     html += "<div><a href='#' class='link' id='instEvalName'>" + e.fullname.replace(/_/g, ' ') + "</a> <span class='sl-date'>" + (Date.parse(e.dateEvaluated ).toString("MMM dd, yyyy")) + "</span>";
@@ -538,6 +566,8 @@ function loadEvalStud(){
                     x++;
                     $('#evalStudAdmin').append(html);
                 });
+            }else{
+                $('.noEvalDiv').show();
             }
         }
     });
@@ -585,16 +615,16 @@ var viewStud = function(id){
                 payType = $(this).closest('tr').find('td:eq(1)').text();
                 payAssess = $(this).closest('tr').find('td:eq(2)').text();
                 payBalance = $(this).closest('tr').find('td:eq(4)').text();
-
-                $('.addPayName').html(payName);
-                $('.addPayDate').html(payDate);
-                $('.addPayType').html(payType);
-                $('.addPayAssess').html(payAssess);
-                $('.addPayBal').html(payBalance);
-                $('.addPayTotAmount').html(payBalance);
-                
-                $('#addPaymentModal1').modal('show');
-                //applicable lang dapat pag may balance pa. pag walang balance, di dapat lalabas to
+                if(payBalance!="0.00"){
+                    $('.addPayName').html(payName);
+                    $('.addPayDate').html(payDate);
+                    $('.addPayType').html(payType);
+                    $('.addPayAssess').html(payAssess);
+                    $('.addPayBal').html(payBalance);
+                    $('.addPayTotAmount').html(payBalance);
+                    
+                    $('#addPaymentModal1').modal('show');
+                }
             });
         });
         renderEditInfo();

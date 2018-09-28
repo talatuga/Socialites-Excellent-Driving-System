@@ -118,7 +118,7 @@ exports.getGradesInst2 = function(req, res, next){
 
 exports.getGradesStud = function(req, res, next){
     if(res.locals.authenticated == 0) return next();
-    grade.getGradesStudent(req.params.id, function(err, result){
+    grade.getGradesStudent(req.params.id, req.query.gCourse, req.query.ceCourse, function(err, result){
         if(err) return next(err);
         res.status(200).send({success: true, data: result});
     });

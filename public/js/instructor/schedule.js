@@ -80,7 +80,8 @@ function getToday(){
                 html += "<td>"+ Date.parse(e.time).toString('hh:mm tt') + " - " + Date.parse(e.time).addHours(1).toString('hh:mm tt') +"</td>";
                 html += "<td>"+ result[0].hours +"</td>";
                 html += "<td>"+ result[1] +"</td>";
-                html += '<td><button type="button" style="vertical-align: sub" class="btn btn-success btnLicense" onclick="doneSched('+ e.id +')">Done</button><br><button type="button" style="vertical-align: sub" class="btn btn-inverse btnLicense" onclick="cancelSched('+ e.id +')">Cancel</button><br></td>';
+                html += '<td><button type="button" style="vertical-align: sub; float: left: margin-right: 10px" class="btn btn-success btnLicense" onclick="doneSched('+ e.id +')">Done</button><button type="button" style="vertical-align: sub; margin-left: 10px" class="btn btn-inverse btnLicense" onclick="cancelSched('+ e.id +')">Cancel</button><br></td>';
+                // html += '<td><button type="button" style="vertical-align: sub" class="btn btn-success btnLicense" onclick="doneSched('+ e.id +')">Done</button><br><button type="button" style="vertical-align: sub" class="btn btn-inverse btnLicense" onclick="cancelSched('+ e.id +')">Cancel</button><br></td>';
                 html += "</tr>";
                 $('#todaySched').append(html);
             }).catch(x=>{
@@ -120,7 +121,7 @@ function getTom(){
                 // html += "<td>"+ result[0].hours +"</td>";
                 // html += "<td>"+ "" +"</td>";
                 html += "<td>"+ result[1] +"</td>";
-                html += '<td><button type="button" style="vertical-align: sub; float: left: margin-right: 10px" class="btn btn-success btnLicense" onclick="doneSched()">Done</button><button type="button" style="vertical-align: sub; margin-left: 10px" class="btn btn-inverse btnLicense" onclick="cancelSched()">Cancel</button><br></td>';
+                html += '<td><button type="button" style="vertical-align: sub; margin-left: 10px" class="btn btn-inverse btnLicense" onclick="cancelSched('+ e.id +')">Cancel</button><br></td>';
                 html += "</tr>";
                 $('#tomSched').append(html);
             }).catch(x=>{

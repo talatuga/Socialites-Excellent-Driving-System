@@ -227,15 +227,13 @@ exports.generateReceipt = function(req, res, next){
     var pdf = require('../../bin/pdfGenerator');
     var fileName = "SED_payment_receipt.pdf";
 
-    var course = require('../../model/lessonModel');
-    var lic = require('../../model/requireModel');
     var billing = require('../../model/accountModel');
 
     var ornum = req.query.orno;
     var fullname = req.query.fullname;
 
     if(!ornum || !fullname){
-        return res.status(404).send("Not Found");
+        return res.status(404).render('admin/error-partial/error.ejs',{success: false, title: "Error: 404", detail: "Sorry but we couldn't find this page, This page you are looking for does not exist"});
     }
 
     var createReceipt = function(transaction){
@@ -250,47 +248,30 @@ exports.generateReceipt = function(req, res, next){
         });
     }
 
-    billing.getStudentTransactions(ornum).catch(next).then(transaction=>{
-        if(transaction){
-            transaction.ORno = ornum;
-            transaction.date = Date.parse(transaction.date).toString("MMM dd, yyyy");
-            transaction.data = JSON.parse(transaction.data);
-            transaction.payments = [];
-
-            var getLicense = new Promise((resolve, reject)=>{
-                lic.getLicenseApply(transaction.data.apply, function(err, license){
-                    if(err) return reject(err);
-                    resolve(license[0]);
-                });
-            });
-
-            Promise.all([course.getCoursePrice(transaction.data.enrolled), getLicense]).catch(next).then(results=>{
-                results.forEach(e=>{
-                    if(e==undefined) return next(new Error("Data Process Error"));
-                });
-                var payments = [];
-                results[0].course.forEach((e,i)=>{
-                    payments.push({
-                        desc: "Enroll " + e.days + " day/s " + (e.trans=="m" ? "Manual" : "Automatic") + " Course",
-                        assessment: e.price,
-                        balance: e.price,
-                        payment: 0,
-                    });
-                    if(i==results[0].course.length-1){
-                        payments.push({
-                            desc: "Apply " + results[1].desc,
-                            assessment: results[1].price,
-                            balance: results[1].price,
-                            payment: 0,
-                        });
-                        transaction.payments = payments;
-                        transaction.name = fullname;
-                        createReceipt(transaction);
-                    }
-                });
-            });
-        }else{
-            res.status(404).send("Not Found");        
+    billing.getBalance(ornum).then(data=>{
+        data.date = Date.parse(data.date).toString('MM/dd/yyyy');
+        var transaction = {
+            name: fullname,
+            or: ornum,
+            date: Date.parse('today').toString('MMMM dd, yyyy'),
+            transaction: data
         }
+        createReceipt(transaction);
+    }).catch(reason=>{
+        next(reason);
+    });
+};
+
+exports.getDisplayTotEnroll = function(req, res, next){
+    webModel.getDisplayTotEnroll(req.query.year, function(err, result){
+        if(err) return next(err);
+        res.status(200).send({success: true, data: result});
+    });
+};
+
+exports.getDisplayStud = function(req, res, next){
+    webModel.getDisplayStud(function(err, result){
+        if(err) return next(err);
+        res.status(200).send({success: true, data: result});
     });
 };

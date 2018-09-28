@@ -73,7 +73,7 @@
                                     </div> -->
                                     <div class="noCal">
                                         <div id='studentSched'>
-                                            <center><br><h4 style="color: #5D0000">No schedule to display.</h4><br></center>
+                                            <center><br><h5>No schedule to display.</h5><br></center>
                                         </div>
                                         <div class="pull-right">
                                             <!-- <button type="button" id="btnAddSchedule" class="btn btn-warning m-b-10 m-l-5">Add Schedule</button> -->
@@ -97,29 +97,7 @@
                                                     <th>Balance</th>
                                                 </tr>
                                             </thead>
-                                            <tbody id="tblStudPayment1">
-                                                <tr>
-                                                    <td>00-00-0000</td>
-                                                    <td>Tuition Fee</td>
-                                                    <td>5,000.00</td>
-                                                    <td>0.00</td>
-                                                    <td>5,000.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>06-21-2018</td>
-                                                    <td>Tuition Fee</td>
-                                                    <td>0.00</td>
-                                                    <td>2,000.00</td>
-                                                    <td>3,000.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>06-24-2018</td>
-                                                    <td>Tuition Fee</td>
-                                                    <td>0.00</td>
-                                                    <td>3,000.00</td>
-                                                    <td>0.00</td>
-                                                </tr>
-                                            </tbody>
+                                            <tbody id="tblStudPayment1"></tbody>
                                         </table>
                                         <div class="payTab">
                                             <h3 class="pull-right">Status: <span class="studPayStatus">Fully Paid</span></h3><br>
@@ -134,17 +112,10 @@
                                                             <th>Balance</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody id="studentTable">
-                                                        <tr>
-                                                            <td>1001</td>
-                                                            <td>05/11/18</td>
-                                                            <td>5,000.00</td>
-                                                            <td>5,000.00</td>
-                                                            <td>0.00</td>
-                                                        </tr>
-                                                    </tbody>
+                                                    <tbody id="studentTable"></tbody>
                                                 </table>
                                             </div><br><br>
+                                            <!-- <button type="button" onclick="addPaymentAdmin()" class="btn btn-light m-b-10 m-l-5">Add Payment</button> -->
                                         </div> <!-- End of payTab -->
                                     </div>
                                 </div>
@@ -154,8 +125,25 @@
                             <div class="tab-pane" id="gradeS" role="tabpanel">
                                 <div class="card-body">
                                     <div class="studTab">
-                                        <!-- <h3 class="pull-right">Course: <span class="studCourse">CRS-001-A</span></h3><br><br> -->
+                                        <table class="h4selCrsforLes1">
+                                            <tr>
+                                                <td style="text-align: left"><span class="fa fa-chevron-left float-left back1" onclick="loadCourses()"></span></td>
+                                                <td style="text-align: left"><h4 class="pull-right" style="padding-top: 5px">Course: <span class="h4selCrsforLes">CRS-001-A</span></h4></td>
+                                            </tr>
+                                        </table>
                                         <div class="table-responsive">
+                                        <table class="table tblCustom enrolledCrsTbl1"><br>
+                                            <thead>
+                                                <tr>
+                                                        <th>Course Code</th>
+                                                        <th>Hours</th>
+                                                        <th>Special</th>
+                                                        <th>Date Started</th>
+                                                        <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="enrolledCrsTblStud"></tbody>
+                                        </table>
                                         <table class="table tblCustom" id="lessonForGradeTbl">
                                             <thead>
                                                 <tr>
@@ -168,15 +156,15 @@
                                                     <th width="20%">Comment</th>
                                                 </tr>
                                             </thead>
-                                            <tbody id="studGradesInst">
-                                                <tr></tr>
-                                            </tbody>
-                                        </table><br><br>
-                                        </div><br><br>
-                                        <!-- <div class="pull-right">
-                                            <button type="button" class="btn btn-warning m-b-10 m-l-5" onclick="addGrade()">Add Grade</button>
-                                            <button type="button" class="btn btn-light m-b-10 m-l-5" onclick="evaluateStud()">Evaluate</button>
-                                        </div> -->
+                                            <tbody id="studGradesInst"></tbody>
+                                        </table>
+                                            <div class="noGradeTr" style="padding: 15px">
+                                                <center><h5>This student has no record yet.</h5></center>
+                                            </div>
+                                            <div class="noCrsTr" style="padding: 15px">
+                                                <center><h5>This student has no enrolled course yet.</h5></center>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -184,8 +172,9 @@
                             <!--fourth tab-->
                             <div class="tab-pane" id="evaluationS" role="tabpanel">
                                 <div class="card-body">
-                                    <div class="profiletimeline studTab" id="evalStudAdmin">
-                                        
+                                    <div class="profiletimeline studTab" id="evalStudAdmin"></div>
+                                    <div class="noEvalDiv" style="padding: 15px">
+                                        <center><h5>This student has no evaluation record yet.</h5></center>
                                     </div>
                                 </div>
                             </div>

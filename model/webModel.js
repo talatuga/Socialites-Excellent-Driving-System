@@ -42,4 +42,22 @@ WebElement.prototype.getLicenseApply = function(cb){
     });
 };
 
+WebElement.prototype.getDisplayTotEnroll = function(year, cb){
+    var sql = "SELECT COUNT(id) AS counter FROM preregstudent WHERE YEAR(dateSubmit) = ?";
+    db.get().query(sql, [year], function(err, results){
+        if(err) return cb(err);
+        if(results.length == 0) return cb(null, []);
+        cb(null, results);
+    });
+};
+
+WebElement.prototype.getDisplayStud = function(cb){
+    var sql = "SELECT count(id) AS counter FROM student WHERE status = 1";
+    db.get().query(sql, function(err, results){
+        if(err) return cb(err);
+        if(results.length == 0) return cb(null, []);
+        cb(null, results);
+    });
+};
+
 module.exports = WebElement;

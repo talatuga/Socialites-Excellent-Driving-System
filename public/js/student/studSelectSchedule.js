@@ -103,14 +103,14 @@ $(function() {
         var time = moment(event.start).format("HH:mm:ss");
         app.scheduler.checkIfAvailable(event, date, time, function(err, available){
           if(err){
-            event.color = "#ff1e1e";
+            event.color = "#AA1414";
             updateCalendar(event);
           }else{
             event.overtime = false;
             var color;
             switch(available){
               case 0 : { //Unavailable
-                color = "#ff1e1e";
+                color = "#AA1414";
                 break;
               } 
               case 1 : {  //Available
@@ -128,7 +128,7 @@ $(function() {
           }
         });
       }else{
-        event.color = "#ff1e1e";
+        event.color = "#AA1414";
         updateCalendar(event);
       }
     },

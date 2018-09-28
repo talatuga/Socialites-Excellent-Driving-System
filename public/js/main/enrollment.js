@@ -878,8 +878,10 @@ function regDone(){
         swal("Oops!", "Please confirm that you have read and agreed to the terms and agreement first.", "error");
     }
     else{
+        // var selBranch = $('#branchID option:selected').text();
         preRegData.course = cart.container;
         preRegData.branch = $('#branchID').val();
+        $('.prefBranch').html(selBranch);
         preRegData.special = {
             course: getSpecialCourseID(),
             location: $('input[name=specialCrs]:checked').length > 0 ? $('#enrPickup').val() : null,

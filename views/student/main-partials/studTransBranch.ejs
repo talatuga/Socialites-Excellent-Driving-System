@@ -1,0 +1,54 @@
+<div class="view-studTransBranch viewDiv">
+    <!-- Bread crumb -->
+    <div class="row page-titles">
+        <div class="col-md-6 align-self-center">
+            <h3 class="text-primary">Transfer to Branch</h3> 
+        </div>
+        <div class="col-md-6 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a>Transfer to Branch</a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- End Bread crumb -->
+
+    <div class="container-fluid">
+        <!-- Start of Card  -->
+        <div class="studentCard">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"></div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="pull-right">
+                        <button type="button" class="btn100p btn btn-inverse m-b-10 m-l-5" onclick="transferReq()">Request for Transfer</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <h3 style="color: black; font-weight: 700">TRANSFER RECORDS</h3>
+                <table class="table tblRecSched">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Branch From</th>
+                            <th>Branch To</th>
+                            <th>Requested Date of Transfer</th>
+                            <th>Status</th> <!-- Statuses: Pending, Approved, Declined (08-24-2018) -->
+                        </tr>
+                    </thead>
+                    <tbody id="transferRec">
+                        <!-- <tr>
+                            <td>09/26/2018</td>
+                            <td>SED-Quezon City (Main)</td>
+                            <td>SED-Taguig City</td>
+                            <td>09/25/2018</td>
+                            <td>Approved (09/26/2018)</td>
+                        </tr> -->
+                    </tbody>
+                </table>
+                <div class="noTransTr" style="padding: 15px">
+                    <center><h5 style="color: black">You do not have any transfer records yet.</h5></center>
+                </div>
+            </div>
+        </div><!-- End of Card  -->
+    </div>
+</div>

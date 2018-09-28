@@ -18,16 +18,18 @@ var evaluation = {
         });
     },
     getGradesStud: function(cb){
-        var req = $.get('api/v1/grade/stud/' + studID, function(response){
-            if(response.success == false){
-                console.log(response.detail);
-                cb(new Error(response.detail));
-            }else{
-                cb(null, response.data);
-            }
-        }).fail(function(request){
-            console.log(request.status + ": " + request.statusText);
-            cb(new Error("Error: On displaying grades"));
+        $.ajax({
+            type: "GET",
+            url: 'api/v1/grade/stud/' + studID,
+            data: {gCourse: courseID, ceCourse: courseID},
+            success: (res)=>{
+                if(res.success){
+                    cb(null, res.data);
+                }else{
+                    cb(new Error(res.detail));
+                }
+            },
+            error: xhr=>cb(new Error(xhr.status+": "+xhr.statusText)),
         });
     },
     delete: function(id, cb){

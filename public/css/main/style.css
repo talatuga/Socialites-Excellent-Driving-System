@@ -736,6 +736,8 @@ Author URI: http://bootstrapthemes.co
        margin: 0 auto;
        padding-bottom: 10px;
        text-transform: uppercase;
+       text-shadow: black 2px 2px;
+       font-weight: 500;
    }
    .slick-prev:hover, .slick-prev:focus, .slick-next:hover, .slick-next:focus {
        color: #fff;
@@ -1038,47 +1040,47 @@ Author URI: http://bootstrapthemes.co
                        counter section css
    =======================================================================*/
    .counter{
-       background: url(../../images/main/counterbg.jpg) no-repeat top center;
+       background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(../../images/main/trailbg.jpg) no-repeat top center;
        background-size: cover;
    }
    .branches{
-       background: url(../../images/main/trailbg.jpg) no-repeat top center;
-       background-size: cover;
+        background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(../../images/main/trailbg.jpg) no-repeat top center;
+        background-size: cover;
        height: 400px;
    }
    .aboutus{
-       background: url(../../images/main/trailbg.jpg) no-repeat top center;
-       background-size: cover;
+        background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(../../images/main/trailbg.jpg) no-repeat top center;
+        background-size: cover;
        height: 400px;
    }
    .gallery{
-       background: url(../../images/main/trailbg.jpg) no-repeat top center;
-       background-size: cover;
+        background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(../../images/main/trailbg.jpg) no-repeat top center;
+        background-size: cover;
        height: 400px;
    }
    .announcements{
-        background: url(../../images/main/trailbg.jpg) no-repeat top center;
+        background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(../../images/main/trailbg.jpg) no-repeat top center;
         background-size: cover;
         height: 400px;
     }
    .tips{
-       background: url(../../images/main/trailbg.jpg) no-repeat top center;
-       background-size: cover;
+        background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(../../images/main/trailbg.jpg) no-repeat top center;
+        background-size: cover;
        height: 400px;
    }
    .cart{
-       background: url(../../images/main/trailbg.jpg) no-repeat top center;
+       background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(../../images/main/trailbg.jpg) no-repeat top center;
        background-size: cover;
        height: 400px;
    }
    .enrollment{
-       background: url(../../images/main/trailbg.jpg) no-repeat top center;
-       background-size: cover;
+        background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(../../images/main/trailbg.jpg) no-repeat top center;
+        background-size: cover;
        height: 400px;
    }
    .services{
-       background: url(../../images/main/trailbg.jpg) no-repeat top center;
-       background-size: cover;
+        background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(../../images/main/trailbg.jpg) no-repeat top center;
+        background-size: cover;
        height: 400px;
    }
    .serviceCtr{
@@ -1134,6 +1136,7 @@ Author URI: http://bootstrapthemes.co
    /* Pricing2 Section */
    
    .main_pricing_area{
+       width: 100%;
        overflow: hidden;
    }
    
@@ -2306,6 +2309,7 @@ Author URI: http://bootstrapthemes.co
    
    .prefBranch{
        text-transform: uppercase;
+       color: #5d0000;
    }
    
    .oneWeekDeadline{
@@ -3049,10 +3053,19 @@ Author URI: http://bootstrapthemes.co
     padding-left: 20px;
     margin-left: 50px;
     border-left: #5d0000 solid 5px;
+    color: black;
+  }
+  .question{
+      color:black
   }
   .questFaq{
     text-align: left;
     font-weight: bolder;
     text-transform: uppercase;
     text-align: left;
+    color: black;
   }
+.statistic-counter-h4{
+    text-shadow: 1px 1px black;
+    font-size: 17px
+}
