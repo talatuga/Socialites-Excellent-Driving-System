@@ -268,3 +268,21 @@ var faquest = function (){
     $('.viewDiv').hide();
     $(".view-faq").show();
 }
+
+var reports1 = function (){
+    $(".liSide").removeClass("active");
+    $('.viewDiv').hide();
+    $(".view-reports1").show();
+}
+
+var reports2 = function (){
+    $(".liSide").removeClass("active");
+    $('.viewDiv').hide();
+    $(".view-reports2").show();
+}
+
+var reports3 = function (){
+    $(".liSide").removeClass("active");
+    $('.viewDiv').hide();
+    $(".view-reports3").show();
+}
