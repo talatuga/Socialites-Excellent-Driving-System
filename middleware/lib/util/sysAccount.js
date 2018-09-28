@@ -95,3 +95,42 @@ exports.changePass = function(req, res, next){
 exports.changeProfileData = function(req, res, next){
     
 }
+
+exports.uploadPic = function(req, res, next){
+    var fs = require('fs');
+    if(req.file){
+        req.session.avatar = req.file.path;
+        res.status(200).end();
+    }else if(req.body.confirm){
+        var accountModel = require('../../../model/userInfoModel');
+        if(!req.body.id) return res.status(400).send({success: false, detail: "Invalid syntax"});
+        if(req.body.confirm == "true"){
+            if(!req.session.avatar) return res.status(400).send({success: false, detail: "No file Uploaded"});
+            var path = req.session.avatar.split('\\');
+            var ext = (path[path.length-1].split('.'))[1];
+            path = (path.slice(0,path.length-1)).join('\\');
+            var newPath = path + "\\" + req.body.id + "." + ext;
+            fs.rename(req.session.avatar, newPath, function(err){
+                if(err) return next(err);
+                var public = newPath.replace('public', 'assets');
+                accountModel.updateOther(req.body.id, "avatar", public, function(err){
+                    if(err) return next(err);
+                    req.session.avatar = undefined;
+                    res.status(200).send({success: true, detail: "Avatar Save", path: (public + "?" + new Date().getTime())});
+                });
+            });
+        }else{
+            if(!req.session.avatar) return res.status(200).send({success: false, detail: "No file Uploaded"});
+            fs.unlink(req.session.avatar, function(err){
+                if(err) return next(err);
+                req.session.avatar = undefined;
+                res.status(200).send({success: true, detail: "Avatar change cancelled"});
+            });
+        }
+    }else{
+        res.status(200).send({
+            success: false,
+            detail: "No file uploaded",
+        });
+    }
+}

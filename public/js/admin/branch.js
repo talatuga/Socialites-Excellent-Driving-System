@@ -14,7 +14,6 @@ $(function () {
 var branchLoaded = 0;
 var loadBranch = function(cb){
     var callback = cb;
-    console.log(cb==undefined);
     if(branchLoaded == 0){
         $(".preloader").fadeIn();  
         office.getList(function(err, data){
@@ -36,7 +35,6 @@ var loadBranch = function(cb){
                 office.pages[office.currPage].forEach(x=>{
                     $('.enrBranch').append("<option value='"+ x.id +"'>"+ x.name +"</option>");
                 });
-                console.log(callback);
                 if(callback){
                     console.log("wtf?")
                     callback();

@@ -33,8 +33,8 @@ exports.create = function(req, res, next){
     inst.push(dataIn.licenseExp == undefined ? Date.parse("next 5 years").toString("yyyy-MM-dd") : dataIn.licenseExp);
     inst.push(dataIn.info.education);
     inst.push("");
-    inst.push('');
-    inst.push('');
+    inst.push(null);
+    inst.push(null);
     inst.push(1);
 
     data.credential = credential;

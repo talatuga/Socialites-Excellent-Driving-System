@@ -334,9 +334,9 @@ function checkEnr2A (){
 
 function checkEnr3New (){
     var selected_manual = $('#manualVehiclesSelect').val() != 0 ? $('#manualVehiclesSelect').val() : $('#autoVehiclesSelect').val() != 0 ? $('#autoVehiclesSelect').val() : 0;
-    checkedDays = $('input[name="prefDaysCB"]:checked').map(function () {
-        return this.value;
-    }).get();
+    // checkedDays = $('input[name="prefDaysCB"]:checked').map(function () {
+    //     return this.value;
+    // }).get();
     countDays = $('input[name="prefDaysCB"]:checked').length;
 
     if (countDays==0 || selected_manual==0) return "0";

@@ -1,37 +1,37 @@
 $(function() {
-    document.getElementById("studCP1").checked = true;
-    document.getElementById("studCP2").checked = false;
+    //document.getElementById("studCP1").checked = true;
+    //document.getElementById("studCP2").checked = false;
     //getStudent(1, studentTable.offset, studentTable.limit).then(renderStudentTable); // <--- tawagin yung getStudent() then after yung renderStudentTable().    
-});
-
-$("#btnViewStudentBranch").on("click", function() { //opens view student page upon clicking view details
-    resetSettingsStud();
-    $('.viewDiv').hide();
-    $('.view-viewStudentBranch').show();
-});
-
-$(".backStud").on("click", function() { //closes view instructor page then goes back to previous page
-    $('.viewDiv').hide();
-    $('.view-branchStudent').show();
-});
-
-$('.searchStud').on('click', function(e){
-    console.log("Searching Students...");
-    search.init(stud.pages[stud.tableType==0?"current":"past"][stud.currPage[stud.tableType==0?"0":"1"]], ["fullname","email","studID"], function(data){
-        renderStudentTable(data,function(){
-            $('tableStud').addClass("highlightTr");                
-            $('.tableStud tbody tr').click(function () {
-                var selected = $(this).hasClass("highlightTr");
-                $('.tableStud tbody tr').removeClass("highlightTr");
-                if (!selected)
-                    $(this).addClass("highlightTr");
-            });
-        });            
+    $("#btnViewStudentBranch").on("click", function() { //opens view student page upon clicking view details
+        resetSettingsStud();
+        $('.viewDiv').hide();
+        $('.view-viewStudentBranch').show();
+    });
+    
+    $(".backStud").on("click", function() { //closes view instructor page then goes back to previous page
+        $('.viewDiv').hide();
+        $('.view-branchStudent').show();
+    });
+    
+    $('.searchStud').on('click', function(e){
+        console.log("Searching Students...");
+        search.init(stud.pages[stud.tableType==0?"current":"past"][stud.currPage[stud.tableType==0?"0":"1"]], ["fullname","email","studID"], function(data){
+            renderStudentTable(data,function(){
+                $('tableStud').addClass("highlightTr");                
+                $('.tableStud tbody tr').click(function () {
+                    var selected = $(this).hasClass("highlightTr");
+                    $('.tableStud tbody tr').removeClass("highlightTr");
+                    if (!selected)
+                        $(this).addClass("highlightTr");
+                });
+            });            
+        });
+    });
+    $('.searchStud').on('keyup', function(e){
+        search.keypress($('.searchStud').val());
     });
 });
-$('.searchStud').on('keyup', function(e){
-    search.keypress($('.searchStud').val());
-});
+
 
 var studLoaded = 0
 var loadStud = function(){ 

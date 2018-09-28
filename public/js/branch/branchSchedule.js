@@ -1,11 +1,66 @@
 var today = new Date();
+var searchSched;
 
 $(function() {
-
   $("#schedStudName").prop("disabled", true);
   $("#schedInstName").prop("disabled", true);
   $("#schedTime").prop("disabled", true);
   $("#schedBranch").prop("disabled", true);
+
+  $('.cancelSched').on('click', function(){
+    swal({
+      title: "Cancel Schedule?",
+      text: "Are you sure you want cancel this schedule?",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      cancelButtonColor: "#DD6B55",
+      confirmButtonText: "Yes",
+      cancelButtonText: "Cancel",
+      closeOnConfirm: true,
+      closeOnCancel: true
+    },function(isConfirm){
+      if(isConfirm){
+        scheduler.cancelSched(scheduler.selected, function(err, message){
+          console.log("cancelled");
+          if(err){
+            swal("Failed!", err.message, "error");
+          }else{
+            swal("Done!", message, "success");
+          }
+          $('#viewSchedModal').modal("hide");
+          $('.calendarAdmin').fullCalendar('refetchEvents');
+        });
+      }
+    });
+  });
+  $('.doneSched').on('click', function(){
+    swal({
+      title: "Check Attendance?",
+      text: "Is this schedule done?",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      cancelButtonColor: "#DD6B55",
+      confirmButtonText: "Yes",
+      cancelButtonText: "Cancel",
+      closeOnConfirm: true,
+      closeOnCancel: true
+    },function(isConfirm){
+      if(isConfirm){
+        scheduler.doneSched(scheduler.selected, function(err, message){
+          console.log("done");
+          if(err){
+            swal("Failed!", err.message, "error");
+          }else{
+            swal("Done!", message, "success");
+          }
+          $('#viewSchedModal').modal("hide");
+          $('.calendarAdmin').fullCalendar('refetchEvents');
+        });
+      }
+    });
+  });
 
   $('.calendarBranch').fullCalendar({
     header: {
@@ -14,17 +69,120 @@ $(function() {
         right: 'month,agendaWeek,agendaDay'
     },
     editable: false,
+    eventClick: schedClicked,
+    eventSources:[
+        {
+            url: "/api/v1/sched/calendar",
+            type: "GET",
+            data: {
+              priv: 'admin', 
+              monthCount: 3, 
+              month: Date.parse('last month').toString("MMMM"),
+              branch: $('body').data('branch'),
+            },
+            success: (res)=>{
+              if(res.length==0){
+              }
+            },
+            error: function(res){
+              swal("Error getting schedule", res.statusText, "error");
+              console.log(res.statusText);
+            },
+        },
+    ],
+    businessHours:[
+        {
+            dow: [ 1, 2, 3, 4, 5, 6, 7 ], // Monday, Tuesday, Wednesday
+            start: '09:00', // 8am
+            end: '17:30' // 6pm
+        },
+    ],
+  });
+
+  $('.searchTodaySched').on('click', function(e){
+    search.init(office.pages[office.currPage], ["branchID","name"], function(data){
+        renderBranchTable(data);
     });
+  });
+  $('.searchTodaySched').on('keyup', function(e){
+      search.keypress($('#searchBranch').val());
+  });
+
+  $('#btnUpdSched').on('click', function(){
+    $("#schedStudName").removeAttr("disabled");
+    $("#schedInstName").removeAttr("disabled");
+    $("#schedTime").removeAttr("disabled");
+    $("#schedBranch").removeAttr("disabled");
+  });
+  
+  $('.backSchedAdmin').on('click', function(){
+    $('.viewDiv').hide();
+    $('.view-schedule').show();
+  });
+
+  office.getList(()=>{});
 });
 
-$('#btnUpdSched').on('click', function(){
-  $("#schedStudName").removeAttr("disabled");
-  $("#schedInstName").removeAttr("disabled");
-  $("#schedTime").removeAttr("disabled");
-  $("#schedBranch").removeAttr("disabled");
-});
 
 function todaySched(){
+  scheduler.getSchedToday($('body').data('branch'), function(err, sched){
+    if(err) return console.error(err);
+    $('#todaySched').html("");
+    sched.forEach((e,i)=>{
+
+      var task1 = new Promise((resolve, reject)=>{
+        scheduler.getBranchName(e.branch, function(er,name){
+          if(er) return reject(er);
+          resolve(name);
+        });
+      });
+
+      var task2 = new Promise((resolve, reject)=>{
+        scheduler.getInstName(e.instID, function(er,name){
+          if(er) return reject(er);
+          resolve(name);
+        });
+      });
+
+      var task3 = new Promise((resolve, reject)=>{
+        scheduler.getStudName(e.studID, function(er,name){
+          if(er) return reject(er);
+          resolve(name);
+        });
+      });
+
+      var task4 = new Promise((resolve, reject)=>{
+        
+      });
+      
+      Promise.all([task1,task2,task3]).then(results=>{
+        var html = "<tr>";
+        html += "<td>"+ i+1 +"</td>";
+        html += "<td>"+ Date.parse(e.date).toString("hh:mm tt") + " - " + Date.parse(e.date).addHours(1).toString("hh:mm tt") +"</td>";
+        html += "<td>"+ results[0] +"</td>";
+        html += "<td>"+ (Array.isArray(results[1]) ? "No one assigned" : results[1].replace(/_/g," ")) +"</td>";
+        html += "<td>"+ results[2].fullname.replace(/_/g," ") +"</td>";
+        // html += "<td></td>";
+        html += '<td><button type="button" style="vertical-align: sub; float: left; margin-right: 10px" class="btn btn-success btnLicense" onclick="doneSched()">Done</button><button type="button" style="margin-left: 10px" class="btn btn-inverse btnLicense" onclick="cancelSched()">Cancel</button></td>';
+        html += "</tr>";
+        $('#todaySched').append(html);
+      }).catch(reason=>console.log(reason));
+    });
+  });
+  $('.branchSelect').html("");
+   if(office.pages.length == 0){
+    office.getList(()=>{
+      branchRender();
+    });
+  }else{
+    branchRender();
+  }
+  function branchRender(){
+    office.pages[office.currPage].forEach((e,i)=>{
+      var html = "<option value='"+ e.id +"'>"+ e.name +"</option>";
+      $('.branchSelect').append(html);
+    });
+  }
   $('.viewDiv').hide();
   $('.view-todaySched').show();
 }
@@ -37,14 +195,101 @@ function suspendClass(){
 }
 
 function schedListView(){
+  $('.selBranchSchedView').html("");
   $('.searchDateDisplayList').val("");
   $('.viewDiv').hide();
+  $('.displaySchedDiv').hide();
   $('.view-schedListView').show();
 }
 
 function transferReq(){
+  $('.preloader').fadeIn();
   $('.viewDiv').hide();
   $('.view-transferReq').show();
+  transfer.getList($('body').data('branch'), function(err,data){
+    $('#transferReq').html('');
+    data.forEach((e,i)=>{
+      scheduler.getStudName(e.studID, function(err, student){
+        var task1 = new Promise((resolve, reject)=>{
+          office.selected = e.from_branchID;
+          office.getLocalData(branch=>{
+            resolve(branch);
+          });
+        });
+        var task2 = new Promise((resolve, reject)=>{
+          office.selected = e.to_branchID;
+          office.getLocalData(branch=>{
+            resolve(branch);
+          });
+        });
+        Promise.all([task1,task2]).then(result=>{
+          var branch1 = result[0];
+          var branch2 = result[1];
+          var html = "<tr>";
+          html += "<td>"+ Date.parse(e.effectiveDate).toString('MMM dd, yyyy') +"</td>";
+          html += "<td>STUD-"+ e.studID +"</td>";
+          html += "<td>"+ student.fullname.replace(/_/g, " ") +"</td>";
+          html += "<td>SED-"+ branch1.name +"</td>";
+          html += "<td>SED-"+ branch2.name +"</td>";
+          html += "<td>"+ (e.hours || "<can't fetch data>") +"</td>";
+          html += '<td><button type="button" style="vertical-align: sub" class="btn btn-success btnLicense" onclick="approveTransfer('+ e.id +')">Approve</button><br><button type="button" style="vertical-align: sub" class="btn btn-danger btnLicense" onclick="rejectTransfer('+ e.id +')">Reject</button><br></td>';
+          html += "</tr>";   
+          $('#transferReq').append(html);
+        })
+      });
+    });
+    $('.preloader').fadeOut();
+  });
+}
+
+function approveTransfer(id){
+  swal({
+    title: "Are you sure?",
+    text: "",
+    type: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#DD6B55",
+    cancelButtonColor: "#DD6B55",
+    confirmButtonText: "Yes",
+    cancelButtonText: "Cancel",
+    closeOnConfirm: true,
+    closeOnCancel: true
+  },function(isConfirm){
+    if(!isConfirm) return;
+    transfer.submitAction(id, 1, function(err, detail){
+      if(err){
+        swal('Failed!', err.message, 'error');
+      }else{
+        swal('Done!', detail, 'success');
+      }
+      transferReq();
+    });
+  });
+}
+
+function rejectTransfer(id){
+  swal({
+    title: "Are you sure?",
+    text: "",
+    type: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#DD6B55",
+    cancelButtonColor: "#DD6B55",
+    confirmButtonText: "Yes",
+    cancelButtonText: "Cancel",
+    closeOnConfirm: true,
+    closeOnCancel: true
+  },function(isConfirm){
+    if(!isConfirm) return;
+    transfer.submitAction(id, 0, function(err, detail){
+      if(err){
+        swal('Failed!', err.message, 'error');
+      }else{
+        swal('Done!', detail, 'success');
+      }
+      transferReq();
+    });
+  });
 }
 
 function cancelSched(){ //DB: When cancel sched is clicked
@@ -90,21 +335,22 @@ function cancelSuspend(){
 },
   function(isConfirm){
       if (isConfirm) {
-        scheduleBranch();
+        schedule();
       }
   });
 }
 
 function sendEmailSuspend(){
-  var suspendDate = $('.suspendDate').val();
+  var suspendDate = Date.parse($('.suspendDate').val());
   var msg = $('#suspendMsg').val();
+  var branch = $('body').data('branch');
   if (suspendDate=="" || msg.replace(/\ /g, '') == "")
   {
     swal("Oops!", "Please fill out all required fields!", "error");
   }else{
     swal({
     title: "Are you sure",
-    text: "you want to suspend classes for " + suspendDate + "? All students with a schedule on that day will be notified via e-mail.",
+    text: "you want to suspend classes for " + suspendDate.toString('MMM dd, yyyy hh:mm tt') + "? All students with a schedule on that day will be notified via e-mail.",
     type: "warning",
     showCancelButton: true,
     confirmButtonColor: "#DD6B55",
@@ -116,19 +362,66 @@ function sendEmailSuspend(){
   },
     function(isConfirm){
         if (isConfirm) {
-          swal("Success!", "Email was sent to students and calendar is now updated!", "success");
+          scheduler.suspendSched(suspendDate.toString('MMM dd, yyyy HH:mm'), msg.trim(), branch,function(err, detail){
+            if(err){
+              swal("Failed!", err.message, "error");
+            }else{
+              swal("Success!", "Email was sent to students and calendar is now updated!", "success");
+              console.log(detail);
+              schedule();
+            }
+          });
           //DB: suspend classes function here
-          schedule();
         }
     });
   }
 }
 
 function searchSchedView(){
-  var x = $('.searchDateDisplayList').val();
-  if (x==""){
+  var searchSched = $('.searchDateDisplayList').val();
+  var branchSelected = $('body').data('branch');
+  if (searchSched==""){
     swal ("Oops!", "Please input date to display schedule.", "error");
   }else{
-    $('.displaySchedDiv').show();
+    scheduler.getSched(Date.parse(searchSched), branchSelected, function(err, data){
+      if(err) return swal("Failed!", err.message, "error");
+      $('#schedListView').html(""); 
+      scheduler.getBranchName(branchSelected,(_,branch)=>{
+        $('.searchBranchDisplayListSpan').html(branch);
+        data.forEach((e,i)=>{
+            scheduler.getInstName(e.instID,(_,instName)=>{
+              scheduler.getStudName(e.studID,(_,studName)=>{
+                var html = "<tr>";
+                html += "<td>"+ e.id +"</td>";
+                html += "<td>"+ Date.parse(e.time).toString("hh:mm tt") +"</td>";
+                html += "<td>"+ branch +"</td>";
+                html += "<td>"+ instName.replace(/_/g," ") +"</td>";
+                html += "<td>"+ studName.fullname.replace(/_/g," ") +"</td>";
+                html += "<td></td>";
+                html += "</tr>";
+                $('#schedListView').append(html);
+              });
+            });
+        });
+      });
+      $('.displaySchedDiv').show();
+      $('.searchDateDisplayListSpan').html(Date.parse(searchSched).toString("MMMM dd, yyyy"));
+    });
   }
+}
+
+function schedClicked(event){
+  $('#schedDate').html(moment(event.start).format("MM/DD/YYYY"));
+  $('#timeSched').html(moment(event.start).format("hh:mm A") + " - " + moment(event.start).add(1,'hour').format("hh:mm A"));
+  scheduler.getStudName(event.data.student.id, function(err, student){
+    $('#studSched').html(student.fullname.replace(/_/g, " "));
+    scheduler.getInstName(event.data.instructor.instID, function(err, name){
+      $('#instSched').html(name.replace(/_/g," "));
+      scheduler.getBranchName(event.data.branch, function(err, branch){
+        $('#venueSched').html(branch);
+        scheduler.selected = event._id;
+        $('#viewSchedModal').modal("show");
+      });
+    });
+  });
 }

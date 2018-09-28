@@ -25,7 +25,7 @@ SELECT s.id as studID, i.* FROM student s, userinfo i WHERE s.id > _offset AND i
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getStud`(IN `_id` VARCHAR(15))
     READS SQL DATA
-SELECT s.id as studID, s.dateRegistered, s.hours, u.* FROM student s, userinfo u WHERE s.id = _id AND s.userInfo = u.id$$
+SELECT s.id as studID, s.dateRegistered, s.hours, u.*, oi.data FROM student s, userinfo u, other_info oi WHERE s.id = _id AND s.userInfo = u.id AND oi.referenceID = u.id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getStudList`(IN `_offset` INT(7), IN `_limit` INT(5))
     NO SQL
@@ -68,7 +68,8 @@ CREATE TABLE IF NOT EXISTS `activity` (
 CREATE TABLE IF NOT EXISTS `admin` (
 `id` int(7) NOT NULL,
   `userInfo` int(7) NOT NULL,
-  `branchID` int(3) NOT NULL
+  `branchID` int(3) NOT NULL,
+  `permission` int(2) NOT NULL DEFAULT '1' COMMENT '1 - lowest permission'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `announcement` (
@@ -312,11 +313,13 @@ CREATE TABLE IF NOT EXISTS `student` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `transfer_request` (
-  `id` int(5) NOT NULL,
+`id` int(5) NOT NULL,
   `studID` varchar(15) NOT NULL,
   `to_branchID` int(3) NOT NULL,
   `from_branchID` int(3) NOT NULL,
-  `request_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `effectiveDate` date NOT NULL,
+  `request_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` int(1) NOT NULL DEFAULT '1' COMMENT '1 - pending; 2 - approve; 3 - reject; 4 - done'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `useraccount` (
@@ -469,6 +472,9 @@ ALTER TABLE `schedule`
 ALTER TABLE `student`
  ADD PRIMARY KEY (`id`), ADD KEY `userInfo` (`userInfo`), ADD KEY `branch` (`branch`);
 
+ALTER TABLE `transfer_request`
+ ADD PRIMARY KEY (`id`), ADD KEY `student` (`studID`), ADD KEY `to_branch` (`to_branchID`), ADD KEY `from_branch` (`from_branchID`);
+
 ALTER TABLE `useraccount`
  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `username` (`username`), ADD KEY `accType` (`accType`);
 
@@ -543,6 +549,8 @@ ALTER TABLE `requirement`
 MODIFY `id` int(3) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `schedule`
 MODIFY `id` int(15) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `transfer_request`
+MODIFY `id` int(5) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `useraccount`
 MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `userinfo`
@@ -639,6 +647,11 @@ ADD CONSTRAINT `schedule_ibfk_3` FOREIGN KEY (`branch`) REFERENCES `branch` (`id
 ALTER TABLE `student`
 ADD CONSTRAINT `student_ibfk_1` FOREIGN KEY (`userInfo`) REFERENCES `userinfo` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
 ADD CONSTRAINT `student_ibfk_2` FOREIGN KEY (`branch`) REFERENCES `branch` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+ALTER TABLE `transfer_request`
+ADD CONSTRAINT `transfer_request_ibfk_1` FOREIGN KEY (`studID`) REFERENCES `student` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+ADD CONSTRAINT `transfer_request_ibfk_2` FOREIGN KEY (`to_branchID`) REFERENCES `branch` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+ADD CONSTRAINT `transfer_request_ibfk_3` FOREIGN KEY (`from_branchID`) REFERENCES `branch` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 ALTER TABLE `useraccount`
 ADD CONSTRAINT `useraccount_ibfk_1` FOREIGN KEY (`accType`) REFERENCES `accounttype` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;

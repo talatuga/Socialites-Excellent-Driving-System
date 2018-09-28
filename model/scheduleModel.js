@@ -149,6 +149,24 @@ Schedule.removeSched = function(id, cb){
     });
 };
 
+Schedule.cancelSchedule = function(id, cb){
+    Schedule.get(id, function(err, sched){
+        var status = sched.status;
+        if(err) return cb(err);
+        var nextWeek = Date.parse('next sunday');
+        var date = Date.parse(sched.date);
+        if(date.compareTo(nextWeek) <= 0){
+            status = 4;
+        }else{
+            status = 1;
+        }
+        Schedule.update(id, status, "status", function(err){
+            if(err) return cb(err);
+            cb(null);
+        });
+    });
+};
+
 Schedule.assignSched = function(id, cb){
     var sql = "UPDATE " + table + " SET status = 2 WHERE id = ?";
     db.get().query(sql, [id], function(err){
@@ -157,11 +175,39 @@ Schedule.assignSched = function(id, cb){
     });
 };
 
-Schedule.getInstAssign = function(date, time, cb){
-    var sql = "SELECT * FROM instructor inst, userinfo info, schedule sched WHERE inst.userInfo = info.id AND sched.instID = inst.id AND sched.date = ? AND sched.time = ? GROUP BY inst.id";
-    db.get().query(sql, [date, time], function(err, data){
+Schedule.getInstAssign = function(date, time, branch, cb){
+    if(typeof branch == "function"){
+        cb = branch;
+        branch = null;
+    }
+    var sql = "SELECT * FROM " + table + " WHERE date = ? AND time = ? AND status = 2";
+    var dataQuery = [date, time];
+    if(branch){
+        sql += " AND branch = ?";
+        dataQuery.push(branch);
+    }
+    db.get().query(sql, dataQuery, function(err, sched){
         if(err) return cb(err);
-        cb(null, data);
+        if(sched.length == 0) return cb(null, []);
+        var inst = require('./instructorModel');
+        var promises = [];
+        sched.forEach((e,i)=>{
+            promises.push(new Promise((resolve, reject)=>{
+                inst.get(e.instID, function(err, data){
+                    if(err) return reject(err);
+                    resolve(data[0]);
+                })
+            }));
+            if(i==sched.length-1){
+                Promise.all(promises).then(data=>{
+                    cb(null, data);
+                }).catch(reason=>{
+                    throw new Error(reason.stack);
+                }).catch(reason=>{
+                    cb(reason);
+                });
+            }
+        }); 
     });
 };
 
@@ -576,12 +622,28 @@ Schedule.autoAssignInstructor = function(){
 
 };
 
-Schedule.cancelSched = function(date, time, cb){
+Schedule.cancelSched = function(date, time, branch, cb){
+    if(typeof branch == "function"){
+        cb = branch;
+        branch = null;
+    }
     var sql = "SELECT studID, instID FROM " + table + " WHERE date = ? AND time >= ?";
     db.get().query(sql,[date,time], function(err,schedules){
         if(err) return cb(err);
-        sql = "UPDATE " + table + " SET status = 4 WHERE date = ? AND time >= ? AND status = 2";
-        db.get().query(sql, [date, time], function(error){
+        var targetDate = Date.parse(date);
+        var nextWeek = Date.parse('next sunday');
+        var data = [date, time];
+        if(targetDate.compareTo(nextWeek) <= 0){
+            data.unshift(4);
+        }else{
+            data.unshift(1);
+        }
+        sql = "UPDATE " + table + " SET status = ? WHERE date = ? AND time >= ? AND status = 2";
+        if(branch){
+            sql += " AND branch = ?";
+            data.push(branch);
+        }
+        db.get().query(sql, data, function(error){
             if(error) return cb(error);
             cb(null, schedules);
         });

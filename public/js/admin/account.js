@@ -71,9 +71,22 @@ function confEditAccount(){
                 },
                 function(isConfirm){
                     if (isConfirm) {
-                        swal("Success!", "Account is updated successfully!", "success");
-                        resetAccount();
-                        //DB: Update account function here
+                        var data = {
+                            username: un,
+                            password: pw,
+                            type: (acc.currTbl + 1)
+                        }
+                        acc.update(data, function(err){
+                            if(err){
+                                console.error(err);
+                                swal("Failed!", err.message, "error");
+                            }else{
+                                swal("Success!", "Account is updated successfully!", "success");
+                                $('#updateAccModal').modal('hide');       
+                                resetAccount();
+                                //DB: Update account function here
+                            }
+                        });
                     }
                 });
             }

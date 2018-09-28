@@ -74,12 +74,12 @@ $(function () {
 });
 
 var loadInst = function(){
-    // $(".preloader").fadeIn();  
+    $(".preloader").fadeIn();  
     inst.getInstList(function (err, done) {
         if (err) return console.log(err);
         renderInstTablePage(inst.pages[inst.currPage]);
         viewInstProfile(inst.pages[inst.currPage][0].instID);
-        // $(".preloader").fadeOut();          
+        $(".preloader").fadeOut();          
     });    
 }
 
@@ -753,25 +753,29 @@ var viewInstProfile = function(id){
     inst.selected = id;
     renderInstEdit();
     inst.getLocalData(function(profile){
-        instID = profile.instID;
-        $('.instNum').html(profile.instID);
-        $('.instName').html(profile.fullname.replace(/_/g,' '));
-        $('.instAddress').html(profile.address);
-        $('.instPhone').html(profile.telno);
-        $('.instEmail').html(profile.email);
-        $('.instLicense').html(profile.license);
-        $('.instDateHired').html(Date.parse(profile.dateRegistered).toString("MMM d, yyyy"));
-        if(profile.dateRetired != null){
-            $('.instDateResigned').html(Date.parse(profile.dateRetired).toString("MMM d, yyyy"));
-            $('.divResigned').show();
-            // $('.btnDelInstAcc').attr("disabled", true);
-            $(".btnDelInstAcc").hide();
-            $(".btnUpdateInstAcc").hide();
-        }else{
-            $('.divResigned').hide();         
-            // $('.btnDelInstAcc').attr("disabled", false);
-            $(".btnDelInstAcc").show();
-            $(".btnUpdateInstAcc").show();
+        try {
+            instID = profile.instID;
+            $('.instNum').html(profile.instID);
+            $('.instName').html(profile.fullname.replace(/_/g,' '));
+            $('.instAddress').html(profile.address);
+            $('.instPhone').html(profile.telno);
+            $('.instEmail').html(profile.email);
+            $('.instLicense').html(profile.license);
+            $('.instDateHired').html(Date.parse(profile.dateRegistered).toString("MMM d, yyyy"));
+            if(profile.dateRetired != null){
+                $('.instDateResigned').html(Date.parse(profile.dateRetired).toString("MMM d, yyyy"));
+                $('.divResigned').show();
+                // $('.btnDelInstAcc').attr("disabled", true);
+                $(".btnDelInstAcc").hide();
+                $(".btnUpdateInstAcc").hide();
+            }else{
+                $('.divResigned').hide();         
+                // $('.btnDelInstAcc').attr("disabled", false);
+                $(".btnDelInstAcc").show();
+                $(".btnUpdateInstAcc").show();
+            }
+        } catch (error) {
+            console.error(error);
         }
     });
 }

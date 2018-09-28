@@ -77,7 +77,7 @@ Car.getSchemeByLoc = function(location,cb){
 };
 
 Car.getListModel = function(cb){
-    var sql = "SELECT * FROM " + table + " WHERE status > 0 GROUP BY model, brand ORDER BY id ASC";
+    var sql = "SELECT brand, model, transmission FROM " + table + " WHERE status > 0 GROUP BY model, brand, transmission";
     db.get().query(sql, function(err, result){
         if(err) return cb(err);
         cb(null,result);

@@ -1105,13 +1105,19 @@ var preRegAssess = {
     limit: 20,
     currPage: 0,
     pages: [],
-    getList: function(cb){
+    getList: function(branch, cb){
+        if(typeof branch == "function"){
+            cb = branch;
+            branch = null;
+        }
         var self = this;
         var onFail = function(detail){
             var err = new Error(detail);
             cb(err);
         }
-        return $.get('api/v1/stud/register?offset='+this.offset+'&limit='+this.limit, function(res){
+        var url = 'api/v1/stud/register?offset='+this.offset+'&limit='+this.limit;
+        url += (branch ? "&branch=" + branch : "");
+        return $.get(url, function(res){
             if(res.success){
                 self.pages[self.currPage] = res.data;
                 self.offset = res.data.length==0 ? 0 : res.data[res.data.length-1].id;
@@ -1279,11 +1285,19 @@ var license = {
  */
 var scheduler = {
     selected: -1,
-    getSchedToday: function(cb){
+    getSchedToday: function(branch,cb){
+        var data = {};
+        data.day =  Date.parse('today').toString('dd');
+        if(typeof branch == "function"){
+            cb = branch;
+            branch = null;
+        }else{
+            data.branch = branch;
+        }
         $.ajax({
             type: "GET",
             url: "api/v1/sched",
-            data:{day: Date.parse('today').toString('dd')},
+            data: data,
             success: (res)=>{
                 if(res.success){
                     cb(null, res.data);
@@ -1368,8 +1382,17 @@ var scheduler = {
             },
         });
     },
-    suspendSched: function(date, reason, cb){
-        $.post('api/v1/sched/suspend', {date: date, reason: reason}, function(res){
+    suspendSched: function(date, reason, branch, cb){
+        var data = {};
+        data.date = date;
+        data.reason = reason;
+        if(typeof branch == "function"){
+            cb = branch;
+            branch = null;
+        }else{
+            data.branch = branch;
+        }
+        $.post('api/v1/sched/suspend', data, function(res){
             if(res.success){
                 cb(null, res.detail);
                 var notif = ()=>{
@@ -1417,7 +1440,7 @@ var scheduler = {
             }
         });
     },
-  getStudSched: function(studID, cb){
+    getStudSched: function(studID, cb){
         $.ajax({
             type: "GET",
             url: "api/v1/sched",
@@ -1635,3 +1658,55 @@ var faq = {
         });
     },
 }
+
+var transfer = {
+    api: 'api/v1/stud/transfer',
+    offset: 0,
+    limit: 10,
+    storage: [],
+    getList: function(branch, cb){
+        var data = {status: 1};
+        if(branch){
+            data["toBranch"] = branch;
+        }
+        $.ajax({
+            type: "GET",
+            url: this.api,
+            data: data,
+            success: res=>{
+                if(res.success){
+                    cb(null, res.data);
+                    if(res.data.length == 0) return;
+                    this.offset = res.data[res.data.length-1].id;
+                    this.storage = res.data;
+                }else{
+                    cb(new Error(res.detail));
+                }
+            },
+            error: xhr=>{
+                cb(new Error(xhr.status+":"+xhr.statusText));
+            }
+        });
+    },
+    submitAction: function(id, action, cb){
+        var approve = "APPROVE";
+        var reject = "REJECT";
+        $.ajax({
+            url: this.api + "/" +id,
+            type: "PUT",
+            data:{
+                action: action == 1 ? approve : reject,
+            },
+            success: res=>{
+                if(res.success){
+                    cb(null, res.detail);
+                }else{
+                    cb(new Error(res.detail));
+                }
+            },
+            error: xhr=>{
+                cb(new Error(xhr.status+":"+xhr.statusText));
+            }
+        });
+    },
+};

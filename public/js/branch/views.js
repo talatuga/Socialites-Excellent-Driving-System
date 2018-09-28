@@ -49,26 +49,6 @@ function viewActiveBranch (a){
     else if (a==11) scheduleBranch();
 }
 
-// function viewActiveSchedBranch(a){
-//     var li = "#liSHBranch";
-//     $(".liSide").removeClass("active");
-//     $("#liBranch11").addClass("active");
-//     for (var x=1; x<=3; x++){
-//         li += a.toString();
-//         if (x==a){
-//             $("li").removeClass("active");
-//         }
-//         else{
-//             $(li).addClass("active");
-//             $("#liBranch11").addClass("active");
-//         }
-//         li = "#liSHBranch";
-//     }
-//     $('.viewDiv').hide();
-//     if (a==1) scheduleBranch();
-//     else if (a==2) schedCanceledBranch();
-// }
-
 var branchDashboard = function (){
     $('.viewDiv').hide();
     $(".view-branchDashboard").show();
@@ -86,12 +66,14 @@ var branchInstructor = function (){
     $('.viewDiv').hide();
     $(".view-branchInstructor").show();
     $(".search-box").hide();
+    loadInst();
 }
 
 var branchVehicle = function (){
     $('.viewDiv').hide();
     $(".view-branchVehicle").show();
     $(".search-box").hide();
+    loadVehi();
 }
 
 var branchPayment = function (){
@@ -104,6 +86,7 @@ var branchEnrolment = function (){
     $('.viewDiv').hide();
     $(".view-branchEnrolment").show();
     $(".search-box").hide();
+    loadPreReg();
 }
 
 var branchLicense = function (){

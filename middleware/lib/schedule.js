@@ -187,25 +187,35 @@ exports.getFreeInst = function(req, res, next){
 
     if(!branchID || !date || !time) return res.status(200).send({success: false, detail: "Incomplete Query"});
 
-    schedule.getInstAssign(date.toString('yyyy-MM-dd'), time+":00", function(err, inst){
+    schedule.getInstAssign(date.toString('yyyy-MM-dd'), time+":00", branchID, function(err, inst){
         if(err) return next(err);
-        instructor.getList(0,999,function(er, result){
-            if(er) return next(er);
-            var query = [];
-            if(inst.length==0) return res.status(200).send({success: true, data: result});
-            inst.forEach((element,index)=>{
-                query.push(new Promise((resolve, reject)=>{
-                    result.forEach((e,i)=>{
-                        if(element.instID == e.instID){
-                            result.splice(i,1);
-                            resolve();
+        instructor.getAllBranchInst(branchID, function(err, instList){
+            if(err) return next(err);
+            var tempInst = instList.slice(0);
+            inst.forEach((e,i)=>{
+                var index = tempInst.findIndex(x=>x.instID==e.instID);
+                if(index!=-1){
+                    tempInst.splice(index,1);
+                }
+                if(i==inst.length-1){
+                    if(tempInst.length == 0) return res.status(200).send({success: true, data: tempInst});
+                    var promises = [];
+                    tempInst.forEach((elem,index)=>{
+                        promises.push(new Promise((resolve,reject)=>{
+                            instructor.get(elem.instID, function(err, data){
+                                if(err) return reject(err);
+                                resolve(data[0]);                                
+                            });
+                        }));
+                        if(index==tempInst.length-1){
+                            Promise.all(promises).then(result=>{
+                                res.status(200).send({success: true, data: result});
+                            }).catch(reason=>{
+                                throw new Error(reason.stack);
+                            }).catch(reason=>{
+                                next(reason);
+                            })
                         }
-                        if(i==result.length-1) return resolve();
-                    });
-                }));
-                if(index==inst.length-1){
-                    Promise.all(query).catch(next).then(instArr=>{
-                        res.status(200).send({success: true, data: result});
                     });
                 }
             });
@@ -295,9 +305,10 @@ exports.getSched = function(req, res, next){
 
 exports.cancel = function(req, res, next){
     var id = req.params.id;
-    schedule.update(id, 4, "status", function(err){
+    if(!id) return res.status(200).send({success: false, detail: "Invalid data"});
+    schedule.cancelSchedule(id, function(err){
         if(err) return next(err);
-        res.status(200).send({success: true, detail: "Schedule cancelled"});
+        res.status(200).send({success: true, detail: "Schedule has been cancalled"});
     });
 };
 
@@ -312,6 +323,7 @@ exports.done = function(req, res, next){
 exports.suspend = function(req, res, next){
     var date = req.body.date;
     var reason = req.body.reason;
+    var branch = req.body.branch;
 
     if(req.body.emailTaskWait){
         var sendingEmailTimeloop = setInterval(()=>{
@@ -404,7 +416,7 @@ exports.suspend = function(req, res, next){
     function updateSchedule(cb){
         var day = Date.parse(date).toString("yyyy-MM-dd");
         var time = Date.parse(date).toString("HH:mm:ss");
-        schedule.cancelSched(day,time, function(err, schedAffected){
+        schedule.cancelSched(day,time, branch, function(err, schedAffected){
             if(err) return cb(err);
             cb(null, schedAffected);
         });

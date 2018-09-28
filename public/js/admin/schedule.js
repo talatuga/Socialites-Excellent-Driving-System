@@ -74,7 +74,12 @@ $(function() {
         {
             url: "/api/v1/sched/calendar",
             type: "GET",
-            data: {priv: 'admin', monthCount: 3, month: Date.parse('last month').toString("MMMM")},
+            data: {
+              priv: 'admin', 
+              monthCount: 3, 
+              month: Date.parse('last month').toString("MMMM"),
+              branch: 1,
+            },
             success: (res)=>{
               if(res.length==0){
               }
@@ -102,19 +107,20 @@ $(function() {
   $('.searchTodaySched').on('keyup', function(e){
       search.keypress($('#searchBranch').val());
   });
+  
+  $('#btnUpdSched').on('click', function(){
+    $("#schedStudName").removeAttr("disabled");
+    $("#schedInstName").removeAttr("disabled");
+    $("#schedTime").removeAttr("disabled");
+    $("#schedBranch").removeAttr("disabled");
+  });
+  
+  $('.backSchedAdmin').on('click', function(){
+    $('.viewDiv').hide();
+    $('.view-schedule').show();
+  });
 });
 
-$('#btnUpdSched').on('click', function(){
-  $("#schedStudName").removeAttr("disabled");
-  $("#schedInstName").removeAttr("disabled");
-  $("#schedTime").removeAttr("disabled");
-  $("#schedBranch").removeAttr("disabled");
-});
-
-$('.backSchedAdmin').on('click', function(){
-  $('.viewDiv').hide();
-  $('.view-schedule').show();
-});
 
 function todaySched(){
   scheduler.getSchedToday(function(err, sched){
@@ -189,8 +195,93 @@ function schedListView(){
 }
 
 function transferReq(){
+  $('.preloader').fadeIn();
   $('.viewDiv').hide();
   $('.view-transferReq').show();
+  transfer.getList(null, function(err,data){
+    $('#transferReq').html('');
+    data.forEach((e,i)=>{
+      scheduler.getStudName(e.studID, function(err, student){
+        var task1 = new Promise((resolve, reject)=>{
+          office.selected = e.from_branchID;
+          office.getLocalData(branch=>{
+            resolve(branch);
+          });
+        });
+        var task2 = new Promise((resolve, reject)=>{
+          office.selected = e.to_branchID;
+          office.getLocalData(branch=>{
+            resolve(branch);
+          });
+        });
+        Promise.all([task1,task2]).then(result=>{
+          var branch1 = result[0];
+          var branch2 = result[1];
+          var html = "<tr>";
+          html += "<td>"+ Date.parse(e.effectiveDate).toString('MMM dd, yyyy') +"</td>";
+          html += "<td>STUD-"+ e.studID +"</td>";
+          html += "<td>"+ student.fullname.replace(/_/g, " ") +"</td>";
+          html += "<td>SED-"+ branch1.name +"</td>";
+          html += "<td>SED-"+ branch2.name +"</td>";
+          html += "<td>"+ (e.hours || "<can't fetch data>") +"</td>";
+          html += '<td><button type="button" style="vertical-align: sub" class="btn btn-success btnLicense" onclick="approveTransfer('+ e.id +')">Approve</button><br><button type="button" style="vertical-align: sub" class="btn btn-danger btnLicense" onclick="rejectTransfer('+ e.id +')">Reject</button><br></td>';
+          html += "</tr>";   
+          $('#transferReq').append(html);
+        })
+      });
+    });
+    $('.preloader').fadeOut();
+  });
+}
+
+function approveTransfer(id){
+  swal({
+    title: "Are you sure?",
+    text: "",
+    type: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#DD6B55",
+    cancelButtonColor: "#DD6B55",
+    confirmButtonText: "Yes",
+    cancelButtonText: "Cancel",
+    closeOnConfirm: true,
+    closeOnCancel: true
+  },function(isConfirm){
+    if(!isConfirm) return;
+    transfer.submitAction(id, 1, function(err, detail){
+      if(err){
+        swal('Failed!', err.message, 'error');
+      }else{
+        swal('Done!', detail, 'success');
+      }
+      transferReq();
+    });
+  });
+}
+
+function rejectTransfer(id){
+  swal({
+    title: "Are you sure?",
+    text: "",
+    type: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#DD6B55",
+    cancelButtonColor: "#DD6B55",
+    confirmButtonText: "Yes",
+    cancelButtonText: "Cancel",
+    closeOnConfirm: true,
+    closeOnCancel: true
+  },function(isConfirm){
+    if(!isConfirm) return;
+    transfer.submitAction(id, 0, function(err, detail){
+      if(err){
+        swal('Failed!', err.message, 'error');
+      }else{
+        swal('Done!', detail, 'success');
+      }
+      transferReq();
+    });
+  });
 }
 
 function cancelSched(){ //DB: When cancel sched is clicked

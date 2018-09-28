@@ -12,6 +12,16 @@ PreRegister = Object.create(ModelModule);
 PreRegister.table = "preRegStudent";
 PreRegister.db = db;
 
+var Enroll = {};
+Enroll = Object.create(ModelModule);
+Enroll.table = "enrollment";
+Enroll.db = db;
+
+var Transfer = {};
+Transfer = Object.create(ModelModule);
+Transfer.table = "transfer_request";
+Transfer.db = db;
+
 //Business Logic Code Below:
 Student.getList = function(offset, limit, type, branch, cb){
     if(typeof branch == "function"){
@@ -44,10 +54,11 @@ Student.get = function (id, field, cb) {
     }
     var sql = "CALL getStud(?)";
     this.db.get().query(sql, [id], function (err, result) {
-        if (err) return cb(null, null);
+        if (err) return cb(err);
         if (field == null) {
             cb(null, result[0]);
         } else {
+            if(!result[0][0][field]) return cb(null, null);
             cb(null, result[0][0][field]);
         }
     });
@@ -96,11 +107,6 @@ Student.getEnrollee = function(id, cb){
     });
 }
 
-var Enroll = {};
-Enroll = Object.create(ModelModule);
-Enroll.table = "enrollment";
-Enroll.db = db;
-
 Student.enrollCourse = function(data, cb){
     data.unshift(null);
     if(!data[3]){
@@ -136,7 +142,7 @@ Student.getStudentInfo = function(accID, field, cb){
         field = null;
     }
 
-    var sql = "SELECT s.id as 'studid', i.* FROM student s, userinfo i, useraccount a WHERE a.id = i.userAcc AND s.userInfo = i.id AND a.id = ?";
+    var sql = "SELECT s.id as 'studid', i.*, oi.data FROM student s, userinfo i, useraccount a, other_info oi WHERE a.id = i.userAcc AND oi.referenceID = i.id AND s.userInfo = i.id AND a.id = ?";
     var data = [accID];
     if(field){
         if(field.name == "branch"){
@@ -170,6 +176,56 @@ Student.addHours = function(studentID, hours, cb){
             cb(null);
         });
     })
+};
+
+Student.transferList = function(query, cb){
+    var offset = query.offset || 0;
+    var limit = query.limit || 10;
+    var sql = "SELECT * FROM " + Transfer.table + " WHERE id > ?";
+    var data = [offset];
+    if(query.toBranch){
+        sql += " AND to_branchID = ?";
+        data.push(query.toBranch);
+    }
+    if(query.fromBranch){
+        sql += " AND from_branchID = ?";
+        data.push(query.fromBranch);
+    }
+    if(query.reqDate){
+        sql += " AND request_date = ?";
+        data.push(query.reqDate);
+    }
+    if(query.studid){
+        sql += " AND studID = ?";
+        data.push(query.studid);
+    }
+    if(query.status){
+        sql += " AND status = ?";
+        data.push(query.status);
+    }
+
+    sql += " LIMIT ?";
+    data.push(limit);
+    db.get().query(sql, data, function(err, result){
+        if(err) return cb(err);
+        cb(null, result);
+    });
+};
+
+Student.transfer = function(studID, toBranch, fromBranch, effectivity, cb){
+    if(!studID || !toBranch || !fromBranch || !effectivity) return cb(new Error("Invalid Data"));
+    Transfer.create([null, studID, toBranch, fromBranch, effectivity, null, null], function(err, result){
+        if(err) return cb(err);
+        cb(null, result.insertId);
+    });
+};
+
+Student.transferAction = function(id, action, cb){
+    if(!id || !action) return cb(new Error("Invalid Data"));
+    Transfer.update(id, action, "status", function(err){
+        if(err) return cb(err);
+        cb(null);
+    });
 };
 
 module.exports = Student;

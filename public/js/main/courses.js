@@ -40,12 +40,12 @@ function crs2Click (){
 }
 
 var renderCourse = function(type){
-    $('.loader').show();
+    //$('.loader').show();
     $('.preloader').fadeIn();
     course.selectedType = type;
     course.getData(function(err){
         if(err) return console.error(err);
-        $('.loader').fadeOut();
+        //$('.loader').fadeOut();
         $('.preloader').fadeOut();
     });
 }

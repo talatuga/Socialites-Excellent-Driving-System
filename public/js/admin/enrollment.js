@@ -26,15 +26,49 @@ var loadPreReg = function(refresh){
                 }else{
                     viewPendingStudent(preRegAssess.pages[preRegAssess.currPage][0].id);
                 }
-                $('.tblReg tbody tr:first').addClass("highlightTr");
-                $('.tblReg tbody tr').click(function () {
-                    var selected = $(this).hasClass("highlightTr");
-                    $('.tblReg tbody tr').removeClass("highlightTr");
-                    if (!selected)
-                        $(this).addClass("highlightTr");
+                bindMark();
+                $('#searchEnrollment').on('click', function(e){
+                    var data = preRegAssess.pages[preRegAssess.currPage].slice(0);
+                    data.forEach((e,i)=>{
+                        data[i].data = JSON.stringify(e.data);
+                        if(i==data.length-1){
+                            search.init(data, ["dateSubmited","data",], function(data1){
+                                var data2 = data1.slice(0);
+                                if(data2.length==0) return generateTbl();
+                                data2.forEach((e,i)=>{
+                                    try{
+                                        data2[i].data = JSON.parse(e.data);
+                                    }catch(e){
+                                        //data2[i].data = JSON.parse(e.data);
+                                        //console.log(e); 
+                                    }
+                                    if(i==data2.length-1){
+                                        setTimeout(generateTbl,1000);
+                                    }
+                                });
+                                function generateTbl(){
+                                    renderEnrollTbl(data2);
+                                    bindMark(); 
+                                }
+                            });
+                        }
+                    });
+                });
+                $('#searchEnrollment').on('keyup', function(e){
+                    search.keypress($('#searchEnrollment').val());
                 });
                 preRegLoaded = 1;
-                $(".preloader").fadeOut();                  
+                $(".preloader").fadeOut(); 
+                
+                function bindMark(){
+                    $('.tblReg tbody tr:first').addClass("highlightTr");
+                    $('.tblReg tbody tr').click(function () {
+                        var selected = $(this).hasClass("highlightTr");
+                        $('.tblReg tbody tr').removeClass("highlightTr");
+                        if (!selected)
+                            $(this).addClass("highlightTr");
+                    });
+                }
             })
         }
     }
@@ -200,14 +234,16 @@ function appRegForm(){ //Approve Registration
                 var reg = function(cb){
                     preRegAssess.approve(preRegAssess.enrolleeSelected, function(err){
                         $('.preloader').fadeOut();
-                        if(!err){
+                        if(err){
+                            setTimeout(()=>{
+                                swal('Problem Encounter', err.message, 'error');
+                            },100);
+                            cb(err);
+                        }else{
                             swal('Done', "Student Successfully Enrolled!",'success');
                             preRegAssess.enrolleeSelected = -1;
                             loadPreReg(1);
                             cb(null);
-                        }else{
-                            swal('Problem Encounter', err.message, 'error');
-                            cb(err);
                         }
                     });
                 };

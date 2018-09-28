@@ -12,7 +12,11 @@ var ITEXTMO = function(){
         }, function(err, res, body){
             if(err) return cb(err);
             if(res.statusCode == 200){
-                cb(null,JSON.parse(body));
+                try{
+                    cb(null,JSON.parse(body));
+                }catch(e){
+                    cb(null, body);
+                }
             }else{
                 cb(new Error(res.statusCode + ":" + res.statusMessage));
             }

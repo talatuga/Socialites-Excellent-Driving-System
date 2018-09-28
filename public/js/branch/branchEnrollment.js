@@ -1,15 +1,28 @@
 var preRegLoaded = 0;
-var loadPreReg = function(){
+var branchLoaded = 0;
+var courseLoaded = 0;
+var loadPreReg = function(refresh){
+    if(refresh == undefined){
+        refresh = false
+    }else{
+        preRegLoaded = 0;
+        preRegAssess.offset = 0;
+    };
     if(branchLoaded == 0 || courseLoaded == 0){
-        loadBranch(function(){
-            loadCourse(function(){
-                loadPreReg();
+        office.getList(()=>{
+            branchLoaded = 1;
+            courseModule.getList(()=>{
+                courseLoaded = 1;
+                license.get(function(err){
+                    if(err) return console.error(err);
+                    loadPreReg();
+                });
             });
         });
     }else{
         if(preRegLoaded == 0){
             $(".preloader").fadeIn();              
-            preRegAssess.getList(err=>{
+            preRegAssess.getList($('body').data('branch'),err=>{
                 if(err) return console.error(err);
                 renderEnrollTbl(preRegAssess.pages[preRegAssess.currPage]);
                 if(preRegAssess.pages[preRegAssess.currPage].length==0){
@@ -29,9 +42,6 @@ var loadPreReg = function(){
             })
         }
     }
-    license.get(function(err){
-        if(err) return console.error(err);
-    });
 }
 
 function viewRegForm(){
@@ -85,6 +95,7 @@ function remRegForm(){ //Remove or reject registration form
                 }else{
                     $('#viewRegFormModal').modal('hide');
                     swal("Success!", "Registration form is rejected.", "success");
+                    loadPreReg(1);
                     //DB: Remove registration function here
                 }
             });
@@ -123,6 +134,7 @@ function saveEnrReg(){ //Save changes on View Registration Modal
                     }else{
                         swal("Changes have been saved!", "" ,"success");
                         $('#viewRegFormModal').modal('hide');
+                        loadPreReg(1);
                         //DB: Remove registration function here
                     }
                 });
@@ -155,6 +167,7 @@ function openPayment(){
             }
             $('.totAssess').html(total);
             license.getLocal(profile.data.applyLicense, function(license){
+                if(license.price == 0) return;
                 total += license.price;
                 $('.totAssess').html(total);
                 var html = "<tr>";
@@ -181,6 +194,7 @@ function appRegForm(){ //Approve Registration
     }
     else{
         $('.preloader').fadeIn();
+        preRegAssess.enrolleeSelected = preRegAssess.selected;
         payments.pay(x, "enrolment", function(err, response){
             if(err){
                 console.log(err);
@@ -188,28 +202,50 @@ function appRegForm(){ //Approve Registration
                 swal('Failed!', err.message, 'error');
             }else{
                 var reg = function(cb){
-                    preRegAssess.approve(preRegAssess.selected, function(err){
+                    preRegAssess.approve(preRegAssess.enrolleeSelected, function(err){
                         $('.preloader').fadeOut();
                         if(err){
-                            swal('Done', "Student Successfully Enrolled!",'success');
+                            console.error(err);
+                            setTimeout(()=>{
+                                swal('Problem Encounter', err.message, 'error');
+                            }, 100)
                             cb(null);
                         }else{
-                            swal('Problem Encounter', err.message, 'error');
-                            cb(err);
+                            swal('Done', "Student Successfully Enrolled!",'success');
+                            preRegAssess.enrolleeSelected = -1;
+                            loadPreReg(1);
+                            cb(null);
                         }
                     });
                 };
                 if(response.status == 1){
-                    swal('Done!', "Balance fully paid", "success");
-                    reg(()=>{});
+                    swal({
+                        title: 'Done!',
+                        text: "Balance fully paid",
+                        type: "success"
+                    },()=>{
+                        reg(()=>{});
+                    });
                 }else if(response.status == 2){
-                    swal('Done!', "Balance Left: " + response.balance, "warning");
-                    reg(()=>{});
+                    swal({
+                        title: 'Done!',
+                        text: "Balance Left: " + response.balance,
+                        type: "warning"
+                    },()=>{
+                        reg(()=>{});
+                    });
                 }else if(response.status == 0){
                     $('.preloader').fadeOut();
-                    swal('Fail!', response.detail, "error");
+                    swal({
+                        title: 'Notice!',
+                        text: response.detail,
+                        type: "warning"
+                    },()=>{
+                        reg(()=>{});
+                    });
                 }
                 $('#addPaymentModal').modal('hide');
+                loadPreReg(1);
             }
         });
     }
@@ -291,43 +327,22 @@ function checkEnrReg (cb){ //Checker of empty fields
 var renderEnrollTbl = function(data){
     $('#preRegTbl').html("");    
     var task = function(_data, cb){
-        var getReq = function(id){
-            switch(parseInt(id)){
-                case 1:{
-                    return "TA-SDP";
-                }
-                case 2:{
-                    return "TA-SDPS";
-                }
-                case 3:{
-                    return "W-SDP";
-                }
-                case 4:{
-                    return "W-NPL";
-                }
-                case 5:{
-                    return "W-PL";
-                }
-                case 6:{
-                    return "TA-NPL";
-                }
-                case 7:{
-                    return "TA-PL";
-                }
-            }
-        };
         var temp = _data;
         office.selected = temp.data.branch;
         office.getLocalData(function(branch){
             temp.data["branchName"] = branch.name;
+            var targetID = temp.id;
             var html = "";
-            html += "<tr onclick='viewPendingStudent("+ temp.id +")'>";
+            html += "<tr onclick='viewPendingStudent("+ targetID +")'>";
             html += "<td>"+ Date.parse(temp.dateSubmit).toString("MMM dd, yyyy") +"</td>";
             html += "<td>"+ (temp.data.info.fullname).replace(/_/g,' ') +"</td>";
-            html += "<td>"+ getReq(temp.data.applyLicense) +"</td>";
+            html += "<td class='enrollReq"+ targetID +"'></td>";
             html += "</tr>";
             $('#preRegTbl').append(html); 
-            cb(null);      
+            license.getLocal(temp.data.applyLicense, l=>{
+                $('.enrollReq'+targetID).html(l.desc);
+            });
+            cb(null);
         });
     }
     queryer.start(task,data,function(err,done){

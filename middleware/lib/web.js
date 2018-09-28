@@ -226,7 +226,7 @@ exports.generateInvoice = function(req, res, next){
 exports.generateReceipt = function(req, res, next){
     var pdf = require('../../bin/pdfGenerator');
     var fileName = "SED_payment_receipt.pdf";
-
+  
     var billing = require('../../model/accountModel');
 
     var ornum = req.query.orno;
