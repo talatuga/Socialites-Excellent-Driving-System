@@ -44,6 +44,7 @@ exports.get = function(req, res, next){
     var sendResponse = function(data){
         var out = [];
         if(Array.isArray(data)){
+            if(data.length == 0) return res.status(200).send({success: true, data: out}); 
             data.forEach((element,index)=> {
                 if(element.purgeFlag > 0){
                     element["branchID"] = generateID(element.id);
@@ -69,7 +70,7 @@ exports.get = function(req, res, next){
     }else{
         var offset = query.offset == undefined ? 0 : parseInt(query.offset);
         var limit = query.limit == undefined ? 10 : parseInt(query.limit);
-        branch.getList(offset, limit, function(err, result){
+        branch.getList(offset, limit, query, function(err, result){
             if(err) return next(err);
             sendResponse(result);
         });

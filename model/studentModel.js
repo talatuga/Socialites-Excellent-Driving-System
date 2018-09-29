@@ -214,7 +214,7 @@ Student.transferList = function(query, cb){
 
 Student.transfer = function(studID, toBranch, fromBranch, effectivity, cb){
     if(!studID || !toBranch || !fromBranch || !effectivity) return cb(new Error("Invalid Data"));
-    Transfer.create([null, studID, toBranch, fromBranch, effectivity, null, null], function(err, result){
+    Transfer.create([null, studID, toBranch, fromBranch, effectivity, null, 1], function(err, result){
         if(err) return cb(err);
         cb(null, result.insertId);
     });

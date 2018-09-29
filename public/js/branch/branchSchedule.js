@@ -224,13 +224,11 @@ function transferReq(){
         });
         Promise.all([task1,task2]).then(result=>{
           var branch1 = result[0];
-          var branch2 = result[1];
           var html = "<tr>";
           html += "<td>"+ Date.parse(e.effectiveDate).toString('MMM dd, yyyy') +"</td>";
           html += "<td>STUD-"+ e.studID +"</td>";
           html += "<td>"+ student.fullname.replace(/_/g, " ") +"</td>";
           html += "<td>SED-"+ branch1.name +"</td>";
-          html += "<td>SED-"+ branch2.name +"</td>";
           html += "<td>"+ (e.hours || "<can't fetch data>") +"</td>";
           html += '<td><button type="button" style="vertical-align: sub" class="btn btn-success btnLicense" onclick="approveTransfer('+ e.id +')">Approve</button><br><button type="button" style="vertical-align: sub" class="btn btn-danger btnLicense" onclick="rejectTransfer('+ e.id +')">Reject</button><br></td>';
           html += "</tr>";   

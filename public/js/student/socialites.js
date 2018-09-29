@@ -210,7 +210,23 @@ var app = {
                     cb(new Error(res.detail));
                 }
             });
-        }
+        },
+        getBranchList: function(cb){
+            $.ajax({
+                type: 'GET',
+                url: 'api/v1/branch?status=1',
+                success: res=>{
+                    if(res.success){
+                        cb(null, res.data);
+                    }else{
+                        cb(new Error(res.detail));
+                    }
+                },
+                error: xhr=>{
+                    cb(new Error(xhr.status + ":" + xhr.statusText));
+                }
+            });
+        },
     },
     account: {
         loaded: false,
@@ -275,6 +291,64 @@ var app = {
                     cb(new Error(xhr.status + ":" + xhr.statusText));
                 }
             });
+        },
+        transfer: {
+            transferList: function(cb){
+                $.ajax({
+                    type: "GET",
+                    url: "api/v1/stud/transfer",
+                    success: function(res){
+                        if(res.success){
+                            if(res.data.length == 0) return cb(new Error("No data receive"));
+                            cb(null, res.data);
+                        }else{
+                            cb(new Error(res.detail));
+                        }
+                    },
+                    error: function(xhr){
+                        cb(new Error(xhr.status + ":" + xhr.statusText));
+                    }
+                });
+            },
+            submitRequest: function(branch, date, cb){
+                $.ajax({
+                    type: "POST",
+                    url: "api/v1/stud/transfer",
+                    data: {
+                        branch: branch,
+                        date: date,
+                    },
+                    success: function(res){
+                        if(res.success){
+                            cb(null, res.detail);
+                        }else{
+                            cb(new Error(res.detail));
+                        }
+                    },
+                    error: function(xhr){
+                        cb(new Error(xhr.status + ":" + xhr.statusText));
+                    }
+                });
+            },
+            cancelRequest: function(id, cb){
+                $.ajax({
+                    type: "PUT",
+                    url: "api/v1/stud/transfer/" + id,
+                    data: {
+                        action: "CANCEL",
+                    },
+                    success: function(res){
+                        if(res.success){
+                            cb(null, res.detail);
+                        }else{
+                            cb(new Error(res.detail));
+                        }
+                    },
+                    error: function(xhr){
+                        cb(new Error(xhr.status + ":" + xhr.statusText));
+                    }
+                });
+            },
         }
     },
 }

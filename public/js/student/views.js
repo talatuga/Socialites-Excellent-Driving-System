@@ -68,8 +68,12 @@ var studLicAssist = function (){
     $(".view-studLicAssist").show();
 }
 var studTransBranch = function (){
-    $('.viewDiv').hide();
-    $(".view-studTransBranch").show();
+    $('.preloader').fadeIn();
+    transferList(function(){
+        $('.viewDiv').hide();
+        $(".view-studTransBranch").show();
+        $('.preloader').fadeOut();
+    });
 }
 var studCertificate = function (){
     $('.viewDiv').hide();

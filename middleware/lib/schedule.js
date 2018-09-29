@@ -137,14 +137,14 @@ exports.getPreference = function(req, res, next){
     student.getData(req.session.studID, function(err, result){
         if(err) return next(err);
         var output;
-        (require('../../model/vehicleModel')).get(result.prefCar, null, function(er, car){
-            if(er) return next(er);
+        //(require('../../model/vehicleModel')).get(result.prefCar, null, function(er, car){
+        //    if(er) return next(er);
             output = {
                 days: result.prefDays,
-                car: {id:result.prefCar, brand: car.brand + " " + car.model}
+                car: {id:result.prefCar, brand: result.prefCar}
             };
             res.status(200).send({success: true, data: output});
-        });
+        //});
     });
 };
 

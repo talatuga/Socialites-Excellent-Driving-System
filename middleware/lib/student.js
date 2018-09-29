@@ -510,6 +510,7 @@ exports.getStudPayments = function(req, res, next){
 
 exports.transferList = function(req, res, next){
     var query = req.query;
+    if(req.session.studID) query.studid = req.session.studID;
     student.transferList(query, function(err, data){
         if(err) return next(err);
         res.status(200).send({success: true, data: data});
@@ -517,7 +518,7 @@ exports.transferList = function(req, res, next){
 }
 
 exports.transferBranch = function(req, res, next){
-    var studID = req.session.studID || req.body.studID;
+    var studID = req.body.studID || req.session.studID;
     var branch = req.body.branch;   
     var effectiveDate = req.body.date;
 
@@ -526,7 +527,7 @@ exports.transferBranch = function(req, res, next){
         if(err) return next(err);
         student.transfer(studID, branch, data.branch, Date.parse(effectiveDate).toString("yyyy-MM-dd"), function(err, result){
             if(err) return next(err);
-            res.status(200).send({success: true, detail: "Transfer request sent"});
+            res.status(200).send({success: true, detail: "Transfer request has been submitted to your current branch's admin. Please wait until tomorrow for the response."});
         });
     });
 }
@@ -536,7 +537,7 @@ exports.transferAction = function(req, res, next){
     var action = req.body.action;
     if(!id || !action) return res.status(200).send({success: false, detail: "Invalid Data"});
 
-    action = action.toUpperCase() == "APPROVE" ? 2 : 3;
+    action = action.toUpperCase() == "APPROVE" ? 2 : action.toUpperCase() == "CANCEL" ? 5 : 3;
 
     student.transferAction(id, action, function(err){
         if(err) return next(err);

@@ -878,7 +878,7 @@ function regDone(){
         swal("Oops!", "Please confirm that you have read and agreed to the terms and agreement first.", "error");
     }
     else{
-        // var selBranch = $('#branchID option:selected').text();
+        var selBranch = $('#branchID option:selected').text();
         preRegData.course = cart.container;
         preRegData.branch = $('#branchID').val();
         $('.prefBranch').html(selBranch);

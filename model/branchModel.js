@@ -8,9 +8,23 @@ Branch.table = table;
 Branch.db = db;
 
 //Business Logic Code:
-Branch.getList = function(offset, limit, cb){
-    var sql = "SELECT * FROM "+ this.table +" WHERE id > ? AND purgeFlag = 1 ORDER BY id ASC LIMIT ?";
-    this.db.get().query(sql, [offset, limit], function(err, result){
+Branch.getList = function(offset, limit, query, cb){
+    if(typeof query == "function"){
+        cb = query;
+        query = {};
+    }
+    
+    var sql = "SELECT * FROM "+ this.table +" WHERE id > ?";
+    var data = [offset];
+
+    if(query.status){
+        sql += " AND purgeFlag = ?";
+        data.push(query.status);
+    }
+
+    sql += " ORDER BY id ASC LIMIT ?";
+    data.push(limit);
+    this.db.get().query(sql, data, function(err, result){
         if(err) return cb(err);
         cb(null, result);
     });

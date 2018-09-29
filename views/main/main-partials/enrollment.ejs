@@ -340,7 +340,7 @@
                             <td>
                                 <select name="vehicleOption" id="manualVehiclesSelect">
                                     <option value="0">---</option>
-                                    <% car.forEach((e,i)=>{ if(e.transmission == "M"){ %> <option value="<%=e.id%>"><%=e.model + " " + e.brand%></option> <% }}); %>
+                                    <% car.forEach((e,i)=>{ if(e.transmission == "M"){ %> <option value="<%=e.model + " " + e.brand%>"><%=e.model + " " + e.brand%></option> <% }}); %>
                                 </select>
                             </td>
                         </tr>
