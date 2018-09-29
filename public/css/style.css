@@ -8126,7 +8126,7 @@ tiCustom
   overflow-y: auto;
   overflow-x: hidden;
 }
-.studCard, .instCard, .reqCard{
+.studCard, .instCard, .reqCard,{
   height: 500px;
   overflow-y: auto;
   overflow-x: hidden;
