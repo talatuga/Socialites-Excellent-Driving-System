@@ -45,6 +45,9 @@ router.use(auth.auth, err.error401);
 var notif = require('./notification');
 router.use('/notif', notif);
 
+var report = require('./reportRouter');
+router.use('/report', report);
+
 //Student route
 var studentRoute = require('./studentRouter');
 router.use('/stud', studentRoute);

@@ -4,11 +4,16 @@ var html_pdf = require('html-pdf');
 var tokenizer = require('./util/tokenGenerator');
 
 exports.templateFolder = __dirname + "/../views/pdf/";
+exports.reportTemplateFolder = __dirname + "/../views/pdf/reports/";
 
 exports.templates = {
     certificate: exports.templateFolder + 'certificate.ejs',
     receipt: exports.templateFolder +  'receipt.ejs',
     invoice: exports.templateFolder +  'invoice.ejs',
+};
+
+exports.reportTemplates = {
+    enrollees: exports.reportTemplateFolder + 'enrollees.ejs',
 };
 
 exports.saveAsFile = "save";

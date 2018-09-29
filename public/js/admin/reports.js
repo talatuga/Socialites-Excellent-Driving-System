@@ -189,3 +189,34 @@ function loadBranches(){
         }
     });
 }
+
+function generateReport(a){
+    var title, title2, freqval, freq;
+    freqval = $('.selReportFreq').find("option:selected").val();
+
+    if (a==1){
+        title = "Gross Income";
+        title2 = $('#selReport1').find("option:selected").val();
+        report.getStud1(function(err, data){
+            if(err){
+                swal("Failed!", err.message, "error");
+                console.log(err);
+            }else{
+                alert('wow');
+            }
+        });
+        swal("Downloading...", title + ": " + title2 + " report is now downloading.");
+    }
+    
+    else if (a==2){
+        title = "Students";
+        title2 = $('#selReport2').find("option:selected").val();
+        swal("Downloading...", title + ": " + title2 + " report is now downloading.");
+    }
+    
+    else if (a==3){
+        title = "Instructors";
+        title2 = $('#selReport3').find("option:selected").val();
+        swal("Downloading...", title + ": " + title2 + " report is now downloading.");
+    }
+}

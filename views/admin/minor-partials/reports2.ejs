@@ -23,9 +23,10 @@
                         <div>
                             <label style="float: left;">Report:</label>
                             <select id="selReport2" name="selReport2" class="enrCivStatus1" style="width: 70%">
-                                <option value="1">First Time Enrollees</option>
-                                <option value="2">Refreshers</option>
-                                <option value="3">Performance Evaluation</option>
+                                <option value="Enrollees">Enrollees</option>
+                                <option value="Transferees">Transferees</option>
+                                <option value="Enrolled Students">Enrolled Students</option>
+                                <option value="Performance Evaluation">Performance Evaluation</option>
                             </select>
                         </div>
                     </div>
@@ -60,8 +61,7 @@
                                 <td width="15%" style="text-align: right;"><h6>Date:</h6></td>
                                 <td><input type="date" class="txtEnr dailyRepDate" style="font-size: 14px"></td>
                             </tr>
-                        </table><hr>
-                        <button type="button" style="width: 200px" class="btn btn-inverse" onclick="generateReport(1)">Generate Report</button><br>
+                        </table>
                     </div>
 
                     <div class="freqDiv weeklyDiv">
@@ -74,8 +74,7 @@
                                 <td width="15%" style="text-align: right;"><h6>Week:</h6></td>
                                 <td><input type="week" class="txtEnr weeklyRepDate" style="font-size: 14px"></td>
                             </tr>
-                        </table><hr>
-                        <button type="button" style="width: 200px" class="btn btn-inverse" onclick="generateReport(2)">Generate Report</button><br>
+                        </table>
                     </div>
 
                     <div class="freqDiv monthlyDiv">
@@ -108,8 +107,7 @@
                                         <option value="2018">2018</option></select>
                                 </td>
                             </tr>
-                        </table><hr>
-                        <button type="button" style="width: 200px" class="btn btn-inverse" onclick="generateReport(3)">Generate Report</button><br>
+                        </table>
                     </div>
 
                     <div class="freqDiv quarterlyDiv">
@@ -143,8 +141,7 @@
                                 </td>
                             </tr>
                         </table>
-                        <h5>[Selected Months: <span class="selQuartMonths">January 2018 - April 2018</span>]</h5><hr>
-                        <button type="button" style="width: 200px" class="btn btn-inverse" onclick="generateReport(4)">Generate Report</button><br>
+                        <h5>[Selected Months: <span class="selQuartMonths">January 2018 - April 2018</span>]</h5>
                     </div>
                 
                     <div class="freqDiv semiAnnuallyDiv">
@@ -178,8 +175,7 @@
                                 </td>
                             </tr>
                         </table>
-                        <h5>[Selected Months: <span class="selSemiMonths">January 2018 - June 2018</span>]</h5><hr>
-                        <button type="button" style="width: 200px" class="btn btn-inverse" onclick="generateReport(5)">Generate Report</button><br>
+                        <h5>[Selected Months: <span class="selSemiMonths">January 2018 - June 2018</span>]</h5>
                     </div>
                 
                     <div class="freqDiv annuallyDiv">
@@ -195,9 +191,10 @@
                                         <option value="2018">2018</option></select>
                                 </td>
                             </tr>
-                        </table><hr>
-                        <button type="button" style="width: 200px" class="btn btn-inverse" onclick="generateReport(6)">Generate Report</button><br>
+                        </table>
                     </div>
+
+                    <hr><button type="button" style="width: 200px" class="btn btn-inverse" onclick="generateReport(2)">Generate Report</button><br>
                 </center>
             </form>
         </div>
