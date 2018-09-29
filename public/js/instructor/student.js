@@ -3,7 +3,7 @@ var selectedLesson, selectedGrade, selectedComment, selectedDate, selectedTime, 
 var rowCount, course, sum, percent;
 var instID = $('body').data('instid');
 
-var today = new Date();
+    var today = new Date();
     var dd = today.getDate();
     var mm = today.getMonth()+1
     var yyyy = today.getFullYear();

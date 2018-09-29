@@ -31,13 +31,7 @@
                     <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
                         <div>
                             <label>Branch: </label>
-                            <select name="selReportBranch" class="selReportBranch enrCivStatus1" style="width: 70%">
-                                <option value="1">SED-Quezon City (Main)</option>
-                                <option value="2">SED-Pasay City</option>
-                                <option value="3">SED-Taguig City</option>
-                                <option value="4">SED-Makati City</option>
-                                <option value="5">All Branches</option>
-                            </select>
+                            <select name="selReportBranch" class="selReportBranch enrCivStatus1" style="width: 70%"></select>
                         </div>
                     </div>
                     <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 pull-right">
@@ -55,7 +49,7 @@
                     </div>
                 </div><hr>     
                 <center>
-                    <div class="dailyDiv">
+                    <div class="freqDiv dailyDiv">
                         <center>
                             <h3>SELECT DATE</h3>
                             <h4>Choose the specific date for daily report.</h4>
@@ -69,7 +63,7 @@
                         <button type="button" style="width: 200px" class="btn btn-inverse" onclick="generateReport(1)">Generate Report</button><br>
                     </div>
 
-                    <!-- <div class="weeklyDiv">
+                    <div class="freqDiv weeklyDiv">
                         <center>
                             <h3>SELECT WEEK RANGE</h3>
                             <h4>Choose the specific range of week for weekly report.</h4>
@@ -81,9 +75,9 @@
                             </tr>
                         </table><hr>
                         <button type="button" style="width: 200px" class="btn btn-inverse" onclick="generateReport(2)">Generate Report</button><br>
-                    </div> -->
+                    </div>
 
-                    <!-- <div class="monthlyDiv">
+                    <div class="freqDiv monthlyDiv">
                         <center>
                             <h3>SELECT MONTH</h3>
                             <h4>Choose the specific month for monthly report.</h4>
@@ -110,21 +104,21 @@
                                 <td width="15%" style="text-align: right;"><h6>Year:</h6></td>
                                 <td>
                                     <select class="txtEnr yearRepDate">
-                                        <option value="1">2018</option></select>
+                                        <option value="2018">2018</option></select>
                                 </td>
                             </tr>
                         </table><hr>
                         <button type="button" style="width: 200px" class="btn btn-inverse" onclick="generateReport(3)">Generate Report</button><br>
-                    </div> -->
+                    </div>
 
-                    <!-- <div class="quarterlyDiv">
+                    <div class="freqDiv quarterlyDiv">
                         <center>
-                            <h3>SELECT MONTH FROM</h3>
-                            <h4>Choose the specific start of month for quarterly report.</h4>
+                            <h3>SELECT END MONTH</h3>
+                            <h4>Choose the specific end of month for quarterly report.</h4>
                         </center><hr style="width: 50%">
                         <table style="width:50%; height: 70px; color: black">
                             <tr>
-                                <td width="15%" style="text-align: right;"><h6>Month (From):</h6></td>
+                                <td width="15%" style="text-align: right;"><h6>Month (End):</h6></td>
                                 <td>
                                     <select class="txtEnr quarterlyRepDate">
                                         <option value="1">January</option>
@@ -144,22 +138,22 @@
                                 <td width="15%" style="text-align: right;"><h6>Year:</h6></td>
                                 <td>
                                     <select class="txtEnr yearRepDate">
-                                        <option value="1">2018</option></select>
+                                        <option value="2018">2018</option></select>
                                 </td>
                             </tr>
                         </table>
                         <h5>[Selected Months: <span class="selQuartMonths">January 2018 - April 2018</span>]</h5><hr>
                         <button type="button" style="width: 200px" class="btn btn-inverse" onclick="generateReport(4)">Generate Report</button><br>
-                    </div> -->
+                    </div>
                 
-                    <!-- <div class="semiAnnuallyDiv">
+                    <div class="freqDiv semiAnnuallyDiv">
                         <center>
-                            <h3>SELECT MONTH FROM</h3>
-                            <h4>Choose the specific start of month for semi-anually report.</h4>
+                            <h3>SELECT END MONTH</h3>
+                            <h4>Choose the specific end of month for semi-anually report.</h4>
                         </center><hr style="width: 50%">
                         <table style="width:50%; height: 70px; color: black">
                             <tr>
-                                <td width="15%" style="text-align: right;"><h6>Month (From):</h6></td>
+                                <td width="15%" style="text-align: right;"><h6>Month (End):</h6></td>
                                 <td>
                                     <select class="txtEnr semiRepDate">
                                         <option value="1">January</option>
@@ -179,15 +173,15 @@
                                 <td width="15%" style="text-align: right;"><h6>Year:</h6></td>
                                 <td>
                                     <select class="txtEnr yearRepDate">
-                                        <option value="1">2018</option></select>
+                                        <option value="2018">2018</option></select>
                                 </td>
                             </tr>
                         </table>
                         <h5>[Selected Months: <span class="selSemiMonths">January 2018 - June 2018</span>]</h5><hr>
                         <button type="button" style="width: 200px" class="btn btn-inverse" onclick="generateReport(5)">Generate Report</button><br>
-                    </div> -->
+                    </div>
                 
-                    <!-- <div class="annuallyDiv">
+                    <div class="freqDiv annuallyDiv">
                         <center>
                             <h3>SELECT YEAR</h3>
                             <h4>Choose the specific year for annual report.</h4>
@@ -197,12 +191,12 @@
                                 <td width="15%" style="text-align: right;"><h6>Year:</h6></td>
                                 <td>
                                     <select class="txtEnr yearRepDate">
-                                        <option value="1">2018</option></select>
+                                        <option value="2018">2018</option></select>
                                 </td>
                             </tr>
                         </table><hr>
                         <button type="button" style="width: 200px" class="btn btn-inverse" onclick="generateReport(6)">Generate Report</button><br>
-                    </div> -->
+                    </div>
                 </center>
             </form>
         </div>
