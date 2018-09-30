@@ -2,6 +2,8 @@ var monthnow = (new Date()).getUTCMonth()+1;
 var yearnow = (new Date()).getFullYear();
 var switchMonth = monthnow;
 var fromYrQ, fromYrS, yearFromQ, yearFromS, yearEnd=yearnow;
+var freq, daily, week, month, year, monthfrom, monthto, yearfrom, yearto;
+var title, title2;
 
 $(function(){
     $(".selReportFreq").change(function() {
@@ -147,6 +149,7 @@ function loadDates(){
         return [d.getUTCFullYear(), weekNo];
     }
     var result = getWeekNumber(new Date());
+    week = result[1];
     var weekNum = result[0] + "-W" +  result[1];
     $('.weeklyRepDate').attr("max", weekNum);
 
@@ -191,27 +194,60 @@ function loadBranches(){
 }
 
 function generateReport(a){
-    var title, title2, freqval, freq;
-    freqval = $('.selReportFreq').find("option:selected").val();
+    daily = 0, week = 0, month = 0, year = 0, monthfrom = 0, monthto = 0, yearfrom = 0, yearto = 0;
 
     if (a==1){
         title = "Gross Income";
         title2 = $('#selReport1').find("option:selected").val();
-        report.getStud1(function(err, data){
-            if(err){
-                swal("Failed!", err.message, "error");
-                console.log(err);
-            }else{
-                alert('wow');
-            }
-        });
+
         swal("Downloading...", title + ": " + title2 + " report is now downloading.");
     }
     
     else if (a==2){
         title = "Students";
         title2 = $('#selReport2').find("option:selected").val();
-        swal("Downloading...", title + ": " + title2 + " report is now downloading.");
+        freq = $('.selReportFreq2').find("option:selected").val();
+
+        if (freq==1){
+            daily = $('.dailyRepDate2').val();
+            daily = Date.parse(daily).toString("yyyy-MM-dd");
+        }else if (freq==2){
+            week = $('.weeklyRepDate2').val();
+            year = week.substring(0, 4);
+            week = week.substring(6, 8);
+        }else if (freq==3){
+            month = $(".monthlyRepDate2").val();
+            year = $(".yearRepDate2").val();
+        }else if (freq==4){
+            if (fromYrQ<=0){
+                fromYrQ = 12 + fromYrQ;
+            }
+            monthfrom = fromYrQ;
+            monthto = $(".quarterlyRepDate2").val();
+            yearfrom = yearFromQ;
+            yearto = $(".yearRepDate2").val();
+        }
+        else if (freq==5){
+            if (fromYrS<=0){
+                fromYrS = 12 + fromYrS;
+            }
+            monthfrom = fromYrS;
+            monthto = $(".semiRepDate2").val();
+            yearfrom = yearFromS;
+            yearto = $(".yearRepDate2").val();
+        }
+        else if (freq==6){
+            year = $(".yearRepDate2").val();
+        }
+
+        report.getStud(function(err, data){
+            if(err){
+                swal("Failed!", err.message, "error");
+                console.log(err);
+            }else{
+                swal("Downloading...", title + ": " + title2 + " report is now downloading.");
+            }
+        });
     }
     
     else if (a==3){

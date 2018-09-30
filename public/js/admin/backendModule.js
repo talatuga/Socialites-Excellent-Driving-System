@@ -1743,63 +1743,11 @@ var report = {
             cb(new Error("Error: On displaying list of branches"));
         });
     },
-    getIncome1: function(cb){
-        var req = $.get('api/v1/income/tuition', function(response){
-            if(response.success == false){
-                console.log(response.detail);
-                cb(new Error(response.detail));
-            }else{
-                cb(null, response.data);
-            }
-        }).fail(function(request){
-            console.log(request.status + ": " + request.statusText);
-            cb(new Error("Error: On loading reports for gross income: tuition"));
-        });
-    },
-    getIncome2: function(cb){
-        var req = $.get('api/v1/income/certificate', function(response){
-            if(response.success == false){
-                console.log(response.detail);
-                cb(new Error(response.detail));
-            }else{
-                cb(null, response.data);
-            }
-        }).fail(function(request){
-            console.log(request.status + ": " + request.statusText);
-            cb(new Error("Error: On loading reports for gross income: certificate"));
-        });
-    },
-    getIncome3: function(cb){
-        var req = $.get('api/v1/income/license', function(response){
-            if(response.success == false){
-                console.log(response.detail);
-                cb(new Error(response.detail));
-            }else{
-                cb(null, response.data);
-            }
-        }).fail(function(request){
-            console.log(request.status + ": " + request.statusText);
-            cb(new Error("Error: On loading reports for gross income: licensing assistance"));
-        });
-    },
-    getIncome4: function(cb){
-        var req = $.get('api/v1/income/all', function(response){
-            if(response.success == false){
-                console.log(response.detail);
-                cb(new Error(response.detail));
-            }else{
-                cb(null, response.data);
-            }
-        }).fail(function(request){
-            console.log(request.status + ": " + request.statusText);
-            cb(new Error("Error: On loading reports for gross income: all"));
-        });
-    },
-    getStud1: function(cb){
+    getStud: function(cb){
         $.ajax({
             type: "GET",
-            url: 'api/v1/report/student/enrollees',
-            data: {date: '2018-08-24'},
+            url: 'api/v1/report/student',
+            data: {report: title2, freq: freq, date: daily, week: week, year: year, month: month, monthfrom: monthfrom, monthto: monthto, yearfrom: yearfrom, yearto: yearto},
             success: (res)=>{
                 if(res.success){
                     cb(null, res.data);
@@ -1808,71 +1756,6 @@ var report = {
                 }
             },
             error: xhr=>cb(new Error(xhr.status+": "+xhr.statusText)),
-        });
-    },
-    getStud2: function(cb){
-        var req = $.get('api/v1/student/transferees', function(response){
-            if(response.success == false){
-                console.log(response.detail);
-                cb(new Error(response.detail));
-            }else{
-                cb(null, response.data);
-            }
-        }).fail(function(request){
-            console.log(request.status + ": " + request.statusText);
-            cb(new Error("Error: On loading reports for students: transferees"));
-        });
-    },
-    getStud3: function(cb){
-        var req = $.get('api/v1/student/enrolled', function(response){
-            if(response.success == false){
-                console.log(response.detail);
-                cb(new Error(response.detail));
-            }else{
-                cb(null, response.data);
-            }
-        }).fail(function(request){
-            console.log(request.status + ": " + request.statusText);
-            cb(new Error("Error: On loading reports for students: enrolled students"));
-        });
-    },
-    getStud4: function(cb){
-        var req = $.get('api/v1/student/performance', function(response){
-            if(response.success == false){
-                console.log(response.detail);
-                cb(new Error(response.detail));
-            }else{
-                cb(null, response.data);
-            }
-        }).fail(function(request){
-            console.log(request.status + ": " + request.statusText);
-            cb(new Error("Error: On loading reports for students: performance evaluation"));
-        });
-    },
-    getInst1: function(cb){
-        var req = $.get('api/v1/instructor/students', function(response){
-            if(response.success == false){
-                console.log(response.detail);
-                cb(new Error(response.detail));
-            }else{
-                cb(null, response.data);
-            }
-        }).fail(function(request){
-            console.log(request.status + ": " + request.statusText);
-            cb(new Error("Error: On loading reports for instructors: students handled"));
-        });
-    },
-    getInst2: function(cb){
-        var req = $.get('api/v1/instructor/performance', function(response){
-            if(response.success == false){
-                console.log(response.detail);
-                cb(new Error(response.detail));
-            }else{
-                cb(null, response.data);
-            }
-        }).fail(function(request){
-            console.log(request.status + ": " + request.statusText);
-            cb(new Error("Error: On loading reports for instructors: performance evaluation"));
         });
     },
 }
