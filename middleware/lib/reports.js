@@ -4,16 +4,44 @@ var report = require('../../model/reportsModel');
 //STUDENTS REPORT
 exports.getStud = function(req, res, next){
     if(res.locals.authenticated == 0) return next();
+    var pdf = require('../../bin/pdfGenerator');
+    var fileName;
+
     var freq = req.query.freq;
     var title = req.query.report;
-    console.log(freq, title);
+
+    var createReport = function(student){
+        pdf.generateView(pdf.reportTemplates.enrollees, student, function(err, html){
+            if(err) return next(err);
+            pdf.generatePDF(html, pdf.getBuffer, function(err, buffer){
+                if(err) return next(err);
+                // let json = JSON.stringify(buffer);
+                // console.log(json);
+                // res.set('Content-disposition', 'attachment; filename=' + fileName);
+                // res.set('Content-Type', 'Application/pdf');
+                res.status(200).send({success: true, data: buffer});
+            });
+        });
+    }
 
     if (title=="Enrollees"){
         if (freq=="1"){
-            report.getStud1A(req.query.date, function(err, result){
-                if(err) return next(err);
-                res.status(200).send({success: true, data: result});
+            fileName = "SED - Gross Income Report.pdf";
+            report.getStud1A(req.query.date).then(data=>{
+                var student = {
+                    title: "Students",
+                    title2: "Enrollees"
+                }
+                createReport(student);
+            }).catch(reason=>{
+                next(reason);
             });
+            // report.getStud1A(req.query.date, function(err, result){
+            //     if(err) return next(err);
+            //     console.log(result);
+            //     createReport(result);
+            //     res.status(200).send({success: true, data: result});
+            // });
         }
         else if (freq=="2"){
             report.getStud1B(req.query.week, req.query.year, function(err, result){

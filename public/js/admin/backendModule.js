@@ -1750,7 +1750,7 @@ var report = {
             data: {report: title2, freq: freq, date: daily, week: week, year: year, month: month, monthfrom: monthfrom, monthto: monthto, yearfrom: yearfrom, yearto: yearto},
             success: (res)=>{
                 if(res.success){
-                    cb(null, res.data);
+                    cb(null);
                 }else{
                     cb(new Error(res.detail));
                 }
@@ -1758,4 +1758,20 @@ var report = {
             error: xhr=>cb(new Error(xhr.status+": "+xhr.statusText)),
         });
     },
+    // generateReport: function(cb){
+    //     alert (title + " "+ title2)
+    //     $.ajax({
+    //         type: "GET",
+    //         url: 'api/v1/report/generate',
+    //         data: {title: title, report: title2},
+    //         success: (res)=>{
+    //             if(res.success){
+    //                 cb(null, res.data);
+    //             }else{
+    //                 cb(new Error(res.detail));
+    //             }
+    //         },
+    //         error: xhr=>cb(new Error(xhr.status+": "+xhr.statusText)),
+    //     });
+    // },
 }

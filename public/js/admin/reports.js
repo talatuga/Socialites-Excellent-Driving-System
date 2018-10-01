@@ -240,12 +240,25 @@ function generateReport(a){
             year = $(".yearRepDate2").val();
         }
 
-        report.getStud(function(err, data){
+        report.getStud(function(err){
             if(err){
                 swal("Failed!", err.message, "error");
-                console.log(err);
+                console.log(err.message);
             }else{
                 swal("Downloading...", title + ": " + title2 + " report is now downloading.");
+
+                // if(result.length!=0){
+                    // $('.noEvalYet').hide();
+                    // var x = 0, y, z;
+                    // result.forEach(e => {
+                    //     y = JSON.parse(result[x].data);
+                    //     alert ((x+1) + " " + y.info.fullname.replace(/_/g, ' ') + " " + y.branch + " " + y.course + " " + Date.parse(e.dateSubmit).toString('MMM dd, yyyy'));
+                    //     x++;
+                    //     alert(name);
+                    // });
+                // } else{
+                //     swal("Oops!", "There are no " +  title + ": " + title2 + " report to be generated.");
+                // }
             }
         });
     }
