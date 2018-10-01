@@ -228,4 +228,22 @@ Student.transferAction = function(id, action, cb){
     });
 };
 
+Student.getStudDetailsCert = function(studID, cb){
+    var sql = "SELECT ce.courseID, ui.fullname, c.carType, ev.instId FROM course_enrolled ce, evaluation ev, enrollment e, student s, userinfo ui, course c WHERE ce.status = 0 AND ce.enrollmentID = e.id AND e.studID = ? AND e.studID = s.id AND s.userInfo = ui.id AND ce.courseID = c.id AND ev.target = 1";
+    db.get().query(sql, [studID], function(err, result){
+        if(err) return cb(err);
+        if(result.length == 0) return cb(null, []);
+        cb(null, result);
+    });
+}
+
+Student.getInstCert = function(studID, cb){
+    var sql = "SELECT ui.fullname FROM evaluation e, instructor i, userinfo ui WHERE e.studID = ? AND e.target = 1 AND e.instID = i.id AND i.userInfo = ui.id";
+    db.get().query(sql, [studID], function(err, result){
+        if(err) return cb(err);
+        if(result.length == 0) return cb(null, []);
+        cb(null, result);
+    });
+}
+
 module.exports = Student;

@@ -50,6 +50,7 @@ Schedule.db = db;
 //     });
 // }
 
+//DB: Tups, padagdag sa WHERE clause yung sa specific branch. thankks!
 Reports.getStud1A = function(date){
     return new Promise(function(resolve, reject){
         var sql = "SELECT * FROM preregstudent WHERE DATE(dateSubmit)=?";

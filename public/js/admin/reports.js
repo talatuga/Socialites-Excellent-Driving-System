@@ -3,7 +3,7 @@ var yearnow = (new Date()).getFullYear();
 var switchMonth = monthnow;
 var fromYrQ, fromYrS, yearFromQ, yearFromS, yearEnd=yearnow;
 var freq, daily, week, month, year, monthfrom, monthto, yearfrom, yearto;
-var title, title2;
+var title, title2, branch;
 
 $(function(){
     $(".selReportFreq").change(function() {
@@ -29,6 +29,12 @@ $(function(){
         else if (freq=="6"){
             $('.annuallyDiv').show();
         }
+    });
+
+    $('#selReport2').change(function(){
+        var x = this.value;
+        if (x=="Transferees") $('.selReportBranch2').attr('disabled', true);
+        else $('.selReportBranch2').removeAttr('disabled');
     });
 
     $(".yearRepDate").change(function() {
@@ -63,6 +69,8 @@ function loadInitReport(){
     $("#selReport3").val($("#selReport3 option:first").val());
     $(".selReportFreq").val($(".selReportFreq option:first").val());
     $(".selReportBranch").val($(".selReportBranch option:first").val());
+    $('.selReportBranch2').removeAttr('disabled');
+    $('.selReportBranch3').attr('disabled', true);
 
     $('.freqDiv').hide();
     $('.dailyDiv').show();
@@ -199,6 +207,40 @@ function generateReport(a){
     if (a==1){
         title = "Gross Income";
         title2 = $('#selReport1').find("option:selected").val();
+        freq = $('.selReportFreq1').find("option:selected").val();
+        branch = $('.selReportBranch1').find("option:selected").val();
+
+        if (freq==1){
+            daily = $('.dailyRepDate1').val();
+            daily = Date.parse(daily).toString("yyyy-MM-dd");
+        }else if (freq==2){
+            week = $('.weeklyRepDate1').val();
+            year = week.substring(0, 4);
+            week = week.substring(6, 8);
+        }else if (freq==3){
+            month = $(".monthlyRepDate1").val();
+            year = $(".yearRepDate1").val();
+        }else if (freq==4){
+            if (fromYrQ<=0){
+                fromYrQ = 12 + fromYrQ;
+            }
+            monthfrom = fromYrQ;
+            monthto = $(".quarterlyRepDate1").val();
+            yearfrom = yearFromQ;
+            yearto = $(".yearRepDate1").val();
+        }
+        else if (freq==5){
+            if (fromYrS<=0){
+                fromYrS = 12 + fromYrS;
+            }
+            monthfrom = fromYrS;
+            monthto = $(".semiRepDate1").val();
+            yearfrom = yearFromS;
+            yearto = $(".yearRepDate1").val();
+        }
+        else if (freq==6){
+            year = $(".yearRepDate1").val();
+        }
 
         swal("Downloading...", title + ": " + title2 + " report is now downloading.");
     }
@@ -207,7 +249,9 @@ function generateReport(a){
         title = "Students";
         title2 = $('#selReport2').find("option:selected").val();
         freq = $('.selReportFreq2').find("option:selected").val();
+        branch = $('.selReportBranch2').find("option:selected").val();
 
+        if (branch==null || branch=="")branch=0;
         if (freq==1){
             daily = $('.dailyRepDate2').val();
             daily = Date.parse(daily).toString("yyyy-MM-dd");
@@ -246,7 +290,6 @@ function generateReport(a){
                 console.log(err.message);
             }else{
                 swal("Downloading...", title + ": " + title2 + " report is now downloading.");
-
                 // if(result.length!=0){
                     // $('.noEvalYet').hide();
                     // var x = 0, y, z;
@@ -266,6 +309,41 @@ function generateReport(a){
     else if (a==3){
         title = "Instructors";
         title2 = $('#selReport3').find("option:selected").val();
+        freq = $('.selReportFreq3').find("option:selected").val();
+        branch = 0;
+
+        if (freq==1){
+            daily = $('.dailyRepDate3').val();
+            daily = Date.parse(daily).toString("yyyy-MM-dd");
+        }else if (freq==2){
+            week = $('.weeklyRepDate3').val();
+            year = week.substring(0, 4);
+            week = week.substring(6, 8);
+        }else if (freq==3){
+            month = $(".monthlyRepDate3").val();
+            year = $(".yearRepDate3").val();
+        }else if (freq==4){
+            if (fromYrQ<=0){
+                fromYrQ = 12 + fromYrQ;
+            }
+            monthfrom = fromYrQ;
+            monthto = $(".quarterlyRepDate3").val();
+            yearfrom = yearFromQ;
+            yearto = $(".yearRepDate3").val();
+        }
+        else if (freq==5){
+            if (fromYrS<=0){
+                fromYrS = 12 + fromYrS;
+            }
+            monthfrom = fromYrS;
+            monthto = $(".semiRepDate3").val();
+            yearfrom = yearFromS;
+            yearto = $(".yearRepDate3").val();
+        }
+        else if (freq==6){
+            year = $(".yearRepDate3").val();
+        }
+
         swal("Downloading...", title + ": " + title2 + " report is now downloading.");
     }
 }

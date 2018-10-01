@@ -62,3 +62,7 @@
     }
 
 })(jQuery);
+
+$('.input100').bind("cut copy paste", function(e){
+    e.preventDefault();
+});

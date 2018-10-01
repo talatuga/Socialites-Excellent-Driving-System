@@ -10,6 +10,10 @@ $(function() {
     };
 });
 
+$('.input100').bind("cut copy paste", function(e){
+    e.preventDefault();
+});
+
 var logStud = function() 
 {
     $('.socialitesLogin').attr('action','/student');

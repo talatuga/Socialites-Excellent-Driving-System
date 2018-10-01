@@ -38,8 +38,6 @@ function resetSettingsInstructor (){
     $("#editInstructorAccOcc").prop("disabled", true);
     $("#editInstructorAccCont").prop("disabled", true);
     $("#editInstructorAccEmail").prop("disabled", true);
-    $("#editInstructorAccGuard").prop("disabled", true);
-    $("#editInstructorAccGuardCont").prop("disabled", true);
     $("#editInstructorAccUN").prop("disabled", true);
     $("#editInstructorAccPW").prop("disabled", true);
     $("#editInstructorAccCPW").prop("disabled", true);
@@ -59,8 +57,6 @@ function updateInstructor1 (){
     $("#editInstructorAccOcc").removeAttr("disabled");
     $("#editInstructorAccCont").removeAttr("disabled");
     $("#editInstructorAccEmail").removeAttr("disabled");
-    $("#editInstructorAccGuard").removeAttr("disabled");
-    $("#editInstructorAccGuardCont").removeAttr("disabled");
     $("#editInstructorAccUN").removeAttr("disabled");
     $("#editInstructorAccPW").removeAttr("disabled");
     $("#editInstructorAccCPW").removeAttr("disabled");
@@ -103,8 +99,6 @@ function saveUpdInstructor1(){
     var add = $("#editInstructorAccAdd").val();
     var sex = $('input[name="editInstructorAccSex"]:checked').val();
     var cont = $("#editInstructorAccCont").val();
-    var guard = $("#editInstructorAccGuard").val();
-    var guardCont = $("#editInstructorccGuardCont").val();
     var un = $("#editInstructorAccUN").val();
     var pw = $("#editInstructorAccPW").val();
     var civ = $('select[name="editInstructorAccCivStatus"]').val();
@@ -115,13 +109,11 @@ function saveUpdInstructor1(){
     c = bplace.replace(/\s+/g, '');
     d = add.replace(/\s+/g, '');
     e = cont.replace(/\s+/g, '');
-    f = guard.replace(/\s+/g, '');
-    g = guardCont.replace(/\s+/g, '');
     h = un.replace(/\s+/g, '');
     i = pw.replace(/\s+/g, '');
 
     if (a=="" || sn=="" || c=="" || d=="" 
-        || e=="" || f=="" || g=="" || civ=="civ0"){
+        || e=="" || civ=="civ0"){
             swal("Oops!", "Please fill out all required fields.", "error");
         }
     else if (h=="" && i==""){

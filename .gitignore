@@ -77,3 +77,4 @@ public/other_upload/*
 !public/css/style.css
 !public/css/login.css
 !public/css/main
+!public/pdf/templates

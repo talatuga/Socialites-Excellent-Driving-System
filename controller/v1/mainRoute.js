@@ -48,6 +48,9 @@ router.use('/notif', notif);
 var report = require('./reportRouter');
 router.use('/report', report);
 
+var cert = require('./certRouter');
+router.use('/cert', cert);
+
 //Student route
 var studentRoute = require('./studentRouter');
 router.use('/stud', studentRoute);

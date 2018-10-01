@@ -1747,7 +1747,7 @@ var report = {
         $.ajax({
             type: "GET",
             url: 'api/v1/report/student',
-            data: {report: title2, freq: freq, date: daily, week: week, year: year, month: month, monthfrom: monthfrom, monthto: monthto, yearfrom: yearfrom, yearto: yearto},
+            data: {branch: branch, report: title2, freq: freq, date: daily, week: week, year: year, month: month, monthfrom: monthfrom, monthto: monthto, yearfrom: yearfrom, yearto: yearto},
             success: (res)=>{
                 if(res.success){
                     cb(null);
@@ -1774,4 +1774,38 @@ var report = {
     //         error: xhr=>cb(new Error(xhr.status+": "+xhr.statusText)),
     //     });
     // },
+}
+
+var cer = {
+    selected: -1,
+    offset: 0,
+    limit: 20,
+    currPage: 0,
+    pages: [],
+    searchStudID: function(cb){
+        var req = $.get('api/v1/cert/search/' + studIDcert, function(response){
+            if(response.success == false){
+                console.log(response.detail);
+                cb(new Error(response.detail));
+            }else{
+                cb(null, response.data);
+            }
+        }).fail(function(request){
+            console.log(request.status + ": " + request.statusText);
+            cb(new Error("Error: On searching for this student"));
+        });
+    },
+    getInstCert: function(cb){
+        var req = $.get('api/v1/cert/search/inst/' + studIDcert, function(response){
+            if(response.success == false){
+                console.log(response.detail);
+                cb(new Error(response.detail));
+            }else{
+                cb(null, response.data);
+            }
+        }).fail(function(request){
+            console.log(request.status + ": " + request.statusText);
+            cb(new Error("Error: On searching for this student"));
+        });
+    },
 }

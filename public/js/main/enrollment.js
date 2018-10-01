@@ -176,6 +176,7 @@ function uncheckLesSelct(){
 }
 
 function payMeth2(){
+    paymentMeth = 2;
     swal ("Oops!", "We're sorry, but this option is not available for now.", "error");
 }
 
