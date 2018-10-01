@@ -13,7 +13,17 @@ exports.templates = {
 };
 
 exports.reportTemplates = {
+    tuition: exports.reportTemplateFolder + 'tuition.ejs',
+    certificate: exports.reportTemplateFolder + 'certificate.ejs',
+    license: exports.reportTemplateFolder + 'license.ejs',
+    all: exports.reportTemplateFolder + 'all.ejs',
+
     enrollees: exports.reportTemplateFolder + 'enrollees.ejs',
+    transferees: exports.reportTemplateFolder + 'transferees.ejs',
+    enrolled: exports.reportTemplateFolder + 'enrolled.ejs',
+    studPerformance: exports.reportTemplateFolder + 'studPerformance.ejs',
+
+    instPerformance: exports.reportTemplateFolder + 'instPerformance.ejs',
 };
 
 exports.saveAsFile = "save";

@@ -58,7 +58,7 @@ Reports.getStud1A = function(date){
             if(result.length==0){
                 resolve([]);
             }else{
-                resolve(result[0]);
+                resolve(result);
             }
         });
     });
