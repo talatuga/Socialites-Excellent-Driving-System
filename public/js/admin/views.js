@@ -1,4 +1,4 @@
-$(function() {    
+$(function() {   
     $('.navAdmin').show();
     $('.navStudent').hide();
     $('.navInstructor').hide();
@@ -14,6 +14,7 @@ $(function() {
     $(".liSide").removeClass("active");
     $("#li1").addClass("active");
     $('.viewDiv').hide();
+    loadDash();
     $(".view-dashboard").show();
     
     $(".view-viewInstructor").hide();
@@ -108,6 +109,7 @@ function viewActiveCrs(a){
 }
 
 var dashboard = function (){
+    loadDash(); 
     $('.viewDiv').hide();
     $(".view-dashboard").show();
     $(".search-box").hide();

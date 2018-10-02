@@ -21,6 +21,8 @@ var loadPreReg = function(refresh){
             preRegAssess.getList(err=>{
                 if(err) return console.error(err);
                 renderEnrollTbl(preRegAssess.pages[preRegAssess.currPage]);
+                var c = preRegAssess.pages[preRegAssess.currPage].length;
+                $('.enrTodayDash').html(c);
                 if(preRegAssess.pages[preRegAssess.currPage].length==0){
                     $('.noEnrolleesTr').show();
                     $('.noEnrolleesDet').show();

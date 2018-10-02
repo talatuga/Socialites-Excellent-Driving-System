@@ -10,18 +10,18 @@
         <!-- Start Page Content -->
         <div class="row" >
             <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-                <div class="card">
+                <div class="card" style="background-color: #935555">
                     <div class="media">
                         <div class="media-left meida">
-                            <span><i class="ti-calendar tiSide f-s-50 color-success dashIcon" onclick="viewActive(5)" title="View Schedule Details"></i></span>
+                            <span><i style="color: #FCE355" class="ti-calendar tiSide f-s-50 dashIcon" onclick="viewActive(5)" title="View Schedule Details"></i></span>
                         </div>
                         <div class="media-body media-text-right">
-                            <h2>0</h2>
-                            <p class="m-b-0">No. of Schedules<br><span>(Today)</span></p>
+                            <h2 style="color: white; font-weight: 700" class="schedTodayDash"></h2>
+                            <p class="m-b-0" style="color: white">No. of Schedules<br><span style="color: white">(Today)</span></p>
                         </div>
                     </div>
                 </div>
-                <div class="panel bg-white box-shadow" style="padding: 10px; border-radius: 5px">
+                <div class="panel bg-white box-shadow" style="padding: 10px; border-radius: 5px; border-top: solid 5px #935555">
                     <div class="panel-heading">
                         <div class="panel-title">
                             <h4>Current Students <span style="font-size: 12px">(with ongoing courses)</span></h4>
@@ -34,18 +34,18 @@
             </div>
             <!-- Pie Chart -->
             <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-                <div class="card">
+                <div class="card" style="background-color: #FCE355">
                     <div class="media">
                         <div class="media-left meida">
-                            <span><i class="icon icon-business-5 tiSide f-s-60 color-danger dashIcon" onclick="viewActive(12)" title="View Enrollment Details"></i></span>
+                            <span><i style="color: #935555" class="icon icon-business-5 tiSide f-s-60 dashIcon" onclick="viewActive(12)" title="View Enrollment Details"></i></span>
                         </div>
                         <div class="media-body media-text-right">
-                            <h2>0</h2>
-                            <p class="m-b-0">No. of Enrollees<br><span>(Today)</span></p>
+                            <h2 style="color: black" font-weight: 700 class="enrTodayDash"></h2>
+                            <p class="m-b-0" style="color: black">No. of Enrollees<br><span style="color: black">(Today)</span></p>
                         </div>
                     </div>
                 </div>
-                <div class="panel bg-white box-shadow" style="padding: 10px; border-radius: 5px">
+                <div class="panel bg-white box-shadow" style="padding: 10px; border-radius: 5px; border-top: solid 5px #FCE355">
                     <div class="panel-heading">
                         <div class="panel-title">
                             <h4>Licensing Application Assistance</h4>
@@ -58,7 +58,7 @@
             </div>
             <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
                 <div style="text-align:center;padding:1em 0;"> 
-                    <iframe src="https://www.zeitverschiebung.net/clock-widget-iframe-v2?language=en&size=large&timezone=Asia%2FManila" width="100%" height="140" frameborder="0" seamless></iframe>
+                    <br><iframe src="https://www.zeitverschiebung.net/clock-widget-iframe-v2?language=en&size=large&timezone=Asia%2FManila" width="100%" height="140" frameborder="0" seamless></iframe>
                     <a class="weatherwidget-io" href="https://forecast7.com/en/12d88121d77/philippines/" data-label_1="PHILIPPINES" data-label_2="WEATHER" data-theme="beige" >PHILIPPINES WEATHER</a>
                     <script>
                     !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
@@ -69,7 +69,7 @@
 
         <div class="row">
             <div class="col-lg-6">
-                <div class="card">
+                <div class="card" style="border-top: solid 5px #935555">
                     <div class="card-title">
                         <h4>Monthly Enrollees</h4>
 
@@ -81,7 +81,7 @@
             </div>
             <!-- /# column -->
             <div class="col-lg-6">
-                <div class="card">
+                <div class="card" style="border-top: solid 5px #FCE355">
                     <div class="card-title">
                         <h4>Yearly Enrollees</h4>
 
