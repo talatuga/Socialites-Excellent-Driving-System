@@ -8642,5 +8642,17 @@ tiCustom
   font-size: 13px
 }
 .crsInstEval{
-  color: black
+  color: black;
+}
+.dashIcon{
+  cursor: pointer;
+  animation-duration: 0.5s;
+  animation-name: myanimation;
+  transition: all 0.5s ease 0s;
+}
+.dashIcon:hover{
+  color: black;
+  animation-duration: 0.5s;
+  animation-name: myanimation;
+  transition: all 0.5s ease 0s;
 }

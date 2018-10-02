@@ -24,19 +24,7 @@
             <% include ./partials/sidebar %> <!-- SIDEBAR CODES -->
 
             <!-- MAIN -->
-            <div class="page-wrapper">
-                <% /*
-                    switch(accType){
-                        case 0: {
-                            include ./main-partials/dashboard
-                            break;
-                        }
-                        case 1: {break;}
-                        case 2: {break;}
-                        case 3: {break;}
-                    } */
-                %>
-                
+            <div class="page-wrapper">                
                 <!-- MAJOR PARTIALS -->
                 <% include ./main-partials/dashboard %>
                 <% include ./main-partials/instructor %>
@@ -91,13 +79,10 @@
             </div>
             <!-- END MAIN -->
 
-            <% include ./partials/footer %> 
             <!-- FOOTER CODES -->
-
-            <!-- JS imports -->
-            <% include ../utils/adminJS %>
-            <!-- Modal imports -->
-            <!-- <% include ./modals/modal-instructor %> -->
+            <% include ./partials/footer %> 
         </div>
+        <!-- JS imports -->
+        <% include ../utils/adminJS %>
     </body>
 </html>
