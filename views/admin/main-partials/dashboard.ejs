@@ -8,7 +8,7 @@
     <!-- Container fluid  -->
     <div class="container-fluid">
         <!-- Start Page Content -->
-        <div class="row" >
+        <div class="row" style="height: 100%">
             <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
                 <div class="card" style="background-color: #935555">
                     <div class="media">
@@ -40,7 +40,7 @@
                             <span><i style="color: #935555" class="icon icon-business-5 tiSide f-s-60 dashIcon" onclick="viewActive(12)" title="View Enrollment Details"></i></span>
                         </div>
                         <div class="media-body media-text-right">
-                            <h2 style="color: black" font-weight: 700 class="enrTodayDash"></h2>
+                            <h2 style="color: black; font-weight: 700" class="enrTodayDash"></h2>
                             <p class="m-b-0" style="color: black">No. of Enrollees<br><span style="color: black">(Today)</span></p>
                         </div>
                     </div>
@@ -67,27 +67,27 @@
             </div>
         </div><br>
 
-        <div class="row">
-            <div class="col-lg-6">
+        <div class="row" style="height: 200px">
+            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                 <div class="card" style="border-top: solid 5px #935555">
                     <div class="card-title">
-                        <h4>Monthly Enrollees</h4>
+                        <h4>Monthly Enrollees</h4><hr>
 
                     </div>
                     <div class="sales-chart">
-                        <canvas id="sales-chart"></canvas>
+                        <canvas id="monthlyChart"></canvas>
                     </div>
                 </div>
             </div>
             <!-- /# column -->
-            <div class="col-lg-6">
+            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                 <div class="card" style="border-top: solid 5px #FCE355">
                     <div class="card-title">
-                        <h4>Yearly Enrollees</h4>
+                        <h4>Yearly Enrollees</h4><hr>
 
                     </div>
                     <div class="sales-chart">
-                        <canvas id="team-chart"></canvas>
+                        <canvas id="yearlyChart"></canvas>
                     </div>
                 </div>
                 <!-- /# card -->

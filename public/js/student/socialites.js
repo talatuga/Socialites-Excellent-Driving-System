@@ -299,7 +299,7 @@ var app = {
                     url: "api/v1/stud/transfer",
                     success: function(res){
                         if(res.success){
-                            if(res.data.length == 0) return cb(new Error("No data receive"));
+                            if(res.data.length == 0) return cb(new Error("No data received"));
                             cb(null, res.data);
                         }else{
                             cb(new Error(res.detail));

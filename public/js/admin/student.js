@@ -27,19 +27,24 @@ $("#btnViewStudent").on("click", function() { //opens view student page upon cli
         var html = "<table class='table tblCustom'>";
         html += "<thead><tr><th>Date</th><th>Time</th><th>Instructor</th><th>Branch</th></tr></thead><tbody class='studScheduleTbl'></tbody></table>";
         $('#studentSched').html(html);
-        sched.forEach((e,i)=>{
-            scheduler.getInstName(e.instID, function(err, name){
-                scheduler.getBranchName(e.branch, function(err, branch){
-                    var row = "<tr>";
-                    row += "<td>"+ Date.parse(e.date).toString('MMM dd, yyyy') +"</td>";
-                    row += "<td>"+ Date.parse(e.time).toString('hh:mm tt') +"</td>";
-                    row += "<td>"+ name.replace(/_/g, " ") +"</td>";
-                    row += "<td>"+ branch +"</td>";
-                    row += "</tr>";
-                    $('.studScheduleTbl').append(row);
+        if(sched.length!=0){
+            $('.noStudSched').hide();
+            sched.forEach((e,i)=>{
+                scheduler.getInstName(e.instID, function(err, name){
+                    scheduler.getBranchName(e.branch, function(err, branch){
+                        var row = "<tr>";
+                        row += "<td>"+ Date.parse(e.date).toString('MMM dd, yyyy') +"</td>";
+                        row += "<td>"+ Date.parse(e.time).toString('hh:mm tt') +"</td>";
+                        row += "<td>"+ name.replace(/_/g, " ") +"</td>";
+                        row += "<td>"+ branch +"</td>";
+                        row += "</tr>";
+                        $('.studScheduleTbl').append(row);
+                    });
                 });
             });
-        });
+        }else{
+            $('.noStudSched').show();
+        }
     });
 });
 
@@ -598,7 +603,7 @@ var viewStud = function(id){
             $('.studAddress').html(profile.address);
             $('.studPhone').html(profile.telno);
             $('.studEmail').html(profile.email);
-            $('.enrolledCrs').html('none');
+            // $('.enrolledCrs').html('none');
     
             stud.getCourseEnrolled(function(err, course){
                 if(err) return console.error(err);

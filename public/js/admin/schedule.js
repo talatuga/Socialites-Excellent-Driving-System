@@ -126,46 +126,50 @@ function todaySched(){
   scheduler.getSchedToday(function(err, sched){
     if(err) return console.error(err);
     $('#todaySched').html("");
-    sched.forEach((e,i)=>{
-
-      var task1 = new Promise((resolve, reject)=>{
-        scheduler.getBranchName(e.branch, function(er,name){
-          if(er) return reject(er);
-          resolve(name);
+    if(sched.length!=0){
+      sched.forEach((e,i)=>{
+        $('.noTodaySched').hide();
+        var task1 = new Promise((resolve, reject)=>{
+          scheduler.getBranchName(e.branch, function(er,name){
+            if(er) return reject(er);
+            resolve(name);
+          });
         });
-      });
-
-      var task2 = new Promise((resolve, reject)=>{
-        scheduler.getInstName(e.instID, function(er,name){
-          if(er) return reject(er);
-          resolve(name);
+  
+        var task2 = new Promise((resolve, reject)=>{
+          scheduler.getInstName(e.instID, function(er,name){
+            if(er) return reject(er);
+            resolve(name);
+          });
         });
-      });
-
-      var task3 = new Promise((resolve, reject)=>{
-        scheduler.getStudName(e.studID, function(er,name){
-          if(er) return reject(er);
-          resolve(name);
+  
+        var task3 = new Promise((resolve, reject)=>{
+          scheduler.getStudName(e.studID, function(er,name){
+            if(er) return reject(er);
+            resolve(name);
+          });
         });
-      });
-
-      var task4 = new Promise((resolve, reject)=>{
+  
+        var task4 = new Promise((resolve, reject)=>{
+          
+        });
         
+        Promise.all([task1,task2,task3]).then(results=>{
+          var html = "<tr>";
+          html += "<td>"+ i+1 +"</td>";
+          html += "<td>"+ Date.parse(e.date).toString("hh:mm tt") + " - " + Date.parse(e.date).addHours(1).toString("hh:mm tt") +"</td>";
+          html += "<td>"+ results[0] +"</td>";
+          html += "<td>"+ (Array.isArray(results[1]) ? "No one assigned" : results[1].replace(/_/g," ")) +"</td>";
+          html += "<td>"+ results[2].fullname.replace(/_/g," ") +"</td>";
+          // html += "<td></td>";
+          html += '<td><button type="button" style="vertical-align: sub; float: left; margin-right: 10px" class="btn btn-success btnLicense" onclick="doneSched()">Done</button><button type="button" style="margin-left: 10px" class="btn btn-inverse btnLicense" onclick="cancelSched()">Cancel</button></td>';
+          html += "</tr>";
+          $('#todaySched').append(html);
+        }).catch(reason=>console.log(reason));
       });
-      
-      Promise.all([task1,task2,task3]).then(results=>{
-        var html = "<tr>";
-        html += "<td>"+ i+1 +"</td>";
-        html += "<td>"+ Date.parse(e.date).toString("hh:mm tt") + " - " + Date.parse(e.date).addHours(1).toString("hh:mm tt") +"</td>";
-        html += "<td>"+ results[0] +"</td>";
-        html += "<td>"+ (Array.isArray(results[1]) ? "No one assigned" : results[1].replace(/_/g," ")) +"</td>";
-        html += "<td>"+ results[2].fullname.replace(/_/g," ") +"</td>";
-        // html += "<td></td>";
-        html += '<td><button type="button" style="vertical-align: sub; float: left; margin-right: 10px" class="btn btn-success btnLicense" onclick="doneSched()">Done</button><button type="button" style="margin-left: 10px" class="btn btn-inverse btnLicense" onclick="cancelSched()">Cancel</button></td>';
-        html += "</tr>";
-        $('#todaySched').append(html);
-      }).catch(reason=>console.log(reason));
-    });
+    }else{
+      $('.noTodaySched').show();
+    }
   });
   $('.branchSelect').html("");
   office.pages[office.currPage].forEach((e,i)=>{
@@ -200,36 +204,41 @@ function transferReq(){
   $('.view-transferReq').show();
   transfer.getList(null, function(err,data){
     $('#transferReq').html('');
-    data.forEach((e,i)=>{
-      scheduler.getStudName(e.studID, function(err, student){
-        var task1 = new Promise((resolve, reject)=>{
-          office.selected = e.from_branchID;
-          office.getLocalData(branch=>{
-            resolve(branch);
+    if (data.length!=0){
+      $('.noTransferReq').hide();
+      data.forEach((e,i)=>{
+        scheduler.getStudName(e.studID, function(err, student){
+          var task1 = new Promise((resolve, reject)=>{
+            office.selected = e.from_branchID;
+            office.getLocalData(branch=>{
+              resolve(branch);
+            });
           });
-        });
-        var task2 = new Promise((resolve, reject)=>{
-          office.selected = e.to_branchID;
-          office.getLocalData(branch=>{
-            resolve(branch);
+          var task2 = new Promise((resolve, reject)=>{
+            office.selected = e.to_branchID;
+            office.getLocalData(branch=>{
+              resolve(branch);
+            });
           });
+          Promise.all([task1,task2]).then(result=>{
+            var branch1 = result[0];
+            var branch2 = result[1];
+            var html = "<tr>";
+            html += "<td>"+ Date.parse(e.effectiveDate).toString('MMM dd, yyyy') +"</td>";
+            html += "<td>STUD-"+ e.studID +"</td>";
+            html += "<td>"+ student.fullname.replace(/_/g, " ") +"</td>";
+            html += "<td>SED-"+ branch1.name +"</td>";
+            html += "<td>SED-"+ branch2.name +"</td>";
+            html += "<td>"+ (e.hours || "<can't fetch data>") +"</td>";
+            html += '<td><button type="button" style="vertical-align: sub" class="btn btn-success btnLicense" onclick="approveTransfer('+ e.id +')">Approve</button><br><button type="button" style="vertical-align: sub" class="btn btn-danger btnLicense" onclick="rejectTransfer('+ e.id +')">Reject</button><br></td>';
+            html += "</tr>";   
+            $('#transferReq').append(html);
+          })
         });
-        Promise.all([task1,task2]).then(result=>{
-          var branch1 = result[0];
-          var branch2 = result[1];
-          var html = "<tr>";
-          html += "<td>"+ Date.parse(e.effectiveDate).toString('MMM dd, yyyy') +"</td>";
-          html += "<td>STUD-"+ e.studID +"</td>";
-          html += "<td>"+ student.fullname.replace(/_/g, " ") +"</td>";
-          html += "<td>SED-"+ branch1.name +"</td>";
-          html += "<td>SED-"+ branch2.name +"</td>";
-          html += "<td>"+ (e.hours || "<can't fetch data>") +"</td>";
-          html += '<td><button type="button" style="vertical-align: sub" class="btn btn-success btnLicense" onclick="approveTransfer('+ e.id +')">Approve</button><br><button type="button" style="vertical-align: sub" class="btn btn-danger btnLicense" onclick="rejectTransfer('+ e.id +')">Reject</button><br></td>';
-          html += "</tr>";   
-          $('#transferReq').append(html);
-        })
       });
-    });
+    }else{
+      $('.noTransferReq').show();
+    }
     $('.preloader').fadeOut();
   });
 }
@@ -379,17 +388,19 @@ function searchSchedView(){
       $('#schedListView').html(""); 
       scheduler.getBranchName(branchSelected,(_,branch)=>{
         $('.searchBranchDisplayListSpan').html(branch);
+        var x = 1;
         data.forEach((e,i)=>{
             scheduler.getInstName(e.instID,(_,instName)=>{
               scheduler.getStudName(e.studID,(_,studName)=>{
                 var html = "<tr>";
-                html += "<td>"+ e.id +"</td>";
+                html += "<td>"+ x +"</td>";
                 html += "<td>"+ Date.parse(e.time).toString("hh:mm tt") +"</td>";
                 html += "<td>"+ branch +"</td>";
                 html += "<td>"+ instName.replace(/_/g," ") +"</td>";
                 html += "<td>"+ studName.fullname.replace(/_/g," ") +"</td>";
-                html += "<td></td>";
+                html += "<td><button type='button' style='margin-left: 10px' class='btn btn-inverse btnLicense' onclick='cancelSched()'>Cancel</button></td>";
                 html += "</tr>";
+                x++;
                 $('#schedListView').append(html);
               });
             });

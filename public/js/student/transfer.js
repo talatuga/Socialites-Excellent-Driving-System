@@ -28,34 +28,40 @@ function transferList(cb){
     if(transferListLoaded == 1) return cb();
     app.account.transfer.transferList(function(err, list){
         if(err) return console.error(err);
-        transferListLoaded = 1;
-        if(list.length != 0) $('.noTransTr').hide();
-        $('#transferRec').html('');
-        list.forEach((e,i)=>{
-            var task1 = new Promise((resolve, reject)=>{
-                app.others.getBranchName(e.from_branchID, function(err, name){
-                    if(err) return reject(err);
-                    resolve(name);
+        else{
+            transferListLoaded = 1;
+            if(list.length!=0){
+                $('.noTransTr').hide();
+                $('#transferRec').html('');
+                list.forEach((e,i)=>{
+                    var task1 = new Promise((resolve, reject)=>{
+                        app.others.getBranchName(e.from_branchID, function(err, name){
+                            if(err) return reject(err);
+                            resolve(name);
+                        });
+                    });
+                    var task2 = new Promise((resolve, reject)=>{
+                        app.others.getBranchName(e.to_branchID, function(err, name){
+                            if(err) return reject(err);
+                            resolve(name);
+                        });
+                    });
+                    Promise.all([task1, task2]).then(result=>{
+                        var html = "<tr>";
+                        html += "<td>"+ Date.parse(e.request_date).toString('MMM dd, yyyy') +"</td>";
+                        html += "<td>"+ result[0] +"</td>";
+                        html += "<td>"+ result[1] +"</td>";
+                        html += "<td>"+ Date.parse(e.effectiveDate).toString('MMM dd, yyyy') +"</td>";
+                        html += "<td>"+ (e.status == 1 ? ("<span onclick='cancelTransfer("+ e.id +")'>Pending</span>") : e.status == 2 ? "Approved" : e.status == 3 ? "Rejected" : e.status == 5 ? "Cancelled" : "Done") +"</td>";
+                        html += "</tr>";
+                        $('#transferRec').append(html);
+                    });
+                    // if(i==list.length-1) cb();
                 });
-            });
-            var task2 = new Promise((resolve, reject)=>{
-                app.others.getBranchName(e.to_branchID, function(err, name){
-                    if(err) return reject(err);
-                    resolve(name);
-                });
-            });
-            Promise.all([task1, task2]).then(result=>{
-                var html = "<tr>";
-                html += "<td>"+ Date.parse(e.request_date).toString('MMM dd, yyyy') +"</td>";
-                html += "<td>"+ result[0] +"</td>";
-                html += "<td>"+ result[1] +"</td>";
-                html += "<td>"+ Date.parse(e.effectiveDate).toString('MMM dd, yyyy') +"</td>";
-                html += "<td>"+ (e.status == 1 ? ("<span onclick='cancelTransfer("+ e.id +")'>Pending</span>") : e.status == 2 ? "Approved" : e.status == 3 ? "Rejected" : e.status == 5 ? "Cancelled" : "Done") +"</td>";
-                html += "</tr>";
-                $('#transferRec').append(html);
-            });
-            if(i==list.length-1) cb();
-        });
+            }else{
+                $('.noTransTr').show();
+            }
+        }
     });
 }
 

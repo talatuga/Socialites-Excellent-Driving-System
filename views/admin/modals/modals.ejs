@@ -671,6 +671,7 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
         <center>
             <h2>VIEW SCHEDULE</h2>
         </center>
@@ -708,9 +709,13 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn100 btn-danger cancelSched">Cancel</button>
-        <button type="button" class="btn btn100 btn-primary doneSched">Done</button>
-        <button type="button" class="btn btn100 btn-inverse" data-dismiss="modal">Close</button>
+        <!-- <div class="pull-left">
+          <button type="button" style="font-size: 12px" class="btn btn100 btn-danger" data-dismiss="modal">Close</button>
+        </div> -->
+        <div class="pull-right">
+          <button type="button" style="font-size: 12px" class="btn btn-inverse cancelSched">Cancel Schedule</button>
+          <button type="button" style="font-size: 12px" class="btn btn100 btn-success doneSched">Mark as Done</button>
+        </div>
       </div>
     </div>
   </div>

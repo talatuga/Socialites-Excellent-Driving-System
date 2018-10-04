@@ -1,4 +1,8 @@
 var pie1A, pie1B, pie1C, pie1D, pie1E;
+var pie2A, pie2B, pie2C, pie2D, pie2E;
+var chart1A, chart1B, chart1C, chart1D, chart1E;
+var chart2A, chart2B, chart2C, chart2D, chart2E;
+
 function loadDash(){
     loadDash1();
     loadPies();
@@ -90,7 +94,7 @@ function loadPies(){
             responsive: true,
                 animation: {
                     duration: 2000,
-                    easing: 'easeOutElastic'
+                    easing: 'linear'
                 }
         }
     } );
@@ -98,9 +102,9 @@ function loadPies(){
 
 function loadCharts(){
     //Monthly Enrollees Chart
-    var ctx = document.getElementById( "team-chart" );
-    ctx.height = 150;
-    var monthlyEnr = new Chart( ctx, {
+    var ctx = document.getElementById("yearlyChart");
+    // ctx.height = 220;
+    var yearlyEnr = new Chart( ctx, {
         type: 'line',
         data: {
             labels: [ "2014", "2015", "2016", "2017", "2018" ],
@@ -194,8 +198,8 @@ function loadCharts(){
                 yAxes: [ {
                     display: true,
                     gridLines: {
-                        display: false,
-                        drawBorder: false
+                        display: true,
+                        drawBorder: true
                     },
                     scaleLabel: {
                         display: true,
@@ -210,9 +214,9 @@ function loadCharts(){
     } );
 
     //Yearly Enrollees Chart
-    var ctx = document.getElementById( "sales-chart" );
-    ctx.height = 150;
-    var yearlyEnr = new Chart( ctx, {
+    var ctx2 = document.getElementById("monthlyChart");
+    // ctx2.height = 220;
+    var monthlyEnr = new Chart( ctx2, {
         type: 'line',
         data: {
             labels: [ "Jan", "Feb", "Mar", "Apr", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ],
@@ -307,8 +311,8 @@ function loadCharts(){
                 yAxes: [ {
                     display: true,
                     gridLines: {
-                        display: false,
-                        drawBorder: false
+                        display: true,
+                        drawBorder: true
                     },
                     scaleLabel: {
                         display: true,
@@ -316,10 +320,6 @@ function loadCharts(){
                     }
                         } ]
             },
-            title: {
-                display: false,
-                text: 'Normal Legend'
-            }
         }
     } );
 }

@@ -230,39 +230,6 @@
             <form class="enrForm">
                 <div class="paymentOptionDiv" id="paymentOptionDiv">
                     <div class="row" style="color:black;">
-                        <!-- <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                            <center>
-                                <div class="btn btnPayment btnPayMeth1" onclick="payMeth1()">
-                                    <center>
-                                        <h3>Pay on Branch</h3>
-                                        <h5>Pay at your preferred Socialites <br>Excellent Driving branch.</h5>
-                                        <icon class="icon icon-bank111 iconPayment"></icon>
-                                    </center>
-                                </div>
-                            </center>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                            <center>
-                                <div class="btn btnPayment btnPayMeth2">
-                                    <center>
-                                        <h3>Online Payment <br>thru Paypal</h3>
-                                        <h5>Pay using credit card.</h5>
-                                        <icon class="icon icon-cards3 iconPayment1"></icon>
-                                    </center>
-                                </div>
-                            </center>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                            <center>
-                                <div class="btn btnPayment btnPayMeth1" onclick="payMeth3()">
-                                    <center>
-                                        <h3>Pay on Bank</h3>
-                                        <h5>Pay on any Landbank branches.</h5><br>
-                                        <icon class="icon icon-money-1 iconPayment"></icon>
-                                    </center>
-                                </div>
-                            </center>
-                        </div> -->
                         <div class="col-lg-6 col-md-6 col-sm-4 col-xs-12">
                             <center>
                                 <div class="btn btnPayment btnPayMeth1" onclick="payMeth1()">
@@ -287,22 +254,6 @@
                         </div>
                     </div>
                 </div><br>
-
-                <!-- <div class="paymentOptionDiv" id="paymentOptionDivNoOnline">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <center>
-                                <div class="btn btnPayment btnPayMeth1" onclick="payMeth1()">
-                                    <center>
-                                        <h3>Pay on Branch</h3>
-                                        <h5>Pay at your preferred Socialites <br>Excellent Driving branch.</h5>
-                                        <icon class="icon icon-bank111 iconPayment"></icon>
-                                    </center>
-                                </div>
-                            </center>
-                        </div>
-                    </div>
-                </div><br> -->
                 
                 <div class="paymentOptionBack">
                     <a href="#paymentOptionDiv" onclick="paymentBack()" class="paymentBack"><i class="icon icon-chevron-left"></i> Change payment method</a>
@@ -313,7 +264,22 @@
                     <br><br><h3 style="color: black;">PAYMENT METHOD: <span class="payMethH3" style="color: black;">PAY ON BRANCH</span></h3><hr>
                     <ul>
                         <li>You have chosen the Pay on Branch method.</li>
-                        <li>The total amount of your enrolled course/s [<span id="payCourse" class="payCourse">CRS-M001</span>] is &#8369;<span id="payPrice" class="payPrice">2,500</span>.<span id="additionalPayment"></span></li>
+                        <li>The total amount of your enrolled course/s [<span id="payCourse" class="payCourse">CRS-M001</span>] is &#8369;<span id="payPrice" class="payPrice">2,500</span>.<span class="additionalPayment"></span></li>
+                        <li><b>Please confirm by clicking "I confirm my enrolled course"...</b></li>
+                    </ul><br>
+                    <input type="checkbox" name="confirmCourse"> I confirm my enrolled course
+                </div>
+
+                <div class="paymentOptionDiv2" style="color: black;">
+                    <a href="#paymentOptionDiv" onclick="paymentBack()" class="paymentBack"><i class="icon icon-chevron-left"></i> Change payment method</a>
+                    <br><br><h3 style="color: black;">PAYMENT METHOD: <span class="payMethH3" style="color: black;">PAY ON BANK</span></h3><hr>
+                    <ul>
+                        <li>You have chosen the Pay on Bank method. <br>You can make payments directly into our bank account and send us a photograph or scanned copy of your payment slip as a proof of payment.</li>
+                        <li>The total amount of your enrolled course/s [<span id="payCourse2" class="payCourse">CRS-M001</span>] is &#8369;<span id="payPrice" class="payPrice">2,500</span>.<span class="additionalPayment"></span></li>
+                        <li>---</li>
+                        <li>Here is our bank account information:<li>
+                        <li>Account Name: Socialites Excellent Driving</li>
+                        <li>Account Number: 0681-1110-17<br></li>
                         <li><b>Please confirm by clicking "I confirm my enrolled course"...</b></li>
                     </ul><br>
                     <input type="checkbox" name="confirmCourse"> I confirm my enrolled course
@@ -349,7 +315,7 @@
                             <td>
                                 <select name="vehicleOption" id="autoVehiclesSelect">
                                     <option value="0">---</option>
-                                    <% car.forEach((e,i)=>{ if(e.transmission == "A"){ %> <option value="<%=e.id%>"><%=e.model + " " + e.brand%></option> <% }}); %>
+                                    <% car.forEach((e,i)=>{ if(e.transmission == "A"){ %> <option value="<%=e.model + " " + e.brand%>"><%=e.model + " " + e.brand%></option> <% }}); %>
                                 </select>
                             </td>
                         </tr>

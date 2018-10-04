@@ -391,7 +391,8 @@ function updateSchedule(){
             swal("Failed!", err.message, "error");
           }else{
             if(res.status == 1){
-              swal("Updated!", "Schedule Successfully Updated", "success");
+              swal("Updated!", "Schedule is updated successfully.", "success");
+              studSchedule();
             }else if(res.status == 2){
               swal("Overtime Schedule!", "Schedule submit for review, we will inform you later.", "warning");
             }else if(res.status == 0){

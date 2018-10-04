@@ -5,10 +5,10 @@ var storage = multer.diskStorage({
     destination: (req, file, cb)=>{
         var file_extension = file.mimetype.split('/')[1];
         if(file_extension == "jpeg" || file_extension == "jpg" || file_extension == "png"){
-            cb(null, "public/image_upload");
+            cb(null, "public/images/image_upload");
         }
         else {
-            cb(null, "public/other_upload");
+            cb(null, "public/images/other_upload");
         }
     },
     filename: (req, file, cb)=>{

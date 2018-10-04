@@ -13,9 +13,6 @@ $(function() {
     
     $(".liSide").removeClass("active");
     $("#li1").addClass("active");
-    $('.viewDiv').hide();
-    loadDash();
-    $(".view-dashboard").show();
     
     $(".view-viewInstructor").hide();
     $(".view-viewStudent").hide();
@@ -50,6 +47,7 @@ $(function() {
         placeholder.html(html + oldHtml);
         $('#notify-box').fadeIn();
     });
+    dashboard();
 });
 
 function viewActive (a){
@@ -86,7 +84,6 @@ function viewActive (a){
     else if (a==13) dtp();
     else if (a==14) license1();
     else if (a==15) faquest();
-    // else if (a==16) payment();
 }
 
 function viewActiveCrs(a){

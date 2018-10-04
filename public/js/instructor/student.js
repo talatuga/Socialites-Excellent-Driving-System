@@ -21,8 +21,8 @@ function refreshInstStud(){
 }
 
 function loadStudentI(){
-    rowCount = $('.tblHandledStud').length;
-    // $('.curStudInst').html(rowCount);
+    rowCount = $('.tblHandledStudPast').length;
+    rowCount -= 1;
     $('.allStudInst').html(rowCount);
 }
 

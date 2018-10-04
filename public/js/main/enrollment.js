@@ -28,6 +28,7 @@ $(function(){
     hideVehicleOptions();
     $('.paymentOptionBack').hide();
     $('.paymentOptionDiv1').hide();
+    $('.paymentOptionDiv2').hide();
     $('#paymentOptionDivNoOnline').hide();
     $('#paymentOptionDiv').show();
 
@@ -176,12 +177,31 @@ function uncheckLesSelct(){
 }
 
 function payMeth2(){
+    // paymentMeth = 2;
+    // swal ("Oops!", "We're sorry, but this option is not available for now.", "error");
+    $('.paymentOptionDiv').hide();
+    $('.paymentOptionDiv1').hide();
+    $('.paymentOptionDiv2').show();
     paymentMeth = 2;
-    swal ("Oops!", "We're sorry, but this option is not available for now.", "error");
+    $('.payCourse').html("");
+    var ids = [];
+    var total = 0;
+    // preRegData.trans.amount = 0;
+    cart.container.forEach(x=>{
+        var data = course.getLocalData(x);
+        ids.push(course.generateID(data.courseID, data.transmission));
+        total = 0;
+        total += $('#special'+data.courseID+':checked').length!=0?(data.price*2):data.price;
+    });
+    preRegData.trans.transaction = "Enrolment" + preRegData.trans.transaction;
+    $('#payCourse2').html(ids.join());
+    $('#payPrice').html(total.formatMoney(0));
+    $('#totalAmount').html(total.formatMoney(0));
 }
 
 function payMeth1(){
     $('.paymentOptionDiv').hide();
+    $('.paymentOptionDiv2').hide();
     $('.paymentOptionDiv1').show();
     paymentMeth = 1;
     $('.payCourse').html("");
@@ -201,15 +221,10 @@ function payMeth1(){
 }
 
 function paymentBack(){
-    // if(payHide==1){
-        $('.paymentOptionDiv1').hide();
-        $('#paymentOptionDivNoOnline').hide();
-        $('#paymentOptionDiv').show();
-    // }else if (payHide==2){
-    //     $('.paymentOptionDiv1').hide();
-    //     $('#paymentOptionDiv').hide();
-    //     $('#paymentOptionDivNoOnline').show();
-    // }
+    $('.paymentOptionDiv1').hide();
+    $('.paymentOptionDiv2').hide();
+    $('#paymentOptionDivNoOnline').hide();
+    $('#paymentOptionDiv').show();
 }
 
 function resetEnrollment(){
@@ -482,7 +497,7 @@ function regNext2(){
     }
     else{
         var c = $('input[name=enrReqP]:checked').data("id");
-        $('#additionalPayment').html("");
+        $('.additionalPayment').html("");
         if (c!=0){
             // preRegData.trans.transaction += ", Apply";
             // preRegData.trans.amount += parseInt($('input[name=enrReqP]:checked').data().price);
@@ -493,7 +508,7 @@ function regNext2(){
             
             preRegData.trans.transaction += ", Apply-" + $('input[name=enrReqP]:checked').data("id");
             preRegData.trans.amount += parseInt($('input[name=enrReqP]:checked').data("price"));
-            $('#additionalPayment').html(" <br>Plus additional payment for licensing application assistance is <span class='payCourse'>"+ $('input[name=enrReqP]:checked').data().desc +" license</span> &#8369;<span class='payPrice'>"+ ($('input[name=enrReqP]:checked').data().price).formatMoney(0) + "</span>.<br>Overall total of &#8369;<span id='totalAmount' class='payPrice'><span>.");
+            $('.additionalPayment').html(" <br>Plus additional payment for licensing application assistance is <span class='payCourse'>"+ $('input[name=enrReqP]:checked').data().desc +" license</span> &#8369;<span class='payPrice'>"+ ($('input[name=enrReqP]:checked').data().price).formatMoney(0) + "</span>.<br>Overall total of &#8369;<span id='totalAmount' class='payPrice'><span>.");
             payHide=2;
             paymentBack();
         }
