@@ -23,6 +23,9 @@ exports.reportTemplates = {
     enrolled: exports.reportTemplateFolder + 'enrolled.ejs',
     studPerformance: exports.reportTemplateFolder + 'studPerformance.ejs',
 
+    enrolleesAll: exports.reportTemplateFolder + 'enrolleesAll.ejs',
+    studPerformanceAll: exports.reportTemplateFolder + 'studPerformanceAll.ejs',
+
     instPerformance: exports.reportTemplateFolder + 'instPerformance.ejs',
 };
 

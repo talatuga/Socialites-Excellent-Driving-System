@@ -4,6 +4,10 @@
         <style>
             .tblRecSched{
                 border: black;
+                border-collapse: collapse;
+            }
+            table, th, td {
+                border: 1px solid black;
             }
             .tblRecSched td{
                 color: black;
@@ -19,23 +23,22 @@
                 color: white;
             }
             #pageHeader{
-                background-image: url("/assets/images/certificate.jpg");
+                text-align:center;
+                padding-bottom: 0px;            
             }
         </style>
     </head>
-    <body style="padding: 50px; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">
+    <body style="padding-left: 50px; padding-right: 50px; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">
         <center>
-            <div>
+            <div id="pageHeader">
                 <h1 style="line-height: 5px">SOCIALITES EXCELLENT DRIVING</h1>
                 <h5>Mayon Street Corner, Maria Clara, Quezon City<br>
                     Andre Salangsang - Prop. * VAT Reg. TIN: 111-222-333-444<br>
                     Tels.: 741-7185/745-2962
                 </h5><hr>
             </div>
-            <h3 style="text-transform: uppercase;">INSTRUCTORS: OVERALL PERFORMANCE EVALUATION REPORT</h3>
-            <h4 style="text-transform: uppercase;  line-height: 10px">SED-Quezon City (Main)</h4>
-            <h4 style="text-transform: uppercase;  line-height: 2px">September 12, 2018</h4><br>
-            <table class="table tblRecSched" width="100%" border="2">
+            <h4 style="text-transform: uppercase;">INSTRUCTORS: OVERALL PERFORMANCE EVALUATION REPORT<br>September 12, 2018</h4><br>
+            <table class="table tblRecSched" width="100%">
                 <thead>
                     <tr>
                         <th></th>
@@ -61,5 +64,6 @@
             <hr width="50%" align="right">
             <h5 style="text-transform: uppercase; text-align: right">Overall Evaluation Percentage (Average): 70%</h5>
         </div>
+        <div id="pageFooter"></div>
     </body>
 </html>

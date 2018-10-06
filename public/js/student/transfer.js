@@ -27,8 +27,11 @@ var transferListLoaded = 0;
 function transferList(cb){
     if(transferListLoaded == 1) return cb();
     app.account.transfer.transferList(function(err, list){
-        if(err) return console.error(err);
-        else{
+        if(err){
+            $('.noTransTr').show();
+            console.error(err);
+            return cb();
+        }else{
             transferListLoaded = 1;
             if(list.length!=0){
                 $('.noTransTr').hide();

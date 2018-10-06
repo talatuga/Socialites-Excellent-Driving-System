@@ -14,40 +14,43 @@
     <head>
         <meta charset="UTF-8">
         <style>
-            .tblRecSched{
-                border: black;
-            }
-            .tblRecSched td{
-                color: black;
-                font-size: 11px;
-                padding: 5px;
-            }
-            .tblRecSched thead{
-                text-transform: uppercase;
-                background-color: #5D0000;
-                font-size: 13px;
-            }
-            .tblRecSched th{
-                color: white;
-            }
-            #pageHeader{
-                background-image: url("/assets/images/certificate.jpg");
-            }
-        </style>
-    </head>
-    <body style="padding: 50px; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">
+        .tblRecSched{
+            border: black;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        .tblRecSched td{
+            color: black;
+            font-size: 11px;
+            padding: 5px;
+        }
+        .tblRecSched thead{
+            text-transform: uppercase;
+            background-color: #5D0000;
+            font-size: 13px;
+        }
+        .tblRecSched th{
+            color: white;
+        }
+        #pageHeader{
+            text-align:center;
+            padding-bottom: 0px;            
+        }
+    </style>
+</head>
+    <body style="padding-left: 50px; padding-right: 50px; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">
         <center>
-            <div>
+            <div id="pageHeader">
                 <h1 style="line-height: 5px">SOCIALITES EXCELLENT DRIVING</h1>
                 <h5>Mayon Street Corner, Maria Clara, Quezon City<br>
                     Andre Salangsang - Prop. * VAT Reg. TIN: 111-222-333-444<br>
                     Tels.: 741-7185/745-2962
                 </h5><hr>
             </div>
-            <h3 style="text-transform: uppercase;">GROSS INCOME: CERTIFICATE REPORT</h3>
-            <h4 style="text-transform: uppercase;  line-height: 10px"><%=locals.branch ? branch : "All Branches"%></h4>
-            <h4 style="text-transform: uppercase;  line-height: 2px"><%=dateStart + (dateEnd != dateStart ? " - " + dateEnd : "")%></h4><br>
-            <table class="table tblRecSched" width="100%" border="2">
+            <h4 style="text-transform: uppercase;">GROSS INCOME: CERTIFICATE REPORT<br><%=locals.branch ? "SED - " + branch : "All Branches"%> | <%=dateStart + (dateEnd != dateStart ? " - " + dateEnd : "")%></h4><br>
+            <table class="table tblRecSched" width="100%">
                 <thead>
                     <tr>
                         <th></th>
@@ -55,6 +58,7 @@
                         <th>Student Name</th>
                         <th>Course</th>
                         <%-(locals.branch ? "": "<th>Branch</th>")%> <%# Hide this if report is for specific branch only #%>
+                        <th>OR #</th>
                         <th>Amount</th>
                         <th>Payment</th>
                         <th>Balance</th>
@@ -71,24 +75,14 @@
                                 html += "<td>" + e.fullname.replace(/_/g, " ") + "</td>";
                                 html += "<td>" + e.course + "</td>";
                                 html += locals.branch ? "" : ("<td>" + e.branch + "</td>");
+                                html += "<td>" + e.ORno + "</td>"; //Add OR#
                                 html += "<td>" + e.amount.formatMoney(2) + "</td>";
                                 html += "<td>" + e.payment.formatMoney(2) + "</td>";
                                 html += "<td>" + e.balance.formatMoney(2) + "</td>";
                             });
                         }
                     %>
-                    <%-html%>
-                    <!--tr>
-                        <td>1</td>
-                        <td>012012</td>
-                        <td>Graciella C. Tatel</td>
-                        <td>CRS-M001</td>
-                        <td>SED-Quezon City (Main)</td> <%# Hide this if report is for specific branch only %>
-                        <td>100.00</td>
-                        <td>100.00</td>
-                        <td>0.00</td>
-                    </tr> -->
-                </tbody>
+                    <%-html%></tbody>
             </table><br>
         </center>
         <div style="width: 100%; align-items: right;">
@@ -96,5 +90,6 @@
             <hr width="30%" align="right">
             <h5 style="text-transform: uppercase; text-align: right">Total Income: &#8369;<%=(total.amount - total.balance).formatMoney(2)%></h5>
         </div>
+        <div id="pageFooter"></div>
     </body>
 </html>

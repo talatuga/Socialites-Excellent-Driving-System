@@ -16,6 +16,10 @@
         <style>
             .tblRecSched{
                 border: black;
+                border-collapse: collapse;
+            }
+            table, th, td {
+                border: 1px solid black;
             }
             .tblRecSched td{
                 color: black;
@@ -31,23 +35,22 @@
                 color: white;
             }
             #pageHeader{
-                background-image: url("/assets/images/certificate.jpg");
+                text-align:center;
+                padding-bottom: 0px;            
             }
         </style>
     </head>
-    <body style="padding: 50px; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">
+    <body style="padding-left: 50px; padding-right: 50px; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">
         <center>
-            <div>
+            <div id="pageHeader">
                 <h1 style="line-height: 5px">SOCIALITES EXCELLENT DRIVING</h1>
                 <h5>Mayon Street Corner, Maria Clara, Quezon City<br>
                     Andre Salangsang - Prop. * VAT Reg. TIN: 111-222-333-444<br>
                     Tels.: 741-7185/745-2962
                 </h5><hr>
             </div>
-            <h3 style="text-transform: uppercase;">GROSS INCOME: LICENSING APPLICATION ASSISTANCE REPORT</h3>
-            <h4 style="text-transform: uppercase;  line-height: 10px"><%=locals.branch ? branch : "All Branches"%></h4>
-            <h4 style="text-transform: uppercase;  line-height: 2px"><%=dateStart + (dateEnd != dateStart ? " - " + dateEnd : "")%></h4><br>
-            <table class="table tblRecSched" width="100%" border="2">
+            <h4 style="text-transform: uppercase;">GROSS INCOME: LICENSING APPLICATION ASSISTANCE REPORT<br><%=locals.branch ? "SED - " + branch : "All Branches"%> | <%=dateStart + (dateEnd != dateStart ? " - " + dateEnd : "")%></h4><br>
+            <table class="table tblRecSched" width="100%">
                 <thead>
                     <tr>
                         <th></th>
@@ -77,24 +80,14 @@
                             });
                         }
                     %>
-                    <%-html%>
-                    <!--<tr>
-                        <td>1</td>
-                        <td>09-21-2018</td>
-                        <td>Graciella C. Tatel</td>
-                        <td>112113</td>
-                        <td>NPL/PL/IL/SDP</td>
-                        <td>250.00</td>
-                        <td>250.00</td>
-                        <td>0.00</td>
-                    </tr>-->
-                </tbody>
+                    <%-html%></tbody>
             </table><br>
         </center>
         <div style="width: 100%; align-items: right;">
-        <h5 style="text-transform: uppercase; text-align: right">Total Amount: &#8369;<%=total.amount.formatMoney(2)%><br>Total Balance: &#8369;<%=total.balance.formatMoney(2)%></h5>
-        <hr width="30%" align="right">
-        <h5 style="text-transform: uppercase; text-align: right">Total Income: &#8369;<%=(total.amount - total.balance).formatMoney(2)%></h5>
+            <h5 style="text-transform: uppercase; text-align: right">Total Amount: &#8369;<%=total.amount.formatMoney(2)%><br>Total Balance: &#8369;<%=total.balance.formatMoney(2)%></h5>
+            <hr width="30%" align="right">
+            <h5 style="text-transform: uppercase; text-align: right">Total Income: &#8369;<%=(total.amount - total.balance).formatMoney(2)%></h5>
         </div>
+        <div id="pageFooter"></div>
     </body>
 </html>
