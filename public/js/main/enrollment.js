@@ -22,6 +22,7 @@ let transactionDisplay = {
     additionTotal: 0,
 };
 $(function(){
+    $("html, body").animate({ scrollTop: 0 }, "slow");
     uncheckLesSelct();
     resetEnroll1();
     resetEnroll2();
@@ -177,6 +178,7 @@ function uncheckLesSelct(){
 }
 
 function payMeth2(){
+    $("html, body").animate({ scrollTop: 0 }, "slow");
     // paymentMeth = 2;
     // swal ("Oops!", "We're sorry, but this option is not available for now.", "error");
     $('.paymentOptionDiv').hide();
@@ -196,10 +198,13 @@ function payMeth2(){
     preRegData.trans.transaction = "Enrolment" + preRegData.trans.transaction;
     $('#payCourse2').html(ids.join());
     $('#payPrice').html(total.formatMoney(0));
+    $('#payPrice2').html(total.formatMoney(0));
+    $('.halfPrice').html((total/2).formatMoney(0));
     $('#totalAmount').html(total.formatMoney(0));
 }
 
 function payMeth1(){
+    $("html, body").animate({ scrollTop: 0 }, "slow");
     $('.paymentOptionDiv').hide();
     $('.paymentOptionDiv2').hide();
     $('.paymentOptionDiv1').show();
@@ -217,10 +222,13 @@ function payMeth1(){
     preRegData.trans.transaction = "Enrolment" + preRegData.trans.transaction;
     $('#payCourse').html(ids.join());
     $('#payPrice').html(total.formatMoney(0));
+    $('#payPrice2').html(total.formatMoney(0));
+    $('.halfPrice').html((total/2).formatMoney(0));
     $('#totalAmount').html(total.formatMoney(0));
 }
 
 function paymentBack(){
+    $("html, body").animate({ scrollTop: 0 }, "slow");
     $('.paymentOptionDiv1').hide();
     $('.paymentOptionDiv2').hide();
     $('#paymentOptionDivNoOnline').hide();
@@ -444,6 +452,7 @@ function regNext1(){
 }
 
 function regPrev1(){
+    $("html, body").animate({ scrollTop: 0 }, "slow");
     hideVehicleOptions();
     $('.pr2A').hide();
     $('.pr2').hide();
@@ -469,6 +478,7 @@ function regPrev1(){
 }
 
 function regPrev1A(){
+    $("html, body").animate({ scrollTop: 0 }, "slow");
     $('.pr1').hide();
     $('.pr2').hide();
     $('.pr3').hide();
@@ -490,6 +500,7 @@ function regPrev1A(){
 }
 
 function regNext2(){
+    $("html, body").animate({ scrollTop: 0 }, "slow");
     $('.step3').html("Step 3: Preferred vehicle and schedule.");
     isCheck2 = checkEnr2();
     if (isCheck2==0){
@@ -498,14 +509,7 @@ function regNext2(){
     else{
         var c = $('input[name=enrReqP]:checked').data("id");
         $('.additionalPayment').html("");
-        if (c!=0){
-            // preRegData.trans.transaction += ", Apply";
-            // preRegData.trans.amount += parseInt($('input[name=enrReqP]:checked').data().price);
-            // $('#additionalPayment').html(" <br>Plus additional payment for applying for licensing assistance is <span class='payCourse'>"+ $('input[name=enrReqP]:checked').data().desc +" license</span> is &#8369;<span class='payPrice'>"+ ($('input[name=enrReqP]:checked').data().price).formatMoney(0) + "</span>.<br>Overall total of &#8369;<span id='totalAmount' class='payPrice'><span>.");
-            // preRegData.trans.transaction += ", Apply-" + $('input[name=enrReqP]:checked').data("id");
-            // preRegData.trans.amount += parseInt($('input[name=enrReqP]:checked').data("price"));
-            // $('#additionalPayment').html(" Plus additional payment for applying <span class='payCourse'>"+ $('input[name=enrReqP]:checked').data().desc +" license</span> is &#8369;<span class='payPrice'>"+ ($('input[name=enrReqP]:checked').data().price).formatMoney(0) + "</span>. Total of &#8369;<span id='totalAmount' class='payPrice'><span>");
-            
+        if (c!=0){          
             preRegData.trans.transaction += ", Apply-" + $('input[name=enrReqP]:checked').data("id");
             preRegData.trans.amount += parseInt($('input[name=enrReqP]:checked').data("price"));
             $('.additionalPayment').html(" <br>Plus additional payment for licensing application assistance is <span class='payCourse'>"+ $('input[name=enrReqP]:checked').data().desc +" license</span> &#8369;<span class='payPrice'>"+ ($('input[name=enrReqP]:checked').data().price).formatMoney(0) + "</span>.<br>Overall total of &#8369;<span id='totalAmount' class='payPrice'><span>.");
@@ -562,6 +566,7 @@ function regNext2(){
 }
 
 function regNext2A(){
+    $("html, body").animate({ scrollTop: 0 }, "slow");
     $('.step3').html("Step 2: Preferred vehicle and schedule.");
     isCheck2 = checkEnr2A();
     if (isCheck2==0){
@@ -644,6 +649,7 @@ function regNext2A(){
 }
 
 function regPrev2(){
+    $("html, body").animate({ scrollTop: 0 }, "slow");
     $('.pr2A').hide();
     $('.pr1').hide();
     $('.pr3').hide();
@@ -670,6 +676,7 @@ function regPrev2(){
 }
 
 function regPrevAddA(){
+    $("html, body").animate({ scrollTop: 0 }, "slow");
     $('.pr2A').hide();
     $('.pr1').hide();
     $('.pr2').hide();
@@ -689,6 +696,7 @@ function regPrevAddA(){
 }
 
 function regNextAddA(){
+    $("html, body").animate({ scrollTop: 0 }, "slow");
     isCheck3New = checkEnr3New();
     if (isCheck3New==0){
         swal("Oops!", "Please fill out all required fields.", "error");
@@ -715,6 +723,7 @@ function regNextAddA(){
 }
 
 function regPrevAdd(){
+    $("html, body").animate({ scrollTop: 0 }, "slow");
     $('.pr2A').hide();
     $('.pr1').hide();
     $('.pr2').hide();
@@ -738,6 +747,7 @@ function regPrevAdd(){
 }
 
 function regNextAdd(){
+    $("html, body").animate({ scrollTop: 0 }, "slow");
     isCheck3New = checkEnr3New();
     if (isCheck3New==0){
         swal("Oops!", "Please fill out all required fields.", "error");
@@ -781,6 +791,7 @@ function regNextAdd(){
 }
 
 function regPrev3(){
+    $("html, body").animate({ scrollTop: 0 }, "slow");
     $('.pr2A').hide();
     $('.pr1').hide();
     $('.pr2').hide();
@@ -801,6 +812,7 @@ function regPrev3(){
 }
 
 function regPrev3A(){
+    $("html, body").animate({ scrollTop: 0 }, "slow");
     $('.pr2A').hide();
     $('.pr1').hide();
     $('.pr2').hide();
@@ -817,6 +829,7 @@ function regPrev3A(){
 }
 
 function regNext3(){
+    $("html, body").animate({ scrollTop: 0 }, "slow");
     if(paymentMeth==0){
         swal("Oops!", "Select payment method first!", "error");
     }
@@ -853,6 +866,7 @@ function regNext3(){
 }
 
 function regNext3A(){
+    $("html, body").animate({ scrollTop: 0 }, "slow");
     if(paymentMeth==0){
         swal("Oops!", "Select payment method first!", "error");
     }
@@ -904,15 +918,11 @@ function regDone(){
         };
         enrollment.enroll(preRegData.info,preRegData.course, preRegData.branch, paymentMeth, preRegData.license,preRegData.special,preRegData.trans,preRegData.vehicle,preRegData.sched).submit(function(err,invoiceLink, name){
             if(err) return swal("Failed!", err.message, "error");
-            if (paymentMeth==1){
-                $('.oneWeekDeadline').html(Date.parse("next week").toString("MMM dd, yyyy"));
-                preRegData.license = $('input[name="enrReqP"]:checked').val();
-                $('.invoiceLink').attr('href','api/v1/web/invoice?orno=' + invoiceLink + '&fullname=' + name);
-                $('#successEnrollModal1').modal('show');
-            }
-            else if (paymentMeth==2){
-                $('#successEnrollModal2').modal('show');
-            }
+            $('.oneWeekDeadline').html(Date.parse("next week").toString("MMM dd, yyyy"));
+            preRegData.license = $('input[name="enrReqP"]:checked').val();
+            $('.invoiceLink').attr('href','api/v1/web/invoice?orno=' + invoiceLink + '&fullname=' + name);
+            if (paymentMeth==1) $('#successEnrollModal1').modal('show');
+            else if (paymentMeth==2) $('#successEnrollModal2').modal('show');
         });
     }
 }
@@ -934,14 +944,10 @@ function regDoneA(){
         };
         enrollment.enrollWithAcc(1,preRegData.course, preRegData.lesson,preRegData.branch,paymentMeth, preRegData.special).submit(function(err,invoiceLink, name){
             if(err) return swal("Failed!", err.message, "error");
-            if (paymentMeth==1){
-                $('.oneWeekDeadline').html(Date.parse("next week").toString("MMM dd, yyyy"));
-                $('.invoiceLink').attr('href','api/v1/web/invoice?orno=' + invoiceLink + '&fullname=' + name);
-                $('#successEnrollModal1A').modal('show');
-            }
-            else if (paymentMeth==2){
-                $('#successEnrollModal2A').modal('show');
-            }
+            $('.oneWeekDeadline').html(Date.parse("next week").toString("MMM dd, yyyy"));
+            $('.invoiceLink').attr('href','api/v1/web/invoice?orno=' + invoiceLink + '&fullname=' + name);
+            if (paymentMeth==1) $('#successEnrollModal1A').modal('show');
+            else if (paymentMeth==2) $('#successEnrollModal2A').modal('show');
         });
     } 
 }

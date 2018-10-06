@@ -523,18 +523,6 @@ Author URI: http://bootstrapthemes.co
        font-weight: 400;
    }
    
-   /*for placeholder changes*/
-   
-   input::-webkit-input-placeholder {
-       color: #ddd;
-   }
-   input::-moz-placeholder {
-       color: #ddd;
-   }
-   input::-ms-input-placeholder {
-       color: #ddd;
-   }
-   
    /*for image bg*/
    
    
@@ -1075,12 +1063,12 @@ Author URI: http://bootstrapthemes.co
    .enrollment{
         background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(../../images/main/trailbg.jpg) no-repeat top center;
         background-size: cover;
-       height: 400px;
+        height: 100px;
    }
    .services{
         background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(../../images/main/trailbg.jpg) no-repeat top center;
         background-size: cover;
-       height: 400px;
+        height: 400px;
    }
    .serviceCtr{
        background: url(../../images/main/counterbg.jpg) no-repeat top center;
@@ -1993,7 +1981,7 @@ Author URI: http://bootstrapthemes.co
    .aAddCart, .paymentBack{
        /* cursor: pointer; */
        color: #6E0303;
-       font-size: 16px;
+       font-size: 18px;
    }
    
    .aAddCart:hover, .paymentBack:hover{
@@ -2690,10 +2678,10 @@ Author URI: http://bootstrapthemes.co
    .input100:focus::-moz-placeholder { color:transparent; }
    .input100:focus:-ms-input-placeholder { color:transparent; }
    
-   .input100::-webkit-input-placeholder { color: #999999; }
-   .input100:-moz-placeholder { color: #999999; }
-   .input100::-moz-placeholder { color: #999999; }
-   .input100:-ms-input-placeholder { color: #999999; }
+   .input100::-webkit-input-placeholder { color: #666666; }
+   .input100:-moz-placeholder { color: #666666; }
+   .input100::-moz-placeholder { color: #666666; }
+   .input100:-ms-input-placeholder { color: #666666; }
    
    .payCourse, .payPrice{
        font-weight: bold;
@@ -3067,4 +3055,26 @@ Author URI: http://bootstrapthemes.co
 .statistic-counter-h4{
     text-shadow: 1px 1px black;
     font-size: 17px
+}
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: rgb(22, 21, 21);
+    opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: rgb(22, 21, 21);
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+    color: rgb(22, 21, 21);
+}
+   
+input::-webkit-input-placeholder {
+    color: rgb(22, 21, 21);
+}
+input::-moz-placeholder {
+    color: rgb(22, 21, 21);
+}
+input::-ms-input-placeholder {
+    color: rgb(22, 21, 21);
 }

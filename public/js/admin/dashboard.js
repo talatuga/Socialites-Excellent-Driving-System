@@ -13,14 +13,14 @@ function loadDash1(){
     scheduler.getSchedToday(function(err, sched){
         if(err) return console.error(err);
         var x = sched.length;
-        $('.schedTodayDash').html(x);
+        $('.schedTodayDash').html(x!=0 ? x : "0");
     });
 
     preRegAssess.getList(err=>{
         if(err) return console.error(err);
         renderEnrollTbl(preRegAssess.pages[preRegAssess.currPage]);
         var c = preRegAssess.pages[preRegAssess.currPage].length;
-        $('.enrTodayDash').html(c);
+        $('.enrTodayDash').html(c!=0 ? c : "0");
     });
 }
 

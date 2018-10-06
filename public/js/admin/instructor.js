@@ -86,7 +86,14 @@ var loadInst = function(){
         if (err) return console.log(err);
         renderInstTablePage(inst.pages[inst.currPage]);
         viewInstProfile(inst.pages[inst.currPage][0].instID);
-        $(".preloader").fadeOut();          
+        $('.tblInstructor tbody tr:first').addClass("highlightTr");                
+            $('.tblInstructor tbody tr').click(function () {
+                var selected = $(this).hasClass("highlightTr");
+                $('.tblInstructor tbody tr').removeClass("highlightTr");
+                if (!selected)
+                    $(this).addClass("highlightTr");
+            });
+        $(".preloader").fadeOut();   
     });    
 }
 

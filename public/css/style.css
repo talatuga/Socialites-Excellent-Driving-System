@@ -8388,7 +8388,15 @@ tiCustom
     margin: 10px 0px 10px 0px;
     background: #f38181;
   }
-
+  @media (max-width: 576px) {
+    .separator4 {
+      height: 2px;
+      width: 200px;
+      margin:20px 0px;
+      background: #f38181;
+    }
+  }
+  
 .divSelSched1{
   background-color: white;
   padding: 5px;

@@ -16,12 +16,13 @@ var loadVehi = function(){
     $(".preloader").fadeIn(); 
     // $('#carTableA tr:first').addClass("highlightTr");
     car.getATableData(function(){
-        $('#carTblA tr').click(function () {
-            var selected = $(this).hasClass("highlightTr");
-            $('#carTblA tr').removeClass("highlightTr");
-            if (!selected)
-                $(this).addClass("highlightTr");
-        });
+        $('.tblVehicle tbody tr:first').addClass("highlightTr");                
+            $('.tblVehicle tbody tr').click(function () {
+                var selected = $(this).hasClass("highlightTr");
+                $('.tblVehicle tbody tr').removeClass("highlightTr");
+                if (!selected)
+                    $(this).addClass("highlightTr");
+            });
         viewCarProfile(car.pages[0][0].id);
         $(".preloader").fadeOut(); 
     });

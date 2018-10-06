@@ -387,8 +387,11 @@ iframe {
 }
 
 @media (max-width: 576px) {
-  .wrap-login100 {
-    padding: 50px 15px 33px 50px;
+  .separator4 {
+    height: 2px;
+    width: 200px;
+    margin:20px 0px;
+    background: #f38181;
   }
 }
 

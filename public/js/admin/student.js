@@ -57,7 +57,7 @@ $('.searchStud').on('click', function(e){
     console.log("Searching Students...");
     search.init(stud.pages[stud.tableType==0?"current":"past"][stud.currPage[stud.tableType==0?"0":"1"]], ["fullname","email","studID"], function(data){
         renderStudentTable(data,function(){
-            $('tableStud').addClass("highlightTr");                
+            $('.tableStud tbody tr').addClass("highlightTr");                
             $('.tableStud tbody tr').click(function () {
                 var selected = $(this).hasClass("highlightTr");
                 $('.tableStud tbody tr').removeClass("highlightTr");
@@ -81,7 +81,7 @@ var loadStud = function(){
                 if(stud.pages.current.length!=0){
                     viewStud(stud.pages.current[stud.currPage[0]][0].id);
                 }
-                $('tableStud').addClass("highlightTr");                
+                $('.tableStud tbody tr:first').addClass("highlightTr");                
                 $('.tableStud tbody tr').click(function () {
                     var selected = $(this).hasClass("highlightTr");
                     $('.tableStud tbody tr').removeClass("highlightTr");

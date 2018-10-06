@@ -1,11 +1,13 @@
 var yearNow = (new Date()).getFullYear();
 
 $(function() {    
+    $("html, body").animate({ scrollTop: 0 }, "slow");
     homeClick();
 });
 
 var homeClick = function() 
 {
+    $("html, body").animate({ scrollTop: 0 }, "slow");
     $('.yrNowWeb').html(yearNow);
     display.getTotEnrollees(function(err, data){
         if(err){
@@ -207,6 +209,7 @@ var cartClick = function()
 
 var enrollmentClick = function(a) 
 {
+    $("html, body").animate({ scrollTop: 0 }, "slow");
     $("#main_menu").addClass("menu-scroll");
     $("#homeCls").hide();
     $("#service").hide();
