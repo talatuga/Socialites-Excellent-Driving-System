@@ -95,7 +95,7 @@
         <hr class="hrCustom">
         <div class="stot">
             <form class="formAddPay">
-                <h5>Name: <span class="addPayName">Graciella C. Tatel</span></h5>
+                <h5>Name: <span class="addPayName" style="float:left">Graciella C. Tatel</span></h5>
                 <h5>Date: <span class="addPayDate">June 23, 2018</span></h5><br>
                 <div class="table-responsive">
                     <table class="table tblAddPayment tblCustom">
@@ -116,9 +116,11 @@
                     </table>
                 </div><br><br>
                 <div class="pull-right">
-                    <h4 style="text-align: right;">Total Assessment: &#8369;<span class="totAssess">5,000.00</span></h4>
-                    <h4 style="text-align: right; float: left; margin-right: 10px;">Payment:</h4>
-                    <input type="number" id="paymentEnroll">
+                  <h5 style="text-align: right;">Total Assessment: &#8369;<span class="totAssess">5,000.00</span><br>Minimum Payment Requirement: &#8369;<span class="totAssessHalf">5,000.00</span></h5>
+                  <table class="pull-right">
+                    <tr><td><h5 style="text-align: right; margin-right: 10px;">Payment:</h5></td>
+                      <td><input type="number" id="paymentEnroll"></td></tr>
+                  </table>
                 </div><br>
             </form>
         </div>
@@ -945,7 +947,7 @@
     <div class="modal-content">
       <div class="modal-body">
         <center>
-            <h2>VIEW FAQ Details</h2>
+            <h2>VIEW FAQ DETAILS</h2>
         </center>
         <hr class="hrCustom"><br>
         <div>
@@ -994,6 +996,42 @@
         <button type="button" data-dismiss="modal" class="btn btn100px btn-danger">Cancel</button>
         <button type="button" onclick="resetFaqQa()" class="btn btn100px btn-warning">Reset</button>
         <button type="button" onclick="editFaqQa()" class="btn btn100px btn-success">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- View Attachment Modal -->
+<div class="modal fade" id="viewAttachModal" tabindex="-1" role="dialog" aria-labelledby="viewAttachModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <center>
+          <h2>VIEW ATTACHMENT</h2>
+          <h5>Check the uploaded payment slip if the needed amount has been paid.</h5>
+        </center><hr class="hrCustom">
+        <div>
+          <h5>Name of Enrollee: <span class="addPayName"></span></h5>
+          <div class="table-responsive">
+            <table class="table tblAddPayment tblCustom tblRecSched">
+                <thead>
+                    <tr>
+                        <th>Type of Fee</th>
+                        <th>Course</th>
+                        <th>Assessment</th>
+                    </tr>
+                </thead>
+                <tbody class="paymentModal"></tbody>
+            </table>
+          </div><br>
+          <div class="pull-right">
+            <h5 style="text-align: right;">Total Assessment: &#8369;<span class="totAssess"></span><br>Minimum Payment Requirement: &#8369;<span class="totAssessHalf"></span></h5><br>
+          </div>
+          <center><img style="max-width: 100%" class="attachImg" src="assets/images/other_upload/payment_slip/sample.png" alt="Payment slip not loaded. Please check your internet connection, or click refresh."><center>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" data-dismiss="modal" class="btn btn100px btn-success">Okay</button>
       </div>
     </div>
   </div>

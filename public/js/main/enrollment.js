@@ -833,7 +833,7 @@ function regNext3(){
     if(paymentMeth==0){
         swal("Oops!", "Select payment method first!", "error");
     }
-    else if(paymentMeth==1){
+    else if(paymentMeth==1 || paymentMeth==2){
         var check = $('input[name="confirmCourse"]:checked').map(function () {
             return this.value;
         }).get();
@@ -870,7 +870,7 @@ function regNext3A(){
     if(paymentMeth==0){
         swal("Oops!", "Select payment method first!", "error");
     }
-    else if(paymentMeth==1){
+    else if(paymentMeth==1 || paymentMeth==2){
         var check = $('input[name="confirmCourse"]:checked').map(function () {
             return this.value;
         }).get();
@@ -942,7 +942,7 @@ function regDoneA(){
             course: getSpecialCourseID(),
             location: $('input[name=specialCrs]:checked').length > 1 ? $('#enrPickup').val() : null,
         };
-        enrollment.enrollWithAcc(1,preRegData.course, preRegData.lesson,preRegData.branch,paymentMeth, preRegData.special).submit(function(err,invoiceLink, name){
+        enrollment.enrollWithAcc(1,preRegData.course, preRegData.lesson, preRegData.branch, paymentMeth, preRegData.special).submit(function(err,invoiceLink, name){
             if(err) return swal("Failed!", err.message, "error");
             $('.oneWeekDeadline').html(Date.parse("next week").toString("MMM dd, yyyy"));
             $('.invoiceLink').attr('href','api/v1/web/invoice?orno=' + invoiceLink + '&fullname=' + name);

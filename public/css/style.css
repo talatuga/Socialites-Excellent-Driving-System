@@ -8664,3 +8664,25 @@ tiCustom
   animation-name: myanimation;
   transition: all 0.5s ease 0s;
 }
+.attach{
+  cursor: pointer;
+  color: #5d0000;
+  border-radius: 20px;
+  border: solid 1px #5d0000;
+  padding: 5px;
+  animation-duration: 0.5s;
+  transition: all 0.5s ease 0s;
+}
+.attach:hover{
+  cursor: pointer;
+  color: #fff;
+  border-radius: 20px;
+  border: solid 1px #5d0000;
+  background-color: #5d0000;
+  padding: 5px;
+  animation-duration: 0.5s;
+  transition: all 0.5s ease 0s;
+}
+.attachImg{
+  color: rgb(27, 26, 26)
+}

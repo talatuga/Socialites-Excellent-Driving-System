@@ -316,6 +316,26 @@ exports.register = function(req, res, next){
         });
     };
 
+    function sendEmail1(dataIn){ //for approval of enrollment with account
+        return new Promise((resolve, reject)=>{
+            var accountMail = new Email();
+            var mailBody = {
+                subject: "Welcome to Socialites Excellent Driving!",
+                body: "<center><div style='width: 600px'><h1 style='color: black; font-weight: lighter;'>Good day, " + (dataIn.data.info.fullname).replace(/_/g,' ') + "!</h1><hr style='width=400px'><br><h3 style='color:black; font-weight: lighter; text-align: justify;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;We, at Socialites Excellent Driving, are very pleased to inform you that you are now successfully enrolled to your selected course! Yey! <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;So, what are you waiting for? Login to your current student account and schedule now so you can get started!<br>Sincerely yours,<br><br>Socialites Excellent Driving</h3></div></center>",
+            };
+            accountMail.send(dataIn.data.info.email,mailBody,function(err, response){
+                var logger = require('../../bin/logger');
+                if(err){
+                    logger.errLogger(new Error("Failed to send email to " + dataIn.data.info.email));
+                    return resolve(false);
+                }else{
+                    logger.logger("Email sent to " + dataIn.data.info.email);
+                    resolve(true);               
+                }
+            });
+        });
+    };
+
     function sendSms(student){
         return new Promise((resolve, reject)=>{
             var SMS = require('../../bin/smsSender');

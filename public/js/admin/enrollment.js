@@ -206,6 +206,7 @@ function openPayment(){
                     html += "<td>"+ price.formatMoney(2) +"</td>";
                     html += "</tr>";
                     $('.paymentModal').append(html);
+                    $('.totAssessHalf').html((price/2).formatMoney(2));
                     //console.log(html);
                 });
             }
@@ -250,7 +251,7 @@ function appRegForm(){ //Approve Registration
                         $('.preloader').fadeOut();
                         if(err){
                             setTimeout(()=>{
-                                swal('Problem Encounter', err.message, 'error');
+                                swal('Problem encountered', err.message, 'error');
                             },100);
                             cb(err);
                         }else{
@@ -407,7 +408,10 @@ var viewPendingStudent = function(id){
         payments.transactionID = profile.data.transaction.ORnum;
         $('.regEnrName').html(profile.data.info.fullname.replace(/_/g, ' '));
         $('.regEnrBranch').html(profile.data.branchName);
-        $('.regPaymeth').html(profile.data.payment == 1 ? "PAY ON BRANCH" : "ONLINE PAYMENT");
+        $('.regPaymeth').html(profile.data.payment == 1 ? "PAY ON BRANCH" : "PAY ON BANK");
+        if(profile.data.payment != 1){ //lumalabas lang pag pay on bank
+            $('.attachDiv').show();
+        }else $('.attachDiv').hide();
         $('.regEnrDeadline').html(Date.parse(profile.dateSubmit).addWeeks(1).toString("MMM dd, yyyy"));
         var age = parseInt(Date.parse("today").toString("yyyy")) - parseInt(Date.parse(profile.data.info.birthdate).toString("yyyy"));
         $('.reqForm').hide();
@@ -419,4 +423,49 @@ var viewPendingStudent = function(id){
             $('.reqB').show();
         }
     });
+}
+
+function showAttach(){ //when view attachment is clicked
+    if ($('.attachNo').html()=="0") swal("", "There are no attachment yet.", "error");
+    else{
+        if(preRegAssess.selected != -1){
+            var total = 0;
+            preRegAssess.getLocalData(function(profile){
+                $('.addPayName').html(profile.data.info.fullname.replace(/_/g," "));
+                $('.paymentModal').html("");
+                for(var i = 0; i < profile.data.course.length; i++){
+                    var e = profile.data.course[i];
+                    courseModule.selected = e;
+                    courseModule.getLocalData(function(data){
+                        var price = profile.data.special.course.indexOf(data.id+"") == -1 ? data.amount : (data.amount * 2);
+                        total += price;// data.amount;
+                        var html = "<tr>";
+                        html += "<td>Tuition Fee</td>";
+                        html += "<td><span>"+ data.courseID + (profile.data.special.course.indexOf(data.id) == -1 ? "" : "(SPECIAL)") +"</span></td>";
+                        html += "<td>"+ price.formatMoney(2) +"</td>";
+                        html += "</tr>";
+                        $('.paymentModal').append(html);
+                        $('.totAssessHalf').html((price/2).formatMoney(2));
+                    });
+                }
+                $('.totAssess').html(total);
+                license.getLocal(profile.data.applyLicense, function(license){
+                    if(license.price == 0) return;
+                    total += license.price;
+                    $('.totAssess').html(total);
+                    var html = "<tr>";
+                    html += "<td>Apply</td>";
+                    html += "<td>" + license.desc + "</td>";
+                    html += "<td>" + license.price.formatMoney(2) + "</td>";
+                    html += "</tr>";
+                    $('.paymentModal').append(html);
+                });
+                payments.amount = total;
+                payments.transactionID = profile.data.transaction.ORnum;
+                $('.totAssess').html(total.formatMoney(2));
+            });
+            $('#paymentEnroll').val("")
+        }
+        $('#viewAttachModal').modal('show');
+    }
 }
