@@ -37,7 +37,7 @@
                     Tels.: 741-7185/745-2962
                 </h5><hr>
             </div>
-            <h4 style="text-transform: uppercase;">STUDENTS: TRANSFEREES REPORT<br>September 12, 2018</h4><br>
+            <h4 style="text-transform: uppercase;">STUDENTS: TRANSFEREES REPORT<br><%=dateStart + (dateEnd != dateStart ? " - " + dateEnd : "")%></h4><br>
             <table class="table tblRecSched" width="100%">
                 <thead>
                     <tr>
@@ -51,7 +51,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                <%
+                    var html = "";
+                    record.forEach((e,i)=>{
+                        html += "<tr>";
+                        html += "<td>"+ i+1 +"</td>";
+                        html += "<td>"+ e.studID +"</td>";
+                        html += "<td>"+ e.studentName.replace(/_/g," ") +"</td>";
+                        html += "<td>"+ e.to_branch +"</td>";
+                        html += "<td>"+ e.from_branch +"</td>";
+                        html += "<td>"+ e.request_date +"</td>";
+                        html += "<td>"+ e.effectiveDate +"</td>";
+                        html += "</tr>";
+                    });
+                %>
+                <%-html%>
+                    <%# <tr>
                         <td>1</td>
                         <td>012012</td>
                         <td>Graciella C. Tatel</td>
@@ -59,7 +74,7 @@
                         <td>SED-Taguig City</td>
                         <td>No</td>
                         <td>09-20-2018</td>
-                    </tr>
+                    </tr> %>
                 </tbody>
             </table><br>
 
@@ -72,7 +87,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                <%
+                    var html = "";
+                    total.forEach((e,i)=>{
+                        html += "<tr>";
+                        html += "<td>"+ e.name +"</td>";
+                        html += "<td>"+ e.to +"</td>";
+                        html += "<td>"+ e.from +"</td>";
+                        html += "</tr>";
+                    });
+                %>
+                <%-html%>
+                    <%# <tr>
                         <td>SED - Quezon City (Main)</td>
                         <td>3</td>
                         <td>0</td>
@@ -86,7 +112,7 @@
                         <td>SED - Pasay City</td>
                         <td>1</td>
                         <td>2</td>
-                    </tr>
+                    </tr> %>
                 </tbody>
             </table><br>
         </center>

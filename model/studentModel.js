@@ -82,7 +82,7 @@ Student.preRegStud = function(data, cb){
 }
 
 Student.preRegDel = function(id, cb){
-    PreRegister.delete(id, "status", cb);
+    PreRegister.update(id, 3, "status", cb);
 }
 
 Student.preRegDone = function(id, cb){

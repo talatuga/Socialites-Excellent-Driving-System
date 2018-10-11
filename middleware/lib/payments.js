@@ -92,6 +92,7 @@ exports.uploadPaymentSlip = function(req, res, next){
     if(!req.file) return res.status(200).send({success: false, detail: 'No file Uploaded!'});
     var paymentSlip = req.file.path;
     var ornum = req.body.ornumber;
+    var email = req.body.email;
     account.addPaymentSlip(ornum, paymentSlip, function(err, id){
         if(err) return next(err);
         res.status(200).send({success: true, detail: 'Successfully Submitted, Please wait for an hour to validate the payment.'});

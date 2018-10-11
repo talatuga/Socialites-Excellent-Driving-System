@@ -598,12 +598,14 @@ var viewStud = function(id){
         stud.getLocalData(function(profile){   
             stud.selectedID = profile.studID;
             studID = profile.studID;
+            profile.data = typeof profile.data == "string" ? JSON.parse(profile.data) : profile.data;
             $('.studNum').html(profile.studID);
             $('.studName').html(profile.fullname.replace(/_/g, " "));
             $('.studAddress').html(profile.address);
             $('.studPhone').html(profile.telno);
             $('.studEmail').html(profile.email);
-            $('.enrolledCrs').html('CRS-M001');
+            $('.studPic').attr('src',profile.data.avatar || "assets/images/user-medium.png");
+            // $('.enrolledCrs').html('none');
     
             stud.getCourseEnrolled(function(err, course){
                 if(err) return console.error(err);

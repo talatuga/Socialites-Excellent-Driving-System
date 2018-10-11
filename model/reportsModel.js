@@ -2,7 +2,10 @@ var db = require('./db');
 var ModelModule = require('./model');
 var licenseTable = "license_apply_price";
 var enrollmentTable = "enrollment";
+var transferTable = "transfer_request";
 var branchTable = "branch";
+var courseTable = "course";
+var instructorTable = "instructor";
 
 var Reports = {};
 Reports = Object.create(ModelModule);
@@ -12,6 +15,7 @@ Reports.db = db;
 var Student = {};
 Student = Object.create(ModelModule);
 Student.table = "student";
+Student.infoTable = "userinfo";
 Student.db = db;
 
 var PreRegister = {};
@@ -219,8 +223,377 @@ Reports.getStud4E = function(year, cb){
     });
 }
 
+//STUDENTS
+Reports.enrollee = function(query, cb){
+    return new Promise((resolve, reject)=>{
+        var freq = query.freq;
+        if(!freq || !Date.parse(query.date)) return cb(null, false, query);
+        
+        var branch = query.branch;
+        var date = query.date;
+
+        getFreqDate(freq, date).then(dateScope=>{
+            var data = {
+                dateStart: dateScope[0],
+                dateEnd: dateScope[1],
+                total: {
+                    count: 0,
+                    reject: 0,
+                },
+                record: [],
+            }
+            return getEnrolled(dateScope, branch).then(results=>{
+                data.record = results;
+                if(results.length == 0) return data;
+                return new Promise((res,rej)=>{
+                    results.forEach((e,i)=>{
+                        data.total.count += 1;
+                        if(e.status == 3) data.total.reject += 1;
+                        if(i==results.length-1){
+                            res(data);
+                        }
+                    });
+                });
+            });
+        }).then(data=>{ // Get Branch
+            if(!branch){
+                data.branch = "All Branch";
+                return data;
+            }else{
+                return getBranch(branch).then(branchData=>{
+                    data.branch = branchData.name;
+                    return data;
+                });
+            }
+        }).then(data=>{ // Get Branch per record
+            if(data.record.length == 0) return data;
+            return new Promise((res,rej)=>{
+                var promises = [];
+                data.record.forEach((e,i)=>{
+                    promises.push(getBranch(e.data.branch).then(branchData=>{
+                        data.record[i].data.branch = branchData.name;
+                        return true;
+                    }));
+                    data.record[i].dateSubmit = Date.parse(data.record[i].dateSubmit).toString('MM-dd-yyyy');
+                    if(i==data.record.length-1){
+                        Promise.all(promises).then(()=>{
+                            res(data);
+                        });
+                    }
+                });
+            });
+        }).then(data=>{
+            if(data.record.length == 0) return data;
+            return new Promise((res, rej)=>{
+                var promises = [];
+                data.record.forEach((e,i)=>{
+                    e.data.courseName = [];
+                    e.data.course.forEach((e1,i1)=>{
+                        promises.push(new Promise((res1,rej1)=>{
+                            getCourseName(e1).then(name=>{
+                                var special = e.data.special.course.indexOf(e1) == -1 ? "No" : "Yes";
+                                e.data.courseName.push({id: e1, name: name, special: special});
+                                res1();
+                            });
+                        }));
+                    });
+                    if(i==data.record.length-1){
+                        Promise.all(promises).then(()=>{
+                            res(data);
+                        });
+                    }
+                });
+            });
+        }).then(output=>{ // Output
+            if(cb){
+                cb(null,output); 
+            }else{
+                finish(output);
+            }
+        }).catch(reason=>{
+            throw new Error(reason.stack);
+        }).catch(reason=>{
+            if(cb){
+                cb(reason);
+            }else{
+                fail(reason);
+            }
+        });
+    });
+}
+
+Reports.transferee = function(query, cb){
+    return new Promise((resolve, reject)=>{
+        var freq = query.freq;
+        if(!freq || !Date.parse(query.date)) return cb(null, false, query);
+        var date = query.date;
+
+        getFreqDate(freq, date).then(dateScope=>{
+            return new Promise((res, rej)=>{
+                var sql = "SELECT * FROM " + transferTable + " WHERE effectiveDate BETWEEN ? AND ? AND status = 4";
+                db.get().query(sql, dateScope, function(err, results){
+                    if(err) return rej(err);
+                    res({
+                        dateStart: dateScope[0],
+                        dateEnd: dateScope[1],
+                        record: results
+                    });
+                });
+            });
+        }).then(data=>{
+            var total = {
+                from: {},
+                to: {}
+            }
+            data.total = total;
+            if(data.record.length == 0) return data;
+            return new Promise((res, rej)=>{
+                var promises = [];
+                data.record.forEach((e,i)=>{
+                    promises.push(getBranch(e.to_branchID).then(branchData=>{
+                        data.record[i].to_branch = branchData.name;
+                    }));
+                    promises.push(getBranch(e.from_branchID).then(branchData=>{
+                        data.record[i].from_branch = branchData.name;
+                    }));
+                    promises.push(getStudent(e.studID).then(student=>{
+                        data.record[i].studentName = student.fullname;
+                    }));
+
+                    data.record[i].effectiveDate = Date.parse(data.record[i].effectiveDate).toString('MM-dd-yyyy');
+                    data.record[i].request_date = Date.parse(data.record[i].request_date).toString('MM-dd-yyyy');
+                    total.from[e.from_branchID] = (total.from[e.from_branchID] == undefined ? 1 : total.from[e.from_branchID]++);
+                    total.to[e.to_branchID] = (total.to[e.to_branchID] == undefined ? 1 : total.to[e.to_branchID]++);
+
+                    if(i==data.record.length-1){
+                        Promise.all(promises).then(()=>{
+                            data.total = total;
+                            res(data);
+                        }).catch(rej);
+                    }
+                });
+            });
+        }).then(data=>{
+            return getBranch().then(branchData=>{
+                return new Promise((res,rej)=>{
+                    var branches = [];
+                    branchData.forEach((e,i)=>{
+                        var datum = {
+                            id: e.id,
+                            name: e.name,
+                            to: data.total.to[e.id] || 0,
+                            from: data.total.from[e.id] || 0,
+                        }
+                        if(datum.to || datum.from){
+                            branches.push(datum);
+                        }
+                        if(i==branchData.length-1){
+                            data.total = branches;
+                            res(data);
+                        }
+                    });
+                });
+            });
+        }).then(output=>{ // Output
+            if(cb){
+                cb(null,output); 
+            }else{
+                finish(output);
+            }
+        }).catch(reason=>{
+            throw new Error(reason.stack);
+        }).catch(reason=>{
+            if(cb){
+                cb(reason);
+            }else{
+                fail(reason);
+            }
+        });
+    });
+}
+
+Reports.evaluation = function(query, cb){
+    return new Promise((resolve, reject)=>{
+        if(!cb) cb = (e,a)=>{ // BOTH IMPLEMENTATION OF CALLBACK AND PROMISE
+            if(e) return reject(e);
+            resolve(a);
+        };
+
+        var branch = query.branch;
+        var freq = query.freq;
+        if(!freq || !Date.parse(query.date)) return cb(null, false, query);
+        var date = query.date;
+
+        getFreqDate(freq,date).then(dateScope=>{
+            return new Promise((res, rej)=>{
+                var sql = "SELECT e.*, s.branch FROM " + Evaluation.table + " e, "+ Student.table +" s WHERE s.id = e.studID AND e.target = 1 AND e.dateEvaluated BETWEEN ? AND ?"; 
+                if(branch){
+                    sql += " AND s.branch = ?";
+                    dateScope.push(branch);
+                }
+                
+                db.get().query(sql, dateScope, function(err, results){
+                    if(err) return rej(err);
+                    res(results);
+                });
+            }).then(evaluations=>{
+                var out = {
+                    dateStart: dateScope[0],
+                    dateEnd: dateScope[1],
+                    records: evaluations,
+                };
+                return out;
+            });
+        }).then(evaluation=>{
+            if(evaluation.records.length == 0) return evaluation;
+            return new Promise((res, rej)=>{
+                evaluation.total = {
+                    highest: 0,
+                    lowest: 100,
+                    average: 0
+                }
+
+                var total = 0;
+                var promises = [];
+                evaluation.records.forEach((e,i)=>{
+                    promises.push(getStudent(e.studID).then(stud=>{
+                        evaluation.records[i].studentName = stud.fullname;
+                        return 1;
+                    }));
+                    promises.push(getInstructor(e.instID).then(inst=>{
+                        evaluation.records[i].instructorName = inst.fullname;
+                        return 1;
+                    }));
+                    promises.push(getBranch(e.branch).then(branchData=>{
+                        evaluation.records[i].branchName = branchData.name;
+                        return 1;
+                    }));
+                    promises.push(getCourseName(e.courseID).then(course=>{
+                        evaluation.records[i].course = course;
+                        return 1;
+                    }));
+
+                    var grade = (e.grade * 10);
+                    var percent = grade * 2;
+                    evaluation.records[i].grade = grade + " (" + percent+ "%)";
+                    evaluation.records[i].evaluation = percent > 70 ? "Passed" : "Failed";
+
+                    evaluation.total.highest = evaluation.total.highest < percent ? percent : evaluation.total.highest;
+                    evaluation.total.lowest = evaluation.total.lowest > percent ? percent : evaluation.total.lowest;
+                    total += percent;
+
+                    if(i==evaluation.records.length-1){
+                        Promise.all(promises).then(()=>{
+                            evaluation.total.average = total / evaluation.records.length;
+                            evaluation.total.lowest = evaluation.total.lowest == 100 ? 0 : evaluation.total.lowest;
+                            res(evaluation);
+                        }).catch(rej);
+                    }
+                });
+
+                if(branch){
+                    promises.push(getBranch(branch).then(branch=>{
+                        evaluation.branch = branch.name;
+                        return 1;
+                    }));
+                }
+            });
+        }).then(output=>{ // Output
+            cb(null, output);
+        }).catch(reason=>{
+            throw new Error(reason.stack);
+        }).catch(reason=>{
+            cb(reason);
+        });    
+    });
+}
 
 //INSTRUCTORS
+Reports.performance = function(query, cb){
+    return new Promise((resolve,reject)=>{
+        if(!cb) cb = (e,a)=>{ // BOTH IMPLEMENTATION OF CALLBACK AND PROMISE
+            if(e) return reject(e);
+            resolve(a);
+        };
+
+        var freq = query.freq;
+        if(!freq || !Date.parse(query.date)) return cb(null, false, query);
+        var date = query.date;
+
+        getFreqDate(freq, date).then(dateScope=>{
+            return new Promise((res,rej)=>{
+                var sql = "SELECT instID, COUNT(*) as 'students' FROM " + Evaluation.table + " WHERE target = 0 AND dateEvaluated BETWEEN ? AND ? GROUP BY instID";
+                db.get().query(sql, dateScope, function(err,result){
+                    if(err) return rej(err);
+                    res(result);
+                });
+            }).then(data=>{
+                return {
+                    dateStart: dateScope[0],
+                    dateEnd: dateScope[1],
+                    records: data,
+                }
+            });
+        }).then(data=>{
+            if(data.records.length == 0) return data;
+            return new Promise((res, rej)=>{
+                var promises = [];
+                data.records.forEach((e,i)=>{
+                    promises.push(getInstructor(e.instID).then(inst=>{
+                        data.records[i].instructorName = inst.fullname;
+                        return 1;
+                    }));
+                    promises.push(new Promise((res1, rej1)=>{
+                        var sql = "SELECT grade FROM " + Evaluation.table + " WHERE target = 0 AND instID = ? AND dateEvaluated BETWEEN ? AND ?";
+                        db.get().query(sql, [e.instID, data.dateStart, data.dateEnd], function(err,result){
+                            if(err) return rej1(err);
+                            var total = 0;
+                            result.forEach((elememt,index)=>{
+                                total += elememt.grade;
+                                if(index == result.length-1){
+                                    data.records[i].evaluation = (total/result.length) * 10;
+                                    data.records[i].grade = data.records[i].evaluation * 2;
+                                    res1(1);
+                                }
+                            });
+                        });
+                    }));
+                    if(i == data.records.length-1){
+                        Promise.all(promises).then(()=>{
+                            res(data);
+                        }).catch(rej);
+                    }
+                });      
+            });
+        }).then(data=>{
+            if(data.records.length == 0) return data;
+            return new Promise((res, rej)=>{
+                var total = 0;
+                data.total = {
+                    highest: 0,
+                    lowest: 100,
+                    average: 0,
+                }
+                data.records.forEach((e,i)=>{
+                    total = e.grade;
+                    data.total.highest = data.total.highest < e.grade ? e.grade : data.total.highest;
+                    data.total.lowest = data.total.lowest > e.grade ? e.grade : data.total.lowest;
+                    if(i==data.records.length-1){
+                        data.total.lowest = data.total.lowest == 100 ? 0 : data.total.lowest;
+                        data.total.average = total / data.records.length;
+                        res(data);
+                    }
+                });
+            });
+        }).then(output=>{ // Output
+            cb(null, output);
+        }).catch(reason=>{
+            throw new Error(reason.stack);
+        }).catch(reason=>{
+            cb(reason);
+        }); 
+    });   
+}
 
 //GROSS INCOME
 Reports.tuition = function(query, cb){
@@ -720,9 +1093,23 @@ function getBranch(id){
     });
 };
 
-function getEnrolled(dateScope, branch){ //DISABLED UNUSED
+function getCourseName(id){
     return new Promise((resolve, reject)=>{
-        /* var sql = "SELECT data FROM " + PreRegister.table + " WHERE status = 2 AND dateSubmit BETWEEN ? AND ? ";
+        var sql = "SELECT * FROM " + courseTable + " WHERE id = ?";
+        db.get().query(sql, [id], function(err, result){
+            if(err) return reject(err);
+            if(result.length == 0) return resolve("");
+            var pad = "000";
+            id = id + "";
+            var courseName = "CRS-" + result[0].carType.toUpperCase() + (pad.substring(0, pad.length - id.length) + id);
+            resolve(courseName);
+        });
+    });
+}
+
+function getEnrolled(dateScope, branch){
+    return new Promise((resolve, reject)=>{
+        var sql = "SELECT * FROM " + PreRegister.table + " WHERE status > 0 AND dateSubmit BETWEEN ? AND ? ";
         var data = [dateScope[0],dateScope[1]];
         if(branch){
             sql += "AND data LIKE '%\"branch\":\""+ branch +"\"%'";
@@ -731,8 +1118,18 @@ function getEnrolled(dateScope, branch){ //DISABLED UNUSED
     
         db.get().query(sql, data, function(err, results){
             if(err) return reject(err);
-            resolve(results);
-        }); */ resolve();
+            if(results.length == 0) return resolve(results);
+            results.forEach((e,i)=>{
+                try{
+                    e.data = JSON.parse(e.data);
+                }catch(er){
+                    e.data = {};
+                }
+                if(i==results.length-1){
+                    resolve(results);
+                }
+            });
+        });
     });
 }
 
@@ -752,6 +1149,26 @@ function getStudentViaORnum(ORnum){
             carType: data.carType + "",
             branch: data.name + "",
         }
+    });
+}
+
+function getStudent(id){
+    return new Promise((resolve, reject)=>{
+        var sql = "SELECT s.*, ui.fullname FROM " + Student.table + " s, "+ Student.infoTable +" ui WHERE s.userInfo = ui.id AND s.id = ?";
+        db.get().query(sql,[id], function(err, result){
+            if(err) return reject(err);
+            resolve(result[0]);
+        });
+    });
+}
+
+function getInstructor(id){
+    return new Promise((resolve, reject)=>{
+        var sql = "SELECT i.*, ui.fullname FROM " + instructorTable + " i, " + Student.infoTable + " ui WHERE i.userInfo = ui.id AND i.id = ?";
+        db.get().query(sql, [id], function(err, result){
+            if(err) return reject(err);
+            resolve(result[0]);
+        });
     });
 }
 

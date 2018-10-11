@@ -789,6 +789,8 @@ var viewInstProfile = function(id){
             $('.instEmail').html(profile.email);
             $('.instLicense').html(profile.license);
             $('.instDateHired').html(Date.parse(profile.dateRegistered).toString("MMM d, yyyy"));
+            profile.data = typeof profile.data == "string" ? JSON.parse(profile.data) : profile.data;
+            $('.studPic').attr('src',profile.data.avatar || "assets/images/user-medium.png");
             if(profile.dateRetired != null){
                 $('.instDateResigned').html(Date.parse(profile.dateRetired).toString("MMM d, yyyy"));
                 $('.divResigned').show();

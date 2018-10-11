@@ -223,7 +223,7 @@ function generateReport(a){
             month = $(".monthlyRepDate1").val();
             year = $(".yearRepDate1").val();
 
-            date = Date.parse(month+1).toString('MMM');
+            date = Date.parse(month-1).toString('MMM');
             date += " " + year;
         }else if (freq==4){
             if (fromYrQ<=0){
@@ -234,7 +234,7 @@ function generateReport(a){
             yearfrom = yearFromQ;
             yearto = $(".yearRepDate1").val();
 
-            date = Date.parse(monthto+1).toString('MMM');
+            date = Date.parse(monthto-1).toString('MMM');
             date += " " + yearto;
         }else if (freq==5){
             if (fromYrS<=0){
@@ -245,7 +245,7 @@ function generateReport(a){
             yearfrom = yearFromS;
             yearto = $(".yearRepDate1").val();
 
-            date = Date.parse(monthto+1).toString('MMM');
+            date = Date.parse(monthto-1).toString('MMM');
             date += " " + yearto;
         }else if (freq==6){
             year = $(".yearRepDate1").val();
@@ -307,11 +307,13 @@ function generateReport(a){
             daily = Date.parse(daily).toString("yyyy-MM-dd");
         }else if (freq==2){
             week = $('.weeklyRepDate2').val();
+            daily = week;
             year = week.substring(0, 4);
             week = week.substring(6, 8);
         }else if (freq==3){
             month = $(".monthlyRepDate2").val();
             year = $(".yearRepDate2").val();
+            daily = Date.parse(month-1 + " month").toString('MMM ') + year;
         }else if (freq==4){
             if (fromYrQ<=0){
                 fromYrQ = 12 + fromYrQ;
@@ -320,8 +322,8 @@ function generateReport(a){
             monthto = $(".quarterlyRepDate2").val();
             yearfrom = yearFromQ;
             yearto = $(".yearRepDate2").val();
-        }
-        else if (freq==5){
+            daily = Date.parse(monthto - 1 + " month").toString('MMM ') + yearto;
+        }else if (freq==5){
             if (fromYrS<=0){
                 fromYrS = 12 + fromYrS;
             }
@@ -329,28 +331,63 @@ function generateReport(a){
             monthto = $(".semiRepDate2").val();
             yearfrom = yearFromS;
             yearto = $(".yearRepDate2").val();
-        }
-        else if (freq==6){
+            daily = Date.parse(monthto - 1 + " month").toString('MMM ') + yearto;
+        }else if (freq==6){
             year = $(".yearRepDate2").val();
+            daily = year;
         }
 
-        swal("Downloading...", title + ": " + title2 + " report is now downloading.");
+        //swal("Downloading...", title + ": " + title2 + " report is now downloading.");
 
-        var link = "api/v1/report/student?";
+        var link = "api/v1/report/";
 
-        link += "branch=" + branch;
-        link += "&report=" + title2;
+        switch(title2){
+            case "Enrollees": {
+                link += "enrollee";
+                break;
+            }
+            case "Transferees": {
+                link += "transfer";
+                branch = "allBr";
+                break;
+            }
+            case "Performance Evaluation": {
+                link += "evaluation";
+                break;
+            }
+        }
+
+        link += "?";
+
+        link += (branch != "allBr" ? "branch=" + branch : "");
         link += "&freq=" + freq;
         link += "&date=" + daily;
-        link += "&week=" + week;
-        link += "&year=" + year;
-        link += "&month=" + month;
-        link += "&monthfrom=" + monthfrom;
-        link += "&monthto=" + monthto;
-        link += "&yearfrom=" + yearfrom;
-        link += "&yearto=" + yearto;
 
-        window.location = link;
+        swal({
+            title: "Generate Report?",
+            text: title + ": " + title2,
+            type: "info",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true
+        }, function (conf){
+            if(conf){
+                setTimeout(function(){
+                    swal('Done','','success');
+                    window.location = link;
+                },1000)
+            }
+        });
+        // link += "&report=" + title2;
+        // link += "&week=" + week;
+        // link += "&year=" + year;
+        // link += "&month=" + month;
+        // link += "&monthfrom=" + monthfrom;
+        // link += "&monthto=" + monthto;
+        // link += "&yearfrom=" + yearfrom;
+        // link += "&yearto=" + yearto;
+
+        //window.location = link;
 
         // report.getStud(function(err, link){
         //     if(err){
@@ -369,37 +406,66 @@ function generateReport(a){
         branch = 0;
 
         if (freq==1){
-            daily = $('.dailyRepDate3').val();
-            daily = Date.parse(daily).toString("yyyy-MM-dd");
+            daily = $('.dailyRepDate1').val();
+            date = Date.parse(daily).toString("yyyy-MM-dd");
         }else if (freq==2){
-            week = $('.weeklyRepDate3').val();
-            year = week.substring(0, 4);
-            week = week.substring(6, 8);
+            date = $('.weeklyRepDate1').val();
+            // year = week.substring(0, 4);
+            // week = week.substring(6, 8);
         }else if (freq==3){
-            month = $(".monthlyRepDate3").val();
-            year = $(".yearRepDate3").val();
+            month = $(".monthlyRepDate1").val();
+            year = $(".yearRepDate1").val();
+
+            date = Date.parse(month).toString('MMM ');
+            date += " " + year;
         }else if (freq==4){
             if (fromYrQ<=0){
                 fromYrQ = 12 + fromYrQ;
             }
             monthfrom = fromYrQ;
-            monthto = $(".quarterlyRepDate3").val();
+            monthto = $(".quarterlyRepDate1").val();
             yearfrom = yearFromQ;
-            yearto = $(".yearRepDate3").val();
-        }
-        else if (freq==5){
+            yearto = $(".yearRepDate1").val();
+
+            date = Date.parse(monthto-1).toString('MMM');
+            date += " " + yearto;
+        }else if (freq==5){
             if (fromYrS<=0){
                 fromYrS = 12 + fromYrS;
             }
             monthfrom = fromYrS;
-            monthto = $(".semiRepDate3").val();
+            monthto = $(".semiRepDate1").val();
             yearfrom = yearFromS;
-            yearto = $(".yearRepDate3").val();
-        }
-        else if (freq==6){
-            year = $(".yearRepDate3").val();
+            yearto = $(".yearRepDate1").val();
+
+            date = Date.parse(monthto-1).toString('MMM');
+            date += " " + yearto;
+        }else if (freq==6){
+            year = $(".yearRepDate1").val();
+            date = year;
         }
 
-        swal("Downloading...", title + ": " + title2 + " report is now downloading.");
+        var link = "api/v1/report/instructor";
+
+        link += "?";
+        link += "branch=" + branch != "allBr" ? branch : "";
+        link += "&freq=" + freq;
+        link += "&date=" + date;
+
+        swal({
+            title: "Generate Report?",
+            text: title + ": " + title2,
+            type: "info",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true
+        }, function (conf){
+            if(conf){
+                setTimeout(function(){
+                    swal('Done','','success');
+                    window.location = link;
+                },1000)
+            }
+        });
     }
 }
