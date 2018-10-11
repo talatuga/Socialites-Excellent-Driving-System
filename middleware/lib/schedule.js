@@ -354,8 +354,8 @@ exports.suspend = function(req, res, next){
             recipient.forEach((e,i)=>{
                 promises.push(new Promise((resolve, reject)=>{
                     var mail = {
-                        subject:"Suspension of Classes!",
-                        body: "Sorry Class Suspend For " + date + " for the reason: \""+ reason +"\" Please reschedule your session. Thank you!",
+                        subject:"ANNOUNCEMENT: Suspension of classes for " + date,
+                        body: "Good day, student!<br>\""+ reason +"\"<br>-Management<br><br>Please reschedule your appointment by logging in your student account. Thank you and take care!<br><br>Sincerely yours,<br>Socialites Excellent Driving",
                     };
             
                     mailer.send(e, mail, function(err, response){

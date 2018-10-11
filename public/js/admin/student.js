@@ -603,7 +603,7 @@ var viewStud = function(id){
             $('.studAddress').html(profile.address);
             $('.studPhone').html(profile.telno);
             $('.studEmail').html(profile.email);
-            // $('.enrolledCrs').html('none');
+            $('.enrolledCrs').html('CRS-M001');
     
             stud.getCourseEnrolled(function(err, course){
                 if(err) return console.error(err);

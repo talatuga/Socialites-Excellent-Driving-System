@@ -4,6 +4,46 @@ var chart1A, chart1B, chart1C, chart1D, chart1E;
 var chart2A, chart2B, chart2C, chart2D, chart2E;
 
 function loadDash(){
+    var monthnow = (new Date()).getUTCMonth();
+    switch (monthnow){
+        case 1: 
+            monthnow = "(January)";
+            break;
+        case 2: 
+            monthnow = "(February)";
+            break;
+        case 3: 
+            monthnow = "(March)";
+            break;
+        case 4: 
+            monthnow = "(April)";
+            break;
+        case 5: 
+            monthnow = "(May)";
+            break;
+        case 6: 
+            monthnow = "(June)";
+            break;
+        case 7: 
+            monthnow = "(July)";
+            break;
+        case 8: 
+            monthnow = "(August)";
+            break;
+        case 9: 
+            monthnow = "(September)";
+            break;
+        case 10: 
+            monthnow = "(October)";
+            break;
+        case 11: 
+            monthnow = "(November)";
+            break;
+        case 12: 
+            monthnow = "(December)";
+            break;
+    }
+    $('.monthDash').html(monthnow);
     loadDash1();
     loadPies();
     loadCharts();

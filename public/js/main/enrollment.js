@@ -192,14 +192,16 @@ function payMeth2(){
     cart.container.forEach(x=>{
         var data = course.getLocalData(x);
         ids.push(course.generateID(data.courseID, data.transmission));
-        total = 0;
+        // total = 0;
         total += $('#special'+data.courseID+':checked').length!=0?(data.price*2):data.price;
     });
-    preRegData.trans.transaction = "Enrolment" + preRegData.trans.transaction;
-    $('#payCourse2').html(ids.join());
+    var license = ($('input[name=enrReqP]:checked').data('price'));
+    $('#payCourse').html(ids.join());
     $('#payPrice').html(total.formatMoney(0));
-    $('#payPrice2').html(total.formatMoney(0));
     $('.halfPrice').html((total/2).formatMoney(0));
+    total += license ? license : 0;
+    preRegData.trans.transaction = "Enrolment" + preRegData.trans.transaction;
+    $('#payPrice2').html(total.formatMoney(0));
     $('#totalAmount').html(total.formatMoney(0));
 }
 
@@ -216,14 +218,16 @@ function payMeth1(){
     cart.container.forEach(x=>{
         var data = course.getLocalData(x);
         ids.push(course.generateID(data.courseID, data.transmission));
-        total = 0;
+        // total = 0;
         total += $('#special'+data.courseID+':checked').length!=0?(data.price*2):data.price;
     });
-    preRegData.trans.transaction = "Enrolment" + preRegData.trans.transaction;
+    var license = ($('input[name=enrReqP]:checked').data('price'));
     $('#payCourse').html(ids.join());
     $('#payPrice').html(total.formatMoney(0));
-    $('#payPrice2').html(total.formatMoney(0));
     $('.halfPrice').html((total/2).formatMoney(0));
+    total += license ? license : 0;
+    preRegData.trans.transaction = "Enrolment" + preRegData.trans.transaction;
+    $('#payPrice2').html(total.formatMoney(0));
     $('#totalAmount').html(total.formatMoney(0));
 }
 

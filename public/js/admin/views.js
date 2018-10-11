@@ -53,7 +53,7 @@ $(function() {
 function viewActive (a){
     $('.viewDiv').hide();
     var li = "#li";
-    for (var x=1; x<=17; x++){
+    for (var x=1; x<=18; x++){
         li += a.toString();
         if (x==a){
             if (a==9){
@@ -264,7 +264,7 @@ var profile = function (){
 
 var faquest = function (){
     loadFaqLabel();
-    $(".liSide").removeClass("active");
+    // $(".liSide").removeClass("active");
     $('.viewDiv').hide();
     $(".view-faq").show();
 }

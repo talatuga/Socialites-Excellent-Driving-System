@@ -550,7 +550,7 @@ function viewCarProfile(id){
     car.getData(id, function(err, profile){
         if(err) return console.error(err);
         $('#vehiName').html(profile.brand + ", " + profile.model);
-        $('#vehiID').html(profile.id + "-" + profile.transmission);
+        // $('#vehiID').html(profile.id + "-" + profile.transmission);
         $('#vehiPlate').html(profile.plate);
         $('#vehiCoding').html(dayName[profile.offday]);
         $('#vehiInst').html(profile.driverName.replace(/_/g, ' '));

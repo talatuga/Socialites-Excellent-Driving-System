@@ -41,7 +41,7 @@ function remindEnrolmentExpire(){
             var emailAddress = data.info.email;
             var mail = {
                 subject: 'Pending Enrollment Reminder',
-                body: 'Good day, ' + data.info.fullname.replace(/_/g," ") + '!<br>We would like to remind you that the deadline of payment on your selected course to enroll is on '+ Date.parse(dateSubmit).toString('MMM dd, yyyy') +', which is two (2) days away from now.<br>To avoid cancellation of your enrollment form, please settle your payment before your due date.<br><br>Thank you very much! We are looking forward to see you. :)<br><br>Sincerely yours,<br>Socialites Excellent Driving.',
+                body: 'Good day, ' + data.info.fullname.replace(/_/g," ") + '!<br>We would like to remind you that the deadline of payment on your selected course to enroll is on '+ Date.parse(element.dateSubmit).toString('MMM dd, yyyy') +', which is two (2) days away from now.<br>To avoid cancellation of your enrollment form, please settle your payment before your due date.<br><br>Thank you very much! We are looking forward to see you. :)<br><br>Sincerely yours,<br>Socialites Excellent Driving.',
             }
             mailer.send(emailAddress, mail, function(error){
                 if(error) return log.errLogger(error);

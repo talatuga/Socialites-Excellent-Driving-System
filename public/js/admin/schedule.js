@@ -229,8 +229,8 @@ function transferReq(){
             html += "<td>"+ student.fullname.replace(/_/g, " ") +"</td>";
             html += "<td>SED-"+ branch1.name +"</td>";
             html += "<td>SED-"+ branch2.name +"</td>";
-            html += "<td>"+ (e.hours || "<can't fetch data>") +"</td>";
-            html += '<td><button type="button" style="vertical-align: sub" class="btn btn-success btnLicense" onclick="approveTransfer('+ e.id +')">Approve</button><br><button type="button" style="vertical-align: sub" class="btn btn-danger btnLicense" onclick="rejectTransfer('+ e.id +')">Reject</button><br></td>';
+            // html += "<td>"+ (e.hours || "<can't fetch data>") +"</td>";
+            html += '<td><button type="button" style="float:left" class="btn btn-success btnLicense" onclick="approveTransfer('+ e.id +')">Approve</button><button type="button" style="margin-left: 5px" class="btn btn-danger btnLicense" onclick="rejectTransfer('+ e.id +')">Reject</button></td>';
             html += "</tr>";   
             $('#transferReq').append(html);
           })
@@ -389,7 +389,9 @@ function searchSchedView(){
       scheduler.getBranchName(branchSelected,(_,branch)=>{
         $('.searchBranchDisplayListSpan').html(branch);
         var x = 1;
-        data.forEach((e,i)=>{
+        if (data.length!=0){
+          $('.noschedListView').hide();
+          data.forEach((e,i)=>{
             scheduler.getInstName(e.instID,(_,instName)=>{
               scheduler.getStudName(e.studID,(_,studName)=>{
                 var html = "<tr>";
@@ -405,9 +407,10 @@ function searchSchedView(){
               });
             });
         });
+        }else $('.noschedListView').show();
+        $('.displaySchedDiv').show();
+        $('.searchDateDisplayListSpan').html(Date.parse(searchSched).toString("MMMM dd, yyyy"));
       });
-      $('.displaySchedDiv').show();
-      $('.searchDateDisplayListSpan').html(Date.parse(searchSched).toString("MMMM dd, yyyy"));
     });
   }
 }
