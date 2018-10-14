@@ -5918,8 +5918,8 @@ tbody tr td:last-child {
   border: none;
   cursor: move;
   font-size: 13px;
-  margin: 5px 7px;
-  padding: 5px 5px;
+  margin: 3px 3px;
+  padding: 2px 2px;
   text-align: center;
 }
 .external-event {
@@ -8077,13 +8077,13 @@ tiCustom
   -moz-appearance:textfield;
 }
 
-#enrCont, #brTel2::-webkit-outer-spin-button,
+/* #enrCont, #brTel2::-webkit-outer-spin-button,
 #enrCont, #brTel2::-webkit-inner-spin-button{
   -webkit-appearance: none;
 }
 #enrCont, #brTel2{
   -moz-appearance:textfield;
-}
+} */
 
 #enrGuardCont, .addPayBal, .addPayTxt, .totAssessFee::-webkit-outer-spin-button,
 #enrGuardCont, .addPayBal, .addPayTxt, .totAssessFee::-webkit-inner-spin-button{

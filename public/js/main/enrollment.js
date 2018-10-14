@@ -1,9 +1,9 @@
 var checkedReqP, checkedValReq, checkedDays, countT=0, countP=0, countDays=0, textReq;
-var checkedReqT = 1, canCancel = 1;
+var checkedReqT = 1, canCancel = 1, yearnow;
 var isCheck1, isCheck2, isCheck3, isCheck3New;
 var selected, checkLesOpt;
 var selectedCourse = 0;
-var paymentMeth=0, payHide=1;
+var paymentMeth=0, payHide=1, schedMeth=0;
 var preRegData = {
     info: {},
     course: 0,
@@ -146,6 +146,10 @@ function hideVehicleOptions(){
 }
 
 function resetEnroll1 (){
+    yearnow = (new Date()).getFullYear();
+    $("#enrCont").inputmask({"mask": "(+63)-999-999-9999"});
+    $("#enrGuardCont").inputmask({"mask": "(+63)-999-999-9999"});
+
     $('#btnCancPreregA').show();
     $('#btnPreregNext2A').show();
     $('#btnPreregPrevAddA').hide();
@@ -158,6 +162,10 @@ function resetEnroll1 (){
 }
 
 function resetEnroll2 (){
+    yearnow = (new Date()).getFullYear();
+    $("#enrCont").inputmask({"mask": "(+63)-999-999-9999"});
+    $("#enrGuardCont").inputmask({"mask": "(+63)-999-999-9999"});
+
     $('#btnPreregPrev').hide();
     $('#btnPreregNext2').hide();
     $('#btnPreregPrev1').hide();
@@ -196,13 +204,12 @@ function payMeth2(){
         total += $('#special'+data.courseID+':checked').length!=0?(data.price*2):data.price;
     });
     var license = ($('input[name=enrReqP]:checked').data('price'));
-    $('#payCourse').html(ids.join());
-    $('#payPrice').html(total.formatMoney(0));
+    $('#payCourse2').html(ids.join());
+    $('#payPrice2').html(total.formatMoney(0));
     $('.halfPrice').html((total/2).formatMoney(0));
     total += license ? license : 0;
     preRegData.trans.transaction = "Enrolment" + preRegData.trans.transaction;
-    $('#payPrice2').html(total.formatMoney(0));
-    $('#totalAmount').html(total.formatMoney(0));
+    $('.totalAmount').html(total.formatMoney(0));
 }
 
 function payMeth1(){
@@ -227,8 +234,7 @@ function payMeth1(){
     $('.halfPrice').html((total/2).formatMoney(0));
     total += license ? license : 0;
     preRegData.trans.transaction = "Enrolment" + preRegData.trans.transaction;
-    $('#payPrice2').html(total.formatMoney(0));
-    $('#totalAmount').html(total.formatMoney(0));
+    $('.totalAmount').html(total.formatMoney(0));
 }
 
 function paymentBack(){
@@ -237,6 +243,31 @@ function paymentBack(){
     $('.paymentOptionDiv2').hide();
     $('#paymentOptionDivNoOnline').hide();
     $('#paymentOptionDiv').show();
+}
+
+
+function schedBack(){
+    $("html, body").animate({ scrollTop: 0 }, "slow");
+    $('.sched1Div').hide();
+    $('.sched2Div').hide();
+    $('#schedOptionDiv').show();
+    schedMeth=0;
+}
+
+function schedOpt1(){
+    $("html, body").animate({ scrollTop: 0 }, "slow");
+    $('#schedOptionDiv').hide();
+    $('.sched1Div').show();
+    $('.sched2Div').hide();
+    schedMeth=1;
+}
+
+function schedOpt2(){
+    $("html, body").animate({ scrollTop: 0 }, "slow");
+    $('#schedOptionDiv').hide();
+    $('.sched1Div').hide();
+    $('.sched2Div').show();
+    schedMeth=2;
 }
 
 function resetEnrollment(){
@@ -324,9 +355,9 @@ function checkEnr1 (){
         };
         var age = parseInt(Date.parse("today").toString("yyyy")) - parseInt(Date.parse(preRegData.info.birthdate).toString("yyyy"));
         $('.req').hide();
-        if(age < 17){
+        if(age < 18){
             swal("","Too young to drive,","error");
-            return "0"; }           
+            return "2"; }           
         // }else if(preRegData.info.nationality == "Non-Filipino"){
         //     $('.reqC').show();
         // }else if(age < 19 && age > 16){
@@ -426,7 +457,7 @@ function resetStep2(){
 
 function regNext1(){
     isCheck1 = checkEnr1();
-    isCheck1 = 1;
+    isCheck1=1;
     if (isCheck1=="1"){
         $('.pr2A').hide();
         $('.pr1').hide();
@@ -449,6 +480,9 @@ function regNext1(){
         $('#btnPreregPrev').show();
         $('#btnPreregNext2').show();
         resetStep2();
+        $("html, body").animate({ scrollTop: 0 }, "slow");
+    }else if (isCheck1=="2"){
+        swal("Oops!", "Enrollees must be 18 years old and above.", "error");
     }
     else{
         swal("Oops!", "Please fill out all required fields.", "error");
@@ -504,8 +538,10 @@ function regPrev1A(){
 }
 
 function regNext2(){
-    $("html, body").animate({ scrollTop: 0 }, "slow");
     $('.step3').html("Step 3: Preferred vehicle and schedule.");
+    $('#schedOptionDiv').show();
+    $('.sched1Div').hide();
+    $('.sched2Div').hide();
     isCheck2 = checkEnr2();
     if (isCheck2==0){
         swal("Oops!", "Please select at least one.", "error");
@@ -516,7 +552,7 @@ function regNext2(){
         if (c!=0){          
             preRegData.trans.transaction += ", Apply-" + $('input[name=enrReqP]:checked').data("id");
             preRegData.trans.amount += parseInt($('input[name=enrReqP]:checked').data("price"));
-            $('.additionalPayment').html(" <br>Plus additional payment for licensing application assistance is <span class='payCourse'>"+ $('input[name=enrReqP]:checked').data().desc +" license</span> &#8369;<span class='payPrice'>"+ ($('input[name=enrReqP]:checked').data().price).formatMoney(0) + "</span>.<br>Overall total of &#8369;<span id='totalAmount' class='payPrice'><span>.");
+            $('.additionalPayment').html(" <br>Plus additional payment for licensing application assistance is <span class='payCourse'>"+ $('input[name=enrReqP]:checked').data().desc +" license</span> &#8369;<span class='payPrice'>"+ ($('input[name=enrReqP]:checked').data().price).formatMoney(0) + "</span>.<br>Overall total of &#8369;<span class='totalAmount' class='payPrice'><span>.");
             payHide=2;
             paymentBack();
         }
@@ -546,6 +582,7 @@ function regNext2(){
         $('#btnCancPrereg').show();
         $('#btnPreregPrevAdd').show();
         $('#btnPreregNextAdd').show();
+        $("html, body").animate({ scrollTop: 0 }, "slow");
         paymentMeth=0;
         preRegData.license = c; 
         var vtype = "";
@@ -570,8 +607,7 @@ function regNext2(){
 }
 
 function regNext2A(){
-    $("html, body").animate({ scrollTop: 0 }, "slow");
-    $('.step3').html("Step 2: Preferred vehicle and schedule.");
+    $('.step4').html("Step 2: Select payment method.");
     isCheck2 = checkEnr2A();
     if (isCheck2==0){
         swal("Oops!", "Please select which lessons you wish to tackle first!", "error");
@@ -585,20 +621,21 @@ function regNext2A(){
             $('.pr1').hide();
             $('.pr2').hide();
             $('.pr4').hide();
-            $('.pr3').hide();
-            $('.pr3New').show();
+            $('.pr3New').hide();
+            $('.pr3').show();
         
             $('#btnPreregNext2A').hide();
             $('#btnPreregPrev2A').hide();
             $('#btnPreregDoneA').hide();
-            $('#btnPreregPrevA').hide();
-            $('#btnPreregNext3A').hide();
+            $('#btnPreregPrevAddA').hide();
+            $('#btnPreregNextAddA').hide();
 
             $('#btnCancPreregA').show();
-            $('#btnPreregPrevAddA').show();
-            $('#btnPreregNextAddA').show();
-            paymentMeth=0;
+            $('#btnPreregPrevA').show();
+            $('#btnPreregNext3A').show();
             preRegData.lesson = null;
+            paymentMeth=0;
+            $("html, body").animate({ scrollTop: 0 }, "slow");
         }
         else if (checkLesOpt=="lesOpt2"){
             var checkLes = $('input[name="includeLes"]:checked').map(function () {
@@ -622,6 +659,7 @@ function regNext2A(){
                 $('#btnCancPreregA').show();
                 $('#btnPreregPrevA').show();
                 $('#btnPreregNext3A').show();
+                $("html, body").animate({ scrollTop: 0 }, "slow");
                 paymentMeth=0;
                 var check = $('input[name=includeLes]:checked');
                 var lesson = [];
@@ -681,31 +719,32 @@ function regPrev2(){
 
 function regPrevAddA(){
     $("html, body").animate({ scrollTop: 0 }, "slow");
-    $('.pr2A').hide();
     $('.pr1').hide();
     $('.pr2').hide();
-    $('.pr4').hide();
     $('.pr3').hide();
-    $('.pr3New').show();
+    $('.pr3New').hide();
+    $('.pr4').hide();
+    $('.pr2A').show();
 
-    $('#btnPreregNext2A').hide();
+    $('#btnCancPreregA').show();
+    $('#btnPreregNext2A').show();
+
     $('#btnPreregPrev2A').hide();
     $('#btnPreregDoneA').hide();
+
     $('#btnPreregPrevA').hide();
     $('#btnPreregNext3A').hide();
 
-    $('#btnCancPreregA').show();
-    $('#btnPreregPrevAddA').show();
-    $('#btnPreregNextAddA').show();
+    $('#btnPreregPrevAddA').hide();
+    $('#btnPreregNextAddA').hide();
 }
 
 function regNextAddA(){
-    $("html, body").animate({ scrollTop: 0 }, "slow");
     isCheck3New = checkEnr3New();
     if (isCheck3New==0){
         swal("Oops!", "Please fill out all required fields.", "error");
     }else{
-        $('.step4').html("Step 3: Select payment method.");
+        $('.step4').html("Step 2: Select payment method.");
         $('.pr2A').hide();
         $('.pr1').hide();
         $('.pr2').hide();
@@ -723,6 +762,7 @@ function regNextAddA(){
         $('#btnPreregPrevA').show();
         $('#btnPreregNext3A').show();
         preRegData.lesson = null;
+        $("html, body").animate({ scrollTop: 0 }, "slow");
     }
 }
 
@@ -751,46 +791,50 @@ function regPrevAdd(){
 }
 
 function regNextAdd(){
-    $("html, body").animate({ scrollTop: 0 }, "slow");
-    isCheck3New = checkEnr3New();
-    if (isCheck3New==0){
-        swal("Oops!", "Please fill out all required fields.", "error");
+    if (schedMeth==0){
+        swal("Oops!", "Choose a scheduling method first.", "error");
     }else{
-        preRegData.vehicle = $('#manualVehiclesSelect').val() != 0 ? $('#manualVehiclesSelect').val() : $('#autoVehiclesSelect').val() == 0 ? "" : $('#autoVehiclesSelect').val();
-        //$("input[name=prefDaysCB]:checked").each((a)=>{preRegData.sched.push(a)});
-        $('.step4').html("Step 4: Select payment method.");
-        $('.pr2A').hide();
-        $('.pr1').hide();
-        $('.pr2').hide();
-        $('.pr4').hide();
-        $('.pr3New').hide();
-        $('.pr3').show();
+        $("html, body").animate({ scrollTop: 0 }, "slow");
+        isCheck3New = checkEnr3New();
+        if (isCheck3New==0){
+            swal("Oops!", "Please fill out all required fields.", "error");
+        }else{
+            preRegData.vehicle = $('#manualVehiclesSelect').val() != 0 ? $('#manualVehiclesSelect').val() : $('#autoVehiclesSelect').val() == 0 ? "" : $('#autoVehiclesSelect').val();
+            //$("input[name=prefDaysCB]:checked").each((a)=>{preRegData.sched.push(a)});
+            $('.step4').html("Step 4: Select payment method.");
+            $('.pr2A').hide();
+            $('.pr1').hide();
+            $('.pr2').hide();
+            $('.pr4').hide();
+            $('.pr3New').hide();
+            $('.pr3').show();
+        
+            $('#btnPreregPrev').hide();
+            $('#btnPreregNext2').hide();
+            $('#btnPreregNext1').hide();
+            $('#btnPreregPrev').hide();
+            $('#btnPreregNext2').hide();
+            $('#btnPreregPrev2').hide();
+            $('#btnPreregDone').hide();
+            $('#btnPreregPrevAdd').hide();
+            $('#btnPreregNextAdd').hide();
+        
+            $('#btnCancPrereg').show();
+            $('#btnPreregPrev1').show();
+            $('#btnPreregNext3').show();
     
-        $('#btnPreregPrev').hide();
-        $('#btnPreregNext2').hide();
-        $('#btnPreregNext1').hide();
-        $('#btnPreregPrev').hide();
-        $('#btnPreregNext2').hide();
-        $('#btnPreregPrev2').hide();
-        $('#btnPreregDone').hide();
-        $('#btnPreregPrevAdd').hide();
-        $('#btnPreregNextAdd').hide();
-    
-        $('#btnCancPrereg').show();
-        $('#btnPreregPrev1').show();
-        $('#btnPreregNext3').show();
-
-        transactionDisplay.total = 0;
-        transactionDisplay.additionTotal = 0;
-        transactionDisplay.enrollTotal = 0;
-        cart.container.forEach((e,i)=>{
-            var price = parseFloat(course.getLocalData(e).price);
-            price = ($('#special'+ e +':checked').length==1 ? price*2 : price);
-            transactionDisplay.total += price;
-            transactionDisplay.enrollTotal += price;
-        });
-        transactionDisplay.total += parseFloat($('input[name=enrReqP]:checked').data("id") != 0 ? $('input[name=enrReqP]:checked').data("price") : 0);
-        transactionDisplay.additionTotal = parseFloat($('input[name=enrReqP]:checked').data("id") != 0 ? $('input[name=enrReqP]:checked').data("price") : 0);
+            transactionDisplay.total = 0;
+            transactionDisplay.additionTotal = 0;
+            transactionDisplay.enrollTotal = 0;
+            cart.container.forEach((e,i)=>{
+                var price = parseFloat(course.getLocalData(e).price);
+                price = ($('#special'+ e +':checked').length==1 ? price*2 : price);
+                transactionDisplay.total += price;
+                transactionDisplay.enrollTotal += price;
+            });
+            transactionDisplay.total += parseFloat($('input[name=enrReqP]:checked').data("id") != 0 ? $('input[name=enrReqP]:checked').data("price") : 0);
+            transactionDisplay.additionTotal = parseFloat($('input[name=enrReqP]:checked').data("id") != 0 ? $('input[name=enrReqP]:checked').data("price") : 0);
+        }
     }
 }
 
@@ -833,7 +877,6 @@ function regPrev3A(){
 }
 
 function regNext3(){
-    $("html, body").animate({ scrollTop: 0 }, "slow");
     if(paymentMeth==0){
         swal("Oops!", "Select payment method first!", "error");
     }
@@ -865,6 +908,7 @@ function regNext3(){
             $('#btnCancPrereg').show();
             $('#btnPreregPrev2').show();
             $('#btnPreregDone').show();
+            $("html, body").animate({ scrollTop: 0 }, "slow");
         }
     }
 }
@@ -883,7 +927,7 @@ function regNext3A(){
             swal("Oops!", "Please confirm your enrolled course first", "error");
         }
         else{
-            $('.step5').html("Step 4: Terms and Agreements");
+            $('.step5').html("Step 3: Terms and Agreements");
             $('.pr2A').hide();
             $('.pr1').hide();
             $('.pr2').hide();
@@ -899,6 +943,7 @@ function regNext3A(){
             $('#btnCancPreregA').show();
             $('#btnPreregPrev2A').show();
             $('#btnPreregDoneA').show();
+            $("html, body").animate({ scrollTop: 0 }, "slow");
         }
     }
 }
@@ -1029,3 +1074,99 @@ var getSpecialCourseID = function(){
     }
     return ids;
 }
+
+//----------------------SCHEDULING
+$('#schedOptCal').fullCalendar({
+    header: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'month,agendaWeek,agendaDay'
+    },
+    eventDurationEditable : false,
+    editable: true,
+    droppable: true, // this allows things to be dropped onto the calendar
+    dragRevertDuration: 0,
+    selectable: true,
+    selectHelper: true,
+    eventLimit: true, // allow "more" link when too many events
+    eventClick: function(event, jsEvent, view){
+      //console.log(event); OPEN A MODAL THAT SHOWS THE INFO ABOUT THIS SCHEDULE <----------------------------------------
+      //console.log(event._id);
+      editRecSched1(event._id);
+    },
+    drop: function(date, jsEvent, ui, resourceId) {
+      // is the "remove after drop" checkbox checked?
+      if ($('#drop-remove').is(':checked')) {
+        // if so, remove the element from the "Draggable Events" list
+        $(this).remove();
+        var index = schedToRemove.indexOf($(this).data("schedid"));
+        schedToRemove.splice(index,1);
+      }
+    },
+    eventDragStop: function (event, jsEvent, ui, view) {
+      if (isEventOverDiv(jsEvent.clientX, jsEvent.clientY)) {
+        studentSchedule.removeSched(event._id, function(err){
+          if(err == null){
+            $('#schedOptCal').fullCalendar('removeEvents', event._id);
+            var el = $("<div data-schedid="+ event._id +" class='fc-event'>").appendTo('#availEvents').text(event.title);
+            el.draggable({
+              zIndex: 999,
+              revert: true,
+              revertDuration: 0
+            });
+            el.data('event', { title: event.title, _id: event._id, stick: true, data: event.data });
+            schedToRemove.push(event._id);
+          }
+        });
+      }
+    },
+    eventDrop: function(event, delta, revertFunc, jsEvent, ui, view){
+      if(!event.allDay){
+        event.color = "#7f7f7f";
+        updateCalendar(event);
+        var date = moment(event.start).format("YYYY-MM-DD");
+        var time = moment(event.start).format("HH:mm:ss");
+        app.scheduler.checkIfAvailable(event, date, time, function(err, available){
+          if(err){
+            event.color = "#AA1414";
+            updateCalendar(event);
+          }else{
+            event.overtime = false;
+            var color;
+            switch(available){
+              case 0 : { //Unavailable
+                color = "#AA1414";
+                break;
+              } 
+              case 1 : {  //Available
+                color = "#3A87AD";
+                break;
+              } 
+              case 2 : {  //Overtime
+                color = "#ffbd16";
+                event.overtime = true;
+                break;
+              } 
+            }
+            event.color = color;
+            updateCalendar(event);
+          }
+        });
+      }else{
+        event.color = "#AA1414";
+        updateCalendar(event);
+      }
+    },
+    businessHours:[
+      {
+        dow: [ 1, 2, 3, 4, 5, 6, 7 ], // Monday, Tuesday, Wednesday
+        start: '09:00', // 8am
+        end: '17:30' // 6pm
+      },
+      {
+        dow: [7],
+        start: '09:00', 
+        end: '17:30'
+      }
+    ],
+  });

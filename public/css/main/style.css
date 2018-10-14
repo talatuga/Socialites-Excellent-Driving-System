@@ -2252,11 +2252,28 @@ Author URI: http://bootstrapthemes.co
        border-style: none;
        color: black;
    }
+
+   .btnSched1{
+        padding: 20px;
+        background-color: #C6C6C6;
+        width: 300px;
+        height: 250px;
+        border-style: none;
+        color: black;
+    }
+    .btnSched2{
+        padding: 20px;
+        background-color: #C6C6C6;
+        width: 300px;
+        height: 250px;
+        border-style: none;
+        color: black;
+    }
    
-   .btnPayMeth1:hover{
+   .btnPayMeth1:hover, .btnSched1:hover{
        background-color: rgba(229, 147, 147, 0.493);
    }
-   .btnPayMeth2:hover{
+   .btnPayMeth2:hover, .btnSched2:hover{
        background-color: rgba(229, 147, 147, 0.493);
    }
    
@@ -2683,7 +2700,7 @@ Author URI: http://bootstrapthemes.co
    .input100::-moz-placeholder { color: #666666; }
    .input100:-ms-input-placeholder { color: #666666; }
    
-   .payCourse, .payPrice{
+   .payCourse, .payPrice, .totalAmount{
        font-weight: bold;
        color: #5D0000;
        font-size: 18px;

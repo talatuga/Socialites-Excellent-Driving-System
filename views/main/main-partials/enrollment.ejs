@@ -20,6 +20,7 @@
                         <div>
                             <h5 class="h5Enr">Birth Date<span class="asterisk">*</span></h5>
                             <input type="date" class="txtEnr" required name="enrBday" id="enrBday" placeholder="mm/dd/yyyy"><br>
+                            <small class="span17">Only 18 years old and above are allowed to enroll.</small>
                         </div><hr>
                         <div>
                             <h5 class="h5Enr">Birth Place<span class="asterisk">*</span></h5>
@@ -55,13 +56,13 @@
                         </div><hr>
                         <div>
                             <h5 class="h5Enr">Contact<span class="asterisk">*</span></h5>
-                            <input type="number" class="txtEnr" required name="enrCont" id="enrCont" placeholder="*Contact Number"><br>
-                            <input type="email" class="txtEnr" required name="enrEmail" id="enrEmail" placeholder="Email Address"><br>
+                            <input type="text" class="txtEnr" required name="enrCont" id="enrCont" placeholder="*Contact Number"><br>
+                            <input type="email" class="txtEnr" required name="enrEmail" id="enrEmail" placeholder="*Email Address"><br>
                         </div><hr>
                         <div>
                             <h5 class="h5Enr">Guardian Information<span class="asterisk">*</span></h5>
                             <input type="text" class="txtEnr" required name="enrGuard" id="enrGuard" placeholder="*Parent/Guardian Name"><br>
-                            <input type="number" class="txtEnr" required name="enrGuardCont" id="enrGuardCont" placeholder="*Contact Number"><br>
+                            <input type="text" class="txtEnr" required name="enrGuardCont" id="enrGuardCont" placeholder="*Contact Number"><br>
                         </div><hr>
                     </div>
                 </div>
@@ -139,13 +140,13 @@
                 <div class="lessonsOpt">
                     <h5 class="h5Enr">Which lessons do you wish to tackle in this course?</h5>
                     <input type="radio" class="enrSexRD" id="enrLes1" name="enrLes" value="lesOpt1" id="lesOpt1">
-                        <label class="enrSexLbl" for="enrLes1">Default lessons and duration</label><br>
+                        <label class="enrSexLbl" for="enrLes1">Default lessons</label><br>
                     <input type="radio" class="enrSexRD" id="enrLes2" name="enrLes" value="lesOpt2" id="lesOpt2">
-                        <label class="enrSexLbl" for="enrLes2">Customized lessons and duration</label>
+                        <label class="enrSexLbl" for="enrLes2">Choose specific lessons</label>
                 </div>
                 <div class="lessonsOpt1"><hr>
                     <center>
-                        <h3 class="h5Enr1">Default Lessons and Duration</h3><br>
+                        <h3 class="h5Enr1">Default Lessons</h3><br>
                         <table class="tblCrs tblLessons table-striped" style="width: 300px">
                             <thead>
                                 <th width="300px">Lessons</th>
@@ -162,44 +163,19 @@
                                 </tr>
                             </tbody>
                         </table><br><br>
-                        <ul style="list-style-type: disc">
-                            <li>* By default, all lessons last for an estimated <span class="minsDuration">30</span> minutes each.</li>
-                            <!-- 30 mins - 5 hours
-                                    45 mins - 7 hours
-                                    60 mins - 10 hours
-                                    90 mins - 15 hours
-                                    120 hours - 20 hours -->
-                            <li>* Duration per lessons may vary depending on your instructor.</li>
-                        </ul>
                     </center>
                 </div>
                 <div class="lessonsOpt2"><hr>
                     <center>
-                        <h3 class="h5Enr1">Customized Lessons and Duration</h3>
+                        <h3 class="h5Enr1">Choose Specific Lessons</h3>
                         <h5>Choose lessons to focus on. Uncheck lessons you don't want to tackle.</h5><br>
                         <table class="tblCrs tblLessons table-striped" style="width: 330px">
                             <thead>
                                 <th width="30px"></th>
                                 <th width="300px">Lessons</th>
                             </thead>
-                            <tbody id="lesCus">
-                                <tr>
-                                    <td><input type="checkbox" name="includeLes" checked></td>
-                                    <td>Start and Stop</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" name="includeLes" checked></td>
-                                    <td>Parking</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" name="includeLes" checked></td>
-                                    <td>Hanging</td>
-                                </tr>
-                            </tbody>
+                            <tbody id="lesCus"></tbody>
                         </table><br><br>
-                        <ul style="list-style-type: disc">
-                            <li>* Duration per lessons may vary depending on your instructor.</li>
-                        </ul>
                     </center>
                 </div>
             </form>
@@ -284,60 +260,117 @@
                 <div class="separator"></div>
             </center>
             <form class="prefDaysVehiForm">
-                <div>
-                    <h3 class="prefH3">Preferred Vehicle</h3><br>
-                    <h5 class="h5man" style="color: black;">*Since you enrolled for a manual course, choose only one manual transmission vehicle below.</h5>
-                    <h5 class="h5auto" style="color: black;">*Since you enrolled for an automatic course, choose only one automatic transmission vehicle below.</h5>
-                    <h5 class="h5both" style="color: black;">*Since you enrolled for both manual and automatic courses, choose only one manual and one automatic transmission vehicles below.</h5>
-                    <h5 style="color: black;">*Choose only one vehicle you prefer for lessons. You may still change this upon choosing of schedule.</h5>
-                    <table>
-                        <tr id="trManualVehicle">
-                            <td><label style="color: black;">Manual Transmission Vehicles:</label></td>
-                            <td>
-                                <select name="vehicleOption" id="manualVehiclesSelect">
-                                    <option value="0">---</option>
-                                    <% car.forEach((e,i)=>{ if(e.transmission == "M"){ %> <option value="<%=e.model + " " + e.brand%>"><%=e.model + " " + e.brand%></option> <% }}); %>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr id="trAutoVehicle">
-                            <td><label style="color: black;">Automatic Transmission Vehicles:</label></td>
-                            <td>
-                                <select name="vehicleOption" id="autoVehiclesSelect">
-                                    <option value="0">---</option>
-                                    <% car.forEach((e,i)=>{ if(e.transmission == "A"){ %> <option value="<%=e.model + " " + e.brand%>"><%=e.model + " " + e.brand%></option> <% }}); %>
-                                </select>
-                            </td>
-                        </tr>
-                    </table>
+                <div class="schedOptionDiv" id="schedOptionDiv">
+                    <div class="row" style="color:black;">
+                        <div class="col-lg-6 col-md-6 col-sm-4 col-xs-12">
+                            <center>
+                                <div class="btn btnPayment btnSched1" onclick="schedOpt1()">
+                                    <center>
+                                        <h3>Auto-Schedule</h3>
+                                        <h5>Choose your preferred days<br> and vehicle and our system will <br>choose a schedule for you.</h5><br>
+                                        <img src="assets/images/sched2.png" width="20%">
+                                    </center>
+                                </div>
+                            </center>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-4 col-xs-12">
+                            <center>
+                                <div class="btn btnPayment btnSched2" onclick="schedOpt2()">
+                                    <center>
+                                        <h3>Choose Schedule</h3>
+                                        <h5>Select your initial preferred <br> schedule (date and time)<br>manually.</h5><br>
+                                        <img src="assets/images/sched1.png" width="20%">
+                                    </center>
+                                </div>
+                            </center>
+                        </div>
+                    </div>
+                </div><br>
+
+                <div class="sched1Div">
+                    <a href="#schedOptionDiv" onclick="schedBack()" class="paymentBack"><i class="icon icon-chevron-left"></i> Choose another scheduling method</a>
+                    <div><br>
+                        <h3 class="prefH3">Preferred Vehicle</h3><br>
+                        <h5 class="h5man" style="color: black;">*Since you enrolled for a manual course, choose only one manual transmission vehicle below.</h5>
+                        <h5 class="h5auto" style="color: black;">*Since you enrolled for an automatic course, choose only one automatic transmission vehicle below.</h5>
+                        <h5 class="h5both" style="color: black;">*Since you enrolled for both manual and automatic courses, choose only one manual and one automatic transmission vehicles below.</h5>
+                        <h5 style="color: black;">*Choose only one vehicle you prefer for lessons. You may still change this upon choosing of schedule.</h5>
+                        <table>
+                            <tr id="trManualVehicle">
+                                <td><label style="color: black;">Manual Transmission Vehicles:</label></td>
+                                <td>
+                                    <select name="vehicleOption" id="manualVehiclesSelect">
+                                        <option value="0">---</option>
+                                        <% car.forEach((e,i)=>{ if(e.transmission == "M"){ %> <option value="<%=e.model + " " + e.brand%>"><%=e.model + " " + e.brand%></option> <% }}); %>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr id="trAutoVehicle">
+                                <td><label style="color: black;">Automatic Transmission Vehicles:</label></td>
+                                <td>
+                                    <select name="vehicleOption" id="autoVehiclesSelect">
+                                        <option value="0">---</option>
+                                        <% car.forEach((e,i)=>{ if(e.transmission == "A"){ %> <option value="<%=e.model + " " + e.brand%>"><%=e.model + " " + e.brand%></option> <% }}); %>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div>
+                        <br><br><br>
+                        <h3 class="prefH3">Preferred Schedule</h3><br>
+                        <h5 style="color: black">*Select all your available or preferred days for lessons/appointments. You may still change this upon choosing of schedule.</h5>
+                        <div class="row" style="color: black;">
+                            <div class="col-md-4">
+                                <input type="checkbox" class='prefDaysCB' name="prefDaysCB" value=1>
+                                <label>Monday</label><br>
+                                <input type="checkbox" class='prefDaysCB' name="prefDaysCB" value=4>
+                                <label>Thursday</label><br>
+                                <input type="checkbox" class='prefDaysCB' name="prefDaysCB" value=7>
+                                <label>Sunday</label><br>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="checkbox" class='prefDaysCB' name="prefDaysCB" value=2>
+                                <label>Tuesday</label><br>
+                                <input type="checkbox" class='prefDaysCB' name="prefDaysCB" value=5>
+                                <label>Friday</label><br>
+                            </div>
+                                <div class="col-md-4">
+                                <input type="checkbox" class='prefDaysCB' name="prefDaysCB" value=3>
+                                <label>Wednesday</label><br>
+                                <input type="checkbox" class='prefDaysCB' name="prefDaysCB" value=6>
+                                <label>Saturday</label><br>
+                            </div>
+                        </div><br>
+                    </div>
                 </div>
 
-                <div>
-                    <br><br><br>
-                    <h3 class="prefH3">Preferred Schedule</h3><br>
-                    <h5 style="color: black">*Select all your available or preferred days for lessons/appointments. You may still change this upon choosing of schedule.</h5>
-                    <div class="row" style="color: black;">
-                        <div class="col-md-4">
-                            <input type="checkbox" class='prefDaysCB' name="prefDaysCB" value=1>
-                            <label>Monday</label><br>
-                            <input type="checkbox" class='prefDaysCB' name="prefDaysCB" value=4>
-                            <label>Thursday</label><br>
-                            <input type="checkbox" class='prefDaysCB' name="prefDaysCB" value=7>
-                            <label>Sunday</label><br>
+                <div class="sched2Div">
+                <a href="#schedOptionDiv" onclick="schedBack()" class="paymentBack"><i class="icon icon-chevron-left"></i> Choose another scheduling method</a>
+                <div class="row">
+                <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <h4>Hours Available:<br> <small>Drag and drop the schedules below to the calendar.</small></h4><hr>
+                        <div id="availEvents">
+                            <div data-schedID="123" class='fc-event'>Schedule1</div>
+                            <div data-schedID="456" class='fc-event'>Schedule2</div>
+                            <div class='fc-event'>Schedule3</div>
+                            <div class='fc-event'>Schedule4</div>
+                            <div class='fc-event'>Schedule5</div>
                         </div>
-                        <div class="col-md-4">
-                            <input type="checkbox" class='prefDaysCB' name="prefDaysCB" value=2>
-                            <label>Tuesday</label><br>
-                            <input type="checkbox" class='prefDaysCB' name="prefDaysCB" value=5>
-                            <label>Friday</label><br>
-                        </div>
-                            <div class="col-md-4">
-                            <input type="checkbox" class='prefDaysCB' name="prefDaysCB" value=3>
-                            <label>Wednesday</label><br>
-                            <input type="checkbox" class='prefDaysCB' name="prefDaysCB" value=6>
-                            <label>Saturday</label><br>
-                        </div>
-                    </div><br>
+                        <p style="display: none">
+                            <input type='checkbox' id='drop-remove' checked/>
+                            <label for='drop-remove'>remove after drop</label>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-9 col-lg-9 col-sm-12 col-xs-12">
+                    <div class="card">                    
+                        <div id='schedOptCal'></div>
+                    </div>
+                </div>
+            </div>
                 </div>
             </form>
         </div>
