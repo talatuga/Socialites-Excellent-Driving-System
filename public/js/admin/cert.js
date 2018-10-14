@@ -29,3 +29,7 @@ function searchStudCert(){
         });
     }
 }
+
+function generateCert(){
+    $('#addPaymentCertModal').modal('show');
+}

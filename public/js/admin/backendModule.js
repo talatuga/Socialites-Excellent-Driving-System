@@ -486,7 +486,7 @@ var stud = {
     selected: 0,
     selectedID: 0,
     offset: [0,0],
-    limit: 10,
+    limit: 50,
     currPage: [0,0],
     tableType: 0,
     pages: {
@@ -1115,7 +1115,7 @@ var preRegAssess = {
     selected: 0,
     enrolleeSelected: -1,
     offset: 0,
-    limit: 20,
+    limit: 30,
     currPage: 0,
     pages: [],
     getList: function(branch, cb){
