@@ -31,7 +31,6 @@ function doneEvalInst(){
     var grade = $('input[name="rbInstEval"]:checked').val();
     var comment = $('#taInstEval').val();
     var dateEvaluated = (Date.parse(today).toString("yyyy-MM-dd"));
-    alert (dateEvaluated);
     if (grade==null)
         swal ("Oops!", "Please select your evaluation grade.", "error");
     else{

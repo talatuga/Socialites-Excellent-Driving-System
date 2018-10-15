@@ -136,7 +136,7 @@ Lesson.endCourse = function(studentID, cb){
     var sql2 = "UPDATE " + CourseEnrolled.table + " SET status = 0 WHERE status = 1 AND id = ?";
     db.get().query(sql, [studentID], function(err, course_enrolled){
         if(err) return cb(err);
-        db.get().query(sql2, [course_enrolled[0].id], function(err){
+        db.get().query(sql2, [course_enrolled.id], function(err){
             if(err) return cb(err);
             cb(null);
         });
