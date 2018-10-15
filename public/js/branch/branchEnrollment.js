@@ -9,6 +9,7 @@ var loadPreReg = function(refresh){
         preRegAssess.offset = 0;
     };
     if(branchLoaded == 0 || courseLoaded == 0){
+        office.offset=0;
         office.getList(()=>{
             branchLoaded = 1;
             courseModule.getList(()=>{
@@ -21,7 +22,8 @@ var loadPreReg = function(refresh){
         });
     }else{
         if(preRegLoaded == 0){
-            $(".preloader").fadeIn();              
+            $(".preloader").fadeIn();   
+            preRegAssess.limit=999;           
             preRegAssess.getList($('body').data('branch'),err=>{
                 if(err) return console.error(err);
                 renderEnrollTbl(preRegAssess.pages[preRegAssess.currPage]);

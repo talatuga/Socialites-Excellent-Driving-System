@@ -18,7 +18,7 @@ var loadPreReg = function(refresh){
             license.get(function(err){
                 if(err) return console.error(err);
             });          
-            preRegAssess.getList(err=>{
+            preRegAssess.getList(1,err=>{
                 if(err) return console.error(err);
                 renderEnrollTbl(preRegAssess.pages[preRegAssess.currPage]);
                 var c = preRegAssess.pages[preRegAssess.currPage].length;
