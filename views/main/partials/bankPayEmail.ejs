@@ -3,7 +3,7 @@
         <meta charset="UTF-8">
     </head>
     <body style="padding: 50px;">
-        <h1 style="text-align: center">Good day, Graciella C. Tatel!</h1><hr width="30%"><br>
+        <h1 style="text-align: center">Good day, <%# Graciella C. Tatel %><%=fullname.replace(/_/g," ")%>!</h1><hr width="30%"><br>
         <h4>You have chosen the <b>Pay on Bank</b> method wherein you can make payments directly into our bank account and just send us a photograph or scanned copy of your payment slip as a proof of payment.<br><br>
         <b>WHAT TO DO?</b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         a.) If you are a first-time enrollee and does not have a student account yet, you may send your proof of payment at the BANK PAYMENT link located on the website's footer. See picture below.<br></h4>
@@ -12,8 +12,8 @@
         <center><img style="max-width: 80%" src="../../../public/images/attach2.PNG"></center><br>
         <h4 style="text-align: center">You will be required to enter the email address you registered on your enrollment form and the code below. This code will serve as your proof that you own the email adress.<br></h4>
         <center><div style="padding: 5px; border: solid 2px #5d0000; width: 30%">
-        <h4>Code:
-        <input type='text' style='width: 200px; text-align: center' readonly value='" + password + "'></h4>
+        <h4>Code/OR Number:
+        <input type='text' style='width: 200px; text-align: center' readonly value='<%=ORNUM%>'></h4>
         </div><br></center>
         <h4>Afterwards, please upload a photograph or scanned copy of your payment slip. Once done, click SEND.</h4><br>
         <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

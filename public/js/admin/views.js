@@ -241,6 +241,7 @@ var schedule = function (){
     $(".view-schedule").show();
     $(".search-box").hide();
     $('.displaySchedDiv').hide();
+    schedLoad();
 }
 
 var schedRequest = function (){

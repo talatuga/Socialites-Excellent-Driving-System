@@ -1,6 +1,8 @@
 var Model = require('../../model/webModel');
 var webModel = new Model();
 var validation = require('../../bin/util/validation');
+var Mailer = require('../../bin/emailer');
+var ejs = require('ejs');
 
 exports.getCourse = function(req, res, next){
     webModel.getCourse(null,null, req.query.type, function(err, result){
@@ -105,6 +107,10 @@ exports.enrollWeb = function(req, res, next){
                                 req.session.cart = [];
                                 req.session.ORNUM = result.ORid;
                                 res.status(200).send({success: true, invoice: result.ORid, name: data.info.fullname});
+                                if(data.payment == 2) sendEmail(data.info.email,{
+                                    fullname: data.info.fullname,
+                                    ORNUM: result.ORid
+                                });                                
                             });
                         });
                     });
@@ -112,6 +118,24 @@ exports.enrollWeb = function(req, res, next){
             }
         }
     });
+
+    function sendEmail(recipient,data){
+        var emailer = new Mailer(true);
+        var mail = {
+            subject: 'SED: Branch Payment',
+            body: '',
+        }
+        return new Promise((resolve, reject)=>{
+            ejs.renderFile(__dirname + "/../../views/main/partials/bankPayEmail.ejs", data, function(err,html){
+                if(err) return reject(err);
+                mail.body = html;
+                emailer.send(recipient,mail,function(err, detail){
+                    if(err) return reject(err);
+                    resolve(detail);
+                });
+            });
+        });
+    }
 };
 
 exports.subscribe = function(req, res, next){

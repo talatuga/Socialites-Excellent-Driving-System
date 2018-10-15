@@ -56,7 +56,7 @@ exports.student = function(req, res, next){
         //console.log(res.locals);
         res.render('student/index', res.locals);
     }else{
-        res.locals.login = 'loginStudent errorLogin';
+        res.locals.login = 'loginStudent' + (req.method != "GET" ? " errorLogin" : "");
         exports.user(req,res,next);
     }
 }

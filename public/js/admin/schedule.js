@@ -121,6 +121,52 @@ $(function() {
   });
 });
 
+function schedLoad(){
+  $('#numSchedAllBranch').html("");
+  office.pages[office.currPage].forEach((e,i)=>{
+    $('#numSchedAllBranch').append("<tr onclick='selectBranchSched("+ e.id +")'><td>"+ e.name +"</td><td></td></tr>");
+  });
+}
+
+function selectBranchSched(id){
+  console.log(id);
+  $('.calendarAdmin').fullCalendar({
+    header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'month,agendaWeek,agendaDay'
+    },
+    editable: false,
+    eventClick: schedClicked,
+    eventSources:[
+        {
+            url: "/api/v1/sched/calendar?" + id || 1,
+            type: "GET",
+            data: {
+              priv: 'admin', 
+              monthCount: 3, 
+              month: Date.parse('last month').toString("MMMM"),
+              branch: 1,
+            },
+            success: (res)=>{
+              if(res.length==0){
+              }
+            },
+            error: function(res){
+              swal("Error getting schedule", res.statusText, "error");
+              console.log(res.statusText);
+            },
+        },
+    ],
+    businessHours:[
+        {
+            dow: [ 1, 2, 3, 4, 5, 6, 7 ], // Monday, Tuesday, Wednesday
+            start: '09:00', // 8am
+            end: '17:30' // 6pm
+        },
+    ],
+  });
+}
 
 function todaySched(){
   scheduler.getSchedToday(function(err, sched){
