@@ -9,7 +9,7 @@ var parser = require('body-parser');
 var cookie_parser = require('cookie-parser');
 var session = require('express-session');
 var promise = require('express-promise');
-var minify = require('express-minify');
+// var minify = require('express-minify');
 var systemEvents = require('./model/events');
 
 //Configurations.
