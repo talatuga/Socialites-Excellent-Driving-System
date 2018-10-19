@@ -287,3 +287,9 @@ var reports3 = function (){
     $('.viewDiv').hide();
     $(".view-reports3").show();
 }
+
+var reports4 = function (){
+    $(".liSide").removeClass("active");
+    $('.viewDiv').hide();
+    $(".view-reports4").show();
+}

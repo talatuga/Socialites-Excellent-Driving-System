@@ -72,6 +72,8 @@ function editVehicle (){
 }
 
 function openNewVehicle() {
+    $(".addVehiEngNo").inputmask({"mask": "999 9999999"});
+    $(".addVehiBodyNo").inputmask({"mask": "999 99999 9 9999999"});
     resetNewVehi();
     $('#btnConfEditVehi').hide();
     $('#btnConfAddVehi').show();
@@ -84,6 +86,8 @@ function resetNewVehi() {
     $(".addVehiBrand").val("");
     $(".addVehiModel").val("");
     $(".addVehiPlate").val("");
+    $(".addVehiEngNo").val("");
+    $(".addVehiBodyNo").val("");
 }
 
 function addVehi() {
