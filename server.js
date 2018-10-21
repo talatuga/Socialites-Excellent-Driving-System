@@ -9,7 +9,6 @@ var parser = require('body-parser');
 var cookie_parser = require('cookie-parser');
 var session = require('express-session');
 var promise = require('express-promise');
-// var minify = require('express-minify');
 var systemEvents = require('./model/events');
 
 //Configurations.
@@ -22,8 +21,6 @@ app.use(parser.urlencoded({ extended: false }));
 app.use(cookie_parser());
 app.use(session({secret: "Secret Thing", resave: false, saveUninitialized: true}));
 app.use(promise()); //this makes promises come true. Still can't use it properly soo disable muna. 
-// app.use(minify());
-app.use('/assets', express.static(__dirname + '/public')); //this make public folder static/public
 app.use('/', router); //this will route everything.
 
 //Establish DB connection then open Server port listener.

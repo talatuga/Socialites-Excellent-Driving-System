@@ -20,6 +20,7 @@
   "homepage": "https://github.com/TLTG/Socialites-Excellent-Driving-System#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
+    "compression": "^1.7.3",
     "cookie-parser": "^1.4.3",
     "datejs": "^1.0.0-rc3",
     "dotenv": "^5.0.1",
