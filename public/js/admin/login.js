@@ -20,7 +20,7 @@
         if (check==true){
             $.post('/admin', {user: username, pass: password}, function(data){
                 if(data.success == false){
-                    swal("Oops!", "Invalid username or password!", "error");
+                    swal("Oops!", data.detail ? data.detail : "Invalid username or password!", "error");
                     return console.log("Failed");
                 }
                 else{

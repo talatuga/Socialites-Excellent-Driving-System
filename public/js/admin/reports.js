@@ -410,7 +410,8 @@ function generateReport(a){
             if(conf){
                 setTimeout(function(){
                     swal('Done','','success');
-                    window.location = link;
+                    // window.location = link;
+                    window.open(link, "_blank");
                 },1000)
             }
         });
@@ -499,7 +500,8 @@ function generateReport(a){
             if(conf){
                 setTimeout(function(){
                     swal('Done','','success');
-                    window.location = link;
+                    // window.location = link;
+                    window.open(link, "_blank");
                 },1000)
             }
         });

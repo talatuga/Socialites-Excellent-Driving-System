@@ -53,7 +53,6 @@ exports.student = function(req, res, next){
     res.locals.title = 'Socialites Excellent Driving';
     res.locals.studID = req.session.studID;
     if(req.session.studID != -1){
-        //console.log(res.locals);
         res.render('student/index', res.locals);
     }else{
         res.locals.login = 'loginStudent' + (req.method != "GET" ? " errorLogin" : "");
@@ -76,13 +75,6 @@ exports.instructor = function(req, res, next){
                 resolve(stud);
             });
         });
-        // var getEvalInst = new Promise((resolve, reject)=>{
-        //     grades.getEvalInst(req.session.instID, function(err, evalI){
-        //         if(err) return reject(err);
-        //         res.locals.evaluationI = evalI;
-        //         resolve(evalI);
-        //     });
-        // });
         var getEvalInstNumber = new Promise((resolve, reject)=>{
             grades.getEvalInstNumber(req.session.instID, function(err, evalI){
                 if(err) return reject(err);
@@ -126,13 +118,6 @@ exports.instructor = function(req, res, next){
                 resolve(inst);
             });
         });
-        // var getEvalInstPerc = new Promise((resolve, reject)=>{
-        //     grades.getEvalInstPerc(req.session.instID, req.query.year, req.query.month, function(err, stud){
-        //         if(err) return reject(err);
-        //         res.locals.evalPerc = stud;
-        //         resolve(stud);
-        //     });
-        // });
         Promise.all([getStudents, getEvalInstNumber, getGradesInst, getGradesSum, getAvailableLessons, getHandledPast, getInfo]).then((results)=>{
             res.render('instructor/index');
         }).catch(next);
@@ -157,12 +142,6 @@ exports.branch = function(req, res, next){
 }
 
 var getUserInfo = function(data, cb){ //REPAIR THIS WHOLE UNIT!!!! 
-    // var models = ['','adminModel', 'studentModel', 'instructorModel', 'branchModel'];
-    // var model = require('../model/' + models[data.accType]);
-    // model.getInfo(data.accID, function(err, result){
-    //     if(err) return cb(err);
-    //     cb(null, result);
-    // });
     var userInfo = require('../model/userInfoModel');
     userInfo.getInfo(data.accID, function(err, result){
         if(err) return cb(err);

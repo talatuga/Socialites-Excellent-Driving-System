@@ -10,7 +10,7 @@ router.route('/')
     .post(auth.studentLogin, renderer.student);
 router.route('/login')
     .get(auth.auth, auth.lastHandler, renderer.admin)
-    .post(auth.login, auth.lastHandler);
+    .post(auth.block, auth.login, auth.lastHandler);
 
 router.get('/logout', auth.logout);
 

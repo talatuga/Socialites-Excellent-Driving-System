@@ -5,6 +5,7 @@ var account = require('../model/userAccModel');
 var errorHandler = require('./errorHandler');
 
 var users = {};
+var banned = {};
 
 var checkUser = function(id, cb){
     return cb(users[id] ? users[id] : null);
@@ -13,6 +14,31 @@ var checkUser = function(id, cb){
     }else{
         cb(null);
     } */
+}
+
+exports.block = function(req, res, next){
+    if(req.session.loginAttempt > 4){
+        if(banned[req.sessionID] == undefined){
+            banned[req.sessionID] = setTimeout(function(){
+                banned[req.sessionID] = 0;
+            }, 300000);
+        }else if(banned[req.sessionID] == 0){
+            req.session.loginAttempt = 0;
+            delete banned[req.sessionID];
+            return next();
+        }
+        req.session.authenticated = -1;
+        req.session.studID = -1;
+        req.session.instID = -1;
+        if(req.xhr){
+            res.status(200).send({success: false, detail: "Max Attempt Exceed (5 tries). Try again later"});
+        }else{
+            res.locals.attempt = "Max Attempt Exceed. Try again later";
+            next();
+        }
+    }else{
+        next();
+    }
 }
 
 exports.auth = function(req, res, next){
@@ -48,9 +74,11 @@ exports.login = function(req, res, next){
                         req.session.accID = result.id;
                         req.session.accType = result.accType;
                         res.locals.authenticated = 1;
+                        req.session.loginAttempt = 0;
                         next();
                     }else{
                         res.locals.authenticated = 0;
+                        req.session.loginAttempt = req.session.loginAttempt ? req.session.loginAttempt += 1 : req.session.loginAttempt = 1;
                         res.status(200).send({success: false, detail: "Username/Password Incorrect!"});
                     }
                 });
@@ -124,10 +152,12 @@ exports.studentLogin = function(req, res, next){
                 (require('../model/studentModel')).getStudentInfo(user.id, function(err, info){
                     req.session.accID = user.id;
                     req.session.studID = info.studid;
-                    users[req.sessionID] = {accID: user.id, studID: info.studid, accType: user.accType};
+                    users[req.sessionID] = {accID: user.id, studID: info.studid, accType: user.accType};                    
+                    req.session.loginAttempt = 0;
                     next();
                 });
             }else{
+                req.session.loginAttempt = req.session.loginAttempt ? req.session.loginAttempt += 1 : req.session.loginAttempt = 1;
                 req.session.studID = -1;
                 next();
             }
@@ -168,9 +198,11 @@ exports.instLogin = function(req, res, next){
                     req.session.accID = user.id;
                     res.locals.userInfo = info;
                     users[req.sessionID] = {accID: user.id, instID: info.instid, accType: user.accType};
+                    req.session.loginAttempt = 0;
                     next();
                 });
             }else{
+                req.session.loginAttempt = req.session.loginAttempt ? req.session.loginAttempt += 1 : req.session.loginAttempt = 1;
                 req.session.instID = -1;
                 next();
             }
