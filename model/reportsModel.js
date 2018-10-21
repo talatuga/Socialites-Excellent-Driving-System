@@ -473,9 +473,9 @@ Reports.evaluation = function(query, cb){
                         return 1;
                     }));
 
-                    var grade = (e.grade * 10);
+                    var grade = (e.grade);
                     var percent = grade * 2;
-                    evaluation.records[i].grade = grade + " (" + percent+ "%)";
+                    evaluation.records[i].grade = grade + "/50 (" + percent+ "%)";
                     evaluation.records[i].evaluation = percent > 70 ? "Passed" : "Failed";
 
                     evaluation.total.highest = evaluation.total.highest < percent ? percent : evaluation.total.highest;
@@ -515,7 +515,6 @@ Reports.performance = function(query, cb){
             if(e) return reject(e);
             resolve(a);
         };
-
         var freq = query.freq;
         if(!freq || !Date.parse(query.date)) return cb(null, false, query);
         var date = query.date;
@@ -575,7 +574,7 @@ Reports.performance = function(query, cb){
                     average: 0,
                 }
                 data.records.forEach((e,i)=>{
-                    total = e.grade;
+                    total += e.grade;
                     data.total.highest = data.total.highest < e.grade ? e.grade : data.total.highest;
                     data.total.lowest = data.total.lowest > e.grade ? e.grade : data.total.lowest;
                     if(i==data.records.length-1){

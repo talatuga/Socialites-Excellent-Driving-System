@@ -16,6 +16,7 @@ exports.reportTemplates = {
     tuition: exports.reportTemplateFolder + 'tuition.ejs',
     certificate: exports.reportTemplateFolder + 'certificate.ejs',
     license: exports.reportTemplateFolder + 'license.ejs',
+    balance: exports.reportTemplateFolder + 'balance.ejs',
     all: exports.reportTemplateFolder + 'all.ejs',
 
     enrollees: exports.reportTemplateFolder + 'enrollees.ejs',
@@ -27,6 +28,10 @@ exports.reportTemplates = {
     studPerformanceAll: exports.reportTemplateFolder + 'studPerformanceAll.ejs',
 
     instPerformance: exports.reportTemplateFolder + 'instPerformance.ejs',
+    instList: exports.reportTemplateFolder + 'instList.ejs',
+
+    vehiActivities: exports.reportTemplateFolder + 'vehiActivities.ejs',
+    vehiList: exports.reportTemplateFolder + 'vehiList.ejs',
 };
 
 exports.saveAsFile = "save";
