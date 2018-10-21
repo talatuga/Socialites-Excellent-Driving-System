@@ -37,6 +37,36 @@ $(function(){
         else $('.selReportBranch2').removeAttr('disabled');
     });
 
+    $('#selReport3').change(function(){
+        var x = this.value;
+        if (x=="List") {
+            $('.selReportFreq3').attr('disabled', true);
+            $('.selInst3').hide();
+            $('.dailyDiv').hide();
+        }
+        else {
+            $('.selReportFreq3').removeAttr('disabled');
+            $('.selInst3').show();
+            $('.dailyDiv').show();
+        }
+    });
+
+    $('#selReport4').change(function(){
+        var x = this.value;
+        if (x=="List") {
+            $('.selReportBranch4').attr('disabled', true);
+            $('.selReportFreq4').attr('disabled', true);
+            $('.dailyDiv').hide();
+            $('.selVehi4').hide();
+        }
+        else {
+            $('.selReportBranch4').removeAttr('disabled');
+            $('.selReportFreq4').removeAttr('disabled');
+            $('.dailyDiv').show();
+            $('.selVehi4').show();
+        }
+    });
+
     $(".yearRepDate").change(function() {
         yearEnd = this.value;
     });
@@ -68,13 +98,17 @@ function loadInitReport(){
     $("#selReport1").val($("#selReport1 option:first").val());
     $("#selReport2").val($("#selReport2 option:first").val());
     $("#selReport3").val($("#selReport3 option:first").val());
+    $("#selReport4").val($("#selReport4 option:first").val());
+    $("#selVehi4").val($("#selVehi4 option:first").val());
     $(".selReportFreq").val($(".selReportFreq option:first").val());
     $(".selReportBranch").val($(".selReportBranch option:first").val());
     $('.selReportBranch2').removeAttr('disabled');
     $('.selReportBranch3').attr('disabled', true);
-
-    $('.freqDiv').hide();
-    $('.dailyDiv').show();
+    $('.selReportBranch4').attr('disabled', true);
+    $('.selReportFreq3').attr('disabled', true);
+    $('.selReportFreq4').attr('disabled', true);
+    $('.selVehi4').hide();
+    $('.selInst3').hide();
 }
 
 function loadMonths(){
@@ -408,15 +442,15 @@ function generateReport(a){
         branch = 0;
 
         if (freq==1){
-            daily = $('.dailyRepDate1').val();
+            daily = $('.dailyRepDate3').val();
             date = Date.parse(daily).toString("yyyy-MM-dd");
         }else if (freq==2){
-            date = $('.weeklyRepDate1').val();
+            date = $('.weeklyRepDate3').val();
             // year = week.substring(0, 4);
             // week = week.substring(6, 8);
         }else if (freq==3){
-            month = $(".monthlyRepDate1").val();
-            year = $(".yearRepDate1").val();
+            month = $(".monthlyRepDate3").val();
+            year = $(".yearRepDate3").val();
 
             date = Date.parse(month).toString('MMM ');
             date += " " + year;
@@ -425,9 +459,9 @@ function generateReport(a){
                 fromYrQ = 12 + fromYrQ;
             }
             monthfrom = fromYrQ;
-            monthto = $(".quarterlyRepDate1").val();
+            monthto = $(".quarterlyRepDate3").val();
             yearfrom = yearFromQ;
-            yearto = $(".yearRepDate1").val();
+            yearto = $(".yearRepDate3").val();
 
             date = Date.parse(monthto-1).toString('MMM');
             date += " " + yearto;
@@ -436,14 +470,14 @@ function generateReport(a){
                 fromYrS = 12 + fromYrS;
             }
             monthfrom = fromYrS;
-            monthto = $(".semiRepDate1").val();
+            monthto = $(".semiRepDate3").val();
             yearfrom = yearFromS;
-            yearto = $(".yearRepDate1").val();
+            yearto = $(".yearRepDate3").val();
 
             date = Date.parse(monthto-1).toString('MMM');
             date += " " + yearto;
         }else if (freq==6){
-            year = $(".yearRepDate1").val();
+            year = $(".yearRepDate3").val();
             date = year;
         }
 
@@ -469,5 +503,52 @@ function generateReport(a){
                 },1000)
             }
         });
+    }
+
+    else if (a==4){
+        title = "Vehicles";
+        title2 = $('#selReport4').find("option:selected").val();
+        freq = $('.selReportFreq4').find("option:selected").val();
+        branch = 0;
+
+        if (freq==1){
+            daily = $('.dailyRepDate4').val();
+            date = Date.parse(daily).toString("yyyy-MM-dd");
+        }else if (freq==2){
+            date = $('.weeklyRepDate4').val();
+            // year = week.substring(0, 4);
+            // week = week.substring(6, 8);
+        }else if (freq==3){
+            month = $(".monthlyRepDate4").val();
+            year = $(".yearRepDate4").val();
+
+            date = Date.parse(month).toString('MMM ');
+            date += " " + year;
+        }else if (freq==4){
+            if (fromYrQ<=0){
+                fromYrQ = 12 + fromYrQ;
+            }
+            monthfrom = fromYrQ;
+            monthto = $(".quarterlyRepDate4").val();
+            yearfrom = yearFromQ;
+            yearto = $(".yearRepDate4").val();
+
+            date = Date.parse(monthto-1).toString('MMM');
+            date += " " + yearto;
+        }else if (freq==5){
+            if (fromYrS<=0){
+                fromYrS = 12 + fromYrS;
+            }
+            monthfrom = fromYrS;
+            monthto = $(".semiRepDate4").val();
+            yearfrom = yearFromS;
+            yearto = $(".yearRepDate4").val();
+
+            date = Date.parse(monthto-1).toString('MMM');
+            date += " " + yearto;
+        }else if (freq==6){
+            year = $(".yearRepDate4").val();
+            date = year;
+        }
     }
 }
