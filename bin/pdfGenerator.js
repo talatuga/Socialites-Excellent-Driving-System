@@ -28,9 +28,11 @@ exports.reportTemplates = {
     studPerformanceAll: exports.reportTemplateFolder + 'studPerformanceAll.ejs',
 
     instPerformance: exports.reportTemplateFolder + 'instPerformance.ejs',
+    instPerformanceAll: exports.reportTemplateFolder + 'instPerformanceAll.ejs',
     instList: exports.reportTemplateFolder + 'instList.ejs',
 
     vehiActivities: exports.reportTemplateFolder + 'vehiActivities.ejs',
+    vehiActivitiesAll: exports.reportTemplateFolder + 'vehiActivitiesAll.ejs',
     vehiList: exports.reportTemplateFolder + 'vehiList.ejs',
 };
 

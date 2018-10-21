@@ -8,7 +8,7 @@ var pdf = require('../bin/pdfGenerator');
 //     });
 // });
 
-pdf.generateView(pdf.reportTemplates.instList, {}, function(err, html){
+pdf.generateView(pdf.reportTemplates.instPerformanceAll, {}, function(err, html){
     if(err) return console.error(err);
     pdf.generatePDF(html, pdf.saveAsFile, function(err, filename){
         if(err) return console.error(err);

@@ -274,22 +274,30 @@ var reports1 = function (){
     $(".liSide").removeClass("active");
     $('.viewDiv').hide();
     $(".view-reports1").show();
+    $('.freqDiv').hide();
+    $('.dailyDiv').show();
 }
 
 var reports2 = function (){
     $(".liSide").removeClass("active");
     $('.viewDiv').hide();
     $(".view-reports2").show();
+    $('.freqDiv').hide();
+    $('.dailyDiv').show();
 }
 
 var reports3 = function (){
     $(".liSide").removeClass("active");
     $('.viewDiv').hide();
     $(".view-reports3").show();
+    $('.freqDiv').hide();
+    $('.dailyDiv').hide();
 }
 
 var reports4 = function (){
     $(".liSide").removeClass("active");
     $('.viewDiv').hide();
     $(".view-reports4").show();
+    $('.freqDiv').hide();
+    $('.dailyDiv').hide();
 }
