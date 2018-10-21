@@ -60,6 +60,12 @@ function editVehicle (){
             $('select[name="addVehiType"]').val(x.transmission);
             $(".addVehiBrand").val(x.brand);
             $(".addVehiModel").val(x.model);
+            
+            $(".addVehiEngNo").val(x.engineNo);
+            $(".addVehiBodyNo").val(x.bodyNo);
+            $(".addVehiDisplacement").val(x.displacement);
+            $(".addVehiColor").val(x.color);
+
             $(".addVehiPlate").val(x.plate);
             $('select[name="addVehiCoding"]').val(x.offday);
         
@@ -90,10 +96,14 @@ function resetNewVehi() {
     $(".addVehiBodyNo").val("");
 }
 
-function addVehi() {
+function addVehi() { // I HATE MY LIFE
     var _type = $('select[name="addVehiType"]').val();
     var _brand = $(".addVehiBrand").val();
     var _model = $(".addVehiModel").val();
+    var _engine = $(".addVehiEngNo").val();
+    var _body = $(".addVehiBodyNo").val();
+    var _displacement = $(".addVehiDisplacement").val();
+    var _color = $(".addVehiColor").val();
     var _plate = $(".addVehiPlate").val();
     var _coding = $('select[name="addVehiCoding"]').val();
     var price = $(".addVehiPrice").val();
@@ -109,6 +119,10 @@ function addVehi() {
         var _data = {
             model: _model,
             brand: _brand,
+            engine: _engine,
+            body: _body,
+            displacement: _displacement,
+            color: _color,
             transType: _type,
             plate: _plate,
             offday: _coding,
@@ -556,8 +570,12 @@ function viewCarProfile(id){
         $('#vehiName').html(profile.brand + ", " + profile.model);
         // $('#vehiID').html(profile.id + "-" + profile.transmission);
         $('#vehiPlate').html(profile.plate);
+        $('#vehiColor').html(profile.color);
+        $('#vehiEngine').html(profile.engineNo);
+        $('#vehiBody').html(profile.bodyNo);
+        $('#vehiDisp').html(profile.displacement);
         $('#vehiCoding').html(dayName[profile.offday]);
-        $('#vehiInst').html(profile.driverName.replace(/_/g, ' '));
+        $('#vehiInst').html(profile.driverName.length != 0 ? profile.driverName.replace(/_/g, ' ') : "");
         var defect = "";
         profile.defect.forEach(x=>{
             if(x.repaired != 0){
@@ -579,6 +597,11 @@ function editVehi(){
     var _model = $(".addVehiModel").val();
     var _plate = $(".addVehiPlate").val();
     var _coding = $('select[name="addVehiCoding"]').val();
+    var _engine = $(".addVehiEngNo").val();
+    var _body = $(".addVehiBodyNo").val();
+    var _displacement = $(".addVehiDisplacement").val();
+    var _color = $(".addVehiColor").val();
+    var price = $(".addVehiPrice").val();
 
     if (_brand == "" || _brand == null
         || _model == "" || _model == null
@@ -590,9 +613,14 @@ function editVehi(){
         var _data = {
             model: _model,
             brand: _brand,
+            engine: _engine,
+            body: _body,
+            displacement: _displacement,
+            color: _color,
             transType: _type,
             plate: _plate,
-            offday: _coding
+            offday: _coding,
+            price: price
         }
         car.update(_data, function(err, done){
             if(err){
