@@ -84,4 +84,19 @@ Car.getListModel = function(cb){
     });
 };
 
+Car.getCar = function(query, cb){
+    var sql = "SELECT * FROM " + table;
+    var data = [];
+
+    if(query.plate){
+        sql += " WHERE plate LIKE ?";
+        data.push("%" + query.plate + "%");
+    }
+
+    db.get().query(sql, data, function(err, results){
+        if(err) return cb(err);
+        cb(null, results);
+    });
+}
+
 module.exports = Car;

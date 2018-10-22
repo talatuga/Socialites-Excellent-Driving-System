@@ -15,6 +15,7 @@ router.route('/coding/:id')
     .get(middleware.getCodingScheme)
     .put(auth.auth,middleware.editCodingScheme)
     .delete(auth.auth,middleware.delCodingScheme);
+router.get('/search', middleware.getVehicleViaPlateSearch);
 router.route('/:id')
     .put(auth.auth, middleware.update)
     .get(middleware.get)

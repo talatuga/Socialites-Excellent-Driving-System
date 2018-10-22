@@ -116,6 +116,17 @@ exports.delete = function(req, res, next){
     });
 }
 
+exports.getVehicleViaPlateSearch = function(req, res, next){
+    car.getCar(req.query, function(err, cars){
+        if(err) return next(err);
+        var output = [];
+        cars.forEach((e,i)=>{
+            output.push(e.plate);
+        });
+        res.status(200).send(output);
+    });
+}
+
 exports.getDefect = function(req, res, next){
     if(res.locals.authenticated == 0) return next();
     var id = req.params.id;

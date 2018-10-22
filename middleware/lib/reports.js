@@ -373,3 +373,8 @@ exports.performance = function(req, res, next){
         });
     });
 }
+
+//VEHICLE REPORT
+exports.activity = function(req, res, next){
+
+}

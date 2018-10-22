@@ -1,11 +1,27 @@
+// "use strict";
 var monthnow = (new Date()).getUTCMonth()+1;
 var yearnow = (new Date()).getFullYear();
 var switchMonth = monthnow;
 var fromYrQ, fromYrS, yearFromQ, yearFromS, yearEnd=yearnow;
-var freq, daily, week, month, year, monthfrom, monthto, yearfrom, yearto;
+var freq, daily, week, month, year, monthfrom, monthto, yearfrom, yearto, selMonth;
 var title, title2, branch;
 
 $(function(){
+    $('.vehiPlateSearch').autocomplete({
+        source: function(req, res){
+            $.ajax({
+                type: "GET",
+                url: "api/v1/car/search/?plate=" + req.term,
+                success: response=>{
+                    res(response);
+                },
+                error: xhr=>{
+                    console.error(new Error(xhr.status + ":" + xhr.statusText));
+                }
+            });
+        },
+    });
+
     $(".selReportFreq").change(function() {
         var freq = this.value;
         switchMonth = monthnow;
@@ -512,9 +528,10 @@ function generateReport(a){
         title2 = $('#selReport4').find("option:selected").val();
         freq = $('.selReportFreq4').find("option:selected").val();
         branch = 0;
+        var link = "api/v1/reports/vehicle/?";
 
         if (freq==1){
-            daily = $('.dailyRepDate4').val();
+            daily = $('.dailyRepDate4').val() || "now";
             date = Date.parse(daily).toString("yyyy-MM-dd");
         }else if (freq==2){
             date = $('.weeklyRepDate4').val();
@@ -552,5 +569,12 @@ function generateReport(a){
             year = $(".yearRepDate4").val();
             date = year;
         }
+
+        if(title2 == "List"){
+            
+        }else{
+            // link
+        }
+        // console.log(title, title2, freq, branch);
     }
 }
