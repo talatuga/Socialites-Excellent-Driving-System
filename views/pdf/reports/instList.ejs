@@ -53,22 +53,28 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>INST-2018-0019</td>
-                        <td>Graciella C. Tatel</td>
-                        <td>F</td>
-                        <td>09565867353</td>
-                        <td>gtatel0517@gmail.com</td>
-                        <td>A01-11-1111</td>
-                        <td>11/12/2015</td>
-                        <td>---</td>
-                        <td>ZBC562</td>
-                    </tr>
+                <%
+                    var html = "";
+                    data.forEach((e,i)=>{
+                        html += "<tr>";
+                        html += "<td>"+ e.instID +"</td>";
+                        html += "<td>"+ e.fullname.replace(/_/g," ") +"</td>";
+                        html += "<td>"+ e.sex +"</td>";
+                        html += "<td>"+ e.telno +"</td>";
+                        html += "<td>"+ e.email +"</td>";
+                        html += "<td>"+ e.license +"</td>";
+                        html += "<td>"+ e.dateRegistered +"</td>";
+                        html += "<td>"+ e.dateRetired +"</td>";
+                        html += "<td>"+ (e.car || "none") +"</td>";
+                        html += "</tr>";
+                    });
+                %>
+                <%-html%>
                 </tbody>
             </table><br>
         </center>
         <div style="width: 100%; align-items: right;">
-            <h5 style="text-transform: uppercase; text-align: right">Total Number of Instructors: 10</h5>
+            <h5 style="text-transform: uppercase; text-align: right">Total Number of Instructors: <%=data.length%></h5>
         </div>
         <div id="pageFooter"></div>
     </body>

@@ -5,6 +5,8 @@ var enrollmentTable = "enrollment";
 var transferTable = "transfer_request";
 var branchTable = "branch";
 var courseTable = "course";
+var carTable = "vehicle";
+var activityTable = "activity";
 var instructorTable = "instructor";
 
 var Reports = {};
@@ -42,186 +44,6 @@ var Schedule = {};
 Schedule = Object.create(ModelModule);
 Schedule.table = "schedule";
 Schedule.db = db;
-
-//GROSS INCOME
-
-
-//STUDENTS
-//------------------------ENROLLEES
-// Reports.getStud1A = function(date, cb){
-//     var sql = "SELECT * FROM preregstudent WHERE DATE(dateSubmit)=?";
-//     db.get().query(sql, [date], function(err, result){
-//         if(err) return cb(err);
-//         cb(null, result);
-//     });
-// }
-
-//DB: Tups, padagdag sa WHERE clause yung sa specific branch. thankks!
-Reports.getStud1A = function(date){
-    return new Promise(function(resolve, reject){
-        var sql = "SELECT * FROM preregstudent WHERE DATE(dateSubmit)=?";
-        db.get().query(sql, [date], function(err, result){
-            if(err) return reject(err);
-            if(result.length==0){
-                resolve([]);
-            }else{
-                resolve(result);
-            }
-        });
-    });
-};
-
-Reports.getStud1B = function(week, year, cb){
-    var sql = "SELECT * FROM preregstudent WHERE WEEK(dateSubmit)=(?-1) AND YEAR(dateSubmit)=? ORDER BY dateSubmit";
-    db.get().query(sql, [week, year], function(err, result){
-        if(err) return cb(err);
-        cb(null, result);
-    });
-}
-
-Reports.getStud1C = function(month, year, cb){
-    var sql = "SELECT * FROM preregstudent WHERE MONTH(dateSubmit)=? AND YEAR(dateSubmit)=? ORDER BY dateSubmit";
-    db.get().query(sql, [month, year], function(err, result){
-        if(err) return cb(err);
-        cb(null, result);
-    });
-}
-
-Reports.getStud1D = function(monthto, monthfrom, yearto, yearfrom, cb){
-    var sql = "SELECT * FROM preregstudent WHERE (MONTH(dateSubmit)<=? AND MONTH(dateSubmit)>=?) AND (YEAR(dateSubmit)<=? AND YEAR(dateSubmit)>=?) ORDER BY dateSubmit";
-    db.get().query(sql, [monthto, monthfrom, yearto, yearfrom], function(err, result){
-        if(err) return cb(err);
-        cb(null, result);
-    });
-}
-
-Reports.getStud1E = function(year, cb){
-    var sql = "SELECT * FROM preregstudent WHERE YEAR(dateSubmit)=? ORDER BY dateSubmit";
-    db.get().query(sql, [year], function(err, result){
-        if(err) return cb(err);
-        cb(null, result);
-    });
-}
-
-//------------------------TRANSFEREES
-Reports.getStud2A = function(date, cb){
-    var sql = "SELECT * FROM transfer_request WHERE DATE(effectiveDate)=?";
-    db.get().query(sql, [date], function(err, result){
-        if(err) return cb(err);
-        cb(null, result);
-    });
-}
-Reports.getStud2B = function(week, year, cb){
-    var sql = "SELECT * FROM transfer_request WHERE WEEK(effectiveDate)=(?-1) AND YEAR(effectiveDate)=? ORDER BY effectiveDate";
-    db.get().query(sql, [week, year], function(err, result){
-        if(err) return cb(err);
-        cb(null, result);
-    });
-}
-
-Reports.getStud2C = function(month, year, cb){
-    var sql = "SELECT * FROM transfer_request WHERE MONTH(effectiveDate)=? AND YEAR(effectiveDate)=? ORDER BY effectiveDate";
-    db.get().query(sql, [month, year], function(err, result){
-        if(err) return cb(err);
-        cb(null, result);
-    });
-}
-
-Reports.getStud2D = function(monthto, monthfrom, yearto, yearfrom, cb){
-    var sql = "SELECT * FROM transfer_request WHERE (MONTH(effectiveDate)<=? AND MONTH(effectiveDate)>=?) AND (YEAR(effectiveDate)<=? AND YEAR(effectiveDate)>=?) ORDER BY effectiveDate";
-    db.get().query(sql, [monthto, monthfrom, yearto, yearfrom], function(err, result){
-        if(err) return cb(err);
-        cb(null, result);
-    });
-}
-
-Reports.getStud2E = function(year, cb){
-    var sql = "SELECT * FROM transfer_request WHERE YEAR(effectiveDate)=? ORDER BY effectiveDate";
-    db.get().query(sql, [year], function(err, result){
-        if(err) return cb(err);
-        cb(null, result);
-    });
-}
-
-//------------------------ENROLEED STUDENTS
-Reports.getStud3A = function(date, cb){
-    var sql = "SELECT * FROM student WHERE DATE(dateRegistered)=?";
-    db.get().query(sql, [date], function(err, result){
-        if(err) return cb(err);
-        cb(null, result);
-    });
-}
-Reports.getStud3B = function(week, year, cb){
-    var sql = "SELECT * FROM student WHERE WEEK(dateRegistered)=(?-1) AND YEAR(dateRegistered)=? ORDER BY dateRegistered";
-    db.get().query(sql, [week, year], function(err, result){
-        if(err) return cb(err);
-        cb(null, result);
-    });
-}
-
-Reports.getStud3C = function(month, year, cb){
-    var sql = "SELECT * FROM student WHERE MONTH(dateRegistered)=? AND YEAR(dateRegistered)=? ORDER BY dateRegistered";
-    db.get().query(sql, [month, year], function(err, result){
-        if(err) return cb(err);
-        cb(null, result);
-    });
-}
-
-Reports.getStud3D = function(monthto, monthfrom, yearto, yearfrom, cb){
-    var sql = "SELECT * FROM student WHERE (MONTH(dateRegistered)<=? AND MONTH(dateRegistered)>=?) AND (YEAR(dateRegistered)<=? AND YEAR(dateRegistered)>=?) ORDER BY dateRegistered";
-    db.get().query(sql, [monthto, monthfrom, yearto, yearfrom], function(err, result){
-        if(err) return cb(err);
-        cb(null, result);
-    });
-}
-
-Reports.getStud3E = function(year, cb){
-    var sql = "SELECT * FROM student WHERE YEAR(dateRegistered)=? ORDER BY dateRegistered";
-    db.get().query(sql, [year], function(err, result){
-        if(err) return cb(err);
-        cb(null, result);
-    });
-}
-
-//------------------------PERFORMANCE EVALUATION
-Reports.getStud4A = function(date, cb){
-    var sql = "SELECT * FROM evaluation WHERE target=1 AND DATE(dateEvaluated)=?";
-    db.get().query(sql, [date], function(err, result){
-        if(err) return cb(err);
-        cb(null, result);
-    });
-}
-Reports.getStud4B = function(week, year, cb){
-    var sql = "SELECT * FROM evaluation WHERE target=1 AND WEEK(dateEvaluated)=(?-1) AND YEAR(dateEvaluated)=? ORDER BY dateEvaluated";
-    db.get().query(sql, [week, year], function(err, result){
-        if(err) return cb(err);
-        cb(null, result);
-    });
-}
-
-Reports.getStud4C = function(month, year, cb){
-    var sql = "SELECT * FROM evaluation WHERE target=1 AND MONTH(dateEvaluated)=? AND YEAR(dateEvaluated)=? ORDER BY dateEvaluated";
-    db.get().query(sql, [month, year], function(err, result){
-        if(err) return cb(err);
-        cb(null, result);
-    });
-}
-
-Reports.getStud4D = function(monthto, monthfrom, yearto, yearfrom, cb){
-    var sql = "SELECT * FROM evaluation WHERE target=1 AND (MONTH(dateEvaluated)<=? AND MONTH(dateEvaluated)>=?) AND (YEAR(dateEvaluated)<=? AND YEAR(dateEvaluated)>=?) ORDER BY dateEvaluated";
-    db.get().query(sql, [monthto, monthfrom, yearto, yearfrom], function(err, result){
-        if(err) return cb(err);
-        cb(null, result);
-    });
-}
-
-Reports.getStud4E = function(year, cb){
-    var sql = "SELECT * FROM evaluation WHERE target=1 AND YEAR(dateEvaluated)=? ORDER BY dateEvaluated";
-    db.get().query(sql, [year], function(err, result){
-        if(err) return cb(err);
-        cb(null, result);
-    });
-}
 
 //STUDENTS
 Reports.enrollee = function(query, cb){
@@ -594,6 +416,37 @@ Reports.performance = function(query, cb){
     });   
 }
 
+Reports.instructorList = function(cb){
+    return new Promise((resolve,reject)=>{
+        if(!cb) cb = (e,a)=>{ 
+            if(e) return reject(e);
+            resolve(a);
+        };
+
+        getInstructor().then(instructors=>{
+            if(instructors.length == 0) return resolve(instructors);
+            var promises = [];
+            instructors.forEach((e,i)=>{
+                promises.push(getCarOfInst(e.instID).then(car=>{
+                    instructors[i].car = car ? car.plate : "";
+                    return 1;
+                }));
+                instructors[i].dateRegistered = Date.parse(instructors[i].dateRegistered).toString("MMM dd, yyyy");
+                instructors[i].dateRetired = instructors[i].dateRetired ? Date.parse(instructors[i].dateRetired).toString("MMM dd, yyyy") : "-----";
+                if(i==instructors.length-1){
+                    Promise.all(promises).then(a=>{
+                        cb(null,instructors);
+                    }).catch(reason=>{
+                        throw reason;
+                    });
+                }
+            });
+        }).catch(reason=>{
+            throw new Error(reason.stack);
+        }).catch(cb);
+    });
+}
+
 //GROSS INCOME
 Reports.tuition = function(query, cb){
     return new Promise((finish, fail)=>{
@@ -676,6 +529,42 @@ Reports.tuition = function(query, cb){
                     }
                 });
             });
+        }).then(output=>{
+            if(cb){
+                cb(null,output); 
+            }else{
+                finish(output);
+            }
+        }).catch(reason=>{
+            throw new Error(reason.stack);
+        }).catch(reason=>{
+            if(cb){
+                cb(reason);
+            }else{
+                fail(reason);
+            }
+        });
+    });
+}
+
+Reports.balance = function(query, cb){
+    return new Promise((finish, fail)=>{
+        var freq = query.freq;
+        if(!freq || !Date.parse(query.date)) return cb(null, false, query);
+        
+        var branch = query.branch;
+        var date = query.date;
+        
+        getFreqDate(freq, date).then(dateScope=>{
+            return getUnpaidTransactions(dateScope,null, branch).then(res=>{
+                return {
+                    dateStart: dateScope[0],
+                    dateEnd: dateScope[1],
+                    records: res,
+                }
+            });
+        }).then(data=>{
+            if(data.records.length == 0) return data;1111
         }).then(output=>{
             if(cb){
                 cb(null,output); 
@@ -1051,6 +940,137 @@ Reports.overall = function(query, cb){
     });
 }
 
+//Vehicle
+Reports.carList = function(cb){
+    return new Promise((resolve, reject)=>{
+        if(!cb){
+            cb = (err,done)=>{
+                if(err) return reject(err);
+                resolve(done);
+            }
+        }
+
+        var sql = "SELECT * FROM " + carTable + " ORDER BY plate ASC";
+        db.get().query(sql, function(err, results){
+            if(err) return cb(err);
+            if(results.length == 0) return cb(null,results);
+            var promises = [];
+            results.forEach((e,i)=>{
+                promises.push(getInstructor(e.driver || "").then(instructor=>{
+                    results[i].driver = instructor ? instructor.fullname : "";
+                    return 1;
+                }));
+                if(i==results.length-1){
+                    Promise.all(promises).then(a=>{
+                        cb(null, results)
+                    });
+                }
+            });
+        });
+    });
+}
+
+Reports.activity = function(query, cb){
+    return new Promise((done,fail)=>{
+        if(!cb) cb = (e,a)=>{
+            if(e) return fail(e);
+            done(a);
+        };
+
+        var freq = query.freq;
+        var date = query.date;
+        var branch = query.branch;
+        var carID = query.plate;
+        if(!freq || !Date.parse(query.date)) return cb(null, false, query);
+    
+        getFreqDate(freq, date).then(dateScope=>{
+            return getVehicleHistory(dateScope, branch, carID).then(history=>{
+                return {
+                    dateStart: Date.parse(dateScope[0]).toString("MMMM dd, yyyy"),
+                    dateEnd: Date.parse(dateScope[1]).addDays(-1).toString("MMMM dd, yyyy"),
+                    records: history,
+                }
+            });
+        }).then(data=>{
+            if(data.records.length == 0) return data;
+            return new Promise((res,rej)=>{
+                var promises = [];
+                data.records.forEach((e,i)=>{
+                    promises.push(getInstructor(e.instID).then(instructor=>{
+                        data.records[i].instructor = instructor.fullname;
+                        return 1;
+                    }));
+                    promises.push(getStudent(e.studID).then(student=>{
+                        data.records[i].student = student.fullname;
+                        return 1;
+                    }));
+                    promises.push(getBranch(e.branchID).then(branchData=>{
+                        data.records[i].branch = branchData.name;
+                        return 1;
+                    }));
+                    promises.push(getCar(e.vehicleID).then(car=>{
+                        data.records[i].car = car;
+                        return 1;
+                    }));
+                    data.records[i].date = Date.parse(e.date).toString("MM/dd/yyyy");
+                    data.records[i].startTime = Date.parse(e.startTime).toString("hh:mm tt");
+                    if(i==data.records.length-1){
+                        Promise.all(promises).then(a=>{
+                            res(1);
+                        }).catch(reason=>{
+                            throw new Error(reason.stack);
+                        }).catch(rej);
+                    }
+                });
+            }).then(()=>{
+                return data;
+            });
+        }).then(data=>{
+            if(data.records.length == 0) return data;
+            return new Promise((resolve, reject)=>{
+                var cars = {};
+                data.records.forEach((e,i)=>{
+                    if(cars[e.vehicleID]){
+                        cars[e.vehicleID].push(e);
+                    }else{
+                        cars[e.vehicleID] = [e];
+                    }
+                    if(i==data.records.length-1){
+                        data.lists = [];
+                        var top = null;
+                        var low = null;
+                        Object.keys(cars).forEach((e1,i1)=>{
+                            data.lists.push(cars[e1]);
+                            top = top ? (top.length < cars[e1].length ? cars[e1] : top) : cars[e1];
+                            low = low ? (low.length > cars[e1].length ? cars[e1] : low) : cars[e1];
+                            if(i1==Object.keys(cars).length-1){
+                                data.most = top[0].car.brand + ", " + top[0].car.model + " (" + top[0].car.plate + ")";
+                                data.least = low[0].car.brand + ", " + low[0].car.model + " (" + low[0].car.plate + ")";
+                                resolve(data);
+                            }
+                        });
+                    }
+                });
+            }).then(()=>{
+                return data;
+            });
+        }).then(data=>{
+            if(branch){
+                return getBranch(branch).then(branchData=>{
+                    data.branch = branchData.name;
+                    return data;
+                });
+            }else{
+                return data;
+            }
+        }).then(output=>{
+            cb(null, output);
+        }).catch(reason=>{
+            throw new Error(reason.stack);
+        }).catch(cb);
+    });
+}
+
 // Get Start and Ending Dates based on frequency
 function getFreqDate(freq, date){
     return new Promise((resolve)=>{
@@ -1082,11 +1102,9 @@ function getFreqDate(freq, date){
 
 function getBranch(id){
     return new Promise((resolve, reject)=>{
-        var sql = "";
+        var sql = "SELECT * FROM " + branchTable;
         if(id){
-            sql = "SELECT * FROM " + branchTable + " WHERE id = ?";
-        }else{
-            sql = "SELECT * FROM " + branchTable;
+            sql += " WHERE id = ?";
         }
 
         db.get().query(sql, [id], function(err, results){
@@ -1168,10 +1186,36 @@ function getStudent(id){
 
 function getInstructor(id){
     return new Promise((resolve, reject)=>{
-        var sql = "SELECT i.*, ui.fullname FROM " + instructorTable + " i, " + Student.infoTable + " ui WHERE i.userInfo = ui.id AND i.id = ?";
-        db.get().query(sql, [id], function(err, result){
+        var sql = "SELECT i.*, ui.*, i.id as 'instID' FROM " + instructorTable + " i, " + Student.infoTable + " ui WHERE i.userInfo = ui.id ";
+        var data = [];
+        if(id){
+            sql += "AND i.id = ?";
+            data.push(id);
+        }
+        db.get().query(sql, data, function(err, result){
             if(err) return reject(err);
-            resolve(result[0]);
+            resolve(id ? result[0] : result);
+        });
+    });
+}
+
+function getCar(id){
+    return new Promise((resolve, reject)=>{
+        var sql = "SELECT * FROM " + carTable;
+        if(id) sql += " WHERE id = ?";
+        db.get().query(sql, [id], function(err, results){
+            if(err) return reject(err);
+            resolve(id ? results[0] : results);
+        });
+    });
+}
+
+function getCarOfInst(instID){
+    return new Promise((resolve, reject)=>{
+        var sql = "SELECT * FROM " + carTable + " WHERE driver = ?";
+        db.get().query(sql, [instID], function(err, results){
+            if(err) return reject(err);
+            resolve(results[0]);
         });
     });
 }
@@ -1200,6 +1244,52 @@ function getPaidTransactions(dateScope, transactionType, branch){
     });
 }
 
+function getUnpaidTransactions(dateScope, transactionType, branch){
+    return new Promise((resolve, reject)=>{
+        var sql = "SELECT * FROM " + Reports.table + " WHERE price != balance AND balance != 0 AND date BETWEEN ? AND ? ";
+        if(transactionType){
+            sql += "AND transaction LIKE '%"+ transactionType +"%' ";
+        } 
+        if(branch){
+            sql += "AND data LIKE '%\"branch\":\""+ branch + "\"%'";
+        }
+
+        db.get().query(sql, dateScope, function(err,results){
+            if(err) return reject(err);
+            if(results.length == 0) return resolve(results);
+            results.forEach((e,i)=> {
+                try{
+                    results[i].data = JSON.parse(e.data);
+                }catch(e){
+                    return reject(e);
+                }             
+                if(i==results.length-1) resolve(results);   
+            });
+        });
+    });
+}
+
+function getVehicleHistory(dateScope, branch, carID){
+    return new Promise((resolve, reject)=>{
+        var sql = "SELECT a.* FROM " + activityTable + " a, "+ carTable +" c WHERE a.vehicleID = c.id AND date BETWEEN ? AND ? ";
+        if(branch){
+            sql += "AND a.branchID = ?";
+            dateScope.push(branch);
+        }
+
+        if(carID){
+            sql += "AND c.plate = ?";
+            dateScope.push(carID);
+        }
+
+        sql += " ORDER BY date ASC";
+        db.get().query(sql, dateScope, function(err, results){
+            if(err) return reject(err);
+            resolve(results);
+        });
+    });
+}
+
 function transactionBreakdown(transaction){
     return new Promise((resolve, reject)=>{
 
@@ -1223,3 +1313,183 @@ function getLicensePrice(id,name){
 }
 
 module.exports = Reports;
+
+//#region trash
+//STUDENTS
+//------------------------ENROLLEES
+// Reports.getStud1A = function(date, cb){
+//     var sql = "SELECT * FROM preregstudent WHERE DATE(dateSubmit)=?";
+//     db.get().query(sql, [date], function(err, result){
+//         if(err) return cb(err);
+//         cb(null, result);
+//     });
+// }
+/* 
+//DB: Tups, padagdag sa WHERE clause yung sa specific branch. thankks!
+Reports.getStud1A = function(date){
+    return new Promise(function(resolve, reject){
+        var sql = "SELECT * FROM preregstudent WHERE DATE(dateSubmit)=?";
+        db.get().query(sql, [date], function(err, result){
+            if(err) return reject(err);
+            if(result.length==0){
+                resolve([]);
+            }else{
+                resolve(result);
+            }
+        });
+    });
+};
+
+Reports.getStud1B = function(week, year, cb){
+    var sql = "SELECT * FROM preregstudent WHERE WEEK(dateSubmit)=(?-1) AND YEAR(dateSubmit)=? ORDER BY dateSubmit";
+    db.get().query(sql, [week, year], function(err, result){
+        if(err) return cb(err);
+        cb(null, result);
+    });
+}
+
+Reports.getStud1C = function(month, year, cb){
+    var sql = "SELECT * FROM preregstudent WHERE MONTH(dateSubmit)=? AND YEAR(dateSubmit)=? ORDER BY dateSubmit";
+    db.get().query(sql, [month, year], function(err, result){
+        if(err) return cb(err);
+        cb(null, result);
+    });
+}
+
+Reports.getStud1D = function(monthto, monthfrom, yearto, yearfrom, cb){
+    var sql = "SELECT * FROM preregstudent WHERE (MONTH(dateSubmit)<=? AND MONTH(dateSubmit)>=?) AND (YEAR(dateSubmit)<=? AND YEAR(dateSubmit)>=?) ORDER BY dateSubmit";
+    db.get().query(sql, [monthto, monthfrom, yearto, yearfrom], function(err, result){
+        if(err) return cb(err);
+        cb(null, result);
+    });
+}
+
+Reports.getStud1E = function(year, cb){
+    var sql = "SELECT * FROM preregstudent WHERE YEAR(dateSubmit)=? ORDER BY dateSubmit";
+    db.get().query(sql, [year], function(err, result){
+        if(err) return cb(err);
+        cb(null, result);
+    });
+}
+
+//------------------------TRANSFEREES
+Reports.getStud2A = function(date, cb){
+    var sql = "SELECT * FROM transfer_request WHERE DATE(effectiveDate)=?";
+    db.get().query(sql, [date], function(err, result){
+        if(err) return cb(err);
+        cb(null, result);
+    });
+}
+Reports.getStud2B = function(week, year, cb){
+    var sql = "SELECT * FROM transfer_request WHERE WEEK(effectiveDate)=(?-1) AND YEAR(effectiveDate)=? ORDER BY effectiveDate";
+    db.get().query(sql, [week, year], function(err, result){
+        if(err) return cb(err);
+        cb(null, result);
+    });
+}
+
+Reports.getStud2C = function(month, year, cb){
+    var sql = "SELECT * FROM transfer_request WHERE MONTH(effectiveDate)=? AND YEAR(effectiveDate)=? ORDER BY effectiveDate";
+    db.get().query(sql, [month, year], function(err, result){
+        if(err) return cb(err);
+        cb(null, result);
+    });
+}
+
+Reports.getStud2D = function(monthto, monthfrom, yearto, yearfrom, cb){
+    var sql = "SELECT * FROM transfer_request WHERE (MONTH(effectiveDate)<=? AND MONTH(effectiveDate)>=?) AND (YEAR(effectiveDate)<=? AND YEAR(effectiveDate)>=?) ORDER BY effectiveDate";
+    db.get().query(sql, [monthto, monthfrom, yearto, yearfrom], function(err, result){
+        if(err) return cb(err);
+        cb(null, result);
+    });
+}
+
+Reports.getStud2E = function(year, cb){
+    var sql = "SELECT * FROM transfer_request WHERE YEAR(effectiveDate)=? ORDER BY effectiveDate";
+    db.get().query(sql, [year], function(err, result){
+        if(err) return cb(err);
+        cb(null, result);
+    });
+}
+
+//------------------------ENROLEED STUDENTS
+Reports.getStud3A = function(date, cb){
+    var sql = "SELECT * FROM student WHERE DATE(dateRegistered)=?";
+    db.get().query(sql, [date], function(err, result){
+        if(err) return cb(err);
+        cb(null, result);
+    });
+}
+Reports.getStud3B = function(week, year, cb){
+    var sql = "SELECT * FROM student WHERE WEEK(dateRegistered)=(?-1) AND YEAR(dateRegistered)=? ORDER BY dateRegistered";
+    db.get().query(sql, [week, year], function(err, result){
+        if(err) return cb(err);
+        cb(null, result);
+    });
+}
+
+Reports.getStud3C = function(month, year, cb){
+    var sql = "SELECT * FROM student WHERE MONTH(dateRegistered)=? AND YEAR(dateRegistered)=? ORDER BY dateRegistered";
+    db.get().query(sql, [month, year], function(err, result){
+        if(err) return cb(err);
+        cb(null, result);
+    });
+}
+
+Reports.getStud3D = function(monthto, monthfrom, yearto, yearfrom, cb){
+    var sql = "SELECT * FROM student WHERE (MONTH(dateRegistered)<=? AND MONTH(dateRegistered)>=?) AND (YEAR(dateRegistered)<=? AND YEAR(dateRegistered)>=?) ORDER BY dateRegistered";
+    db.get().query(sql, [monthto, monthfrom, yearto, yearfrom], function(err, result){
+        if(err) return cb(err);
+        cb(null, result);
+    });
+}
+
+Reports.getStud3E = function(year, cb){
+    var sql = "SELECT * FROM student WHERE YEAR(dateRegistered)=? ORDER BY dateRegistered";
+    db.get().query(sql, [year], function(err, result){
+        if(err) return cb(err);
+        cb(null, result);
+    });
+}
+
+//------------------------PERFORMANCE EVALUATION
+Reports.getStud4A = function(date, cb){
+    var sql = "SELECT * FROM evaluation WHERE target=1 AND DATE(dateEvaluated)=?";
+    db.get().query(sql, [date], function(err, result){
+        if(err) return cb(err);
+        cb(null, result);
+    });
+}
+Reports.getStud4B = function(week, year, cb){
+    var sql = "SELECT * FROM evaluation WHERE target=1 AND WEEK(dateEvaluated)=(?-1) AND YEAR(dateEvaluated)=? ORDER BY dateEvaluated";
+    db.get().query(sql, [week, year], function(err, result){
+        if(err) return cb(err);
+        cb(null, result);
+    });
+}
+
+Reports.getStud4C = function(month, year, cb){
+    var sql = "SELECT * FROM evaluation WHERE target=1 AND MONTH(dateEvaluated)=? AND YEAR(dateEvaluated)=? ORDER BY dateEvaluated";
+    db.get().query(sql, [month, year], function(err, result){
+        if(err) return cb(err);
+        cb(null, result);
+    });
+}
+
+Reports.getStud4D = function(monthto, monthfrom, yearto, yearfrom, cb){
+    var sql = "SELECT * FROM evaluation WHERE target=1 AND (MONTH(dateEvaluated)<=? AND MONTH(dateEvaluated)>=?) AND (YEAR(dateEvaluated)<=? AND YEAR(dateEvaluated)>=?) ORDER BY dateEvaluated";
+    db.get().query(sql, [monthto, monthfrom, yearto, yearfrom], function(err, result){
+        if(err) return cb(err);
+        cb(null, result);
+    });
+}
+
+Reports.getStud4E = function(year, cb){
+    var sql = "SELECT * FROM evaluation WHERE target=1 AND YEAR(dateEvaluated)=? ORDER BY dateEvaluated";
+    db.get().query(sql, [year], function(err, result){
+        if(err) return cb(err);
+        cb(null, result);
+    });
+} 
+*/
+//#endregion trash

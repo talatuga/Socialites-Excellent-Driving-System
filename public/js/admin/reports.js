@@ -7,21 +7,6 @@ var freq, daily, week, month, year, monthfrom, monthto, yearfrom, yearto, selMon
 var title, title2, branch;
 
 $(function(){
-    $('.vehiPlateSearch').autocomplete({
-        source: function(req, res){
-            $.ajax({
-                type: "GET",
-                url: "api/v1/car/search/?plate=" + req.term,
-                success: response=>{
-                    res(response);
-                },
-                error: xhr=>{
-                    console.error(new Error(xhr.status + ":" + xhr.statusText));
-                }
-            });
-        },
-    });
-
     $(".selReportFreq").change(function() {
         var freq = this.value;
         switchMonth = monthnow;
@@ -97,6 +82,21 @@ $(function(){
         switchMonth = this.value;
         loadMonths();
         $('.selQuartMonths').html(fromQ + " " + yearFromQ + " - " + selMonth + " " + yearEnd);
+    });
+
+    $('.vehiPlateSearch').autocomplete({
+        source: function(req, res){
+            $.ajax({
+                type: "GET",
+                url: "api/v1/car/search/?plate=" + req.term,
+                success: response=>{
+                    res(response);
+                },
+                error: xhr=>{
+                    console.error(new Error(xhr.status + ":" + xhr.statusText));
+                }
+            });
+        },
     });
 });
 
@@ -460,7 +460,7 @@ function generateReport(a){
 
         if (freq==1){
             daily = $('.dailyRepDate3').val();
-            date = Date.parse(daily).toString("yyyy-MM-dd");
+            date = Date.parse(daily||"now").toString("yyyy-MM-dd");
         }else if (freq==2){
             date = $('.weeklyRepDate3').val();
             // year = week.substring(0, 4);
@@ -500,8 +500,10 @@ function generateReport(a){
 
         var link = "api/v1/report/instructor";
 
+        if(title2 == "List") link += "/list";
+
         link += "?";
-        link += "branch=" + branch != "allBr" ? branch : "";
+        link += branch != "allBr" ? ("branch=" + branch) : "";
         link += "&freq=" + freq;
         link += "&date=" + date;
 
@@ -527,8 +529,10 @@ function generateReport(a){
         title = "Vehicles";
         title2 = $('#selReport4').find("option:selected").val();
         freq = $('.selReportFreq4').find("option:selected").val();
-        branch = 0;
-        var link = "api/v1/reports/vehicle/?";
+        branch = $('.selReportBranch4').find("option:selected").val();
+        var date = "now";
+        var link = "api/v1/report/vehicle";
+        var plate = "";
 
         if (freq==1){
             daily = $('.dailyRepDate4').val() || "now";
@@ -571,10 +575,33 @@ function generateReport(a){
         }
 
         if(title2 == "List"){
-            
+            link += "/list?";
+            branch = "allBr";
         }else{
-            // link
+            link += "/activity?";
+            plate = $(".vehiPlateSearch").val();
         }
-        // console.log(title, title2, freq, branch);
+
+        link += branch != "allBr" ? ("branch=" + branch + "&") : "";
+        link += "freq=" + freq;
+        link += "&date=" + date;
+        link += plate != "" ? ("&plate=" + plate) : "";
+
+        swal({
+            title: "Generate Report?",
+            text: title + ": " + title2,
+            type: "info",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true
+        }, function (conf){
+            if(conf){
+                setTimeout(function(){
+                    swal('Done','','success');
+                    // window.location = link;
+                    window.open(link, "_blank");
+                },1000)
+            }
+        });
     }
 }

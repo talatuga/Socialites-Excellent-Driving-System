@@ -52,7 +52,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                <%
+                    var html = "";
+                    data.forEach((e,i)=>{
+                        html += "<tr>";
+                        html += "<td>"+ e.plate +"</td>";
+                        html += "<td>"+ (e.model + ", " + e.brand) +"</td>";
+                        html += "<td>"+ (e.transmission.toUpperCase() == 'A' ? "Automatic" : "Manual") +"</td>";
+                        html += "<td>"+ e.color +"</td>";
+                        html += "<td>"+ e.displacement +" L</td>";
+                        html += "<td>"+ e.engineNo +"</td>";
+                        html += "<td>"+ e.bodyNo +"</td>";
+                        html += "<td>"+ (e.driver == "" ? "None" : e.driver.replace(/_/g, " ")) +"</td>";
+                        html += "</tr>";
+                    });
+                %>
+                <%-html%>
+                    <%# <tr>
                         <td>ZBC562</td>
                         <td>Sequioa, Toyota</td>
                         <td>Manual</td> 
@@ -61,12 +77,12 @@
                         <td>H22AM03737</td>
                         <td>1HG CM8263 3A004352</td>
                         <td>Harry James Potter</td>
-                    </tr>
+                    </tr> %>
                 </tbody>
             </table><br>
         </center>
         <div style="width: 100%; align-items: right;">
-            <h5 style="text-transform: uppercase; text-align: right">Total Number of Vehicles: 10</h5>
+            <h5 style="text-transform: uppercase; text-align: right">Total Number of Vehicles: <%=data.length%></h5>
         </div>
         <div id="pageFooter"></div>
     </body>

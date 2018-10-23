@@ -37,8 +37,30 @@
                     Tels.: 741-7185/745-2962
                 </h5><hr>
             </div>
-            <h4 style="text-transform: uppercase;">VEHICLES: ACTIVITIES/HISTORY<br>SED - Quezon City | September 12, 2018</h4><br>
-            <h4 style="text-align: left">SEQUIOA, TOYOTA (ZBC562)</h4>
+            <h4 style="text-transform: uppercase;">VEHICLES: ACTIVITIES/HISTORY<br><%=(locals.branch ? branch : "ALL BRANCHES")%>| <%=dateStart + (dateEnd != dateStart ? " - " + dateEnd : "")%></h4><br>
+            <%
+                var html = "";
+                if(locals.lists){
+                    lists.forEach((element,index)=>{
+                        html += "<h4 style='text-align: left'>"+ (element[0].car.brand.trim() + ", " + element[0].car.model.trim() + " (" + element[0].car.plate.trim() + ")") +"</h4>";
+                        html += "<table class='table tblRecSched' width='100%'>";
+                        html += "<thead><tr><th></th><th>Date</th><th>Time</th><th>Instructor</th><th>Student</th><th>Branch</th></tr></thead>";
+                        element.forEach((e,i)=>{
+                            html += "<tr>";
+                            html += "<td>"+ i+1 +"</td>";
+                            html += "<td>"+ e.date +"</td>";
+                            html += "<td>"+ e.startTime +"</td>";
+                            html += "<td>"+ e.instructor.replace(/_/g," ") +"</td>";
+                            html += "<td>"+ e.student.replace(/_/g," ") +"</td>";
+                            html += "<td>"+ e.branch.replace(/_/g," ") +"</td>";
+                            html += "</tr>";
+                        });
+                        html += "</table><br>";
+                    });
+                }
+            %>
+            <%-html%>
+            <%# <h4 style="text-align: left">SEQUIOA, TOYOTA (ZBC562)</h4>
             <table class="table tblRecSched" width="100%">
                 <thead>
                     <tr>
@@ -58,7 +80,7 @@
                         <td>Harry James Potter</td>
                     </tr>
                 </tbody>
-            </table><br>
+            </table><br> %>
         </center>
         <div id="pageFooter"></div>
     </body>
