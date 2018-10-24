@@ -17,7 +17,7 @@ SELECT i.id as instID, i.vacant, u.*, oi.data FROM instructor i, userinfo u, oth
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getInstList`(IN `_offset` INT(7), IN `_limit` INT(5))
     READS SQL DATA
-SELECT i.id as instID, i.license, i.dateRegistered, i.dateRetired, i.educAttain,i.vacant,i.status, a.username, u.*  FROM instructor i, userinfo u, useraccount a WHERE u.id = i.userInfo AND u.userAcc = a.id AND i.status > 0 ORDER BY i.id ASC limit _offset, _limit$$
+SELECT i.id as instID, i.license, i.dateRegistered, i.dateRetired, i.educAttain,i.vacant,i.status, a.username, u.*, oi.data  FROM instructor i, userinfo u, useraccount a, other_info oi WHERE oi.referenceID = u.id AND u.id = i.userInfo AND u.userAcc = a.id AND i.status > 0 ORDER BY i.id ASC limit _offset, _limit$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getPastStud`(IN `_offset` INT(5), IN `_limit` INT(2))
     READS SQL DATA
@@ -56,12 +56,13 @@ CREATE TABLE IF NOT EXISTS `accounttype` (
 
 CREATE TABLE IF NOT EXISTS `activity` (
 `id` int(15) NOT NULL,
-  `data` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `startTime` time NOT NULL,
   `duration` int(3) NOT NULL,
   `studID` varchar(15) NOT NULL,
   `instID` varchar(15) NOT NULL,
   `vehicleID` int(3) NOT NULL,
+  `branchID` int(3) NOT NULL,
   `lessonID` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -348,6 +349,10 @@ CREATE TABLE IF NOT EXISTS `vehicle` (
 `id` int(3) NOT NULL,
   `model` varchar(15) NOT NULL,
   `brand` varchar(15) NOT NULL,
+  `engineNo` varchar(15) NOT NULL,
+  `bodyNo` varchar(15) NOT NULL,
+  `displacement` decimal(3,3) NOT NULL,
+  `color` varchar(20) NOT NULL,
   `transmission` varchar(1) NOT NULL,
   `price` varchar(7) NOT NULL,
   `plate` varchar(10) NOT NULL,
@@ -383,7 +388,7 @@ ALTER TABLE `accounttype`
  ADD PRIMARY KEY (`id`);
 
 ALTER TABLE `activity`
- ADD PRIMARY KEY (`id`), ADD KEY `studID` (`studID`), ADD KEY `instID` (`instID`), ADD KEY `vehicleID` (`vehicleID`), ADD KEY `lessonID` (`lessonID`);
+ ADD PRIMARY KEY (`id`), ADD KEY `studID` (`studID`), ADD KEY `instID` (`instID`), ADD KEY `vehicleID` (`vehicleID`), ADD KEY `lessonID` (`lessonID`), ADD KEY `branch` (`branchID`);
 
 ALTER TABLE `admin`
  ADD PRIMARY KEY (`id`), ADD KEY `userInfo` (`userInfo`), ADD KEY `branchID` (`branchID`);
@@ -482,7 +487,7 @@ ALTER TABLE `userinfo`
  ADD PRIMARY KEY (`id`), ADD KEY `userAcc` (`userAcc`);
 
 ALTER TABLE `vehicle`
- ADD PRIMARY KEY (`id`), ADD KEY `driver` (`driver`), ADD KEY `garage` (`garage`);
+ ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `plate` (`plate`), ADD KEY `driver` (`driver`), ADD KEY `garage` (`garage`);
 
 ALTER TABLE `web_branch`
  ADD PRIMARY KEY (`id`), ADD KEY `branchID` (`branchID`);
@@ -566,7 +571,8 @@ ALTER TABLE `activity`
 ADD CONSTRAINT `activity_ibfk_1` FOREIGN KEY (`studID`) REFERENCES `student` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
 ADD CONSTRAINT `activity_ibfk_2` FOREIGN KEY (`instID`) REFERENCES `instructor` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
 ADD CONSTRAINT `activity_ibfk_3` FOREIGN KEY (`vehicleID`) REFERENCES `vehicle` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-ADD CONSTRAINT `activity_ibfk_4` FOREIGN KEY (`lessonID`) REFERENCES `lesson` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+ADD CONSTRAINT `activity_ibfk_4` FOREIGN KEY (`lessonID`) REFERENCES `lesson` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+ADD CONSTRAINT `activity_ibfk_5` FOREIGN KEY (`branchID`) REFERENCES `branch` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 ALTER TABLE `admin`
 ADD CONSTRAINT `admin_ibfk_1` FOREIGN KEY (`userInfo`) REFERENCES `userinfo` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,

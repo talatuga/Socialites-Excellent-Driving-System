@@ -1,3 +1,15 @@
+<%
+    Number.prototype.formatMoney = function(c, d, t){
+        var n = this, 
+        c = isNaN(c = Math.abs(c)) ? 2 : c, 
+        d = d == undefined ? "." : d, 
+        t = t == undefined ? "," : t, 
+        s = n < 0 ? "-" : "", 
+        i = String(parseInt(n = Math.abs(Number(n) || 0).toFixed(c))), 
+        j = (j = i.length) > 3 ? j % 3 : 0;
+        return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+    };
+%>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -37,7 +49,7 @@
                     Tels.: 741-7185/745-2962
                 </h5><hr>
             </div>
-            <h4 style="text-transform: uppercase;">GROSS INCOME: UNPAID FEES/BALANCES REPORT<br>SED - Quezon City | September 12, 2018</h4><br>
+            <h4 style="text-transform: uppercase;">GROSS INCOME: UNPAID FEES/BALANCES REPORT<br><%=branch%> | <%=dateStart + (dateEnd != dateStart ? " - " + dateEnd : "")%></h4><br>
             <table class="table tblRecSched" width="100%">
                 <thead>
                     <tr>
@@ -52,7 +64,27 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                <%
+                    var html = "";
+                    var count = 1;
+                    records.forEach((e,i)=>{
+                        e.breakdown.forEach((e1,i1)=>{
+                            html += "<tr>";
+                            html += "<td>"+ count +"</td>";
+                            html += "<td>"+ e.student.replace(/_/g, " ") +"</td>";
+                            html += "<td>"+ e.branch +"</td>";
+                            html += "<td>"+ e1.type +"</td>";
+                            html += "<td>"+ e.ORno +"</td>";
+                            html += "<td>"+ e1.price +"</td>";
+                            html += "<td>"+ e1.payment +"</td>";
+                            html += "<td>"+ e1.balance +"</td>";
+                            html += "</tr>";
+                            count++;
+                        });
+                    });
+                %>
+                <%-html%>
+                    <%# <tr>
                         <td>1</td>
                         <td>Graciella C. Tatel</td>
                         <td>SED - Quezon City</td>
@@ -61,14 +93,14 @@
                         <td>2,500</td>
                         <td>2,000</td>
                         <td>500</td>
-                    </tr>
+                    </tr> %>
                 </tbody>
             </table><br>
         </center>
         <div style="width: 100%; align-items: right;">
-            <h5 style="text-transform: uppercase; text-align: right">Tuition/Enrollment Unpaid Fees: &#8369;1,000.00<br>Licensing Assistance Unpaid Fees: &#8369;500.00<br>Certificate Unpaid Fees: &#8369;500.00</h5>
+            <h5 style="text-transform: uppercase; text-align: right">Tuition/Enrollment Unpaid Fees: &#8369;<%=total.enrollment.formatMoney(2)%><br>Licensing Assistance Unpaid Fees: &#8369;<%=total.license.formatMoney(2)%><br>Certificate Unpaid Fees: &#8369;<%=total.certificate.formatMoney(2)%></h5>
             <hr width="30%" align="right">
-            <h5 style="text-transform: uppercase; text-align: right">Total Unpaid Fees/Balances: &#8369;3,000.00</h5>
+            <h5 style="text-transform: uppercase; text-align: right">Total Unpaid Fees/Balances: &#8369;<%=total.overall.formatMoney(2)%></h5>
         </div>
         <div id="pageFooter"></div>
     </body>

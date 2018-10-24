@@ -549,6 +549,11 @@ Reports.tuition = function(query, cb){
 
 Reports.balance = function(query, cb){
     return new Promise((finish, fail)=>{
+        if(!cb) cb = (e,a)=>{ 
+            if(e) return fail(e);
+            finish(a);
+        };
+
         var freq = query.freq;
         if(!freq || !Date.parse(query.date)) return cb(null, false, query);
         
@@ -558,28 +563,92 @@ Reports.balance = function(query, cb){
         getFreqDate(freq, date).then(dateScope=>{
             return getUnpaidTransactions(dateScope,null, branch).then(res=>{
                 return {
-                    dateStart: dateScope[0],
-                    dateEnd: dateScope[1],
+                    dateStart: Date.parse(dateScope[0]).toString("MMMM dd, yyyy"),
+                    dateEnd: Date.parse(dateScope[1]).toString("MMMM dd, yyyy"),
                     records: res,
                 }
             });
         }).then(data=>{
-            if(data.records.length == 0) return data;1111
+            if(data.records.length == 0) return data;
+            return new Promise((res,rej)=>{
+                var promises = [];
+                data.records.forEach((e,i)=>{
+                    promises.push(transactionBreakdown(e).then(breakdown=>{
+                        breakdown.forEach((e1,i1)=>{
+                            if(e1.balance == 0) breakdown.splice(i1,1);
+                        });
+                        data.records[i].breakdown = breakdown;
+                        return 1;
+                    }));
+                    if(i==data.records.length-1){
+                        Promise.all(promises).then(()=>{
+                            res();
+                        }).catch(rej);
+                    }
+                });
+            }).then(()=>{
+                return data;
+            });
+        }).then(data=>{
+            if(data.records.length == 0) return data;
+            return new Promise((res, rej)=>{
+                var promises = [];
+                promises.push(getBranch(branch || 0).then(branchData=>{
+                    if(Array.isArray(branchData)) data.branch = "All Branch";
+                    else data.branch = "SED - " + branchData.name;
+                    return 1;
+                }));
+                data.records.forEach((e,i)=>{
+                    promises.push(getStudentViaORnum(e.ORno).then(stud=>{
+                        data.records[i].student = stud.fullname;
+                        return 1;
+                    }));
+                    promises.push(getBranch(e.data.branch || 0).then(branchData=>{
+                        if(Array.isArray(branchData)){
+                            data.records[i].branch = "Main";
+                        }else{
+                            data.records[i].branch = branchData.name;
+                        }
+                        return 1;
+                    }));
+                    if(i==data.records.length-1){
+                        Promise.all(promises).then(()=>{
+                            res();
+                        }).catch(rej);
+                    }
+                });
+            }).then(()=>{
+                return data;
+            });
+        }).then(data=>{
+            if(data.records.length == 0) return data;
+            return new Promise((res, rej)=>{
+                var total = {
+                    enrollment: 0,
+                    license: 0,
+                    certificate: 0,
+                    overall: 0
+                };
+                // var promises = [];
+                data.records.forEach((e,i)=>{
+                    e.breakdown.forEach((e1,i1)=>{
+                        total[e1.type] += e1.balance;
+                    });
+                    if(i==data.records.length-1){
+                        total.overall = total.enrollment + total.license + total.certificate;
+                        data.total = total;
+                        return res();
+                        // Promise.all(promises).then(res).catch(rej);
+                    }
+                });
+            }).then(()=>{
+                return data;
+            });
         }).then(output=>{
-            if(cb){
-                cb(null,output); 
-            }else{
-                finish(output);
-            }
+            cb(null,output); 
         }).catch(reason=>{
             throw new Error(reason.stack);
-        }).catch(reason=>{
-            if(cb){
-                cb(reason);
-            }else{
-                fail(reason);
-            }
-        });
+        }).catch(cb);
     });
 }
 
@@ -1292,7 +1361,46 @@ function getVehicleHistory(dateScope, branch, carID){
 
 function transactionBreakdown(transaction){
     return new Promise((resolve, reject)=>{
+        var license = transaction.data.apply || null;
 
+        if(transaction.transaction.toLowerCase() == "certificate"){
+            return resolve([{
+                type: "certificate",
+                price: transaction.price,
+                balance: transaction.balance,
+                payment: transaction.price - transaction.balance,
+            }]);
+        }
+
+        // ADD OTHER FEE TYPE HERE
+
+        if(license){
+            var payment = transaction.price - transaction.balance;
+            var breakdown = [];
+            getLicensePrice(license).then(licePrice=>{
+                var enrollmentPrice = transaction.price - licePrice;
+                breakdown.push({
+                    type: "enrollment",
+                    price: enrollmentPrice,
+                    payment: payment >= enrollmentPrice ? enrollmentPrice : payment,
+                    balance: payment >= enrollmentPrice ? 0 : enrollmentPrice - payment,
+                });
+                breakdown.push({
+                    type: "license",
+                    price: licePrice,
+                    payment: payment >= enrollmentPrice ? (payment - enrollmentPrice) : 0,
+                    balance: payment >= enrollmentPrice ? licePrice - (payment - enrollmentPrice) : licePrice,
+                });
+                return resolve(breakdown);
+            });
+        }else{
+            resolve([{
+                type: "enrollment",
+                price: transaction.price,
+                balance: transaction.balance,
+                payment: transaction.price - transaction.balance,
+            }]);
+        }
     });
 }
 

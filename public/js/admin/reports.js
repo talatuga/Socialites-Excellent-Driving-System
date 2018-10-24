@@ -318,6 +318,10 @@ function generateReport(a){
                 link += 'license';
                 break;
             }
+            case 'Unpaid Fees/Balances' : {
+                link += 'balance';
+                break;
+            }
             case 'All' : {
                 link += 'overall';
                 break;
