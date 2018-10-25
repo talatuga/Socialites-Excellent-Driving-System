@@ -49,7 +49,7 @@
                     Tels.: 741-7185/745-2962
                 </h5><hr>
             </div>
-            <h4 style="text-transform: uppercase;">GROSS INCOME: UNPAID FEES/BALANCES REPORT<br><%=branch%> | <%=dateStart + (dateEnd != dateStart ? " - " + dateEnd : "")%></h4><br>
+            <h4 style="text-transform: uppercase;">GROSS INCOME: UNPAID FEES/BALANCES REPORT<br><%=locals.branch || "ALL BRANCH"%> | <%=dateStart + (dateEnd != dateStart ? " - " + dateEnd : "")%></h4><br>
             <table class="table tblRecSched" width="100%">
                 <thead>
                     <tr>
@@ -98,9 +98,9 @@
             </table><br>
         </center>
         <div style="width: 100%; align-items: right;">
-            <h5 style="text-transform: uppercase; text-align: right">Tuition/Enrollment Unpaid Fees: &#8369;<%=total.enrollment.formatMoney(2)%><br>Licensing Assistance Unpaid Fees: &#8369;<%=total.license.formatMoney(2)%><br>Certificate Unpaid Fees: &#8369;<%=total.certificate.formatMoney(2)%></h5>
+            <h5 style="text-transform: uppercase; text-align: right">Tuition/Enrollment Unpaid Fees: &#8369;<%=locals.total ? total.enrollment.formatMoney(2) : 0%><br>Licensing Assistance Unpaid Fees: &#8369;<%=locals.total ? total.license.formatMoney(2) : 0%><br>Certificate Unpaid Fees: &#8369;<%=locals.total ? total.certificate.formatMoney(2) : 0%></h5>
             <hr width="30%" align="right">
-            <h5 style="text-transform: uppercase; text-align: right">Total Unpaid Fees/Balances: &#8369;<%=total.overall.formatMoney(2)%></h5>
+            <h5 style="text-transform: uppercase; text-align: right">Total Unpaid Fees/Balances: &#8369;<%=locals.total ? total.overall.formatMoney(2) : 0%></h5>
         </div>
         <div id="pageFooter"></div>
     </body>

@@ -273,6 +273,7 @@ exports.balance = function(req, res, next){
 
     report.balance(query, function(err, balance){
         if(err) return next(err);
+        // console.log(balance);
         pdf.createPDF(pdf.reportTemplates.balance, balance, pdf.getBuffer, function(err, buffer){
             if(err) return next(err);
             res.set('Content-Type', 'Application/pdf');
